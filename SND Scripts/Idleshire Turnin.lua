@@ -16,6 +16,38 @@ SpringCount = GetItemCount(SpringID)
 PedalCount = GetItemCount(PedalID)
 BoltCount = GetItemCount(BoltID)
 
+if IsInZone(478) then
+  yield("/target Aetheryte")
+  yield("/lockon")
+  yield("/automove")
+  yield("/wait 1.0")
+  yield("/automove")
+  yield("/li West")
+  yield("/wait 6")
+end
+
+yield("/visland exectemponce H4sIAAAAAAAACuWUyWrDMBCGX6XMWRUaydbiW+kCOaRLKKRp6cE0UyKIrRIrLSXk3Ss7DqHJpddinWbTzz8fQhu4LSuCAkbzJTULv6KzSVhHAgbT8vsj+Do2ULxs4D40PvpQQ7GBJyjOleXaOGs1gxkUUmiOmVM5g+fUROROau3MNuWhptEVFJmxDCbl3K+TIHLBYBw+qaI6pusMRnWkVfkWpz4u7tp58bvW20y+mkX42neSoaT2Xi4bOox3LpHBdRUi7aUiVX140U30ycOamtjHrfC09PGg2GY3YXUZ6nm/vNgVH31F4zQntuwUjTRco1XW7NCg4C4du0MjW04mz9Qw0QiujMnQ9Wi6ZbsXI7iVKHU+SCwoubICzTGVFpd0mRwmFMUFSpudUFGCp6eS24FicVyhEDZ9tUdYdMKSW/dHKkcE/hOV1+0Pt8UVbrcGAAA=")
+yield("/wait 0.5")
+
+while IsVislandRouteRunning() do
+  yield("/wait 2")
+end
+
+if (not IsVislandRouteRunning()) then
+  yield("/ac dismount")
+  yield("/wait 2")
+  yield("/target Sabina")
+  yield("/wait 0.35")
+  yield("/pint Sabina")
+  yield("/wait 1.0")
+  yield("/pcall SelectIconString True 0")
+  yield("/wait.1.0")
+  yield("/pcall SelectString True 0")
+  yield("/wait 1.0")
+  yield("/pcall SelectString True 0")
+  yield("/wait 1.0")
+end
+
 Shop_Menu = 1
 Gordian_Part = 1
 
