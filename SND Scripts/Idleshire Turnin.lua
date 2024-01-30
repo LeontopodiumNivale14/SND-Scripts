@@ -56,7 +56,7 @@ elseif Shop_Menu == 3 then
   Alex_Spr2 = 6
   Alex_Cra1 = 5
   Alex_Cra2 = 4
-  Alex_Sha1 = 9
+  Alex_Sha1 = 3
   Alex_Sha2 = 2
   Alex_Stop = 1
 end
@@ -135,6 +135,8 @@ while (Gordian_Part == 1) and (Shop_Menu <=3)  do
     Gordian_Part = Gordian_Part + 1
     Shop_Menu = (Shop_Menu + 1)
 
+    yield("/echo Shop Menu is Currently: "..Shop_Menu)
+
     yield("/pcall ShopExchangeItem True -1")
     yield("/wait 1")
     yield("/pcall SelectString True 1")
@@ -148,6 +150,8 @@ while (Gordian_Part == 1) and (Shop_Menu <=3)  do
     Gordian_Part = Gordian_Part + 1
     Shop_Menu = (Shop_Menu + 1)
 
+    yield("/echo Shop Menu is Currently: "..Shop_Menu)
+
     yield("/pcall ShopExchangeItem True -1")
     yield("/wait 1")
     yield("/pcall SelectString True 2")
@@ -160,6 +164,8 @@ while (Gordian_Part == 1) and (Shop_Menu <=3)  do
 
     Gordian_Part = Gordian_Part + 1
     Shop_Menu = (Shop_Menu + 1)
+
+    yield("/echo Shop Menu is Currently: "..Shop_Menu)
 
     yield("/pcall ShopExchangeItem True -1")
     yield("/wait 1")
