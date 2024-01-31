@@ -302,7 +302,7 @@ end
 
 ::Gridania::
 if IsInZone(132) then
-  yield("/visland exectemponce "..UldahGC)
+  yield("/visland exectemponce "..GridaniaGC)
   yield("/wait 0.5")
   goto WalkingtoGC
 end
