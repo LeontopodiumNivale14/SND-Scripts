@@ -1,17 +1,3 @@
---[[
-This has been.... a pain to work on xD But it's worth it. 
-This requires: 
-  -> Teleporter
-  -> Pandora (Enable "Auto-select Turn-ins & Automatically Confirm")
-  -> Lifestream 
-  -> Deliveroo
-
-  Version: 1 
-  it's currently setup to constantly transfer/get the gear until you run out of all mats to be able to GET gear.
-  If there's an issue, just ping me in the discord (LegendofIceman)
-]]
-
-
 ::SettingUpValues::
 -- Visland Routes
 LimsaGC = "H4sIAAAAAAAACuWT20oDMRCGX0XmOoRsJsluciceoBf1UJRaxYvFjTTgJtLNKrL03c0e2oJ9A5ur+SfDzz8fSQc3ZW3BwKP3qajOFqGNFggsy5/P4HxswLx0cBcaF13wYDp4AsORFixTSGAFRjDK+iMIPIPJBcVcI26TCt7OLsFkvCCwKCvXJrOMMgLz8GVr6yOYJGY+2k35Fpcurm/7+T+9KWDK1KzD9+4mhUlu7+VHYw/jQ8KMwFUdot1ZRVtP5fkwMYn71jZxqnvjZeniwbFX12FzEXw1Lc7G5oOr7TzNsS05wiI4zSQTWgxcUFOdjtxj0RKzU8SiJFUoimL/WkYinAqFXJ4ikVzSHFHxIyKy0FydIhGNlCmh90R4LlGl3cevIwshlfj/XF63vz7BbA6QBQAA"
@@ -302,7 +288,7 @@ end
 
 ::Gridania::
 if IsInZone(132) then
-  yield("/visland exectemponce "..GridaniaGC)
+  yield("/visland exectemponce "..UldahGC)
   yield("/wait 0.5")
   goto WalkingtoGC
 end
