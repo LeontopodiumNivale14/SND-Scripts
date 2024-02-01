@@ -9,7 +9,7 @@ This requires:
   -> Lifestream 
   -> Deliveroo
 
-  Version: 0.9.2 [Hopefully final version of testing]
+  Version: 0.9.4 [Hopefully final version of testing]
   it's currently setup to constantly transfer/get the gear until you run out of all mats to be able to GET gear.
   If there's an issue, just ping me in the discord (LegendofIceman)
 ]]
@@ -269,7 +269,7 @@ while (Gordian_Part == 1) and (Shop_Menu <= Alex_Shaft2)  do
     Gordian_Part = Gordian_Part + 1
     Shop_Menu = (Shop_Menu + 1)
 
-    yield("/echo Shop Menu is Currently: "..Shop_Menu)
+    --yield("/echo Shop Menu is Currently: "..Shop_Menu)
 
     yield("/pcall ShopExchangeItem True -1")
     yield("/wait 1")
