@@ -7,6 +7,7 @@ Version: 2.1
 Created by: Ice
 
 Plugins that are used are:
+
 -> Visland (for pathing)
 -> Pandora (Setting "Open Chest")
 -> RotationSolver

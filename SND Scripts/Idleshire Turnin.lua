@@ -1,12 +1,15 @@
 --[[
 This has been.... a pain to work on xD But it's worth it. 
 This requires: 
+-> IMPORTANT: YesAlready -> Yes/No -> Add this:   You cannot currently equip this item. Proceed with the transaction?
+  Yes, you can zone lock this to strictly Idyllshire if you would like (I did)
+
   -> Teleporter
   -> Pandora (Enable "Auto-select Turn-ins & Automatically Confirm")
   -> Lifestream 
   -> Deliveroo
 
-  Version: 0.5 
+  Version: 0.85 [Still Testing]
   it's currently setup to constantly transfer/get the gear until you run out of all mats to be able to GET gear.
   If there's an issue, just ping me in the discord (LegendofIceman)
 ]]
@@ -88,7 +91,7 @@ if (not IsVislandRouteRunning()) then
   yield("/pint Sabina")
   yield("/wait 1.0")
   yield("/pcall SelectIconString True 0")
-  yield("/wait.1.0")
+  yield("/wait 1.0")
   yield("/pcall SelectString True 0")
   yield("/wait 1.0")
   yield("/pcall SelectString True 0")
@@ -101,112 +104,122 @@ Gordian_Part = 1
 ::ShopInitialize::
 
 if Shop_Menu == 1 then
-  Alex_Shop = 22
-  Alex_Bolt = 15
-  Alex_Ped1 = 14
-  Alex_Ped2 = 12
-  Alex_Spr1 = 11
-  Alex_Spr2 = 9
-  Alex_Cra1 = 8
-  Alex_Cra2 = 6
-  Alex_Sha1 = 5
-  Alex_Sha2 = 3
-  Alex_Stop = 2
+  Alex_Shop = 3
+  Alex_Shaft1 = 3
+  Alex_Shaft2 = 5
+  Alex_Crank1 = 6
+  Alex_Crank2 = 8
+  Alex_Spring1 = 9
+  Alex_Spring2 = 11
+  Alex_Pedal1 = 12
+  Alex_Pedal2 = 14
+  Alex_Bolt1 = 15
+  Alex_Bolt2 = 22
+  Alex_Stop = 23
+
 elseif Shop_Menu == 2 then
   Gordian_Part = 1
-  Alex_Shop = 13
-  Alex_Bolt = 10
-  Alex_Ped1 = 9
-  Alex_Ped2 = 8
-  Alex_Spr1 = 7
-  Alex_Spr2 = 6
-  Alex_Cra1 = 5
-  Alex_Cra2 = 4
-  Alex_Sha1 = 3
-  Alex_Sha2 = 2
-  Alex_Stop = 1
+  Alex_Shop = 2
+  Alex_Shaft1 = 2
+  Alex_Shaft2 = 3
+  Alex_Crank1 = 4
+  Alex_Crank2 = 5
+  Alex_Spring1 = 6
+  Alex_Spring2 = 7
+  Alex_Pedal1 = 8
+  Alex_Pedal2 = 9
+  Alex_Bolt1 = 10
+  Alex_Bolt2 = 13
+  Alex_Stop = 14
+
 elseif Shop_Menu == 3 then
+
   Gordian_Part = 1
-  Alex_Shop = 17
-  Alex_Bolt = 10
-  Alex_Ped1 = 9
-  Alex_Ped2 = 8
-  Alex_Spr1 = 7
-  Alex_Spr2 = 6
-  Alex_Cra1 = 5
-  Alex_Cra2 = 4
-  Alex_Sha1 = 3
-  Alex_Sha2 = 2
-  Alex_Stop = 1
+  Alex_Shop = 2
+  Alex_Shaft1 = 2
+  Alex_Shaft2 = 3
+  Alex_Crank1 = 4
+  Alex_Crank2 = 5
+  Alex_Spring1 = 6
+  Alex_Spring2 = 7
+  Alex_Pedal1 = 8
+  Alex_Pedal2 = 9
+  Alex_Bolt1 = 10
+  Alex_Bolt2 = 17
+  Alex_Stop = 18
 end
 
 ::BuyingItems::
 
-while (Gordian_Part == 1) and (Shop_Menu <=3)  do
+while (Gordian_Part == 1) and (Shop_Menu <= Alex_Shaft2)  do
 
--- Bolt Section
-  -- If no bolts, then continues onto pedals
-  if BoltCount == 0 and (Alex_Shop >= Alex_Bolt) then
-    Alex_Shop = Alex_Ped1
-    -- yield("/echo Bolt Count: "..BoltCount)
-    -- yield("/echo Should be moving to Pedals")
+ -- Shaft Section
+ if (ShaftCount <=3) and (Alex_Shop >= Alex_Shaft1) and (Alex_Shop <= Alex_Shaft2) then
+   Alex_Shop = Alex_Crank1
+   -- yield("/echo Shaft Count: "..ShaftCount)
+   -- yield("/echo Should be moving to Cranks")
+   -- yield("/echo Shop Menu: "..Alex_Shop)
+ elseif (ShaftCount >= 4 ) and (Alex_Shop >= Alex_Shaft1) and (Alex_Shop <= Alex_Shaft2) then
+   yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
+   Alex_Shop = Alex_Shop + 1
+   CrankCount = GetItemCount(CrankID)
+   -- yield("/echo Shop Menu: "..Alex_Shop) -- Just Debugging Stuff
+   yield("/wait 1")
 
-  elseif BoltCount >= 1 and (Alex_Shop >= Alex_Bolt) then
+ -- Crank Section
+ elseif (CrankCount <=1) and (Alex_Shop >= Alex_Crank1) and (Alex_Shop <= Alex_Crank2) then
+   Alex_Shop = Alex_Spring1
+   -- yield("/echo Crank Count: "..CrankCount)
+   -- yield("/echo Should be moving to Spring")
+
+ elseif (CrankCount >= 2) and (Alex_Shop >= Alex_Crank1) and (Alex_Shop <= Alex_Crank2) then
+   yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
+   Alex_Shop = Alex_Shop + 1
+   SpringCount = GetItemCount(SpringID)
+   -- yield("/echo Shop Menu: "..Alex_Shop)
+   yield("/wait 1")
+
+  -- Springs Section
+  elseif (SpringCount <=3) and (Alex_Shop >= Alex_Spring1) and (Alex_Shop <= Alex_Spring2) then
+    Alex_Shop = Alex_Pedal1
+    -- yield("/echo Spring Count: "..SpringCount)
+    -- yield("/echo Should be moving to Pedal")
+
+  elseif (SpringCount >=4) and (Alex_Shop >= Alex_Spring1) and (Alex_Shop <= Alex_Spring2) then
     yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
-    Alex_Shop = Alex_Shop - 1
-    BoltCount = GetItemCount(BoltID)
+    Alex_Shop = Alex_Shop + 1
+    SpringCount = GetItemCount(SpringID)
+    yield("/echo Shop Menu: "..Alex_Shop)
     yield("/wait 1")
 
   -- Pedal Check Section
-  elseif PedalCount <= 1 and (Alex_Shop >= Alex_Ped1) then
-    Alex_Shop = Alex_Spr1
+  elseif (PedalCount <= 1) and (Alex_Shop >= Alex_Pedal1) and (Alex_Shop <= Alex_Pedal2) then
+    Alex_Shop = Alex_Bolt1
     -- yield("/echo Pedal Count: "..PedalCount)
-    -- yield("/echo Should be moving to Springs")
-    yield("/wait 0.2")
-
-  elseif (Alex_Shop <= Alex_Ped1) and (Alex_Shop >= Alex_Ped2) then
-    yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
-    Alex_Shop = Alex_Shop - 1
-    PedalCount = GetItemCount(PedalID)
+    --yield("/echo Should be moving to Bolts")
     yield("/wait 1.0")
-  
-  -- Springs Section
-  elseif (SpringCount <=3) and (Alex_Shop >= Alex_Spr1) then
-    Alex_Shop = Alex_Cra1
-    -- yield("/echo Spring Count: "..SpringCount)
-    -- yield("/echo Should be moving to Crank")
 
-  elseif (Alex_Shop <= Alex_Spr1) and (Alex_Shop >= Alex_Spr2) then
+  elseif (PedalCount >= 2) and (Alex_Shop >= Alex_Pedal1) and (Alex_Shop <= Alex_Pedal2) then
     yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
-    Alex_Shop = Alex_Shop - 1
-    SpringCount = GetItemCount(SpringID)
-    yield("/wait 1")
+    Alex_Shop = Alex_Shop + 1
+    PedalCount = GetItemCount(PedalID)
+    yield("/echo Shop Menu: "..Alex_Shop)
+    yield("/wait 1.0")
 
-  -- Crank Section
-  elseif (CrankCount <=1) and (Alex_Shop >= Alex_Cra1) then
-    Alex_Shop = Alex_Sha1
-    -- yield("/echo Crank Count: "..CrankCount)
-    -- yield("/echo Should be moving to Shaft")
-
-  elseif (Alex_Shop <= Alex_Cra1) and (Alex_Shop >= Alex_Cra2) then
-    yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
-    Alex_Shop = Alex_Shop - 1
-    SpringCount = GetItemCount(SpringID)
-    yield("/wait 1")
-
-  -- Shaft Section
-  elseif ShaftCount <=3 and (Alex_Shop >= Alex_Sha1) then
+-- Bolt Section
+  -- If no bolts, then continues onto pedals
+  elseif (BoltCount == 0) and (Alex_Shop >= Alex_Bolt1) and (Alex_Shop <= Alex_Bolt2) then
     Alex_Shop = Alex_Stop
-    -- yield("/echo Shaft Count: "..ShaftCount)
-    -- yield("/echo Should be moving to next menu")
-    -- yield("/echo Shop Menu: "..Alex_Shop)
-  elseif (Alex_Shop <= Alex_Sha1) and (Alex_Shop >= Alex_Sha2) then
+    -- yield("/echo Bolt Count: "..BoltCount)
+    -- yield("/echo Should be moving to Pedals")
+
+  elseif (BoltCount >= 1) and (Alex_Shop >= Alex_Bolt1) and (Alex_Shop <= Alex_Bolt2) then
     yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
-    Alex_Shop = Alex_Shop - 1
-    CrankCount = GetItemCount(CrankID)
-    -- yield("/echo Shop Menu: "..Alex_Shop)
+    Alex_Shop = Alex_Shop + 1
+    BoltCount = GetItemCount(BoltID)
+    --yield("/echo Shop Menu: "..Alex_Shop)
     yield("/wait 1")
-  
+
   -- Time to swap menu's  
   elseif (Alex_Shop == Alex_Stop) and (Shop_Menu == 1) then
     -- yield("/echo DOW 1 Menu is completed")
@@ -250,6 +263,7 @@ while (Gordian_Part == 1) and (Shop_Menu <=3)  do
     yield("/wait 1")
     yield("/pcall SelectString True 7")
     yield("/wait 1")
+
   end
 end
 
