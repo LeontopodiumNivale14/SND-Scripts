@@ -9,7 +9,7 @@ This requires:
   -> Lifestream 
   -> Deliveroo
 
-  Version: 0.9 [Hopefully final version of testing]
+  Version: 0.9.2 [Hopefully final version of testing]
   it's currently setup to constantly transfer/get the gear until you run out of all mats to be able to GET gear.
   If there's an issue, just ping me in the discord (LegendofIceman)
 ]]
@@ -18,7 +18,7 @@ This requires:
 ::SettingUpValues::
 --[[!! If you're shop is skipping buying items, increase this value. 
 Default is 1 cause that's worked for me, but 5 has helped others as well]]
-Alex_Shop_Timer = 3
+Alex_Shop_Timer = 1
 
 
 -- Visland Routes
@@ -46,7 +46,7 @@ BoltCount = GetItemCount(BoltID)
 
 ::IdyllshireTurnin::
 
-if IsInZone(478) == false then
+while IsInZone(478) == false and GetCharacterCondition(27) == false do
   yield("/tp Idyllshire")
   yield("/wait 0.5")
 end
@@ -57,6 +57,12 @@ end
 yield("/wait 1")
 while GetCharacterCondition(45) or GetCharacterCondition(51) do 
   yield("/wait 3") 
+end
+
+if IsInZone(478) == false and GetCharacterCondition(27) == false then
+  yield("/echo Hmm.... either you moved, or the teleport failed, lets try that again")
+  yield("/wait 1")
+  goto IdyllshireTurnin
 end
 
 if IsInZone(478) then
@@ -282,6 +288,12 @@ while GetCharacterCondition(27) do yield("/wait 1") end
 yield("/wait 1")
 
 while GetCharacterCondition(45) do yield("/wait 1") end
+
+if IsInZone(478) == true and GetCharacterCondition(27) == false then
+  yield("/echo Hmm.... either you moved, or the teleport failed, lets try that again")
+  yield("/wait 1")
+  goto GrandCompanyTurnin
+end
 
 ::GrandCompanyCheck::
 if IsInZone(129) then -- Limsa's GC
