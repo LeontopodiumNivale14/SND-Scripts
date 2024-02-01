@@ -9,7 +9,7 @@ This requires:
   -> Lifestream 
   -> Deliveroo
 
-  Version: 2.00 [Finally Released]
+  Version: 2.00 [Finally Released/out of testing]
   it's currently setup to constantly transfer/get the gear until you run out of all mats to be able to GET gear.
   If there's an issue, just ping me in the discord (LegendofIceman)
 ]]
