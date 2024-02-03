@@ -106,6 +106,12 @@ end
 
 AetheryteTeleport()
 
+Distance_Test = GetDistanceToPoint(-71.618, 208.926, -24.662)
+if Distance_Test > 4 then
+  yield ("/echo hmm.... that failed for some reason. Gonna try that again")
+  goto IdyllshireTurnin
+end
+
 yield("/visland resume")
 yield("/visland stop")
 yield("/visland exectemponce "..IdyllshireAlex)
