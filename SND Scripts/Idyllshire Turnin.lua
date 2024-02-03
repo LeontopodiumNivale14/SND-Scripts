@@ -11,7 +11,7 @@ This requires:
   -> Teleporter
   -> Pandora (Enable "Auto-select Turn-ins & Automatically Confirm")
   -> Lifestream 
-  -> Deliveroo
+  -> Deliveroo [If you need the link, here --> https://plugins.carvel.li/]
 
   Version: 2.6 [Finally Released, now with GC Teleport Tickets]
     - Fixed the teleport issue in Idyllshire
