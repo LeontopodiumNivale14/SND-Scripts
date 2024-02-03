@@ -8,12 +8,14 @@ This requires:
 -> IMPORTANT: YesAlready -> Yes/No -> Add this:  You cannot currently equip this item. Proceed with the transaction?
   Yes, you can zone lock this to strictly Idyllshire if you would like (I did)
 
+  ALSO IMPORTANT!! YesAlready -> Bothers -> Scroll near the VERY bottom and make sure "ShopExchangeItemDialog" is checkmarked
+
   -> Teleporter
   -> Pandora (Enable "Auto-select Turn-ins & Automatically Confirm")
   -> Lifestream 
   -> Deliveroo [If you need the link, here --> https://plugins.carvel.li/]
 
-  Version: 2.6 [Finally Released, now with GC Teleport Tickets]
+  Version: 2.7 [Finally Released, now with GC Teleport Tickets]
     - Fixed the teleport issue in Idyllshire
 ]]
 
