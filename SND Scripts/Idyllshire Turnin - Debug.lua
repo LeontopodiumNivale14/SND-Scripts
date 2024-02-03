@@ -112,7 +112,7 @@ while (Gordian_Part == 1) and (Shop_Menu <= Alex_Shaft2)  do
 
   -- Pedal Check Section
   elseif (PedalCount <= 1) and (Alex_Shop >= Alex_Pedal1) and (Alex_Shop <= Alex_Pedal2) then
-    Alex_Shop = Alex_Spring1
+    Alex_Shop = Alex_Bolt1
     -- yield("/echo Pedal Count: "..PedalCount)
     -- yield("/echo Should be moving to Springs")
     yield("/wait 0.2")
