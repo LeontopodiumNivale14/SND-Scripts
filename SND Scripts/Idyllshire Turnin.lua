@@ -13,7 +13,8 @@ This requires:
   -> Lifestream 
   -> Deliveroo
 
-  Version: 2.5 [Finally Released, now with GC Teleport Tickets]
+  Version: 2.6 [Finally Released, now with GC Teleport Tickets]
+    - Fixed the teleport issue in Idyllshire
 ]]
 
 
@@ -98,7 +99,7 @@ if IsInZone(478) then
   yield("/target Aetheryte")
   yield("/lockon")
   yield("/automove")
-  yield("/wait 1.0")
+  yield("/wait 1.5")
   yield("/automove")
   yield("/li West")
   yield("/wait 1")
