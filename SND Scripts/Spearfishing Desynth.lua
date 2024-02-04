@@ -1,9 +1,14 @@
 --[[
   Description: Spearfishing Auto Desynth
   The script allows you to have it running a visland route (while spearfishing) and when you get to a certain inventory amount it will pause for you and proceed to desynth all your collectables.
-  Version: 5 (Now with a built in route, and ability to add your own!)
+  Version: 6 (Now with a built in route, and ability to add your own!)
   Author: LegendofIceman
 ]]
+
+Fishing_Start = 0
+
+--When do you want to repair your own gear? From 0-100 (it's in percentage, but enter a whole value
+Repair_Amount = 50
 
 --[[If you want to input your own route from visland, put it below here. It will take priority
 over the default one that is included in this LUA script]]
@@ -17,12 +22,32 @@ earthbreak_aethersand = "H4sIAAAAAAAACu2VTU/cMBCG/wryOYz8Mf7KDRWQ9kBbqkpbinpwWZe
 slots_remaining = 5
 --How many slots do you want open before it starts to desynth? [Default is 5]
 
+-- If you have the ability to repair your gear, this will allow you to do so. 
+::RepairMode::
+  if NeedsRepair(Repair_Amount) then
+    yield("/generalaction repair")
+    yield("/waitaddon Repair")
+    yield("/pcall Repair true 0")
+    yield("/wait 0.1")
+    if IsAddonVisible("SelectYesno") then
+      yield("/pcall SelectYesno true 0")
+      yield("/wait 0.1")
+    end
+    while GetCharacterCondition(39) do yield("/wait 1") end
+    yield("/wait 1")
+    yield("/pcall Repair true -1")
+  end
+
 -- Starts the route/resumes it if you had it paused in visland
 ::Fishingstart::
+  
+if Fishing_Start == 0 then
   yield("/visland exectemp "..earthbreak_aethersand)
   yield("/visland exec "..routename)
   yield("/visland resume")
   yield("/wait 1")
+  Fishing_Start = Fishing_Start + 1
+end
 
 -- Checks to see how much inventory space you have
 ::StartCount::
@@ -69,7 +94,7 @@ while (not GetCharacterCondition(6)) and (not GetCharacterCondition(39)) do
   elseif (not IsAddonVisible("PurifyResult")) and IsAddonVisible("PurifyItemSelector") then
     yield("/pcall PurifyItemSelector true 12 0")
     yield("/wait 4")
-    yield("/echo Selecting first item"
+    yield("/echo Selecting first item")
   elseif (not IsAddonVisible("PurifyItemSelector")) and (not GetCharacterCondition(4)) then
     yield('/ac "Aetherial Reduction"')
     yield("/wait 0.5")
@@ -77,7 +102,7 @@ while (not GetCharacterCondition(6)) and (not GetCharacterCondition(39)) do
   elseif IsAddonVisible("PurifyItemSelector") and GetCharacterCondition(4) then
     yield("/pcall PurifyItemSelector True -1")
     yield("/wait 0.5")
-    yield("/echo Desynth window was open while on mount"
+    yield("/echo Desynth window was open while on mount")
   elseif GetCharacterCondition(4) then
     yield("/ac dismount")
     yield("/wait 3")
@@ -97,4 +122,4 @@ if not GetCharacterCondition(39) then
   yield("/visland resume")
 end
 
-goto StartCount
+goto RepairMode
