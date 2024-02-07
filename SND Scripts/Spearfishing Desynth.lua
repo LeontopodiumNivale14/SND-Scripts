@@ -1,7 +1,7 @@
 --[[
   Description: Spearfishing Auto Desynth
   The script allows you to have it running a visland route (while spearfishing) and when you get to a certain inventory amount it will pause for you and proceed to desynth all your collectables.
-  Version: 6 (Now with a built in route, and ability to add your own!)
+  Version: 6.1 (Now with a built in route, and ability to add your own!)
   Author: LegendofIceman
 ]]
 
@@ -80,11 +80,18 @@ end
 while (not GetCharacterCondition(6)) and not (GetCharacterCondition(39)) do
   yield("/visland pause")
 
-  if GetCharacterCondition(4) then
-    yield("/ac dismount")
-    yield("/wait 3")
-  end
-  yield("/wait 0.5")
+yield("/wait 1")
+
+while GetCharacterCondition(27) do
+  yield("/wait 1")
+end
+
+if GetCharacterCondition(4) then
+  yield("/ac dismount")
+  yield("/wait 3")
+end
+
+yield("/wait 0.5")
 
 while (not GetCharacterCondition(6)) and (not GetCharacterCondition(39)) do
   if IsAddonVisible("PurifyResult") then
