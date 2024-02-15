@@ -10,9 +10,6 @@ Uses
 -- Need this to tell what the caps on items is 
   ItemMax = 999
 
-  -- Input a number if you would like to skip to a certain route, mainly used for testing more than anything
-  Skip = 0
-
   -- If you want feedback on how what loop your currently on, or how many items are being sent to the shop, enable them as "true" below
 
   ItemCountEcho = false
@@ -28,6 +25,13 @@ Uses
   7 -> Marble/Limestone
   8 -> ... Figuring out the rest tomorrow
 ]]
+
+-- Input a number if you would like to skip to a certain route, mainly used for testing more than anything
+  SkipRoute1 = false
+  SkipRoute2 = false
+  SkipRoute3 = false
+  SkipRoute4 = false
+  SkipRoute5 = false
 
 -- Route Loop Amounts
   --[[
@@ -782,7 +786,7 @@ Uses
 --Islefish/Clam | Laver/Squid
 ::Route1::
 
-  if Skip >= 1 then
+  if SkipRoute1 == true then
     goto Route2
   end
 
@@ -841,7 +845,7 @@ Uses
 ::Route2::
   yield("/visland stop")
 
-  if Skip >= 2 then
+  if SkipRoute2 == true then
     goto Route3
   end
 
@@ -892,7 +896,7 @@ Uses
 ::Route3::
   yield("/visland stop")
 
-  if Skip >= 3 then 
+  if SkipRoute3 == true then 
     goto Route4
   end
 
@@ -938,7 +942,7 @@ Uses
 ::Route4::
   yield("/visland stop")
 
-  if Skip >= 4 then 
+  if SkipRoute4 == true then 
     goto Route5
   end
 
@@ -996,7 +1000,7 @@ Uses
 -- Coconut/Palm Log/Leaf | Marble/Limestone
 ::Route5::
   
-  if Skip >= 5 then
+  if SkipRoute5 == true then
     goto Route6
   end
 
