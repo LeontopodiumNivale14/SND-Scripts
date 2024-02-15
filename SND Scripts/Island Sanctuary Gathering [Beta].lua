@@ -782,7 +782,7 @@ Uses
 --Islefish/Clam | Laver/Squid
 ::Route1::
 
-  if Skip < 1 then
+  if Skip <= 1 then
     goto Route2
   end
 
@@ -841,7 +841,7 @@ Uses
 ::Route2::
   yield("/visland stop")
 
-  if Skip < 2 then
+  if Skip <= 2 then
     goto Route3
   end
 
@@ -892,7 +892,7 @@ Uses
 ::Route3::
   yield("/visland stop")
 
-  if Skip < 3 then 
+  if Skip <= 3 then 
     goto Route4
   end
 
@@ -938,7 +938,7 @@ Uses
 ::Route4::
   yield("/visland stop")
 
-  if Skip < 4 then 
+  if Skip <= 4 then 
     goto Route5
   end
 
@@ -996,7 +996,7 @@ Uses
 -- Coconut/Palm Log/Leaf | Marble/Limestone
 ::Route5::
   
-  if Skip < 5 then
+  if Skip <= 5 then
     goto Route6
   end
 
