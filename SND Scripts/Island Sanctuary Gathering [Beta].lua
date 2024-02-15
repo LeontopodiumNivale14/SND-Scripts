@@ -1,6 +1,6 @@
 --[[
 Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
-Version: 0.6.2 [5 routes are done, slowly but surely this will be done.]
+Version: 0.6.5 [7 routes are done, slowly but surely this will be done.]
 
 Uses 
 -> V(ery) Island [aka visland]
@@ -12,10 +12,10 @@ Uses
 -- 800 is if you would like a little bit of a gap so graneries don't overcap
   ItemMax = 999 
 
-  -- If you want feedback on how what loop your currently on, or how many items are being sent to the shop, enable them as "true" below
+-- If you want feedback on how what loop your currently on, or how many items are being sent to the shop, enable them as "true" below
 
-  ItemCountEcho = false
-  LoopEcho = false
+  ItemCountEcho = true
+  LoopEcho = true
 
 --[[ Order of loops
   1 -> Clam/Islefish
@@ -28,13 +28,16 @@ Uses
   8 -> ... Figuring out the rest tomorrow
 ]]
 
--- Input a number if you would like to skip to a certain route, mainly used for testing more than anything
+-- If you want to skip a specific route (check above one section) change that route to true
+-- This is moreso for testing more than anything, but it works if you don't want to gather a certain item/route
   SkipRoute1 = false
   SkipRoute2 = false
   SkipRoute3 = false
   SkipRoute4 = false
   SkipRoute5 = false
   SkipRoute6 = false
+  SkipRoute7 = false
+  SkipRoute8 = false
 
 -- Route Loop Amounts
   --[[
@@ -60,7 +63,7 @@ Uses
     Route5Loop = 142 -- base is 142
 
     --  Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
-     Route6Loop = 199 -- base is 199
+    Route6Loop = 199 -- base is 199
 
     -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
     Route7Loop = 142 -- base is 142
@@ -89,10 +92,9 @@ Uses
     Route7Loop = 114 -- base is 114
 
   elseif (ItemMax < 799) or (ItemMax > 800 and ItemMax < 999) then
-    yield("/echo somehow... you managed to input a number outside the 2 I specificied, please input it again")
+    yield("/echo *-tilts head-* somehow... you managed to input a number outside the 2 I specificied, go back to the top and try again... Please?")
     yield("/snd stop")
   end
-
 
  --Visland Routes
   B2Islefish = "H4sIAAAAAAAACuWVTWvcMBCG/0rQ2TvVjL5GvrVpC3tI24TAtg05mEZhDWurxEpCWPa/Z9Z2CCGXXotvmg+/jB40r/fqW9MlVatPzZBOSj5ZD7t02w7bD6e7plOV2jRPf3Pbl0HVV3v1Iw9taXOv6r36qeoVaQfBB2sq9UvVAYGtI+sq9VvVyFFqms1Bwtyn9WfJaSfFi+amvRdBBF2ps/yQutQXCSu17ku6a/6UTVu2348f6Le5eViZa9jmx5eKDCRqt81uSK/t45Qi+aXLJb1IldTNx49jxxyc36ehzOej8KZpy6viMfqa705zfzNfXk/Jy7ZLZ9KnD9V7NKgJAtsjDEGDGsFQYJrQUACKwbllorERUAf0MxkNZEwwIxnvIVoJFgoGXESiOIKR9WHywY9cVug1yG7hUsGgMQ7DZDMEkdngBMZYD95YXiQYBI9O2zivEoFj8Rg7kXHsQFNc5i55IA4UabJfA85Gp+NkMisfGJiZFkkGjdzdc5hcZmXEjIOOOD8aHxms9v+8TvJD+1/RXB+eAbz3pC7+CAAA"
@@ -110,35 +112,41 @@ Uses
   B2Coconut = "H4sIAAAAAAAACuWT20oDMRCGX6XMdRpyTpoLQatCL+oJYT3gRWgjDbiJdLOKlH13s9stRXyE3s0/mfz885Hs4MbVHixcuMZPpmeTeVql2GZAULmfzxRibsC+7uAuNSGHFMHu4AnslDGJDZ1xg+AZrCZYKKmJQvAClhGDmVaCdkWm6BeXYCmREsGDW4e2GFJMECzTl699zEUiWMTst26Vq5A3t/0F8rc3xiy5mk36PpyUQMXt3X00/jg+pCyWV3XK/mCVfT2W58PEKO5b3+Sx7o0rF/LRsVfXaTtPcT0uT/bNx1D7ZZkjHfqPxkjMDNVqIEOpwlRyuidDCcWMc32iZMqbIUoQwUc0BDPK9UBG4RnlSsmTBMPL9lybft3+MymsDBFs4DLVBmvBhTkBMG/dLz3YS42PBAAA"
   VCoconut = "H4sIAAAAAAAACu2XTW/UMBCG/8rK593BM/b4IzdUQKpEoSCkFhCHqE3ZiCaudr1UqOp/Z7JxVCGK6KWH7fZmJ441eTTzzjs36l3dNapSDmYH6Sz1m/ziuL7sZm/T97Jo6gs1Vyf1r6vU9nmtqq836jit29ymXlU36lRVNoDjGP1cfVaVRzDsPc/VF1UtPIEjq8OtbFPfHL5SlZ6rj/V5u5GrCGRzlH42XdPn7ZvDPjer+iyftHn5fjhNGikG/vNNCfpqCDCvmkYCXC/T9XREIpPLL+rLdXP33TZcnKvXXcpTHIe56cry5fZE2XzYNOtc1sPFJ3Wb724cdm/S6iD154WCHh9+arvmSM7p2/lfjJgBOVjcMnIRdLAcR0bGg40u0IMY0RNmtCALMcYQ3JhJFpxhMoWSA4xI6O7HZP6PSd8LaCe4eNDae5qwGGfcSIUCeGaOe19fC9IQoos8MmIwxKFAchaIffB7X2AGbPBOlGdSIUuMEyXJK88U9rC+WH5ciwRPVFgzlsyJYJAJn8sLSdq6xjj1eOel2kZIMUJgtM/9a4FDI0cTxkRywMaGkkmopcsT2b3XINSAIkJjL3MiK9rHMDGyIIlkHoXRukspL2fXyzY3s1U6+7EDwoQRnFigkk9WHKQfXPa26DQYQ/Yfar2HrIilvoIrBtuIJJEtjU3ck8VoH2UG2UlUYhpRxNxOrIzU4OCctrQYHLoQH2QD9FOyAeIgHYZoRiqSThrd5I0MyOzxnEDTwE+A4q+1nxodoZ/cgJXxhNjFPbSRFoK2pkwgGkisY1FrFj1ylomfelV9u/0Njz5u/VMSAAA="
 
+  B2Apple = "H4sIAAAAAAAACuWSy2rDMBBFfyXMWhGSJduyFoX0BVmkLwrugy5EoxJBLJlIaSnG/96x6xBKPyG7uaOry9VBHdyYxoKGcxPtbH42W7Tt1gKB2ny3wfkUQb92cBeiSy540B08gZ5njFEheEHgGXQpaMVkXhF4Ac0Vp0pKVvUog7fLS9yxPCfwYNZuj3GcMgKr8Gkb6xNKAkuf7M68p9qlze1wgf3dTRWxVdyEr8MJ1sG0D7ON9mgfO2LkVROSPUQl20zjYnRM4n5vY5rmIbg2Lh0TB3UddhfBr6ens9/lo2vsCn2sJ//BSEELmQk1guGc0yJXhRrJKEVLWVZZfpJkspJRWfJSjmQKZIGcGH4gJCMVzSrBT4DLW/8DcT3W/3EDAAA="
+  VApple = "H4sIAAAAAAAACu2XW28aMRCF/wryM5p4xnfe0rSV8pDeVJVe1IdVccJKsEZgUkWI/97ZXZOkEkipqjyQ5M2zWIP345zxYSPeVfMoRiIADr7UTTx5FeO0vo6Ds2m9ODldLGZRDMW4ulmkuskrMfqxER/Sqs51asRoI76KEfkAymocim9iZA1oozXqofjOFYJSIaDdcpmaeP5ajORQfKom9Zp7KeDiIl3HeWwyNxqK8ybHZfUrj+s8fV92339WTstHWk3T790nfBbudlnNVvFue3dAPtSbecq7Lz7PcV6Wp92OUnxcx1Uu67bxuKrzXce2epuWZ6mZlPeW/cPP9Txe8D65He6h4kFacjsq5LT3HRQTwCkT1H4m9DcTuYcJSaTgzV4y9WpWNZNB1f5wg7yM8RhQqQBEvX6MA6mddR0pb8GjN/oeKZTGHIRF/whrntbMKl0OJvUyHwEodA68tkH3qDxYNEi90zx4T44OonrKXkOnQWkdeq8pYMm046j1mgODlu4r6Hl7DdlrwRdSBEE72QvIaCDU1jyIFD0HUmhBSltQ8dpKMh0qxXectwFfUBVUHiGQsiUBeHCssF5V6AFZFi+qulUVRyJPaDpUTvJlF8h2qIjHudPyQFT635uumqarqrk5GvNxYgqqZALLmaDoSXOo4iD1ONbL62qWmqtjYcSvAo50kZKF4GSrqzYMcJzSHDgfLTcdmZqICHQXv1tSxHRM//+EL0OrJD4sij95SlrzOGrvuNZzPKaMxJKiDBhj6HGm+LG5zhN4awslC6h4HvWzyQAao9xB1+GTieA/t38AleOmDDkQAAA="
+
+  B2Marble = "H4sIAAAAAAAACuWSy0vEMBDG/5VlzmlI0mb6OAg+YQ/1hVAfeIhuZAPbRtqsIqX/u9PaZREvXkVymW8y+fjmR3o4N7WFAo5MZxfRwaI07dPGAoPKfLx614QOioceLn3ngvMNFD3cQhEpiTxGFMjgDoos5TrDOGNwD4XMkYsk0TiQ9I1dnlBPaM3g2qzclvwkFwxK/2Zr2wSSDJZNsK15DpUL64vxgfjem0NSrG7t33c3lIfcXsyms/vxKSRZntY+2J1VsPVcHk4Ts7ja2i7M9WhcGRf2jqM68+2xb1bz7uKreeNqW9KcGNhPMknOtY7pTGSkzLhSaaonNBo56jyX6l+iUTFXqFDQNyEyGI+rEpSIfg/KVMvfQlF/F8rj8AkFGcXCcQMAAA=="
+  VMarble = "H4sIAAAAAAAACu2W24rbMBCGXyXo2qvV6CzflR4g0PQM6YFeaBM1MY3tYCu7lLDv3nEs7xa60OQikNDcGI0sj6WPf0b/lrzxZSA5MXQ08c3NKly/LsrQxroK1x+7J8nI1P9a10UVW5J/25J3dVvEoq5IviWfSc6BghEgM/KF5FpQJQzwjHwl+ZUDysFydY8hZhq/IDnLyAc/LzaYSlAMJvVtKEMVd2/GVQyNn8VpEZdv0+o/59JWcUftsr4b3uBWMNsPv2rD4/Ld/iAjL8s6Dj8ex1Cm4bPdihS83+B507hLPPVFfMzYRa/q5nldzdOxWT/5CTlNcB27z/6CAo5qLZTtoUgKyjiToDAqBJf6aSj831A4A+6sehJNW9Z1XI7ulkUMo6ae/TwDVgKosYarQUBgNbgHAYHQSh6H1eamDM0izEetr+ZnAIozqpiyYhCVEtLKHpRVlFmlL6J6YKWo5CikQVRW8YTKGMokuCNp6gzrj1ukAyDMwEpw57poRwuFpbT5H3s4lpsG61K5oZ4YaJ2oCOqAXxQ03HaaMrAiWQBNNceunUhpapRw7sJqUBVecM52QupVJZjjomfVlZ5j4oJqkJWhaCxFMgaWMid1auLSUYdG80isNgvfzPzO+p56k1JYXky6JCfXGQRIanJUgOKwFyJ+IKK1X5Wj2IRzQHQlqGZKud6MG0YNWJu6E9p0qY3ZixEcyMgv/G0YrVcePz59SsDQeBvNBxPAmOmIdZSAodcEuV+xHaqk03dM3+9/A2xWg98lDwAA"
+
 -- Array's that are for each route
 
-  --Clam/Islefish | Laver/Squid
+  -- Clam/Islefish | Laver/Squid
   ClamArray = {8, 4}
 
-  --Islewort | Popoto Seeds | Parsnip Seeds
+  -- Islewort | Popoto Seeds | Parsnip Seeds
   IslewortArray = {14, 1}
 
-  --Sugarcane | Vine 
+  -- Sugarcane | Vine 
   SugarcaneArray = {11}
 
-  --Tinsand/Sand | Marble/Limestone
+  -- Tinsand/Sand | Marble/Limestone
   TinsandArray = {7, 4}
 
-  --Coconut/Palm Log/Leaf | Marble/Limestone
+  -- Coconut/Palm Log/Leaf | Marble/Limestone
   CoconutArray = {7, 4}
 
-  --Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
-  AppleArray = {5, 3, 1, 2}
+  -- Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
+  AppleArray = {5, 3, 2}
 
   -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
-  MarbleArray = {7, 1, 1, 1, 1}
+  MarbleArray = {7, 1}
 
   -- Still Figuring out order here --
 
-  --XP Route || Quarts | Iron | Durium Sand | Leucogranite
+  -- XP Route || Quarts | Iron | Durium Sand | Leucogranite
   QuartzArray = {6, 3, 2}
 
-  --Jellyfish/Coral | Laver/Squid
+  -- Jellyfish/Coral | Laver/Squid
   LaverJellyfishArray = {8, 6}
 
   -- Isleblooms | Quartz | Leucogranite | Iron
@@ -190,8 +198,22 @@ Uses
   function Apple_BeehiveNode()
     AppleID = 37552
     BeehiveID = 39226
-    Applecount = GetItemCount(AppleID)
+    AppleCount = GetItemCount(AppleID)
     BeehiveCount = GetItemCount(BeehiveID)
+  end
+
+  function Sap_WoodOpalNode()
+    SapID = 37563
+    WoodOpalID = 39227
+    SapCount = GetItemCount(SapID)
+    WoodOpalCount = GetItemCount(WoodOpalID)
+  end
+
+  function Branch_ResinNode()
+    BranchID = 37553
+    ResinID = 39224
+    BranchCount = GetItemCount(BranchID)
+    ResinCount = GetItemCount(ResinID)
   end
 
   function QuartzNode()
@@ -231,6 +253,11 @@ Uses
   function VineNode()
     VineID = 37562
     VineCount = GetItemCount(VineID)
+  end
+
+  function LogNode()
+    LogID = 37560
+    LogCount = GetItemCount(LogID)
   end
 
 -- Shop spending functions, to quickly reference for multiple routes
@@ -839,6 +866,7 @@ Uses
   SquidShop()
 
   if ItemCountEcho == true then
+    yield("/echo --- Spacer --- ")
     yield("/echo Islefish Send "..IslefishSend)
     yield("/echo Clam Send "..ClamSend)
     yield("/echo Laver Send "..LaverSend)
@@ -894,6 +922,7 @@ Uses
   HempShop()
 
   if ItemCountEcho == true then
+    yield("/echo --- Spacer --- ")
     yield("/echo Hemp Send "..HempSend)
     yield("/echo Islewort Send "..IslewortSend)
   end
@@ -943,6 +972,7 @@ Uses
   VineShop()
 
   if ItemCountEcho == true then
+    yield("/echo --- Spacer --- ")
     yield("/echo Sugarcane send = "..SugarcaneSend)
     yield("/echo Vine send = "..VineSend)
   end
@@ -994,6 +1024,7 @@ Uses
 
 
   if ItemCountEcho == true then
+    yield("/echo --- Spacer --- ")
     yield("/echo Tinsand = "..TinsandSend)
     yield("/echo Sand = "..SandSend)
     yield("/echo Marble = "..MarbleSend)
@@ -1052,6 +1083,7 @@ Uses
   LimestoneShop()
 
   if ItemCountEcho == true then
+    yield("/echo --- Spacer --- ")
     yield("/echo Coconut = "..CoconutSend)
     yield("/echo Palm Leaf = "..PalmLeafSend)
     yield("/echo Palm Log = "..PalmLogSend)
@@ -1093,10 +1125,192 @@ Uses
     end
   end
 
--- WIP
+-- Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
 ::Route6::
+  if SkipRoute6 == true then
+    goto Route7
+  end
 
+  CurrentLoop = 1
+  LoopAmount = Route6Loop
+  ItemAmount = AppleArray[1]
+  Apple_BeehiveNode()
+  VineNode()
+  LogNode()
+  
+  AppleShop()
+  BeehiveShop()
+  LogShop()
+  VineShop()
 
+  ItemAmount = AppleArray[2]
+  Sap_WoodOpalNode()
+  SapShop()
+  WoodOpalShop()
+
+  ItemAmount = AppleArray[3]
+  Branch_ResinNode()
+  BranchShop()
+  ResinShop()
+
+  if ItemCountEcho == true then
+    yield("/echo --- Spacer --- ")
+    yield("/echo Apple = "..AppleSend)
+    yield("/echo Beehive = "..BeehiveSend)
+    yield("/echo Log = "..LogSend)
+    yield("/echo Vine = "..VineSend)
+    yield("/echo Sap = "..SapSend)
+    yield("/echo Wood Opal = "..WoodOpalSend)
+    yield("/echo Branch = "..BranchSend)
+    yield("/echo Resin = "..ResinSend)
+  end
+
+  IslandReturn()
+
+  if (AppleCount > 0) or (BeehiveCount > 0) or (LogCount > 0) or (VineCount > 0) or (SapCount > 0) or (WoodOpalCount > 0) or (BranchCount > 0) or (ResinCount > 0) then 
+    Sellingitemsto()
+    if AppleSend > 0 then
+      AppleSell()
+    end
+    if BeehiveSend > 0 then
+      BeehiveSell()
+    end
+    if LogSend > 0 then
+      LogSell()
+    end
+    if VineSend > 0 then
+      VineSell()
+    end
+    if SapSend > 0 then
+      SapSell()
+    end
+    if WoodOpalSend > 0 then
+      WoodOpalSell()
+    end
+    if BranchSend > 0 then 
+      BranchSell()
+    end
+    if ResinSend > 0 then
+      ResinSell()
+    end
+    LeavingShop()
+  end
+
+  yield("/visland exectemponce "..B2Apple.." <wait.1.0>")
+  VislandCheck()
+  
+  while (CurrentLoop <= LoopAmount) do
+    yield("/visland exectemponce "..VApple.." <wait.1.0>")
+      VislandCheck()
+    CurrentLoop = CurrentLoop + 1
+    if LoopEcho == true then
+      yield("/echo Current Loop: "..CurrentLoop)
+    end
+  end
+
+-- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
+::Route7::
+  if SkipRoute7 == true then
+    goto Route8
+  end
+
+  CurrentLoop = 1
+  LoopAmount = Route7Loop
+  ItemAmount = MarbleArray[1]
+  Marble_LimestoneNode()
+  StoneNode()
+  
+  MarbleShop()
+  LimestoneShop()
+  StoneShop()
+
+  ItemAmount = MarbleArray[2]
+  SugarcaneNode()
+  VineNode()
+  Coconut_PalmLeaf_PalmLogNode()
+  Tinsand_SandNode()
+  HempNode()
+  IslewortNode()
+
+  SugarcaneShop()
+  VineShop()
+  CoconutShop()
+  PalmLeafShop()
+  PalmLogShop()
+  TinsandShop()
+  SandShop()
+  HempShop()
+  IslewortShop()
+
+  if ItemCountEcho == true then
+    yield("/echo --- Spacer --- ")
+    yield("/echo Marble = "..MarbleSend)
+    yield("/echo Limestone = "..LimestoneSend)
+    yield("/echo Sugarcane send = "..SugarcaneSend)
+    yield("/echo Vine send = "..VineSend)
+    yield("/echo Coconut = "..CoconutSend)
+    yield("/echo Palm Leaf = "..PalmLeafSend)
+    yield("/echo Palm Log = "..PalmLogSend)
+    yield("/echo Tinsand = "..TinsandSend)
+    yield("/echo Sand = "..SandSend)
+    yield("/echo Hemp Send "..HempSend)
+    yield("/echo Islewort Send "..IslewortSend)
+  end
+
+  IslandReturn()
+
+  if (MarbleSend > 0) or (LimestoneSend > 0) or (SugarcaneSend > 0) or (VineSend > 0) or (CoconutSend > 0) or (PalmLeafSend > 0) or (PalmLogSend > 0) or (TinsandSend > 0) or (SandSend > 0) or (HempSend > 0) or (IslewortSend > 0) then
+    Sellingitemsto()
+    if MarbleSend > 0 then
+      MarbleSell()
+    end
+    if LimestoneSend > 0 then
+      LimestoneSell()
+    end
+    if SugarcaneSend > 0 then
+      SugarcaneSell()
+    end
+    if VineSend > 0 then
+      VineSell()
+    end
+    if CoconutSend > 0 then 
+      CoconutSend()
+    end
+    if PalmLeafSend > 0 then
+      PalmLeafSell()
+    end
+    if PalmLogSend > 0 then
+      PalmLogSell()
+    end
+    if TinsandSend > 0 then
+      TinsandSell()
+    end
+    if SandSend > 0 then
+      SandSell()
+    end
+    if HempSend > 0 then
+      HempSell()
+    end
+    if IslewortSend > 0 then
+      IslewortSell()
+    end
+
+    LeavingShop()
+  end
+
+  yield("/visland exectemponce "..B2Marble.." <wait.1.0>")
+  VislandCheck()
+  
+  while (CurrentLoop <= LoopAmount) do
+    yield("/visland exectemponce "..VMarble.." <wait.1.0>")
+      VislandCheck()
+    CurrentLoop = CurrentLoop + 1
+    if LoopEcho == true then
+      yield("/echo Current Loop: "..CurrentLoop)
+    end
+  end
+
+::Route8::
 
 ::DemoComplete::
   yield("/echo the demo version is completed! Yayyy!")
