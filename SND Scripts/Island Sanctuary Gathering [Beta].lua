@@ -1,6 +1,6 @@
 --[[
 Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
-Version: 0.5.2 [5 routes are done, slowly but surely this will be done.]
+Version: 0.6.2 [5 routes are done, slowly but surely this will be done.]
 
 Uses 
 -> V(ery) Island [aka visland]
@@ -32,33 +32,61 @@ Uses
   SkipRoute3 = false
   SkipRoute4 = false
   SkipRoute5 = false
+  SkipRoute6 = false
 
 -- Route Loop Amounts
   --[[
     I'll have the max amount each can run on the side, but on the chance you're currently using materials for workshop,
-    just reduce the amount the loop amount by a couple to make sure it will let you keep crafting what you need.
+    IF YOU'RE DOING A CUSTOM AMOUNT, ADJUST THE TOP ONE, AND LEAVE THE CAP AT 999
     ]]
-  
-  --Islefish/Clam | Laver/Squid
-  Route1Loop = 124 -- Max 124
 
-  -- Islewort | Popoto Seeds | Parsnip Seeds
-  Route2Loop = 71 --base is 71
+  if ItemMax == 999 then
 
-  --Sugarcane | Vine
-  Route3Loop = 90 -- base is 90
+    --Islefish/Clam | Laver/Squid
+    Route1Loop = 124 -- Max 124
 
-  -- Tinsand/Sand | Marble/Limestone
-  Route4Loop = 142 -- base is 142
+    -- Islewort | Popoto Seeds | Parsnip Seeds
+    Route2Loop = 71 --base is 71
 
-  -- Coconut/Palm Log/Leaf | Marble/Limestone
-  Route5Loop = 142 -- base is 142
+    --Sugarcane | Vine
+    Route3Loop = 90 -- base is 90
 
-  --  Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
-  Route6Loop = 199 -- base is 199
+    -- Tinsand/Sand | Marble/Limestone
+    Route4Loop = 142 -- base is 142
 
-  -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
-  Route7Loop = 142 -- base is 142
+    -- Coconut/Palm Log/Leaf | Marble/Limestone
+    Route5Loop = 142 -- base is 142
+
+    --  Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
+     Route6Loop = 199 -- base is 199
+
+    -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
+    Route7Loop = 142 -- base is 142
+
+  elseif ItemMax == 800 then 
+
+    --Islefish/Clam | Laver/Squid
+    Route1Loop = 100 -- Max 100
+
+    -- Islewort | Popoto Seeds | Parsnip Seeds
+    Route2Loop = 57 --base is 57
+
+    --Sugarcane | Vine
+    Route3Loop = 72 -- base is 72
+
+    -- Tinsand/Sand | Marble/Limestone
+    Route4Loop = 114 -- base is 114
+
+    -- Coconut/Palm Log/Leaf | Marble/Limestone
+    Route5Loop = 114 -- base is 114
+
+    --  Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
+     Route6Loop = 160 -- base is 160
+
+    -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
+    Route7Loop = 114 -- base is 114
+  end
+
 
  --Visland Routes
   B2Islefish = "H4sIAAAAAAAACuWVTWvcMBCG/0rQ2TvVjL5GvrVpC3tI24TAtg05mEZhDWurxEpCWPa/Z9Z2CCGXXotvmg+/jB40r/fqW9MlVatPzZBOSj5ZD7t02w7bD6e7plOV2jRPf3Pbl0HVV3v1Iw9taXOv6r36qeoVaQfBB2sq9UvVAYGtI+sq9VvVyFFqms1Bwtyn9WfJaSfFi+amvRdBBF2ps/yQutQXCSu17ku6a/6UTVu2348f6Le5eViZa9jmx5eKDCRqt81uSK/t45Qi+aXLJb1IldTNx49jxxyc36ehzOej8KZpy6viMfqa705zfzNfXk/Jy7ZLZ9KnD9V7NKgJAtsjDEGDGsFQYJrQUACKwbllorERUAf0MxkNZEwwIxnvIVoJFgoGXESiOIKR9WHywY9cVug1yG7hUsGgMQ7DZDMEkdngBMZYD95YXiQYBI9O2zivEoFj8Rg7kXHsQFNc5i55IA4UabJfA85Gp+NkMisfGJiZFkkGjdzdc5hcZmXEjIOOOD8aHxms9v+8TvJD+1/RXB+eAbz3pC7+CAAA"
