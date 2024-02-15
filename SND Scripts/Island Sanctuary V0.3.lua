@@ -1,5 +1,6 @@
 --[[
 Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
+Version: 0.3
 ]]
 
 -- Need this to tell what the caps on items is 
@@ -137,9 +138,13 @@ Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
 
 --Shop spending functions, to quickly reference for multiple routes
   function PalmLeafShop()
+    PalmLeafAmount = ItemMax-(ItemAmount*LoopAmount)
+    PalmLeafSend = (PalmLeafCount-PalmLeafAmount)
   end
 
   function BranchShop()
+    BranchAmount = ItemMax-(ItemAmount*LoopAmount)
+    BranchSend = (BranchCount-BranchAmount)
   end
 
   function IslewortShop()
@@ -148,6 +153,8 @@ Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
   end
 
   function StoneShop()
+    StoneAmount = ItemMax-(ItemAmount*LoopAmount)
+    StoneSend = (StoneCount-StoneAmount)
   end
 
   function ClamShop()
@@ -161,14 +168,18 @@ Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
   end
 
   function CoralShop()
+    CoralAmount = ItemMax-(ItemAmount*LoopAmount)
+    CoralSend = (CoralCount-CoralAmount)
   end
 
   function IslewortShop()
+    IslewortAmount = ItemMax-(ItemAmount*LoopAmount)
+    IslewortSend = (IslewortCount-IslewortAmount)
   end
 
   function SandShop()
     SandAmount = ItemMax-(ItemAmount*LoopAmount)
-    SandSend = (SandAmount-SandAmount)
+    SandSend = (SandCount-SandAmount)
   end
 
   function VineShop()
@@ -177,29 +188,43 @@ Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
   end
 
   function SapShop()
+    SapAmount = ItemMax-(ItemAmount*LoopAmount)
+    SapSend = (SapCount-SapAmount)
   end
 
   function AppleShop()
+    AppleAmount = ItemMax-(ItemAmount*LoopAmount)
+    AppleSend = (AppleCount-AppleAmount)
   end
 
   function LogShop()
+    LogAmount = ItemMax-(ItemAmount*LoopAmount)
+    LogSend = (LogCount-LogAmount)
   end
 
   function PalmLogShop()
+    PalmLogAmount = ItemMax-(ItemAmount*LoopAmount)
+    PalmLogSend = (PalmLogCount-PalmLogAmount)
   end
 
   function CopperShop()
+    CopperAmount = ItemMax-(ItemAmount*LoopAmount)
+    CopperSend = (CopperCount-CopperAmount)
   end
 
   function LimestoneShop()
     LimestoneAmount = ItemMax-(ItemAmount*LoopAmount)
-    LimestoneSend = (LimestoneAmount-LimestoneAmount)
+    LimestoneSend = (LimestoneCount-LimestoneAmount)
   end
 
   function RockSaltShop()
+    RockSaltAmount = ItemMax-(ItemAmount*LoopAmount)
+    RockSaltSend = (RockSaltCount-RockSaltAmount)
   end
 
   function ClayShop()
+    ClayAmount = ItemMax-(ItemAmount*LoopAmount)
+    ClaySend = (ClayCount-ClayAmount)
   end
 
   function TinsandShop()
@@ -213,9 +238,13 @@ Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
   end
 
   function CottonShop()
+    CottonAmount = ItemMax-(ItemAmount*LoopAmount)
+    CottonSend = (CottonCount-CottonAmount)
   end
 
   function HempShop()
+    HempAmount = ItemMax-(ItemAmount*LoopAmount)
+    HempSend = (HempCount-HempAmount)
   end
 
   function IslefishShop()
@@ -229,42 +258,68 @@ Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
   end
 
   function JellyfishShop()
+    JellyfishAmount = ItemMax-(ItemAmount*LoopAmount)
+    JellyfishSend = (JellyfishCount-JellyfishAmount)
   end
 
   function IronShop()
+    IronAmount = ItemMax-(ItemAmount*LoopAmount)
+    IronSend = (IronCount-IronAmount)
   end
 
   function QuartzShop()
+    QuartzAmount = ItemMax-(ItemAmount*LoopAmount)
+    QuartzSend = (QuartzCount-QuartzAmount)
   end
 
   function LeucograniteShop()
+    LeucograniteAmount = ItemMax-(ItemAmount*LoopAmount)
+    LeucograniteSend = (LeucograniteCount-LeucograniteAmount)
   end
 
   function IslebloomsShop()
+    IslebloomsAmount = ItemMax-(ItemAmount*LoopAmount)
+    IslebloomsSend = (IslebloomsCount-IslebloomsAmount)
   end
 
   function ResinShop()
+    ResinAmount = ItemMax-(ItemAmount*LoopAmount)
+    ResinSend = (ResinCount-ResinAmount)
   end
 
   function CoconutShop()
+    CoconutAmount = ItemMax-(ItemAmount*LoopAmount)
+    CoconutSend = (CoconutCount-CoconutAmount)
   end
 
   function BeehiveShop()
+    BeehiveAmount = ItemMax-(ItemAmount*LoopAmount)
+    BeehiveSend = (BeehiveCount-BeehiveAmount)
   end
 
   function WoodOpalShop()
+    WoodOpalAmount = ItemMax-(ItemAmount*LoopAmount)
+    WoodOpalSend = (WoodOpalCount-WoodOpalAmount)
   end
 
   function CoalShop()
+    CoalAmount = ItemMax-(ItemAmount*LoopAmount)
+    CoalSend = (CoalCount-CoalAmount)
   end
 
   function GlimshroomShop()
+    GlimshroomAmount = ItemMax-(ItemAmount*LoopAmount)
+    GlimshroomSend = (GlimshroomCount-GlimshroomAmount)
   end
   
   function WaterShop()
+    WaterAmount = ItemMax-(ItemAmount*LoopAmount)
+    WaterSend = (WaterCount-WaterAmount)
   end
   
   function ShaleShop()
+    ShaleAmount = ItemMax-(ItemAmount*LoopAmount)
+    ShaleSend = (ShaleCount-ShaleAmount)
   end
 
   function MarbleShop()
@@ -273,27 +328,40 @@ Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
   end
 
   function MythrilShop()
+    MythrilAmount = ItemMax-(ItemAmount*LoopAmount)
+    MythrilSend = (MythrilCount-MythrilAmount)
   end
 
   function SpectrineShop()
+    SpectrineAmount = ItemMax-(ItemAmount*LoopAmount)
+    SpectrineSend = (SpectrineCount-SpectrineAmount)
   end
 
   function DuriumShop()
+    DuriumAmount = ItemMax-(ItemAmount*LoopAmount)
+    DuriumSend = (DuriumCount-DuriumAmount)
   end
 
   function YellowCopperShop()
+    YellowCopperAmount = ItemMax-(ItemAmount*LoopAmount)
+    YellowCopperSend = (YellowCopperCount-YellowCopperAmount)
   end
 
   function GoldShop()
+    GoldAmount = ItemMax-(ItemAmount*LoopAmount)
+    GoldSend = (GoldCount-GoldAmount)
   end
 
   function HawkeyeShop()
+    HawkeyeAmount = ItemMax-(ItemAmount*LoopAmount)
+    HawkeyeSend = (HawkeyeCount-HawkeyeAmount)
   end
 
   function CrystalShop()
+    CrystalAmount = ItemMax-(ItemAmount*LoopAmount)
+    CrystalSend = (CrystalCount-CrystalAmount)
   end
 
-  function 
 
 --Setup for moving to the shop, and getting ready to sell the items
   function Sellingitemsto()
