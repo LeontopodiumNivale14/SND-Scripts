@@ -1,6 +1,6 @@
 --[[
 Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
-Version: 0.5.1 [5 routes are done, slowly but surely this will be done.]
+Version: 0.5.2 [5 routes are done, slowly but surely this will be done.]
 
 Uses 
 -> V(ery) Island [aka visland]
@@ -10,9 +10,13 @@ Uses
 -- Need this to tell what the caps on items is 
   ItemMax = 999
 
-  Skip = false
+  -- Input a number if you would like to skip to a certain route, mainly used for testing more than anything
+  Skip = 0
 
-  Echo = false
+  -- If you want feedback on how what loop your currently on, or how many items are being sent to the shop, enable them as "true" below
+
+  ItemCountEcho = false
+  LoopEcho = false
 
 --[[ Order of loops
   1 -> Clam/Islefish
@@ -119,6 +123,11 @@ Uses
     SquidCount = GetItemCount(SquidID)
   end
 
+  function SugarcaneNode()
+    SugarcaneID = 37567
+    SugarcaneCount = GetItemCount(SugarcaneID)
+  end
+
   function Tinsand_SandNode()
     TinsandID = 37571
     SandID = 37559
@@ -166,7 +175,7 @@ Uses
     LeucograniteCount = GetItemCount(LeucograniteID)
   end
 
-  --- These are Items that are shared across multiple nodes
+  -- These are Items that are shared across multiple nodes
 
   function StoneNode()
     StoneID = 37554
@@ -775,7 +784,7 @@ Uses
 --Islefish/Clam | Laver/Squid
 ::Route1::
 
-  if Skip == true then
+  if Skip < 1 then
     goto Route2
   end
 
@@ -793,7 +802,7 @@ Uses
   LaverShop()
   SquidShop()
 
-  if Echo == true then
+  if ItemCountEcho == true then
     yield("/echo Islefish Send "..IslefishSend)
     yield("/echo Clam Send "..ClamSend)
     yield("/echo Laver Send "..LaverSend)
@@ -825,14 +834,16 @@ Uses
     yield("/visland exectemponce "..Vislefish.." <wait.1.0>")
       VislandCheck()
     CurrentLoop = CurrentLoop + 1
-    yield("/echo Current Loop: "..CurrentLoop)
+    if LoopEcho == true then
+      yield("/echo Current Loop: "..CurrentLoop)
+    end
   end
 
 -- Islewort | Popoto Seeds | Parsnip Seeds
 ::Route2::
   yield("/visland stop")
 
-  if Skip == true then
+  if Skip < 2 then
     goto Route3
   end
 
@@ -846,7 +857,7 @@ Uses
   HempNode()
   HempShop()
 
-  if Echo == true then
+  if ItemCountEcho == true then
     yield("/echo Hemp Send "..HempSend)
     yield("/echo Islewort Send "..IslewortSend)
   end
@@ -874,25 +885,28 @@ Uses
     yield("/visland exectemponce "..Vislewort.." <wait.1.0>")
       VislandCheck()
     CurrentLoop = CurrentLoop + 1
-    yield("/echo Current Loop: "..CurrentLoop)
+    if LoopEcho == true then 
+      yield("/echo Current Loop: "..CurrentLoop)
+    end
   end
 
 --Sugarcane | Vine
 ::Route3::
   yield("/visland stop")
 
-  if Skip == true then 
+  if Skip < 3 then 
     goto Route4
   end
 
   CurrentLoop = 1
   LoopAmount = Route3Loop
   ItemAmount = SugarcaneArray[1]
-  Sugarcane_VineNode()
+  SugarcaneNode()
+  VineNode()
   SugarcaneShop()
   VineShop()
 
-  if Echo == true then
+  if ItemCountEcho == true then
     yield("/echo Sugarcane send = "..SugarcaneSend)
     yield("/echo Vine send = "..VineSend)
   end
@@ -917,14 +931,16 @@ Uses
     yield("/visland exectemponce "..VSugarcane.." <wait.1.0>")
       VislandCheck()
     CurrentLoop = CurrentLoop + 1
-    yield("/echo Current Loop: "..CurrentLoop)
+    if LoopEcho == true then
+      yield("/echo Current Loop: "..CurrentLoop)
+    end
   end
  
 --Tinsand/Sand | Marble/Limestone
 ::Route4::
   yield("/visland stop")
 
-  if Skip == true then 
+  if Skip < 4 then 
     goto Route5
   end
 
@@ -941,7 +957,7 @@ Uses
   LimestoneShop()
 
 
-  if Echo == true then
+  if ItemCountEcho == true then
     yield("/echo Tinsand = "..TinsandSend)
     yield("/echo Sand = "..SandSend)
     yield("/echo Marble = "..MarbleSend)
@@ -974,13 +990,17 @@ Uses
     yield("/visland exectemponce "..VTinsand.." <wait.1.0>")
       VislandCheck()
     CurrentLoop = CurrentLoop + 1
-    if Echo == true then
+    if LoopEcho == true then
       yield("/echo Current Loop: "..CurrentLoop)
     end
   end
 
 -- Coconut/Palm Log/Leaf | Marble/Limestone
 ::Route5::
+  
+  if Skip < 5 then
+    goto Route6
+  end
 
   CurrentLoop = 1
   LoopAmount = Route5Loop
@@ -995,7 +1015,7 @@ Uses
   MarbleShop()
   LimestoneShop()
 
-  if Echo == true then
+  if ItemCountEcho == true then
     yield("/echo Coconut = "..CoconutSend)
     yield("/echo Palm Leaf = "..PalmLeafSend)
     yield("/echo Palm Log = "..PalmLogSend)
@@ -1032,10 +1052,13 @@ Uses
     yield("/visland exectemponce "..VCoconut.." <wait.1.0>")
       VislandCheck()
     CurrentLoop = CurrentLoop + 1
-    if Echo == true then
+    if LoopEcho == true then
       yield("/echo Current Loop: "..CurrentLoop)
     end
   end
+
+-- WIP
+::Route6::
 
 
 
