@@ -1,12 +1,24 @@
 --[[
 Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
-Version: 0.3
+Version: 0.5.1 [5 routes are done, slowly but surely this will be done.]
 ]]
 
 -- Need this to tell what the caps on items is 
   ItemMax = 999
 
-  Skip = true
+  Skip = false
+
+  Echo = false
+
+--[[ Order of loops
+  1 -> Clam/Islefish
+  2 -> Islewort
+  3 -> Sugarcane
+  4 -> Tinsand
+  5 -> Coconut
+  6 -> Apple
+  7 -> Marble/Limestone
+]]
 
 -- Route Loop Amounts
   --[[
@@ -14,7 +26,7 @@ Version: 0.3
     just reduce the amount the loop amount by a couple to make sure it will let you keep crafting what you need.
     ]]
   
-  --Islefish/Clam | Larve/Squid
+  --Islefish/Clam | Laver/Squid
   Route1Loop = 124 -- Max 124
 
   -- Islewort | Popoto Seeds | Parsnip Seeds
@@ -24,13 +36,18 @@ Version: 0.3
   Route3Loop = 90 -- base is 90
 
   -- Tinsand/Sand | Marble/Limestone
-  Route4Loop = 
+  Route4Loop = 142 -- base is 142
 
+  -- Coconut/Palm Log/Leaf | Marble/Limestone
+  Route5Loop = 142 -- base is 142
 
+  --  Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
+  Route6Loop = 199 -- base is 199
 
+  -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
+  Route7Loop = 142 -- base is 142
 
-
---Visland Routes
+ --Visland Routes
   B2Islefish = "H4sIAAAAAAAACuWVTWvcMBCG/0rQ2TvVjL5GvrVpC3tI24TAtg05mEZhDWurxEpCWPa/Z9Z2CCGXXotvmg+/jB40r/fqW9MlVatPzZBOSj5ZD7t02w7bD6e7plOV2jRPf3Pbl0HVV3v1Iw9taXOv6r36qeoVaQfBB2sq9UvVAYGtI+sq9VvVyFFqms1Bwtyn9WfJaSfFi+amvRdBBF2ps/yQutQXCSu17ku6a/6UTVu2348f6Le5eViZa9jmx5eKDCRqt81uSK/t45Qi+aXLJb1IldTNx49jxxyc36ehzOej8KZpy6viMfqa705zfzNfXk/Jy7ZLZ9KnD9V7NKgJAtsjDEGDGsFQYJrQUACKwbllorERUAf0MxkNZEwwIxnvIVoJFgoGXESiOIKR9WHywY9cVug1yG7hUsGgMQ7DZDMEkdngBMZYD95YXiQYBI9O2zivEoFj8Rg7kXHsQFNc5i55IA4UabJfA85Gp+NkMisfGJiZFkkGjdzdc5hcZmXEjIOOOD8aHxms9v+8TvJD+1/RXB+eAbz3pC7+CAAA"
   Vislefish = "H4sIAAAAAAAACu2YTW/bMAyG/0qhc8KJor7o29BtQA7dFwZ0H9jBWNXGgGMPtbtiKPrfR6dSskOH5dJD0vhgWLagSA/4ki9zp97Wq6QqhXBy2tarF4uhTZfNsFQzdV7//tk33Tio6tudet8Pzdj0naru1GdVOQIvl6OZ+qKquXWAwQc7U19lFHQEz9bey7Dv0uKVqvRMfawvmhtZjEAGZ/2vtErduP6y6MZ0Xf8Yz5tx+S7P/vtd3qPsaVj2t+WLbEZWu6zbIW2nr3eIM/V61Y/lhxdjWuXHl+sZefDhJg1jfp4WPq+bcbviNHrTX5/23UU+uH54+alZpTOZp+9nj2HRkdBlKhZ8NFigMESh8jgU838oRqPh6B5FM6T6NqWLk7Hurtq0B6CsBiTEuAkfYwl9IeXAaTJPQqqtr6/SybBMbbsPmDwER+wzJjm7RRsfMPnogFn7nTCZQ8dEVjNnTAhBW2MyphCBBeJRdxMpZODIvpCiSWieMilvwbLFY0BVxoCngJlSAIsuhpydMAB53C07Hbbs5gZMwMh2U+4wsHUlPSFoxt3q3YFzQgMRAxazZEGOpksaZxlGCsdqJ/FkgchzsU8SJEFMZuHEEAI/TXbaO/80dxqc9VS0N5EzhmIOKql/wES0kwM3h+TA5yhHdxR1zKbJTGYyEpX0rQNICvfPrzeRLBSA5ZbV5YWLm5zAGosEkDf/atmeleeeS2MCzk2uKFd/Yrfp4owGKw3K0U3mkNISUtFMnX82lFHU5bYtL8YQnmMWIpGXtB0brTE5v/knIEIQR3nUmrAIgM4Fty1jyDb6TRkjUZvfrYzhYQWQ5KDomEoISRlDa7zOMeSZpODvpqw9BvP9/g8MSzViohQAAA=="
 
@@ -40,11 +57,17 @@ Version: 0.3
   B2Sugarcane = "H4sIAAAAAAAACuWTyWrDMBCGXyXMWREaLZalQ6Er5JCugXShB5GojaC2Sqy0lJB3r+w4hNJH8G02/fzzMdrCtas8WDhzjR+NT0YPm3e3XrjaA4G5+/mMoU4N2Jct3MYmpBBrsFt4BDvmsqCGKVUSeAKrkEpUSmsCz2A5asoU7nISaz+5AIt5ksC9W4ZNlkPKCEzjl698nXJKYFInv3aLNA9pddM+YH9rvc3sqlnF70Mn28lqb+6j8cfxzmOWvKxi8gep5Ks+PO0m+uRu45vUx63w3IV0VGyzq7g+j/WyX53ti7NQ+WmeYzvyH4yWVBWqEB0XREG5LAV2XEqTW4KXxTDJCEOZbk+kBcNKqkWJ/cEoWggphskFGVVGa7O/GJO/DkduOi5jLBWVRnM+TDI0c9E8b5vBaE5RGOR7MEJoWkgt5ADAvO5+ARK0E/moBQAA"
   VSugarcane = "H4sIAAAAAAAACu2YSW/bMBCF/0rBsz2d4XC46FZ0AXJIdyRd0IOQqI2AWipsuUVh5L93ZJFOgaaor7V900gETX1+nPeojXleLxpTGYYHb9Zf6uVV3TUPL9quMTNzWf/81rfdsDLVx4152a/aoe07U23MO1NZBovRY5qZ96aSBJ6sc3ZmPphqzt5B5Gj5Vuu+a86emApn5nV93a51NgYtzvvvzaLphu2Ts25olvXVcNkONy/y6N/v5VXqolY3/Y/yRFejs32uv66au+HbJdLMPF30Q/nhs6FZ5MtH2xG5eLVuVkO+Hie+rNvhbsaxetYvH/fddX5znG6+bRfNuY7D29mfXBxw9FKoRPLIBYoAofP3M7H/ZmKRbIpyL5lV+fP+B0QC0aKnLSNPML5UyIwUWXLpxCgACYVgJ0YIFNhJZuQE0CHvpSN7wDqicasVEUUSjBkQJ2CO7rTRQFKyIkVEKVD0hZGWQvboGYXRqEK2Ma+m5tIoqi0jiiDOpaNnJBAs+WCzkBi0TUcuLZsYKEray+rtIVm9ZhwfkbhQIeG4k472JpZw9NKZo4rFheCtnzBZ8DFKyYkYQTcY+eMTz3xMQV6CnRxMAiT2FF0B40D4b1nxkPOzxhvwMpKZ9OLAMpXkQxqLQjrCU4UGY3A+pJwHVRwu4I6KVyW5k5XPrZ5CcyBUMeAOkCVgxFMeHFUk6EbnnhiJ+lRpxUyaD/1+p4pDPp1q7wXdUpyPpxqTmXeMkn70wNNOmzsgTpZxUpJoQEwBbTEvlRKSdqhDd/VPt78AvjLBEUATAAA="
 
+  B2Tinsand = "H4sIAAAAAAAACuWTy2oDMQxFfyVoPTHyjF/xotAnZJG+CKQPujCNSwwdu8ROSwn592qmE0LpJ2SnK8mXqwPewrVrPVg4c9mPxiejeYjZxSVUsHDfHynEksE+b+E25VBCimC38AB2XEvOjFJNBY9ghWJiIit4AlvXDWsmiHJHMkU/vQDLUdLw3i3Dhsw4wwpm6dO3PhaSFUxj8Wv3WhahrG66B/i3N0SkTHmVvvYTCkNub+49+8N6n5AsL9tU/N6q+HYoT/uNQdxtfC5D3RkvXCgHx05dpfV5isvhcPxtzkPrZ7SHu+o/Fo6c6Vpo3XPh3DAhNArRs+HYMOKm6+NkIwSbGK2kGthIhlI0qHo2jWGSaqWOkg0ybVBr3t1LbJRipr+dwIy5IW6i1sfwo152P0BAnB6RBAAA"
+  VTinsand = "H4sIAAAAAAAACu2XTYvbMBCG/0rQOTtoJI0+fFv6ATlsv1hIt6UHd6M2prVVYqVLCfnvlR1pU2hg97LQFPtkyWI8fvzqndGOvapbzypGMLtuur7uVmzOlvWvH6HpYs+qjzv2JvRNbELHqh17zyoEZ1AJg3N2wypy4IZLz9kHVl2gc6AEuX0ahs4vnrOKz9m7etVsUzAJaXAVfvrWd3F8suii39S3cdnE9eu8+s+5nF3KqV+Hu/IkJZOifam/9/64fMwwJfWiDbG8eBF9m28vxxV58Hbr+5jvh8DLuonHiMPoZdg8C90qfzg/TF43rb9K6/h+/hcWCZJQCBqpaA5cC0tHKNYZexqKeBiK4CjcEO0Emn77ufWbr341yz/vXwelQaEip+7lQ0qZAoqDlBOnkdMFgnRSkbhXFFlTFKU1kEQ1KWogZQENV+LoR0hFUCTAcSEmTgMnAmGVlLIISjpni28LAo4GHwVK/O8WZVOJ06moHUClfSi5sBkUKrDIJ0UdegEOaI3OFpXKOzeugOIKCJV8mq3XhhDXs7t1E/1sE26/nYGo0IHWkuyBlYJkUi7b1Fj2hNITq9JMIRhrSjMlk8g0uswKAaWmqfSNoAQHSn1BtvS046Sy6gDKJke3pCdRFVGlEqdEElIRlSWRURkDXKF7Ik2doVel3lMRcUGpPThxyDMK0vnPmked8k51C2dyyvu0/w0UDxibIA8AAA=="
 
+  B2Coconut = "H4sIAAAAAAAACuWT20oDMRCGX6XMdRpyTpoLQatCL+oJYT3gRWgjDbiJdLOKlH13s9stRXyE3s0/mfz885Hs4MbVHixcuMZPpmeTeVql2GZAULmfzxRibsC+7uAuNSGHFMHu4AnslDGJDZ1xg+AZrCZYKKmJQvAClhGDmVaCdkWm6BeXYCmREsGDW4e2GFJMECzTl699zEUiWMTst26Vq5A3t/0F8rc3xiy5mk36PpyUQMXt3X00/jg+pCyWV3XK/mCVfT2W58PEKO5b3+Sx7o0rF/LRsVfXaTtPcT0uT/bNx1D7ZZkjHfqPxkjMDNVqIEOpwlRyuidDCcWMc32iZMqbIUoQwUc0BDPK9UBG4RnlSsmTBMPL9lybft3+MymsDBFs4DLVBmvBhTkBMG/dLz3YS42PBAAA"
+  VCoconut = "H4sIAAAAAAAACu2XTW/UMBCG/8rK593BM/b4IzdUQKpEoSCkFhCHqE3ZiCaudr1UqOp/Z7JxVCGK6KWH7fZmJ441eTTzzjs36l3dNapSDmYH6Sz1m/ziuL7sZm/T97Jo6gs1Vyf1r6vU9nmtqq836jit29ymXlU36lRVNoDjGP1cfVaVRzDsPc/VF1UtPIEjq8OtbFPfHL5SlZ6rj/V5u5GrCGRzlH42XdPn7ZvDPjer+iyftHn5fjhNGikG/vNNCfpqCDCvmkYCXC/T9XREIpPLL+rLdXP33TZcnKvXXcpTHIe56cry5fZE2XzYNOtc1sPFJ3Wb724cdm/S6iD154WCHh9+arvmSM7p2/lfjJgBOVjcMnIRdLAcR0bGg40u0IMY0RNmtCALMcYQ3JhJFpxhMoWSA4xI6O7HZP6PSd8LaCe4eNDae5qwGGfcSIUCeGaOe19fC9IQoos8MmIwxKFAchaIffB7X2AGbPBOlGdSIUuMEyXJK88U9rC+WH5ciwRPVFgzlsyJYJAJn8sLSdq6xjj1eOel2kZIMUJgtM/9a4FDI0cTxkRywMaGkkmopcsT2b3XINSAIkJjL3MiK9rHMDGyIIlkHoXRukspL2fXyzY3s1U6+7EDwoQRnFigkk9WHKQfXPa26DQYQ/Yfar2HrIilvoIrBtuIJJEtjU3ck8VoH2UG2UlUYhpRxNxOrIzU4OCctrQYHLoQH2QD9FOyAeIgHYZoRiqSThrd5I0MyOzxnEDTwE+A4q+1nxodoZ/cgJXxhNjFPbSRFoK2pkwgGkisY1FrFj1ylomfelV9u/0Njz5u/VMSAAA="
+
+  
 
 -- Array's that are for each route
 
-  --Clam/Islefish | Larve/Squid
+  --Clam/Islefish | Laver/Squid
   ClamArray = {8, 4}
 
   --Islewort | Popoto Seeds | Parsnip Seeds
@@ -56,23 +79,27 @@ Version: 0.3
   --Tinsand/Sand | Marble/Limestone
   TinsandArray = {7, 4}
 
+  --Coconut/Palm Log/Leaf | Marble/Limestone
+  CoconutArray = {7, 4}
+
+  --Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
+  AppleArray = {5, 3, 1, 2}
+
+  -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
+  MarbleArray = {7, 1, 1, 1, 1}
+
+  -- Still Figuring out order here --
+
   --XP Route || Quarts | Iron | Durium Sand | Leucogranite
   QuartzArray = {6, 3, 2}
 
   --Jellyfish/Coral | Laver/Squid
   LaverJellyfishArray = {8, 6}
 
-  --Coconut/Palm Log/Leaf | Marble/Limestone
-  CoconutArray = {7, 4}
-
   -- Isleblooms | Quartz | Leucogranite | Iron
   IslebloomsArray = {4, 5, 1, 1}
 
-  -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
-  MarbleArray = {7, 1, 1, 1, 1}
-
-
---Node Functions (checks to see how many items that you currently have)
+-- Node Functions (checks to see how many items that you currently have)
   function Islefish_ClamNode()
     IslefishID = 37575
     ClamID = 37555
@@ -80,11 +107,41 @@ Version: 0.3
     ClamCount = GetItemCount(ClamID)
   end
 
-  function Larve_SquidNode()
-    LarveID = 37556
+  function Laver_SquidNode()
+    LaverID = 37556
     SquidID = 37576
-    LarveCount = GetItemCount(LarveID)
+    LaverCount = GetItemCount(LaverID)
     SquidCount = GetItemCount(SquidID)
+  end
+
+  function Tinsand_SandNode()
+    TinsandID = 37571
+    SandID = 37559
+    TinsandCount = GetItemCount(TinsandID)
+    SandCount = GetItemCount(SandID)
+  end
+
+  function Marble_LimestoneNode()
+    MarbleID = 39890
+    LimestoneID = 37565
+    MarbleCount = GetItemCount(MarbleID)
+    LimestoneCount = GetItemCount(LimestoneID)
+  end
+
+  function Coconut_PalmLeaf_PalmLogNode()
+    CoconutID = 39225
+    PalmLeafID = 37551
+    PalmLogID = 37561
+    CoconutCount = GetItemCount(CoconutID)
+    PalmLeafCount = GetItemCount(PalmLeafID)
+    PalmLogCount = GetItemCount(PalmLogID)
+  end
+
+  function Apple_BeehiveNode()
+    AppleID = 37552
+    BeehiveID = 39226
+    Applecount = GetItemCount(AppleID)
+    BeehiveCount = GetItemCount(BeehiveID)
   end
 
   function QuartzNode()
@@ -104,6 +161,13 @@ Version: 0.3
     LeucograniteCount = GetItemCount(LeucograniteID)
   end
 
+  --- These are Items that are shared across multiple nodes
+
+  function StoneNode()
+    StoneID = 37554
+    StoneCount = GetItemCount(StoneID)
+  end
+
   function IslewortNode()
     IslewortID = 37558
     IslewortCount = GetItemCount(IslewortID)
@@ -114,29 +178,12 @@ Version: 0.3
     HempCount = GetItemCount(HempID)
   end
 
-  function Sugarcane_VineNode()
-    SugarcaneID = 37576
+  function VineNode()
     VineID = 37562
-    SugarcaneCount = GetItemCount(SugarcaneID)
     VineCount = GetItemCount(VineID)
   end
 
-  function Tinsand_SandNode()
-    TinsandID = 37571
-    SandID = 37559
-    TinsandCount = GetItemCount(TinsandID)
-    SandCount = GetItemCount(SandID)
-  end
-
-  function Marble_LimestoneNode()
-    MarbleID = 39890
-    LimestoneID = 37565
-    MarbleCount = GetItemCount(MarbleID)
-    LimestoneCount = GetItemCount(LimestoneID)
-  end
-
-
---Shop spending functions, to quickly reference for multiple routes
+-- Shop spending functions, to quickly reference for multiple routes
   function PalmLeafShop()
     PalmLeafAmount = ItemMax-(ItemAmount*LoopAmount)
     PalmLeafSend = (PalmLeafCount-PalmLeafAmount)
@@ -163,8 +210,8 @@ Version: 0.3
   end
 
   function LaverShop()
-    LarveAmount = ItemMax-(ItemAmount*LoopAmount)
-    LarveSend = (LarveCount-ClamAmount)
+    LaverAmount = ItemMax-(ItemAmount*LoopAmount)
+    LaverSend = (LaverCount-ClamAmount)
   end
 
   function CoralShop()
@@ -324,7 +371,7 @@ Version: 0.3
 
   function MarbleShop()
     MarbleAmount = ItemMax-(ItemAmount*LoopAmount)
-    MarbleSend = (MarbleAmount-MarbleCount)
+    MarbleSend = (MarbleCount-MarbleAmount)
   end
 
   function MythrilShop()
@@ -362,8 +409,7 @@ Version: 0.3
     CrystalSend = (CrystalCount-CrystalAmount)
   end
 
-
---Setup for moving to the shop, and getting ready to sell the items
+-- Setup for moving to the shop, and getting ready to sell the items
   function Sellingitemsto()
     yield("/visland moveto -268 40 226")
     yield("/wait 1")
@@ -386,32 +432,45 @@ Version: 0.3
    MovingTest()
   end
 
+-- Shop Selling, tells the shop which one to interact w/  
+  function PalmLeafSell()
+    yield("/pcall MJIDisposeShop True 12 0 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..PalmLeafSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
 
---Shop Selling, just a quick way to reference vs typing all these out... god hope these work 
+  function BranchSell()
+    yield("/pcall MJIDisposeShop True 12 1 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..BranchSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function StoneSell()
+    yield("/pcall MJIDisposeShop True 12 2 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..StoneSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
   function ClamSell()
     yield("/pcall MJIDisposeShop True 12 3 <wait.0.5>")
     yield("/pcall MJIDisposeShopShipping True 11 "..ClamSend)
     yield("/pcall SelectYesno True 0")
     yield("/wait 1.5")
-   end
-
-  function IslefishSell()
-    yield("/pcall MJIDisposeShop True 12 21 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..IslefishSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
   end
 
-  function LarveSell()
+  function LaverSell()
     yield("/pcall MJIDisposeShop True 12 4 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..LarveSend)
+    yield("/pcall MJIDisposeShopShipping True 11 "..LaverSend)
     yield("/pcall SelectYesno True 0")
     yield("/wait 1.5")
   end
 
-  function SquidSell()
-    yield("/pcall MJIDisposeShop True 12 22 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..SquidSend)
+  function CoralSell()
+    yield("/pcall MJIDisposeShop True 12 5 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..CoralSend)
     yield("/pcall SelectYesno True 0")
     yield("/wait 1.5")
   end
@@ -423,16 +482,9 @@ Version: 0.3
     yield("/wait 1.5")
   end
 
-  function HempSell()
-    yield("/pcall MJIDisposeShop True 12 20 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..HempSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
-
-  function SugarcaneSell()
-    yield("/pcall MJIDisposeShop True 12 18 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..SugarcaneSend)
+  function SandSell()
+    yield("/pcall MJIDisposeShop True 12 7 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..SandSend)
     yield("/pcall SelectYesno True 0")
     yield("/wait 1.5")
   end
@@ -444,9 +496,107 @@ Version: 0.3
     yield("/wait 1.5")
   end
 
-  function QuartzSell()
-    yield("/pcall MJIDisposeShop True 12 25 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..QuartzSend)
+  function SapSell()
+    yield("/pcall MJIDisposeShop True 12 9 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..SapSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function AppleSell()
+    yield("/pcall MJIDisposeShop True 12 10 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..AppleSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function LogSell()
+    yield("/pcall MJIDisposeShop True 12 11 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..LogSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function PalmLogSell() 
+    yield("/pcall MJIDisposeShop True 12 12 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..PalmLogSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function CopperSell()
+    yield("/pcall MJIDisposeShop True 12 13 wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..CopperSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function LimestoneSell()
+    yield("/pcall MJIDisposeShop True 12 14 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..LimestoneSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function RockSaltSell()
+    yield("/pcall MJIDisposeShop True 12 15 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..RockSaltSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function ClaySell()
+    yield("/pcall MJIDisposeShop True 12 16 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..ClaySend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function TinsandSell()
+    yield("/pcall MJIDisposeShop True 12 17 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..TinsandSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function SugarcaneSell()
+    yield("/pcall MJIDisposeShop True 12 18 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..SugarcaneSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function CottonSell()
+    yield("/pcall MJIDisposeShop True 12 19 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..CottonSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function HempSell()
+    yield("/pcall MJIDisposeShop True 12 20 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..HempSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function IslefishSell()
+    yield("/pcall MJIDisposeShop True 12 21 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..IslefishSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function SquidSell()
+    yield("/pcall MJIDisposeShop True 12 22 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..SquidSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function JellyfishSell()
+    yield("/pcall MJIDisposeShop True 12 23 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..JellyfishSend)
     yield("/pcall SelectYesno True 0")
     yield("/wait 1.5")
   end
@@ -458,6 +608,13 @@ Version: 0.3
     yield("/wait 1.5")
   end
 
+  function QuartzSell()
+    yield("/pcall MJIDisposeShop True 12 25 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..QuartzSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
   function LeucograniteSell()
     yield("/pcall MJIDisposeShop True 12 26 <wait.0.5>")
     yield("/pcall MJIDisposeShopShipping True 11 "..LeucograniteSend)
@@ -465,9 +622,121 @@ Version: 0.3
     yield("/wait 1.5")
   end
 
+  function IslebloomsSell()
+    yield("/pcall MJIDisposeShop True 12 27 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..IslebloomsSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function ResinSell()
+    yield("/pcall MJIDisposeShop True 12 28 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..ResinSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function CoconutSell()
+    yield("/pcall MJIDisposeShop True 12 29 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..CoconutSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function BeehiveSell()
+    yield("/pcall MJIDisposeShop True 12 30 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..BeehiveSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function WoodOpalSell()
+    yield("/pcall MJIDisposeShop True 12 31 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..WoodOpalSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function CoalSell()
+    yield("/pcall MJIDisposeShop True 12 32 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..CoalSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function GlimshroomSell()
+    yield("/pcall MJIDisposeShop True 12 33 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..GlimshroomSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+  
+  function WaterSell()
+    yield("/pcall MJIDisposeShop True 12 34 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..WaterSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+  
+  function ShaleSell()
+    yield("/pcall MJIDisposeShop True 12 35 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..ShaleSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function MarbleSell()
+    yield("/pcall MJIDisposeShop True 12 36 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..MarbleSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function MythrilSell()
+    yield("/pcall MJIDisposeShop True 12 37 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..MythrilSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function SpectrineSell()
+    yield("/pcall MJIDisposeShop True 12 38 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..SpectrineSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
   function DuriumSell()
     yield("/pcall MJIDisposeShop True 12 39 <wait.0.5>")
     yield("/pcall MJIDisposeShopShipping True 11 "..DuriumSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function YellowCopperSell()
+    yield("/pcall MJIDisposeShop True 12 40 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..YellowCopperSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function GoldSell()
+    yield("/pcall MJIDisposeShop True 12 41 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..GoldSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function HawkeyeSell()
+    yield("/pcall MJIDisposeShop True 12 42 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..HawkeyeSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function CrystalSell()
+    yield("/pcall MJIDisposeShop True 12 43 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..CrystalSend)
     yield("/pcall SelectYesno True 0")
     yield("/wait 1.5")
   end
@@ -484,14 +753,12 @@ Version: 0.3
     end
   end
 
-
 -- Moving Test
   function MovingTest()
     while IsMoving() do 
       yield("/wait 1")
     end
   end
-
 
 -- Visland Route Check 
   function VislandCheck()
@@ -500,8 +767,7 @@ Version: 0.3
     end
   end
 
-
---Islefish/Clam | Larve/Squid
+--Islefish/Clam | Laver/Squid
 ::Route1::
 
   if Skip == true then
@@ -516,20 +782,22 @@ Version: 0.3
   Islefish_ClamNode()
   IslefishShop()
   ClamShop()
-
+  
   ItemAmount = ClamArray[2]
-  Larve_SquidNode()
-  LarveShop()
+  Laver_SquidNode()
+  LaverShop()
   SquidShop()
 
-  yield("/echo Islefish Send "..IslefishSend)
-  yield("/echo Clam Send "..ClamSend)
-  yield("/echo Larve Send "..LarveSend)
-  yield("/echo Squid Send "..SquidSend)
+  if Echo == true then
+    yield("/echo Islefish Send "..IslefishSend)
+    yield("/echo Clam Send "..ClamSend)
+    yield("/echo Laver Send "..LaverSend)
+    yield("/echo Squid Send "..SquidSend)
+  end
 
   IslandReturn()
   
-  if (IslefishSend > 0) or (ClamSend > 0) or (LarveSend > 0) or (SquidSend > 0) then
+  if (IslefishSend > 0) or (ClamSend > 0) or (LaverSend > 0) or (SquidSend > 0) then
     Sellingitemsto()
     if (IslefishSend > 0) then
       IslefishSell()
@@ -537,8 +805,8 @@ Version: 0.3
     if (ClamSend > 0) then
       ClamSell()
     end
-    if (LarveSend > 0) then
-      LarveSell()
+    if (LaverSend > 0) then
+      LaverSell()
     end
     if (SquidSend > 0) then
       SquidSell()
@@ -573,8 +841,10 @@ Version: 0.3
   HempNode()
   HempShop()
 
-  yield("/echo Hemp Send "..HempSend)
-  yield("/echo Islewort Send "..IslewortSend)
+  if Echo == true then
+    yield("/echo Hemp Send "..HempSend)
+    yield("/echo Islewort Send "..IslewortSend)
+  end
 
   IslandReturn()
   
@@ -606,6 +876,10 @@ Version: 0.3
 ::Route3::
   yield("/visland stop")
 
+  if Skip == true then 
+    goto Route4
+  end
+
   CurrentLoop = 1
   LoopAmount = Route3Loop
   ItemAmount = SugarcaneArray[1]
@@ -613,17 +887,19 @@ Version: 0.3
   SugarcaneShop()
   VineShop()
 
-  yield("/echo Sugarcane send = "..SugarcaneSend)
-  yield("/echo Vine send = "..VineSend)
+  if Echo == true then
+    yield("/echo Sugarcane send = "..SugarcaneSend)
+    yield("/echo Vine send = "..VineSend)
+  end
 
   IslandReturn()
 
   if (SugarcaneCount > 0) or (VineCount > 0) then
     Sellingitemsto()
-    if (SugarcaneCount > 0) then
+    if (SugarcaneSend > 0) then
       SugarcaneSell()
     end
-    if (VineCount > 0) then
+    if (VineSend > 0) then
       VineSell()
     end
     LeavingShop()
@@ -639,42 +915,122 @@ Version: 0.3
     yield("/echo Current Loop: "..CurrentLoop)
   end
  
--- Tinsand
+--Tinsand/Sand | Marble/Limestone
 ::Route4::
   yield("/visland stop")
 
+  if Skip == true then 
+    goto Route5
+  end
+
   CurrentLoop = 1
   LoopAmount = Route4Loop
-  ItemAmount = SugarcaneArray[1]
-  Sugarcane_VineNode()
-  SugarcaneShop()
-  VineShop()
+  ItemAmount = TinsandArray[1]
+  Tinsand_SandNode()
+  TinsandShop()
+  SandShop()
 
-  yield("/echo Sugarcane send = "..SugarcaneSend)
-  yield("/echo Vine send = "..VineSend)
+  ItemAmount = TinsandArray[2]
+  Marble_LimestoneNode()
+  MarbleShop()
+  LimestoneShop()
+
+
+  if Echo == true then
+    yield("/echo Tinsand = "..TinsandSend)
+    yield("/echo Sand = "..SandSend)
+    yield("/echo Marble = "..MarbleSend)
+    yield("/echo Limestone = "..LimestoneSend)
+  end
 
   IslandReturn()
 
-  if (SugarcaneCount > 0) or (VineCount > 0) then
+  if (TinsandCount > 0) or (SandCount > 0) or (MarbleCount > 0) or (LimestoneCount > 0) then
     Sellingitemsto()
-    if (SugarcaneCount > 0) then
-      SugarcaneSell()
+    if TinsandSend > 0 then
+      TinsandSell()
     end
-    if (VineCount > 0) then
-      VineSell()
+    if SandSend > 0 then
+      SandSell()
+    end
+    if MarbleSend > 0 then
+      MarbleSell()
+    end
+    if LimestoneSend > 0 then
+      LimestoneSell()
     end
     LeavingShop()
   end
 
-  yield("/visland exectemponce "..B2Sugarcane.." <wait.1.0>")
+  yield("/visland exectemponce "..B2Tinsand.." <wait.1.0>")
   VislandCheck()
   
   while (CurrentLoop <= LoopAmount) do
-    yield("/visland exectemponce "..VSugarcane.." <wait.1.0>")
+    yield("/visland exectemponce "..VTinsand.." <wait.1.0>")
       VislandCheck()
     CurrentLoop = CurrentLoop + 1
-    yield("/echo Current Loop: "..CurrentLoop)
-  end      
+    if Echo == true then
+      yield("/echo Current Loop: "..CurrentLoop)
+    end
+  end
+
+-- Coconut/Palm Log/Leaf | Marble/Limestone
+::Route5::
+
+  CurrentLoop = 1
+  LoopAmount = Route5Loop
+  ItemAmount = CoconutArray[1]
+  Coconut_PalmLeaf_PalmLogNode()
+  CoconutShop()
+  PalmLeafShop()
+  PalmLogShop()
+
+  ItemAmount = CoconutArray[2]
+  Marble_LimestoneNode()
+  MarbleShop()
+  LimestoneShop()
+
+  if Echo == true then
+    yield("/echo Coconut = "..CoconutSend)
+    yield("/echo Palm Leaf = "..PalmLeafSend)
+    yield("/echo Palm Log = "..PalmLogSend)
+    yield("/echo Marble = "..MarbleSend)
+    yield("/echo Limestone = "..LimestoneSend)
+  end
+
+  IslandReturn()
+
+  if (CoconutCount > 0) or (PalmLeafCount > 0) or (PalmLogCount > 0) or (MarbleCount > 0) or (LimestoneCount > 0) then
+    Sellingitemsto()
+    if CoconutSend > 0 then
+      CoconutSell()
+    end
+    if PalmLeafSend > 0 then
+      PalmLeafSell()
+    end
+    if PalmLogSend > 0 then
+      PalmLogSell()
+    end
+    if MarbleSend > 0 then
+      MarbleSell()
+    end
+    if LimestoneSend > 0 then
+      LimestoneSell()
+    end
+    LeavingShop()
+  end
+
+  yield("/visland exectemponce "..B2Coconut.." <wait.1.0>")
+  VislandCheck()
+  
+  while (CurrentLoop <= LoopAmount) do
+    yield("/visland exectemponce "..VCoconut.." <wait.1.0>")
+      VislandCheck()
+    CurrentLoop = CurrentLoop + 1
+    if Echo == true then
+      yield("/echo Current Loop: "..CurrentLoop)
+    end
+  end
 
 
 
