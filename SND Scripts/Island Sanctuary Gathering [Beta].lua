@@ -1,6 +1,10 @@
 --[[
 Man... what a thing this has turned into. IF THIS WORKS IT WOULD BE GREAT
 Version: 0.5.1 [5 routes are done, slowly but surely this will be done.]
+
+Uses 
+-> V(ery) Island [aka visland]
+-> Flying is currently required, but once it's all routed out, i'll make a non-flying routes included as well for anyone who's below lv. 10
 ]]
 
 -- Need this to tell what the caps on items is 
