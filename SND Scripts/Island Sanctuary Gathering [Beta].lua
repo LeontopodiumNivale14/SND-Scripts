@@ -8,7 +8,9 @@ Uses
 ]]
 
 -- Need this to tell what the caps on items is 
-  ItemMax = 999
+-- 999 is the default max
+-- 800 is if you would like a little bit of a gap so graneries don't overcap
+  ItemMax = 999 
 
   -- If you want feedback on how what loop your currently on, or how many items are being sent to the shop, enable them as "true" below
 
