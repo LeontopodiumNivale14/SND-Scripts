@@ -87,6 +87,10 @@ Uses
 
     -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
     Route7Loop = 114 -- base is 114
+
+  elseif (ItemMax < 799) or (ItemMax > 800 and ItemMax < 999) then
+    yield("/echo somehow... you managed to input a number outside the 2 I specificied, please input it again")
+    yield("/snd stop")
   end
 
 
