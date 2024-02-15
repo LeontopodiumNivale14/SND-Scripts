@@ -18,6 +18,7 @@ Version: 0.5.1 [5 routes are done, slowly but surely this will be done.]
   5 -> Coconut
   6 -> Apple
   7 -> Marble/Limestone
+  8 -> ... Figuring out the rest tomorrow
 ]]
 
 -- Route Loop Amounts
