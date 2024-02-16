@@ -1,5 +1,5 @@
 --[[
-Version: 1.5 [Stairs fixed, finally figured out how to sell stone properly]
+Version: 1.7 [Stairs fixed, finally figured out how to sell stone properly]
 Author: LegendofIceman
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
@@ -8,11 +8,19 @@ Requirements:
 -> Visland (V)ery Island
 ]]
 
+-- If you are currently running the workshop and you have items being used in it, make sure to add the amount you're using in the shops here
+  StoneWorkShop = 3
+  IronWorkShop = 0 
+  QuartzWorkShop = 0
+  LeucograniteWorkshop = 0
+
 -- Settings
   ItemMax = 999
-  XPLoopAmount = 166
   ItemCountEcho = true
   LoopEcho = true
+
+  -- if you have workshop items above, I recommend changing this to 145 just to be safe
+  XPLoopAmount = 166 
 
 -- Array for the Route
   -- XP Route || Quarts | Iron | Durium Sand | Leucogranite
@@ -53,21 +61,33 @@ Requirements:
     if StoneAmount < 0 then 
       StoneAmount = 0
     end
+    if StoneWorkShop > 0 then
+      StoneAmount = StoneAmount + StoneWorkShop
+    end
     StoneSend = (StoneCount-StoneAmount)
   end
 
   function IronShop()
     IronAmount = ItemMax-(ItemAmount*LoopAmount)
+    if IronWorkShop > 0 then
+      IronAmount = IronAmount + IronWorkShop
+    end
     IronSend = (IronCount-IronAmount)
   end
 
   function QuartzShop()
     QuartzAmount = ItemMax-(ItemAmount*LoopAmount)
+    if QuartzWorkShop > 0 then
+      QuartzAmount = QuartzAmount + QuartzWorkShop
+    end
     QuartzSend = (QuartzCount-QuartzAmount)
   end
 
   function LeucograniteShop()
     LeucograniteAmount = ItemMax-(ItemAmount*LoopAmount)
+    if LeucograniteWorkshop > 0 then
+      LeucograniteAmount = LeucograniteAmount + LeucograniteWorkshop
+    end
     LeucograniteSend = (LeucograniteCount-LeucograniteAmount)
   end
 
