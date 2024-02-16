@@ -1,5 +1,5 @@
 --[[
-Version: 1.0
+Version: 1.5 [Stairs fixed, finally figured out how to sell stone properly]
 Author: LegendofIceman
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
@@ -50,6 +50,9 @@ Requirements:
 -- Item Count Check/Shop Amount Check
   function StoneShop()
     StoneAmount = ItemMax-(ItemAmount*LoopAmount)
+    if StoneAmount < 0 then 
+      StoneAmount = 0
+    end
     StoneSend = (StoneCount-StoneAmount)
   end
 
@@ -104,10 +107,14 @@ Requirements:
     yield("/wait 1")
     MovingTest()
 
-    yield("/visland moveto -268 41 209.838")
+    yield("/visland moveto -267.281 41 216.883")
     yield("/wait 1")
     MovingTest()
- 
+
+    yield("/visland moveto -267.065 41 209.221")
+    yield("/wait 1")
+    MovingTest()
+
     yield("/target Enterprising Exporter <wait.0.5>")
     yield("/pint <wait.0.5>")
     yield("/pcall SelectString True 0 <wait.1.0>")
