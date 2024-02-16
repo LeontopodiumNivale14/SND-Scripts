@@ -25,7 +25,9 @@ Uses
   5 -> Coconut
   6 -> Apple
   7 -> Marble/Limestone
-  8 -> ... Figuring out the rest tomorrow
+  8 -> Clay/Sand
+  9 -> Cotton
+  10 -> 
 ]]
 
 -- If you want to skip a specific route (check above one section) change that route to true
@@ -68,6 +70,12 @@ Uses
     -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
     Route7Loop = 142 -- base is 142
 
+    -- Clay | Tinsand | Marble/Limestone | Branch/Log/Resin | Sand
+    Route8Loop = 142 -- base is 142
+
+    -- Cotton | Islewort | Log/Branch/Resin | Hemp
+    Route9Loop = x -- base is x
+
   elseif ItemMax == 800 then 
 
     --Islefish/Clam | Laver/Squid
@@ -90,6 +98,12 @@ Uses
 
     -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
     Route7Loop = 114 -- base is 114
+   
+    -- Clay | Tinsand | Marble/Limestone | Branch/Log/Resin | Sand
+    Route8Loop = 114 -- base is 114
+
+    -- Cotton | Islewort | Log/Branch/Resin | Hemp
+    Route9Loop = x -- base is x
 
   elseif (ItemMax < 799) or (ItemMax > 800 and ItemMax < 999) then
     yield("/echo *-tilts head-* somehow... you managed to input a number outside the 2 I specificied, go back to the top and try again... Please?")
@@ -141,6 +155,9 @@ Uses
   -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
   MarbleArray = {7, 1}
 
+  -- Clay | Tinsand | (Marble/Limestone | Branch/Log/Resin) | Sand
+  ClayArray = {7, 2, 1, 10}
+
   -- Still Figuring out order here --
 
   -- XP Route || Quarts | Iron | Durium Sand | Leucogranite
@@ -151,6 +168,9 @@ Uses
 
   -- Isleblooms | Quartz | Leucogranite | Iron
   IslebloomsArray = {4, 5, 1, 1}
+
+  -- Cotton | Islewort | Log/Branch/Resin | Hemp
+  CottonArray = {0}
 
 -- Node Functions (checks to see how many items that you currently have)
   function Islefish_ClamNode()
@@ -172,11 +192,9 @@ Uses
     SugarcaneCount = GetItemCount(SugarcaneID)
   end
 
-  function Tinsand_SandNode()
+  function TinsandNode()
     TinsandID = 37571
-    SandID = 37559
     TinsandCount = GetItemCount(TinsandID)
-    SandCount = GetItemCount(SandID)
   end
 
   function Marble_LimestoneNode()
@@ -215,6 +233,10 @@ Uses
     BranchCount = GetItemCount(BranchID)
     ResinCount = GetItemCount(ResinID)
   end
+
+  function ClayNode()
+    ClayID = 37570
+    ClayCount = GetItemCount(ClayID)
 
   function QuartzNode()
     QuartzID = 37573
@@ -258,6 +280,11 @@ Uses
   function LogNode()
     LogID = 37560
     LogCount = GetItemCount(LogID)
+  end
+
+  function SandNode()
+    SandID = 37559
+    SandCount = GetItemCount(SandID)
   end
 
 -- Shop spending functions, to quickly reference for multiple routes
@@ -1013,7 +1040,8 @@ Uses
   CurrentLoop = 1
   LoopAmount = Route4Loop
   ItemAmount = TinsandArray[1]
-  Tinsand_SandNode()
+  TinsandNode()
+  SandNode()
   TinsandShop()
   SandShop()
 
@@ -1228,7 +1256,8 @@ Uses
   SugarcaneNode()
   VineNode()
   Coconut_PalmLeaf_PalmLogNode()
-  Tinsand_SandNode()
+  TinsandNode()
+  SandNode()
   HempNode()
   IslewortNode()
 
@@ -1310,7 +1339,110 @@ Uses
     end
   end
 
+ -- Clay | Tinsand | Marble/Limestone | Branch/Log/Resin | Sand
 ::Route8::
+  if SkipRoute8 == true then
+    goto Route9
+  end
+
+  CurrentLoop = 1
+  LoopAmount = Route8Loop
+  ItemAmount = ClayArray[1]
+  ClayNode()
+  ClayShop()
+
+  ItemAmount = ClayArray[2]
+  TinsandNode()
+  TinsandShop()
+
+  ItemAmount = ClayArray[3]
+  Marble_LimestoneNode()
+  Branch_ResinNode()
+  LogNode()
+
+  MarbleShop()
+  LimestoneShop()
+  BranchShop()
+  ResinShop()
+  LogShop()
+  
+  ItemAmount = ClayArray[4]
+  StoneNode()
+  StoneShop()
+
+  if StoneSend > 999 then 
+    Stonesend = 999
+  end
+
+  if ItemCountEcho == true then
+    yield("/echo --- Spacer --- ")
+    yield("/echo Marble = "..MarbleSend)
+    yield("/echo Limestone = "..LimestoneSend)
+    yield("/echo Sugarcane send = "..SugarcaneSend)
+    yield("/echo Vine send = "..VineSend)
+    yield("/echo Coconut = "..CoconutSend)
+    yield("/echo Palm Leaf = "..PalmLeafSend)
+    yield("/echo Palm Log = "..PalmLogSend)
+    yield("/echo Tinsand = "..TinsandSend)
+    yield("/echo Sand = "..SandSend)
+    yield("/echo Hemp Send "..HempSend)
+    yield("/echo Islewort Send "..IslewortSend)
+  end
+
+  IslandReturn()
+
+  if (MarbleSend > 0) or (LimestoneSend > 0) or (SugarcaneSend > 0) or (VineSend > 0) or (CoconutSend > 0) or (PalmLeafSend > 0) or (PalmLogSend > 0) or (TinsandSend > 0) or (SandSend > 0) or (HempSend > 0) or (IslewortSend > 0) then
+    Sellingitemsto()
+    if MarbleSend > 0 then
+      MarbleSell()
+    end
+    if LimestoneSend > 0 then
+      LimestoneSell()
+    end
+    if SugarcaneSend > 0 then
+      SugarcaneSell()
+    end
+    if VineSend > 0 then
+      VineSell()
+    end
+    if CoconutSend > 0 then 
+      CoconutSend()
+    end
+    if PalmLeafSend > 0 then
+      PalmLeafSell()
+    end
+    if PalmLogSend > 0 then
+      PalmLogSell()
+    end
+    if TinsandSend > 0 then
+      TinsandSell()
+    end
+    if SandSend > 0 then
+      SandSell()
+    end
+    if HempSend > 0 then
+      HempSell()
+    end
+    if IslewortSend > 0 then
+      IslewortSell()
+    end
+
+    LeavingShop()
+  end
+
+  yield("/visland exectemponce "..B2Marble.." <wait.1.0>")
+  VislandCheck()
+  
+  while (CurrentLoop <= LoopAmount) do
+    yield("/visland exectemponce "..VMarble.." <wait.1.0>")
+      VislandCheck()
+    CurrentLoop = CurrentLoop + 1
+    if LoopEcho == true then
+      yield("/echo Current Loop: "..CurrentLoop)
+    end
+  end
+
+::Route9::
 
 ::DemoComplete::
   yield("/echo the demo version is completed! Yayyy!")
