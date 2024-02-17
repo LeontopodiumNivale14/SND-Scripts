@@ -1,5 +1,5 @@
 --[[
-Version: 1.85.1 [Properly returning to base update]
+Version: 1.85.2 [Properly returning to base update]
 Author: LegendofIceman
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
@@ -211,6 +211,7 @@ end
 ::Shop::
   
   yield("/visland stop")
+  yield("/visland resume")
 
   IslandReturn()
 
