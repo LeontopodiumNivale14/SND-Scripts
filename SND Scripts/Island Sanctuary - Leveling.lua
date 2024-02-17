@@ -1,5 +1,5 @@
 --[[
-Version: 1.7 [Stairs fixed, finally figured out how to sell stone properly]
+Version: 1.85 [Stairs fixed, finally figured out how to sell stone properly]
 Author: LegendofIceman
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
@@ -8,23 +8,48 @@ Requirements:
 -> Visland (V)ery Island
 ]]
 
--- If you are currently running the workshop and you have items being used in it, make sure to add the amount you're using in the shops here
-  StoneWorkShop = 3
-  IronWorkShop = 0 
-  QuartzWorkShop = 0
-  LeucograniteWorkshop = 0
-
 -- Settings
   ItemMax = 999
   ItemCountEcho = true
   LoopEcho = true
+  ContinueLooping = true
 
-  -- if you have workshop items above, I recommend changing this to 145 just to be safe
-  XPLoopAmount = 166 
+-- If you are currently running the workshop and you have items being used in it, make sure to add the amount you're using in the shops here
+  QuartzWorkShop = 0 
+  IronWorkShop = 0 
+  LeucograniteWorkShop = 0
+  StoneWorkShop = 0
+  QuartzArrayWorkShop = StoneWorkShop + IronWorkShop + QuartzWorkShop + LeucograniteWorkShop
 
--- Array for the Route
+  -- Array for the Route
   -- XP Route || Quarts | Iron | Durium Sand | Leucogranite
   QuartzArray = {6, 3, 2, 11}
+
+-- Loop amount checker
+  if QuartzArrayWorkShop == 0 then
+    XPLoopAmount = 166
+  end  
+  if QuartzArrayWorkShop > 0 then
+    XPLoopAmount = 166
+    LoopTestA = 0
+    LoopTestB = 0
+    LoopTestC = 0
+    if QuartzWorkShop > 0 then
+      LoopTestA = math.ceil(QuartzWorkShop/QuartzArray[1])
+    end
+    if IronWorkShop > 0 then
+      LoopTestB = math.ceil(IronWorkShop/QuartzArray[2])
+    end
+    if LeucograniteWorkShop > 0 then
+      LoopTestC = math.ceil(LeucograniteWorkShop/QuartzArray[3])
+    end
+    
+    HighestAmount = math.max(LoopTestA, LoopTestB, LoopTestC)
+    XPLoopAmount = XPLoopAmount - HighestAmount
+
+   end
+   
+   yield("/echo LoopAmount = "..XPLoopAmount)
 
 -- Visland Routes for the script
   B2Quartz = "H4sIAAAAAAAACuVS20rEMBD9lWWe25A0aZvmQfAKfVh1RagXfAhuZAM2kSZVtPTfTdssK/gH+jZn5nDmzGEGuJStAgEn0qlVerTa9LLzX5BAIz/frDbegXgc4No67bU1IAa4A5GSMkeMlhVN4B4EwQRRTlgCDwEUGBFasXwM0BpVn4HACdzIre6DGEEBrO27apXxASZQG686+ewb7XdXkf2zFx0GT25nP/aTYCaovchXpw702WGQPG+t3y+uvWpjeTwzItj0yvlYT8KN1P6gOKEL251as42H46V5q1u1Djw8Jr9ioZQhxrN8DoVWJcowLeZQUspzxDFh/B+mkofrKlosv0IrjkrKC77kwqbXKbPiz+fyNH4DG0XUEmwDAAA="
@@ -85,8 +110,8 @@ Requirements:
 
   function LeucograniteShop()
     LeucograniteAmount = ItemMax-(ItemAmount*LoopAmount)
-    if LeucograniteWorkshop > 0 then
-      LeucograniteAmount = LeucograniteAmount + LeucograniteWorkshop
+    if LeucograniteWorkShop > 0 then
+      LeucograniteAmount = LeucograniteAmount + LeucograniteWorkShop
     end
     LeucograniteSend = (LeucograniteCount-LeucograniteAmount)
   end
@@ -243,4 +268,6 @@ VislandCheck()
     end
   end
 
-goto Shop
+if ContinueLooping == true then
+  goto Shop
+end
