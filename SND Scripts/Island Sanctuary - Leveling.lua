@@ -1,5 +1,5 @@
 --[[
-Version: 1.85 [Stairs fixed, finally figured out how to sell stone properly]
+Version: 1.85.1 [Properly returning to base update]
 Author: LegendofIceman
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
@@ -29,6 +29,7 @@ Requirements:
   if QuartzArrayWorkShop == 0 then
     XPLoopAmount = 166
   end  
+
   if QuartzArrayWorkShop > 0 then
     XPLoopAmount = 166
     LoopTestA = 0
@@ -46,10 +47,9 @@ Requirements:
     
     HighestAmount = math.max(LoopTestA, LoopTestB, LoopTestC)
     XPLoopAmount = XPLoopAmount - HighestAmount
-
-   end
+  end
    
-   yield("/echo LoopAmount = "..XPLoopAmount)
+  yield("/echo LoopAmount = "..XPLoopAmount)
 
 -- Visland Routes for the script
   B2Quartz = "H4sIAAAAAAAACuVS20rEMBD9lWWe25A0aZvmQfAKfVh1RagXfAhuZAM2kSZVtPTfTdssK/gH+jZn5nDmzGEGuJStAgEn0qlVerTa9LLzX5BAIz/frDbegXgc4No67bU1IAa4A5GSMkeMlhVN4B4EwQRRTlgCDwEUGBFasXwM0BpVn4HACdzIre6DGEEBrO27apXxASZQG686+ewb7XdXkf2zFx0GT25nP/aTYCaovchXpw702WGQPG+t3y+uvWpjeTwzItj0yvlYT8KN1P6gOKEL251as42H46V5q1u1Djw8Jr9ioZQhxrN8DoVWJcowLeZQUspzxDFh/B+mkofrKlosv0IrjkrKC77kwqbXKbPiz+fyNH4DG0XUEmwDAAA="
@@ -175,15 +175,23 @@ Requirements:
 
 -- Checks to see how far you are from in front of the main workshop, if a certain distance, will teleport you in front of It
   function IslandReturn()
-    yield("/pcall _ActionContents True 9 1 <wait.0.5>")
-    while GetCharacterCondition(27) do
-      yield("/wait 1")
-    end
+
+  yield("/pcall _ActionContents True 9 1 <wait.0.5>")
+  while GetCharacterCondition(27) do
     yield("/wait 1")
-    while GetCharacterCondition(45) do
-      yield("/wait 1")
-    end
   end
+  yield("/wait 1")
+  while GetCharacterCondition(45) do
+    yield("/wait 1")
+  end
+
+  yield("/wait 1")
+  end
+
+-- Distance Test
+function DistanceToBase()  
+  Distance_Test = GetDistanceToPoint(-268, 40, 226)
+end
 
 -- Moving Test
   function MovingTest()
@@ -204,6 +212,14 @@ Requirements:
   
   yield("/visland stop")
 
+  IslandReturn()
+
+  DistanceToBase()
+
+  if Distance_Test > 4 then
+    goto Shop 
+  end
+
   CurrentLoop = 1
   LoopAmount = XPLoopAmount
   ItemAmount = QuartzArray[1]
@@ -222,8 +238,6 @@ Requirements:
   StoneNode()
   StoneShop()
 
-  IslandReturn()
-
   if ItemCountEcho == true then
     yield("/echo --- Spacer --- ")
     yield("/echo Quartz Send = "..QuartzSend)
@@ -236,9 +250,8 @@ Requirements:
     StoneSend = 999
   end
 
-
-  if QuartzSend > 0 or IronSend > 0 or LeucograniteSend > 0 or StoneSend > 0 then
     Sellingitemsto()
+    
     if (QuartzSend > 0) then
       QuartzSell()
     end
@@ -251,8 +264,8 @@ Requirements:
     if StoneSend > 0 then
       StoneSell()
     end
+    
     LeavingShop()
-  end
 
 yield("/visland exectemponce "..B2Quartz.." <wait.1.0>")
 VislandCheck()
@@ -261,8 +274,10 @@ VislandCheck()
 
   while CurrentLoop <= LoopAmount do
     yield("/visland exectemponce "..VQuartz.." <wait.1.0>")
-      VislandCheck()
+    
+    VislandCheck()
     CurrentLoop = CurrentLoop + 1
+    
     if LoopEcho == true then
       yield("/echo Current Loop: "..CurrentLoop)
     end
