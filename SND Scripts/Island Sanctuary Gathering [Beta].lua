@@ -7,10 +7,14 @@ Uses
 -> Flying is currently required, but once it's all routed out, i'll make a non-flying routes included as well for anyone who's below lv. 10
 ]]
 
+-- This is a personal note to myself, to maybe figure out how to do the workshop side of It
+-- Make another route listing, but have it if workshop == true
+-- then (this is in thought) make a formula to tell how many less routes it should do (aka )
+
 -- Need this to tell what the caps on items is 
 -- 999 is the default max
--- 800 is if you would like a little bit of a gap so graneries don't overcap
-  ItemMax = 999 
+-- 800 is what you would use if you have workshops running currently.
+  PersonalItemCap = 999
 
 -- If you want feedback on how what loop your currently on, or how many items are being sent to the shop, enable them as "true" below
 
@@ -47,7 +51,9 @@ Uses
     IF YOU'RE DOING A CUSTOM AMOUNT, ADJUST THE TOP ONE, AND LEAVE THE CAP AT 999
     ]]
 
-  if ItemMax == 999 then
+  if PersonalItemCap == 999 then
+
+    ItemMax = 999 
 
     --Islefish/Clam | Laver/Squid
     Route1Loop = 124 -- Max 124
@@ -76,7 +82,9 @@ Uses
     -- Cotton | Islewort | Log/Branch/Resin | Hemp
     Route9Loop = x -- base is x
 
-  elseif ItemMax == 800 then 
+  elseif PersonalItemCap == 800 then 
+    
+    ItemMax = 999
 
     --Islefish/Clam | Laver/Squid
     Route1Loop = 100 -- Max 100
@@ -305,6 +313,9 @@ Uses
 
   function StoneShop()
     StoneAmount = ItemMax-(ItemAmount*LoopAmount)
+    if StoneAmount < 0 then
+      StoneAmount = 0 
+    end
     StoneSend = (StoneCount-StoneAmount)
   end
 
@@ -1339,7 +1350,7 @@ Uses
     end
   end
 
- -- Clay | Tinsand | Marble/Limestone | Branch/Log/Resin | Sand
+ -- Clay | Tinsand | Marble/Limestone | Branch/Log/Resin | Sand | Stone
 ::Route8::
   if SkipRoute8 == true then
     goto Route9
@@ -1370,62 +1381,28 @@ Uses
   StoneNode()
   StoneShop()
 
-  if StoneSend > 999 then 
-    Stonesend = 999
-  end
-
   if ItemCountEcho == true then
     yield("/echo --- Spacer --- ")
-    yield("/echo Marble = "..MarbleSend)
-    yield("/echo Limestone = "..LimestoneSend)
-    yield("/echo Sugarcane send = "..SugarcaneSend)
-    yield("/echo Vine send = "..VineSend)
-    yield("/echo Coconut = "..CoconutSend)
-    yield("/echo Palm Leaf = "..PalmLeafSend)
-    yield("/echo Palm Log = "..PalmLogSend)
-    yield("/echo Tinsand = "..TinsandSend)
-    yield("/echo Sand = "..SandSend)
-    yield("/echo Hemp Send "..HempSend)
-    yield("/echo Islewort Send "..IslewortSend)
   end
 
   IslandReturn()
 
-  if (MarbleSend > 0) or (LimestoneSend > 0) or (SugarcaneSend > 0) or (VineSend > 0) or (CoconutSend > 0) or (PalmLeafSend > 0) or (PalmLogSend > 0) or (TinsandSend > 0) or (SandSend > 0) or (HempSend > 0) or (IslewortSend > 0) then
+  if Claysend > 0 or TinsandSend > 0 or MarbleSend > 0 or LimestoneSend > 0 or BranchSend > 0 or LogSend > 0 or ResinSend > 0 or SandSend > 0 or StoneSend > 0 then
     Sellingitemsto()
+    if Claysend > 0 then
+      ClaySell()
+    end
+    if TinsandSend > 0 then
+      TinsandSell()
+    end
     if MarbleSend > 0 then
       MarbleSell()
     end
     if LimestoneSend > 0 then
       LimestoneSell()
     end
-    if SugarcaneSend > 0 then
-      SugarcaneSell()
-    end
-    if VineSend > 0 then
-      VineSell()
-    end
-    if CoconutSend > 0 then 
-      CoconutSend()
-    end
-    if PalmLeafSend > 0 then
-      PalmLeafSell()
-    end
-    if PalmLogSend > 0 then
-      PalmLogSell()
-    end
-    if TinsandSend > 0 then
-      TinsandSell()
-    end
-    if SandSend > 0 then
-      SandSell()
-    end
-    if HempSend > 0 then
-      HempSell()
-    end
-    if IslewortSend > 0 then
-      IslewortSell()
-    end
+    if BranchSell > 0 then
+      
 
     LeavingShop()
   end
