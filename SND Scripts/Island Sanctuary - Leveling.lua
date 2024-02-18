@@ -31,7 +31,7 @@ Requirements:
 -- Loop amount checker
 if QuartzWorkShop > 400 then
   yield("/echo Wait a minute. Lower that workshop number down. You don't need to be this high")
-  yield("/snd end")
+  yield("/snd stop")
 end
 
     BaseLoopAmount = math.floor(ItemMax/QuartzArray[1])
@@ -163,9 +163,12 @@ end
   function LeavingShop()
     yield("/pcall MJIDisposeShop False -2")
 
-   yield("/visland moveto -268 40 226")
+   yield("/visland moveto -267.841 40 230.751")
    yield("/wait 1")
    MovingTest()
+
+   yield('/mount "Company Chocobo"')
+   yield("/wait 5")
   end
 
 -- Checks to see how far you are from in front of the main workshop, if a certain distance, will teleport you in front of It
