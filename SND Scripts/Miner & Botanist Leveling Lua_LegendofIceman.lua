@@ -7,7 +7,7 @@
     -> snd [Make sure to press the lua button when you import this]
     -> Pandora's Box
   Author: LegendofIceman
-  Version: 6.2.3 [Tweaked BTN/Miner Route to be smoother/fixed potentional collision against the wall in the miner route]
+  Version: 6.2.4 [Tweaked BTN/Miner Route to be smoother/fixed potentional collision against the wall in the miner route]
   Class: Miner/BTN
   Link: https://discord.com/channels/1001823907193552978/1191076157882388581/1193291297067384873
 ]]
@@ -27,6 +27,7 @@ Botanist_Pink = "H4sIAAAAAAAACu2ZW2vbMBTHv4rx0wapkM5F0snbtm5QWLduDLoLezCt15o1dmn
 while not IsInZone(886) do
   yield("/wait 10")
 end
+yield("/visland resume")
 yield("/visland stop")
 yield("/wait 3")
 
