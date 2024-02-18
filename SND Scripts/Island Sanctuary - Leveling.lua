@@ -1,5 +1,5 @@
 --[[
-Version: 1.85.2 [Properly returning to base update, and resuming routes]
+Version: 1.85.5 [Properly returning to base update, and resuming routes]
 Author: LegendofIceman
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
