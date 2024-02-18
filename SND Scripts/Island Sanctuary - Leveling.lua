@@ -276,12 +276,8 @@ VislandCheck()
     
     VislandCheck()
     CurrentLoop = CurrentLoop + 1
-    
-    QuartzNode()
-    Iron_DuriumNode()
-    LeucograniteNode()
 
-    if QuartzCount == 999 or IronCount = 999 or LeucograniteCount = 999 then
+    if QuartzCount == 999 or IronCount == 999 or LeucograniteCount == 999 then
       CurrentLoop = LoopAmount
     end
 
