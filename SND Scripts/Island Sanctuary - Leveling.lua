@@ -9,12 +9,12 @@ Requirements:
 ]]
 
 -- Settings
-  ItemMax = 999
   ItemCountEcho = true
   LoopEcho = true
   ContinueLooping = true
 
 -- If you are currently running the workshop and you have items being used in it, make sure to add the amount you're using in the shops here
+-- or if you would like to keep a certain amount of that item, also change it here
   QuartzWorkShop = 0 
   IronWorkShop = 0 
   LeucograniteWorkShop = 0
@@ -25,13 +25,11 @@ Requirements:
   -- XP Route || Quarts | Iron | Durium Sand | Leucogranite
   QuartzArray = {6, 3, 2, 11}
 
--- Loop amount checker
-  if QuartzArrayWorkShop == 0 then
-    XPLoopAmount = 166
-  end  
+  -- Max item amount. DO NOT CHANGE
+    ItemMax = 999
 
-  if QuartzArrayWorkShop > 0 then
-    XPLoopAmount = 166
+-- Loop amount checker
+    XPLoopAmount = math.floor(ItemMax/QuartzArray[1])
     LoopTestA = 0
     LoopTestB = 0
     LoopTestC = 0
@@ -279,8 +277,17 @@ VislandCheck()
     VislandCheck()
     CurrentLoop = CurrentLoop + 1
     
+    QuartzNode()
+    Iron_DuriumNode()
+    LeucograniteNode()
+
+    if QuartzCount == 999 or IronCount = 999 or LeucograniteCount = 999 then
+      CurrentLoop = LoopAmount
+    end
+
     if LoopEcho == true then
       yield("/echo Current Loop: "..CurrentLoop)
+    elseif
     end
   end
 
