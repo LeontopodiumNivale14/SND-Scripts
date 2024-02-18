@@ -1,5 +1,5 @@
 --[[
-Version: 1.85.5 [Properly returning to base update, and resuming routes]
+Version: 1.9 [Properly returning to base update, and resuming routes]
 Author: LegendofIceman
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
@@ -19,7 +19,6 @@ Requirements:
   IronWorkShop = 0 
   LeucograniteWorkShop = 0
   StoneWorkShop = 0
-  QuartzArrayWorkShop = StoneWorkShop + IronWorkShop + QuartzWorkShop + LeucograniteWorkShop
 
   -- Array for the Route
   -- XP Route || Quarts | Iron | Durium Sand | Leucogranite
@@ -27,25 +26,23 @@ Requirements:
 
   -- Max item amount. DO NOT CHANGE
     ItemMax = 999
+    XPLoopAmount = 0
 
 -- Loop amount checker
-    XPLoopAmount = math.floor(ItemMax/QuartzArray[1])
+if QuartzWorkShop > 400 then
+  yield("/echo Wait a minute. Lower that workshop number down. You don't need to be this high")
+  yield("/snd end")
+end
+
+    BaseLoopAmount = math.floor(ItemMax/QuartzArray[1])
     LoopTestA = 0
     LoopTestB = 0
     LoopTestC = 0
     if QuartzWorkShop > 0 then
       LoopTestA = math.ceil(QuartzWorkShop/QuartzArray[1])
     end
-    if IronWorkShop > 0 then
-      LoopTestB = math.ceil(IronWorkShop/QuartzArray[2])
-    end
-    if LeucograniteWorkShop > 0 then
-      LoopTestC = math.ceil(LeucograniteWorkShop/QuartzArray[3])
-    end
     
-    HighestAmount = math.max(LoopTestA, LoopTestB, LoopTestC)
-    XPLoopAmount = XPLoopAmount - HighestAmount
-  end
+    XPLoopAmount = BaseLoopAmount - LoopTestA
    
   yield("/echo LoopAmount = "..XPLoopAmount)
 
@@ -283,7 +280,6 @@ VislandCheck()
 
     if LoopEcho == true then
       yield("/echo Current Loop: "..CurrentLoop)
-    elseif
     end
   end
 
