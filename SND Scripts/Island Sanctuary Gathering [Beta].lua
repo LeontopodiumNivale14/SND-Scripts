@@ -140,6 +140,12 @@ Uses
   B2Marble = "H4sIAAAAAAAACuWSy0vEMBDG/5VlzmlI0mb6OAg+YQ/1hVAfeIhuZAPbRtqsIqX/u9PaZREvXkVymW8y+fjmR3o4N7WFAo5MZxfRwaI07dPGAoPKfLx614QOioceLn3ngvMNFD3cQhEpiTxGFMjgDoos5TrDOGNwD4XMkYsk0TiQ9I1dnlBPaM3g2qzclvwkFwxK/2Zr2wSSDJZNsK15DpUL64vxgfjem0NSrG7t33c3lIfcXsyms/vxKSRZntY+2J1VsPVcHk4Ts7ja2i7M9WhcGRf2jqM68+2xb1bz7uKreeNqW9KcGNhPMknOtY7pTGSkzLhSaaonNBo56jyX6l+iUTFXqFDQNyEyGI+rEpSIfg/KVMvfQlF/F8rj8AkFGcXCcQMAAA=="
   VMarble = "H4sIAAAAAAAACu2W24rbMBCGXyXo2qvV6CzflR4g0PQM6YFeaBM1MY3tYCu7lLDv3nEs7xa60OQikNDcGI0sj6WPf0b/lrzxZSA5MXQ08c3NKly/LsrQxroK1x+7J8nI1P9a10UVW5J/25J3dVvEoq5IviWfSc6BghEgM/KF5FpQJQzwjHwl+ZUDysFydY8hZhq/IDnLyAc/LzaYSlAMJvVtKEMVd2/GVQyNn8VpEZdv0+o/59JWcUftsr4b3uBWMNsPv2rD4/Ld/iAjL8s6Dj8ex1Cm4bPdihS83+B507hLPPVFfMzYRa/q5nldzdOxWT/5CTlNcB27z/6CAo5qLZTtoUgKyjiToDAqBJf6aSj831A4A+6sehJNW9Z1XI7ulkUMo6ae/TwDVgKosYarQUBgNbgHAYHQSh6H1eamDM0izEetr+ZnAIozqpiyYhCVEtLKHpRVlFmlL6J6YKWo5CikQVRW8YTKGMokuCNp6gzrj1ukAyDMwEpw57poRwuFpbT5H3s4lpsG61K5oZ4YaJ2oCOqAXxQ03HaaMrAiWQBNNceunUhpapRw7sJqUBVecM52QupVJZjjomfVlZ5j4oJqkJWhaCxFMgaWMid1auLSUYdG80isNgvfzPzO+p56k1JYXky6JCfXGQRIanJUgOKwFyJ+IKK1X5Wj2IRzQHQlqGZKud6MG0YNWJu6E9p0qY3ZixEcyMgv/G0YrVcePz59SsDQeBvNBxPAmOmIdZSAodcEuV+xHaqk03dM3+9/A2xWg98lDwAA"
 
+  B2Clay = "H4sIAAAAAAAACuWTS0sDMRSF/0q56zTkOZNkIWhV6KK+EMYHLoKNNNCZSCdVSul/93Y6pRQ3bqW7e25uDud+JGu48XUABxe+DYPh2WA09ysgUPnVZ4pNbsG9ruEutTHH1IBbwxO4odCKCmGlIPAMThlaGmsVgRdwghvKtbV2gzI1YXwJjjOtCTz4aVyiH6eMwCR9hTo0GSWBcZPDwr/nKubZ7fYCO+71ETFWO0vf+xPMg24fft6Gw3gXEi2v6pTD3iqHui/Pu4le3C9Dm/t6a1z5mA+OW3WdFqPUTPvd2a75GOswwTm2Ib/JWE25kGXHhXOkJIXtuHCmqNZGniYXa6g2lu+42BLfS8GKjospqOSGm5PEwo2kWlm246ILWupCKVQIptRUSsHEX8HgX/yvYN42P2li6bGHBAAA"
+  VClay = "H4sIAAAAAAAACu2Xy27bMBBFf0XgWphyhq+hdkXaAlmkbyBpiy7UmImFRmJh0Q2CIP9e2pKSFnAAd5GFHe9IiqCoo3svh7fibd0GUQmUUHyqu9mLo6v6RpTitL75FZsu9aL6divex75JTexEdSvORIVswTtmV4ovojIWrGb0qhRfReUYpETNd7kXu3D8SlSyFB/rWbPMaynInZP4O7ShS6KiUhx3KSzq83TapPm7cfbfY+P+8pb6ebyenuS95NUu6qs+PExfbxBL8bqNaXrxcQrt2Hy5njF2PixDn8b2auHTukkPK656b+LiKHaz8bvlMPi5acNJnifvyg1UHGgt1QTFeDQ0MPFgnfWPMKF/mcgNTEgieTYbyfTLH21YXIZZ0ef/twOciCSoNZoVJwdKrZhlTKzBaCdxK0z0v5jaGNO8uJ43KRSLeP5zJ0gROM9+IMWAzmk9oHIgrZT6SRTVxmU3K+JFMWsWaScweWCyeB9HiqWSg/WYwBhFaqs4kvsUR6QQmCVPNnNyTGhm0Kzddjbbe+0oA57kKB0HXis3UPKgiO3BYQMlD0Q4QZLa2ZGSBUY2B0prSlrmsLFTWkvnHK8peQSLJB8JoefmOK0BPar7XCIzWi5j8sp5OmBaY8pltSc9nWkOJY5qkkDoD5gGNVmVTzkznnIaLOF08ptcWeKWAU57X3RrzglOK6cN6UQGtRn0lK8qzF6a53dlo6wYVnaIbEvA2rqhSEJUkJPqaSI7Leur2F0WaRHCDlBCn301OsxnrXhSA6ScRMo5dI94bH+U8/3uD/rmybgpEQAA"
+
+  B2Cotton = ""
+  VCotton = "H4sIAAAAAAAACu2XTW/bMAyG/0qgs0GIkqgP34ZuA3roPophXTfsYLTaaiC2g0TpMAT576MtO8Wwdeulh3zcTFsilCcv+VIb8aZqoijFWZdS184uu3WKs49KFOKq+rno6jatRPllI951qzrVXSvKjfgkSkMWHBL6QlyLkgIQSWkL8VmUSgcIwWjccti18fylKFESFeKyuq3XnA5BFuKiu49NbBNvKMR5m+KyuklXdbp722+Qv78bD8mnWt11P6YvfBzO9q2ar+LD8uGMWIhXTZfilCrFZnx8MawYg/fruErjc5/4qqrTQ8Y+et0tz7r2dvzpMr/8UDfxgtfJbfEnGKvBSml2XIzOVIwC/uYehaL+D0VJVMHTX9Hc5P9vMa949x5gcgpYKJgxeRaMJ7MDFYwJTwUlDx2UBDmwyXpy2uxAObAOHy+zYwNFEJwPEyiJVu04cac6CWri1LdnZafK88r0XbwHRRKUdCdBjaC8AefQZVAOSAUzOpxh8zOoT5U3gnLghs6TQUkKOLYoQrDenjgNnEgpQInZ87gpeaf0BMoSoPdGHeXMRBZ5flTZ4xTBWGWWa+5fg8BhI2GtuAmJBWnd1HycAauceq5Bsvpe3ce9cX3SHlS+emTtSDSKRuPvnU6TtMepINn7vNYDGORSst5j5hI0R+HJA9FhK8h4VoG12b24Q/OFTWb9aCQwWj8XpkU1b2ZpGeMeQNLWg+SxJ1u8Bc/ApqGRI3auk5gGMaFmTrvZ2iDRdFvTCForfwS96Ov2FwmvOWdWEgAA"
+
 -- Array's that are for each route
 
   -- Clam/Islefish | Laver/Squid
@@ -177,8 +183,8 @@ Uses
   -- Isleblooms | Quartz | Leucogranite | Iron
   IslebloomsArray = {4, 5, 1, 1}
 
-  -- Cotton | Islewort | Log/Branch/Resin | Hemp
-  CottonArray = {0}
+  -- Cotton | Hemp | Palm Leaf/
+  CottonArray = {7, 3, 1, 11}
 
 -- Node Functions (checks to see how many items that you currently have)
   function Islefish_ClamNode()
@@ -263,6 +269,10 @@ Uses
     LeucograniteCount = GetItemCount(LeucograniteID)
   end
 
+  function CottonNode()
+    CottonID = 37568
+    CottonCount = GetItemCount(CottonID)
+
   -- These are Items that are shared across multiple nodes
 
   function StoneNode()
@@ -308,6 +318,9 @@ Uses
 
   function IslewortShop()
     IslewortAmount = ItemMax-(ItemAmount*LoopAmount)
+    if IslewortAmount < 0 then
+      IslewortAmount = 0
+    end
     IslewortSend = (IslewortCount-IslewortAmount)
   end
 
@@ -1387,31 +1400,42 @@ Uses
 
   IslandReturn()
 
-  if Claysend > 0 or TinsandSend > 0 or MarbleSend > 0 or LimestoneSend > 0 or BranchSend > 0 or LogSend > 0 or ResinSend > 0 or SandSend > 0 or StoneSend > 0 then
-    Sellingitemsto()
-    if Claysend > 0 then
-      ClaySell()
-    end
-    if TinsandSend > 0 then
-      TinsandSell()
-    end
-    if MarbleSend > 0 then
-      MarbleSell()
-    end
-    if LimestoneSend > 0 then
-      LimestoneSell()
-    end
-    if BranchSell > 0 then
-      
-
-    LeavingShop()
+  Sellingitemsto()
+    
+  if Claysend > 0 then
+    ClaySell()
+  end
+  if TinsandSend > 0 then
+    TinsandSell()
+  end
+  if MarbleSend > 0 then
+    MarbleSell()
+  end
+  if LimestoneSend > 0 then
+    LimestoneSell()
+  end
+  if BranchSend > 0 then
+    BranchSell()
+  end
+  if LogSend > 0 then
+    LogSell()
+  if ResinSend > 0 then 
+    ResinSell()
+  end
+  if SandSend > 0 then
+    SandSell()
+  end
+  if StoneSend > 0 then 
+    StoneSell()
   end
 
-  yield("/visland exectemponce "..B2Marble.." <wait.1.0>")
+  LeavingShop()
+
+  yield("/visland exectemponce "..B2Clay.." <wait.1.0>")
   VislandCheck()
   
   while (CurrentLoop <= LoopAmount) do
-    yield("/visland exectemponce "..VMarble.." <wait.1.0>")
+    yield("/visland exectemponce "..VClay.." <wait.1.0>")
       VislandCheck()
     CurrentLoop = CurrentLoop + 1
     if LoopEcho == true then
@@ -1419,7 +1443,56 @@ Uses
     end
   end
 
+-- Cotton/Islewort | Islewort/Popoto | Branch/Log/Resin | Hemp/Islewort
 ::Route9::
+   CurrentLoop = 1
+   LoopAmount = Route9Loop
+   ItemAmount = CottonArray[1]
+
+   CottonNode()
+   CottonShop()
+
+   ItemAmount = CottonArray[2]
+   HempNode()
+   HempShop()
+
+   ItemAmount = CottonArray[3]
+   Coconut_PalmLeaf_PalmLogNode()
+   CoconutShop()
+   PalmLeafShop()
+   PalmLogShop()
+
+   ItemAmount = CottonArray[4]
+   IslewortNode()
+   IslewortShop()
+
+   IslandReturn()
+
+   Sellingitemsto()
+   if CottonSend > 0 then
+     CottonSell()
+   end
+   if HempSend > 0 then
+     HempSell()
+   end
+   if CoconutSend > 0 then
+     CoconutSell()
+   end 
+   if PalmLeafSend > 0 then
+     PalmLeafSell()
+   end
+   if PalmLogSend > 0 then
+     PalmLogSell()
+   end 
+   if IslewortSend > 0 then
+     IslewortSell()
+   end
+
+   LeavingShop()
+
+
+
+
 
 ::DemoComplete::
   yield("/echo the demo version is completed! Yayyy!")
