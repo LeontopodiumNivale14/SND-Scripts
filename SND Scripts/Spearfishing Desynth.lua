@@ -16,7 +16,9 @@ routename = "Insert the name of your visland route here!"
 
 
 --[[Route name below, it's in base64 (which in simple terms, means that the route is already in this LUA script 
-This makes it to where you won't need to import the script to visland, and run it solely from this]]
+This makes it to where you won't need to import the script to visland, and run it solely from this
+Location for this is: Upper La Noscea | Camp Bronzelake 
+]]
 earthbreak_aethersand = "H4sIAAAAAAAACu2VTU/cMBCG/wryOYz8Mf7KDRWQ9kBbqkpbinpwWZeN2sRVYkBotf+94yRbVIHUAycWbh5nMhk/ft/Jhr0PbWQ1Owl9Xn/vY/h5cBTzOvZD6FasYstw/zs1XR5YfblhH9PQ5CZ1rN6wL6yWyoHXwlXsgtWH2oBTqGzFvlJkLKBGVFsKUxcXx6zmFfsUVs0N1ZJAwVm6jW3sMqtFxRZdjn24yssmrz+UbIXI+b/7c685xrbprg/uAj0aqMlhne52edQd1f8Rfg3x4eWxZfrISZvyrpVFju28PBoz5uD8Jg55XpfCy9Dkh4olOk39u9StZhJ82vzctPGM8vi2esRJaA+I1okJlHFglRVWj6SMLJFD8zQp9X9ST1N6CVycKGdXExarQWhtJ/3YIibuxLPkI/dEPkqCcUUuIyYFxihuRkyapOTR4hum4jIBSpidyUgjikvpRk4oaFBxLl6fx7wHQxbDvx5Tzkg5zWiNILi19lnqEfthMq9AojE7TgocyqKlwslzMCike+NENyQ80ECSNH9GmyFoZSRhK6CsB+0d3/tf2bftH0ShbN45CQAA"
 
 slots_remaining = 5
