@@ -9,6 +9,7 @@ Requirements:
 ]]
 
 -- Settings
+  IslandLevel = 17
   ItemCountEcho = true
   LoopEcho = true
   ContinueLooping = true
@@ -17,6 +18,7 @@ Requirements:
 -- or if you would like to keep a certain amount of that item, also change it here
   QuartzWorkShop = 0 
   IronWorkShop = 0 
+  DuriumWorkShop = 0
   LeucograniteWorkShop = 0
   StoneWorkShop = 0
 
@@ -29,10 +31,10 @@ Requirements:
     XPLoopAmount = 0
 
 -- Loop amount checker
-if QuartzWorkShop > 400 then
-  yield("/echo Wait a minute. Lower that workshop number down. You don't need to be this high")
-  yield("/snd stop")
-end
+--if QuartzWorkShop > 400 then
+--  yield("/echo Wait a minute. Lower that workshop number down. You don't need to be this high")
+--  yield("/snd stop")
+--end
 
     BaseLoopAmount = math.floor(ItemMax/QuartzArray[1])
     LoopTestA = 0
@@ -81,7 +83,7 @@ end
     if StoneAmount < 0 then 
       StoneAmount = 0
     end
-    if StoneWorkShop > 0 then
+    if StoneWorkShop < 0 then
       StoneAmount = StoneAmount + StoneWorkShop
     end
     StoneSend = (StoneCount-StoneAmount)
@@ -89,7 +91,7 @@ end
 
   function IronShop()
     IronAmount = ItemMax-(ItemAmount*LoopAmount)
-    if IronWorkShop > 0 then
+    if IronWorkShop < 0 then
       IronAmount = IronAmount + IronWorkShop
     end
     IronSend = (IronCount-IronAmount)
@@ -97,7 +99,7 @@ end
 
   function QuartzShop()
     QuartzAmount = ItemMax-(ItemAmount*LoopAmount)
-    if QuartzWorkShop > 0 then
+    if QuartzWorkShop < 0 then
       QuartzAmount = QuartzAmount + QuartzWorkShop
     end
     QuartzSend = (QuartzCount-QuartzAmount)
@@ -105,10 +107,18 @@ end
 
   function LeucograniteShop()
     LeucograniteAmount = ItemMax-(ItemAmount*LoopAmount)
-    if LeucograniteWorkShop > 0 then
+    if LeucograniteWorkShop < 0 then
       LeucograniteAmount = LeucograniteAmount + LeucograniteWorkShop
     end
     LeucograniteSend = (LeucograniteCount-LeucograniteAmount)
+  end
+
+  function DuriumShop()
+    DuriumAmount = ItemMax-(ItemAmount*LoopAmount)
+    if DuriumWorkShop < 0 then 
+      DuriumAmount = DuriumAmount + DuriumWorkShop
+    end
+    DuriumSend = (DuriumCount-DuriumAmount)
   end
 
 -- Shop Selling Functions
@@ -137,6 +147,13 @@ end
   function LeucograniteSell()
     yield("/pcall MJIDisposeShop True 12 26 <wait.0.5>")
     yield("/pcall MJIDisposeShopShipping True 11 "..LeucograniteSend)
+    yield("/pcall SelectYesno True 0")
+    yield("/wait 1.5")
+  end
+
+  function DuriumSell()
+    yield("/pcall MJIDisposeShop True 12 39 <wait.0.5>")
+    yield("/pcall MJIDisposeShopShipping True 11 "..DuriumSend)
     yield("/pcall SelectYesno True 0")
     yield("/wait 1.5")
   end
@@ -228,6 +245,9 @@ end
   ItemAmount = QuartzArray[2]
   Iron_DuriumNode()
   IronShop()
+  if IslandLevel >= 17 then
+    DuriumShop()
+  end
 
   ItemAmount = QuartzArray[3]
   LeucograniteNode()
@@ -257,6 +277,9 @@ end
     if (IronSend > 0) then
       IronSell()
     end
+    if IslandLevel >= 17 and (DuriumSend > 0) then
+      DuriumSell()
+    end
     if LeucograniteSend > 0 then
       LeucograniteSell()
     end
@@ -277,10 +300,6 @@ VislandCheck()
     VislandCheck()
     CurrentLoop = CurrentLoop + 1
 
-    if QuartzCount == 999 or IronCount == 999 or LeucograniteCount == 999 then
-      CurrentLoop = LoopAmount
-    end
-
     if LoopEcho == true then
       yield("/echo Current Loop: "..CurrentLoop)
     end
@@ -289,3 +308,5 @@ VislandCheck()
 if ContinueLooping == true then
   goto Shop
 end
+
+yield("/e XP Loop has concluded")
