@@ -251,6 +251,7 @@ Uses
   function ClayNode()
     ClayID = 37570
     ClayCount = GetItemCount(ClayID)
+  end
 
   function QuartzNode()
     QuartzID = 37573
