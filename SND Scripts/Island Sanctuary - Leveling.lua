@@ -1,5 +1,5 @@
 --[[
-Version: 2.0 [Ground & Flying ]
+Version: 2.0.1 [Ground & Flying ]
 Author: LegendofIceman
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
@@ -164,7 +164,7 @@ Requirements:
     if StoneAmount < 0 then 
       StoneAmount = 0
     end
-    if StoneWorkShop < 0 then
+    if StoneWorkShop > 0 then
       StoneAmount = StoneAmount + StoneWorkShop
     end
     StoneSend = (StoneCount-StoneAmount)
@@ -172,15 +172,15 @@ Requirements:
 
   function IronShop()
     IronAmount = ItemMax-(ItemAmount*LoopAmount)
-    if IronWorkShop < 0 then
+    if IronWorkShop > 0 then
       IronAmount = IronAmount + IronWorkShop
     end
-    IronSend = (IronCount-IronAmount)
+    IronSend = (IronCount-IronAmount)wd 
   end
 
   function QuartzShop()
     QuartzAmount = ItemMax-(ItemAmount*LoopAmount)
-    if QuartzWorkShop < 0 then
+    if QuartzWorkShop > 0 then
       QuartzAmount = QuartzAmount + QuartzWorkShop
     end
     QuartzSend = (QuartzCount-QuartzAmount)
@@ -188,7 +188,7 @@ Requirements:
 
   function LeucograniteShop()
     LeucograniteAmount = ItemMax-(ItemAmount*LoopAmount)
-    if LeucograniteWorkShop < 0 then
+    if LeucograniteWorkShop > 0 then
       LeucograniteAmount = LeucograniteAmount + LeucograniteWorkShop
     end
     LeucograniteSend = (LeucograniteCount-LeucograniteAmount)
@@ -196,7 +196,7 @@ Requirements:
 
   function DuriumShop()
     DuriumAmount = ItemMax-(ItemAmount*LoopAmount)
-    if DuriumWorkShop < 0 then 
+    if DuriumWorkShop > 0 then 
       DuriumAmount = DuriumAmount + DuriumWorkShop
     end
     DuriumSend = (DuriumCount-DuriumAmount)
@@ -204,7 +204,7 @@ Requirements:
 
   function ClayShop()
     ClayAmount = ItemMax-(ItemAmount*LoopAmount)
-    if ClayWorkShop < 0 then
+    if ClayWorkShop > 0 then
       ClayAmount = ClayAmount + ClayWorkShop
     end
     ClaySend = (ClayCount-ClayAmount)
@@ -212,7 +212,7 @@ Requirements:
 
   function LimestoneShop()
     LimestoneAmount = ItemMax-(ItemAmount*LoopAmount)
-    if LimestoneWorkShop < 0 then
+    if LimestoneWorkShop > 0 then
       LimestoneAmount = LimestoneAmount + LimestoneWorkShop
     end
     LimestoneSend = (LimestoneCount-LimestoneAmount)
@@ -225,7 +225,7 @@ Requirements:
 
   function TinsandShop()
     TinsandAmount = ItemMax-(ItemAmount*LoopAmount)
-    if TinsandWorkShop < 0 then
+    if TinsandWorkShop > 0 then
       TinsandAmount = TinsandAmount + TinsandWorkShop
     end
     TinsandSend = (TinsandCount-TinsandAmount)
@@ -233,7 +233,7 @@ Requirements:
 
   function SugarcaneShop()
     SugarcaneAmount = ItemMax-(ItemAmount*LoopAmount)
-    if SugarcaneWorkShop < 0 then 
+    if SugarcaneWorkShop > 0 then 
       SugarcaneAmount = SugarcaneAmount + SugarcaneWorkShop
     end
     SugarcaneSend = (SugarcaneCount-SugarcaneAmount)
@@ -241,7 +241,7 @@ Requirements:
 
   function VineShop()
     VineAmount = ItemMax-(ItemAmount*LoopAmount)
-    if VineWorkShop < 0 then
+    if VineWorkShop > 0 then
       VineAmount = VineAmount + VineWorkShop
     end
     VineSend = (VineCount-VineAmount)
@@ -249,7 +249,7 @@ Requirements:
 
   function ResinShop()
     ResinAmount = ItemMax-(ItemAmount*LoopAmount)
-    if ResinWorkShop < 0 then
+    if ResinWorkShop > 0 then
       ResinAmount = ResinAmount + ResinWorkShop
     end
     ResinSend = (ResinCount-ResinAmount)
@@ -257,7 +257,7 @@ Requirements:
 
   function LogShop()
     LogAmount = ItemMax-(ItemAmount*LoopAmount)
-    if LogWorkShop < 0 then
+    if LogWorkShop > 0 then
       LogAmount = LogAmount + LogWorkShop
     end
     LogSend = (LogCount-LogAmount)
@@ -265,7 +265,7 @@ Requirements:
 
   function BranchShop()
     BranchAmount = ItemMax-(ItemAmount*LoopAmount)
-    if BranchWorkShop < 0 then
+    if BranchWorkShop > 0 then
       BranchAmount = BranchAmount + BranchWorkShop
     end
     BranchSend = (BranchCount-BranchAmount)
@@ -273,7 +273,8 @@ Requirements:
 
   function SandShop()
     SandAmount = ItemMax-(ItemAmount*LoopAmount)
-    if SandWorkShop < 0 then
+    yield("/e Sand Amount = "..SandAmount)
+    if SandWorkShop > 0 then
       SandAmount = SandAmount + SandWorkShop
     end
     SandSend = (SandCount-SandAmount)
@@ -505,6 +506,7 @@ end
     StoneSend = 999
   end
 
+
   Sellingitemsto()
     
   if (QuartzSend > 0) then
@@ -592,9 +594,13 @@ end
   SandNode()
   SandShop()
 
-  if SandSend > 999 then
-    SandSend = 999
+  if SandSend > SandCount then
+    SandSend = SandCount
   end
+
+  yield("/e Clay send = "..ClaySend)
+
+  yield("/echo Sand: "..SandSend)
 
   Sellingitemsto()
 
