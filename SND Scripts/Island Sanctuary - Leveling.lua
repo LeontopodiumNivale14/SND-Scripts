@@ -1,5 +1,5 @@
 --[[
-Version: 2.0.1 [Ground & Flying ]
+Version: 2.0.2 [Ground & Flying ]
 Author: LegendofIceman
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
@@ -14,6 +14,9 @@ Requirements:
   ItemCountEcho = true
   LoopEcho = true
   ContinueLooping = true
+
+  -- Testing 
+  TestingShopSend = false
 
   -- If flying is disabled, it will do the ground version of the route for xp
   -- if flying is enabled, it will do the faster/xp route on top of the mountain
@@ -164,42 +167,57 @@ Requirements:
     if StoneAmount < 0 then 
       StoneAmount = 0
     end
-    if StoneWorkShop > 0 then
-      StoneAmount = StoneAmount + StoneWorkShop
-    end
     StoneSend = (StoneCount-StoneAmount)
+    if StoneSend > 999 then
+      StoneSend = 999
+    end
+    if StoneWorkShop > 0 then 
+      StoneSend = StoneSend - StoneWorkShop
+    end
   end
 
   function IronShop()
     IronAmount = ItemMax-(ItemAmount*LoopAmount)
-    if IronWorkShop > 0 then
-      IronAmount = IronAmount + IronWorkShop
+    if IronAmount < 0 then
+      IronAmount = 0
     end
-    IronSend = (IronCount-IronAmount)wd 
+    IronSend = (IronCount-IronAmount)
+    --if IronWorkShop > 0 then
+      --IronSend = IronSend - IronWorkShop
+    --end
   end
 
   function QuartzShop()
     QuartzAmount = ItemMax-(ItemAmount*LoopAmount)
-    if QuartzWorkShop > 0 then
-      QuartzAmount = QuartzAmount + QuartzWorkShop
+    if QuartzAmount < 0 then 
+      QuartzAmount = 0>
     end
     QuartzSend = (QuartzCount-QuartzAmount)
+    --if QuartzWorkShop > 0 then
+      --QuartzAmount = QuartzAmount - QuartzWorkShop
+    --end
   end
 
   function LeucograniteShop()
     LeucograniteAmount = ItemMax-(ItemAmount*LoopAmount)
-    if LeucograniteWorkShop > 0 then
-      LeucograniteAmount = LeucograniteAmount + LeucograniteWorkShop
+    if LeucograniteAmount < 0 then
+      LeucograniteAmount = 0
     end
     LeucograniteSend = (LeucograniteCount-LeucograniteAmount)
+    --if LeucograniteWorkShop > 0 then
+      --LeucograniteAmount = LeucograniteAmount - LeucograniteWorkShop
+    --end
   end
 
   function DuriumShop()
     DuriumAmount = ItemMax-(ItemAmount*LoopAmount)
-    if DuriumWorkShop > 0 then 
-      DuriumAmount = DuriumAmount + DuriumWorkShop
+    if DuriumAmount < 0 then
+      DuriumAmount = 0
     end
     DuriumSend = (DuriumCount-DuriumAmount)
+    --if DuriumWorkShop > 0 then 
+      --DuriumAmount = DuriumAmount - DuriumWorkShop
+    --end
   end
 
   function ClayShop()
@@ -502,10 +520,9 @@ end
     yield("/echo Stone Send = "..StoneSend)
   end
 
-  if StoneSend > 999 then
-    StoneSend = 999
+  if TestingShopSend == true then
+    yield("/snd stop")
   end
-
 
   Sellingitemsto()
     
@@ -541,7 +558,7 @@ end
     CurrentLoop = CurrentLoop + 1
 
     if LoopEcho == true then
-      yield("/echo Current Loop: "..CurrentLoop)
+      yield("/echo Current Loop: "..CurrentLoop.." / "..LoopAmount)
     end
   end
 
@@ -654,7 +671,7 @@ end
     CurrentLoop = CurrentLoop + 1
 
     if LoopEcho == true then
-      yield("/echo Current Loop: "..CurrentLoop)
+      yield("/echo Current Loop: "..CurrentLoop.." / "..LoopAmount)
     end
   end
 
