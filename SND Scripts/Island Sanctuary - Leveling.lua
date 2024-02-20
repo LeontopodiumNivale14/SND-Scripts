@@ -1,5 +1,5 @@
 --[[
-Version: 2.0.2 [Ground & Flying ]
+Version: 2.0.2.1 [Ground & Flying ]
 Author: LegendofIceman
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
@@ -190,7 +190,7 @@ Requirements:
   function QuartzShop()
     QuartzAmount = ItemMax-(ItemAmount*LoopAmount)
     if QuartzAmount < 0 then 
-      QuartzAmount = 0>
+      QuartzAmount = 0
     end
     QuartzSend = (QuartzCount-QuartzAmount)
     --if QuartzWorkShop > 0 then
