@@ -74,13 +74,13 @@ if GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." then
   if GetAccursedHoardRawX() == 0.0 and GetAccursedHoardRawY() == 0.0 and ManualMovement == false then
     LeaveDuty()
     goto DeepDungeon
-  elseif GetAccursedHoardRawX() == 0.0 and GetAccursedHoardRawY() == 0.0 and ManualMovement == true then
+  elseif ManualMovement == true then
     Chest_Got = false
     goto IntuitionTime
   end
   yield("/echo Hey! A Hoard is here and in range.")
   yield("/pcall DeepDungeonStatus True 11 18 <wait.3.0>") -- Concealment pomander
-  if HasStatusId(18) == false then -- Invisible status check
+  if HasStatusId(1496) == false then -- Invisible status check
     yield("/pcall DeepDungeonStatus True 12 0") -- primal summon
     yield("/wait 3")
     yield("/pcall DeepDungeonStatus True 11 1") -- safety pomander
