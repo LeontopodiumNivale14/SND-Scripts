@@ -96,7 +96,7 @@ if GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." then
     yield("/pcall ConfigCharacter True 0") -- Applies the settings
     yield("/wait 0.2")
     yield("/pcall ConfigCharacter True 1") -- Closes the Config Menu
-    yield("/wait 0.2")
+    yield("/wait 1")
   end
     yield("/pcall DeepDungeonStatus True 11 18 <wait.3.0>") -- Concealment pomander
   if HasStatusId(1496) == false then -- Invisible status check
@@ -105,8 +105,8 @@ if GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." then
     yield("/pcall DeepDungeonStatus True 11 1") -- safety pomander
     yield("/wait 3")
   end
-  yield("/ac sprint")
   yield("/vnavmesh moveto "..string.format("%.2f", GetAccursedHoardRawX()).." "..string.format("%.2f", GetAccursedHoardRawY()).." "..string.format("%.2f", GetAccursedHoardRawZ()))
+  yield("/ac sprint")
   Chest_Got = false
   
 elseif GetToastNodeText(2, 3) == "You do not sense the call of the Accursed Hoard on this floor..." then

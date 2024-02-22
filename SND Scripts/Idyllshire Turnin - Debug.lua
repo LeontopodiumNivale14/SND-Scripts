@@ -14,8 +14,9 @@ This requires:
   -> Pandora (Enable "Auto-select Turn-ins & Automatically Confirm")
   -> Lifestream 
   -> Deliveroo [If you need the link, here --> https://plugins.carvel.li/]
+  -> vnavmesh (replaced visland)
 
-  Version: 2.7 [Finally Released, now with GC Teleport Tickets]
+  Version: 3.0 [The navmesh update]
     - Fixed the teleport issue in Idyllshire
 ]]
 
@@ -31,16 +32,6 @@ MaxInventory = true
 -- Personally have this value set at 1.5 minutes, but you can increase it if you would like, or you could just leave it be.
 SlowDownTeleport = true
 SlowDownTimer = 90 -- time is in seconds
-
-
--- Visland Routes
-LimsaGC = "H4sIAAAAAAAACuWT20oDMRCGX0XmOoRsJsluciceoBf1UJRaxYvFjTTgJtLNKrL03c0e2oJ9A5ur+SfDzz8fSQc3ZW3BwKP3qajOFqGNFggsy5/P4HxswLx0cBcaF13wYDp4AsORFixTSGAFRjDK+iMIPIPJBcVcI26TCt7OLsFkvCCwKCvXJrOMMgLz8GVr6yOYJGY+2k35Fpcurm/7+T+9KWDK1KzD9+4mhUlu7+VHYw/jQ8KMwFUdot1ZRVtP5fkwMYn71jZxqnvjZeniwbFX12FzEXw1Lc7G5oOr7TzNsS05wiI4zSQTWgxcUFOdjtxj0RKzU8SiJFUoimL/WkYinAqFXJ4ikVzSHFHxIyKy0FydIhGNlCmh90R4LlGl3cevIwshlfj/XF63vz7BbA6QBQAA"
-UldahGC = "H4sIAAAAAAAACuWUy2rDMBBFfyXM2h00elnyrqQPskgfoSV90IVpVGKIrRIrLSXk3ys7dgMhX1B7pTu6XMaHi7Zwk5cOMnhcLfLl6Ho8mvlNcJDAPP/59EUVashet3Dn6yIUvoJsC0+QnZHgyBXXNoHnKDmyBF6auRKoNUmzi9pXbnIBGYl4OcsXxSZmUeOc+i9XuipAFsWkCm6dv4d5EZa3jf9o1i0YV6qX/ru/ibvEtI98VbuDvV2QErgsfXB9VHBldzxvHZ2437g6dOcmeJ4X4ZDYqCu/Hvtq0f032w8fitJNo4/tkhNUSCOzknRLhdC2n+nQCIVkLFfDRMMVWm6FaNEc+sIlcp0qOUwoxDA1sTX7wsg/Kkyh5FzTQLtCKTKj6IiKNUhWi4FWJb4ezFjbI2lfFtnXhaMiKfgwyUiOklQaYZxCo9EYkYr/j+Zt9wtPlPDdzQcAAA=="
-GridaniaGC = "H4sIAAAAAAAACuWVTUsDMRCG/0qZ8zYkmXzt3qRq6aF+FKF+4GGxkQbcjXRTRUr/u9PdLQXFc8He8mZehpmHmWQDV2XloYDxKizKOpSD8Wgwi+vkIYN5+fUeQ50aKJ42cBObkEKsodjAPRTSMp0jtzqDBygEkxk8QoHIcqGt3JKKtZ+cUwgpNCsXYU15kPEMpvHDV75OUJCY1Mmvypc0D2l5vfP/uOvro3KaZfzcR6gOyvZavjX+YG+LUxlcVDH5farkq/541jp6cbv2TerPu8TzMqRDxp26jKtRrBd9z7y7vAuVn5KPb7PfRKg5aY1ReyJKc8lNy0UqptApiccDI44GZqiYdEpgNypDwSxJlLolIwRz3KEyp0mGuhe5yTsyxMlaabqREZJxZ7R0JwlGO5YbTpPRkSEWlvYn78ggQ26cVSdJxiiGTtjulRlypjmiwu6VYcqqXPPT3CVjGRqp+onZgREatW3JDHMmuZP8z4+J7P+EzPP2G0RZ1w7VBwAA"
-IdyllshireAlex = "H4sIAAAAAAAACuWUyWrDMBCGX6XMWRUaydbiW+kCOaRLKKRp6cE0UyKIrRIrLSXk3Ss7DqHJpddinWbTzz8fQhu4LSuCAkbzJTULv6KzSVhHAgbT8vsj+Do2ULxs4D40PvpQQ7GBJyjOleXaOGs1gxkUUmiOmVM5g+fUROROau3MNuWhptEVFJmxDCbl3K+TIHLBYBw+qaI6pusMRnWkVfkWpz4u7tp58bvW20y+mkX42neSoaT2Xi4bOox3LpHBdRUi7aUiVX140U30ycOamtjHrfC09PGg2GY3YXUZ6nm/vNgVH31F4zQntuwUjTRco1XW7NCg4C4du0MjW04mz9Qw0QiujMnQ9Wi6ZbsXI7iVKHU+SCwoubICzTGVFpd0mRwmFMUFSpudUFGCp6eS24FicVyhEDZ9tUdYdMKSW/dHKkcE/hOV1+0Pt8UVbrcGAAA="
-Limsa_Ticket_Usage = "H4sIAAAAAAAACl2PW0sDMRCF/0o5z2HZW3c1b6IWCtYbla0tPoR2aoMmkWaqyLL/3WSJCL7NmXx8OdPjVhmCxI02Xk2WevtGPHny6pUg0KnvD6cte8hNj3vnNWtnIXusIM+rbNo0As+QdZ6V7bRqBdaQbZ1VeVXWzRCiszS/gizKM4FHtdOnoCqyXGDhPsmQZcgQ5pbpqLbcaT7cRf7fLnUMjfzBff2+hCrBtlfvnv7wsV8hcG0cj19HFZNJ48VIpPBwIs9pjuJO6XhqMsY0c8dLZ3fp7IDF5VIbWgQuH16GHyf6vu9AAQAA"
-Gridania_Ticket_Usage = "H4sIAAAAAAAACl2Py07DMBBFf6WatYniJqmMd6g81EV5qSgF1IXVDHQEtlHsglCUf2ccGSGxmzM+ur4zwLWxCBqueuqMIzPb0P4N4+whmFcEAa35/vDkYgD9PMCtDxTJO9ADbEGfLFSh6lrWAh6ZyqIpZTNfnAp4YlRFpapGVSOjd7g6By2ruYB709GR82RRClj7T7ToImiGlYvYm31sKR5ukv9vl7tyrXDwX78v3IfTXsx7wD99KikFXFgfp69TVESbx7PJyHB3xBDznIJbQ+nenJjo0vdL77p8O2tpuSGLa/bKcTf+ALqh+NVIAQAA"
-Uldah_Ticket_Usage = "H4sIAAAAAAAACt1Qy07DMBD8lWovXExkJyHUviEeUg/lpVYpIA5WsxCLxkb1FoSi/DubNlUR4gvY087saDQ7LVzbBsHAfHVU2Xo0c8s3pNE82lcEAaX9eg/OUwTz1MJtiI5c8GBaWIA5Vlme6EJLLeABTJ5IzTM+EfDIRz1OlE5l3jEMHicXYFQmBdzbym3YTyUMpuEDG/QEhsHEE67tkkpH9U2v/8UNSTlWrMPn/sJ52O3FriIe5NuQSsBlEwj3VoTNsJ5tFQO422CkYe+NS+vo4Nijq7A+D74afpc7cuYanLJOduKPZvI00adFlv5sRue7ZpQsmEj1/2/mufsGGpBPq2ACAAA="
 
 ::Functions::
 
@@ -129,9 +120,9 @@ Uldah_Ticket_Usage = "H4sIAAAAAAAACt1Qy07DMBD8lWovXExkJyHUviEeUg/lpVYpIA5WsxCLxk
 
   DistanceToVendor()
 
-  if Distance_Test > 1 then
+  while Distance_Test > 1 do
     yield ("/wait 0.5")
-    goto SabinaTest
+    DistanceToVendor()
   end
 
   yield("/ac dismount")
@@ -197,68 +188,67 @@ Uldah_Ticket_Usage = "H4sIAAAAAAAACt1Qy07DMBD8lWovXExkJyHUviEeUg/lpVYpIA5WsxCLxk
   end
 
 ::BuyingItems::
-
--- this is moreso a footnote to myself. The Gordian_Part == 1 is to break the sequence after it gets done w/ the shop ENTIRELY.
+  -- this is moreso a footnote to myself. The Gordian_Part == 1 is to break the sequence after it gets done w/ the shop ENTIRELY.
   while (Gordian_Part == 1) and (Shop_Menu <= Alex_Shaft2)  do
   
-    ShaftCount = GetItemCount(ShaftID) -- 4
-    CrankCount = GetItemCount(CrankID) -- 2 
-    SpringCount = GetItemCount(SpringID) -- 4
-    PedalCount = GetItemCount(PedalID) -- 2 
-    BoltCount = GetItemCount(BoltID) -- 1
-    i_count = GetInventoryFreeSlotCount()
+  ShaftCount = GetItemCount(ShaftID) -- 4
+  CrankCount = GetItemCount(CrankID) -- 2 
+  SpringCount = GetItemCount(SpringID) -- 4
+  PedalCount = GetItemCount(PedalID) -- 2 
+  BoltCount = GetItemCount(BoltID) -- 1
+  i_count = GetInventoryFreeSlotCount()
 
-    -- Shaft Section
-      if (ShaftCount <=3) and (Alex_Shop >= Alex_Shaft1) and (Alex_Shop <= Alex_Shaft2) then
-        Alex_Shop = Alex_Crank1
-        -- yield("/echo Shaft Count: "..ShaftCount)
-        -- yield("/echo Should be moving to next menu")
-        -- yield("/echo Shop Menu: "..Alex_Shop)
-      elseif (ShaftCount >= 4 ) and (Alex_Shop >= Alex_Shaft1) and (Alex_Shop <= Alex_Shaft2) then
-        yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
-        Alex_Shop = Alex_Shop + 1
-        ShaftCount = GetItemCount(ShaftID)
-        --yield("/echo Shop Menu: "..Alex_Shop) -- Just Debugging Stuff
-        yield("/wait "..Alex_Shop_Timer)
-        i_count = GetInventoryFreeSlotCount()
-        if Shop_Menu == 3 and MaxInventory == true and Alex_Shop == Alex_Shaft2 then
-           if i_count > math.floor(ShaftCount/4) then
-             i_count = math.floor(ShaftCount/4)
-           end
-           yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." "..i_count)
-           yield("/wait "..Alex_Shop_Timer)
-           Alex_Shop = Alex_Shop + 1
-           yield("/wait "..Alex_Shop_Timer)
-           ShaftCount = GetItemCount(ShaftID)
-           i_count = GetInventoryFreeSlotCount()
-        end
+  -- Shaft Section
+    if (ShaftCount <=3) and (Alex_Shop >= Alex_Shaft1) and (Alex_Shop <= Alex_Shaft2) then
+      Alex_Shop = Alex_Crank1
+      -- yield("/echo Shaft Count: "..ShaftCount)
+      -- yield("/echo Should be moving to next menu")
+      -- yield("/echo Shop Menu: "..Alex_Shop)
+    elseif (ShaftCount >= 4 ) and (Alex_Shop >= Alex_Shaft1) and (Alex_Shop <= Alex_Shaft2) then
+      yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
+      Alex_Shop = Alex_Shop + 1
+      ShaftCount = GetItemCount(ShaftID)
+      --yield("/echo Shop Menu: "..Alex_Shop) -- Just Debugging Stuff
+      yield("/wait "..Alex_Shop_Timer)
+      i_count = GetInventoryFreeSlotCount()
+      if Shop_Menu == 3 and MaxInventory == true and Alex_Shop == Alex_Shaft2 then
+         if i_count > math.floor(ShaftCount/4) then
+           i_count = math.floor(ShaftCount/4)
+         end
+         yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." "..i_count)
+         yield("/wait "..Alex_Shop_Timer)
+         Alex_Shop = Alex_Shop + 1
+         yield("/wait "..Alex_Shop_Timer)
+         ShaftCount = GetItemCount(ShaftID)
+         i_count = GetInventoryFreeSlotCount()
+      end
 
-    -- Crank Section
-      elseif (CrankCount <=1 and Alex_Shop >= Alex_Crank1 and Alex_Shop <= Alex_Crank2) or i_count == 0 then
-        Alex_Shop = Alex_Spring1
-        -- yield("/echo Crank Count: "..CrankCount)
-        -- yield("/echo Should be moving to Shaft"
-      elseif (CrankCount >= 2) and (Alex_Shop >= Alex_Crank1) and (Alex_Shop <= Alex_Crank2) then
-        yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
-        Alex_Shop = Alex_Shop + 1
-        CrankCount = GetItemCount(CrankID)
-        --yield("/echo Shop Menu: "..Alex_Shop)
-        yield("/wait "..Alex_Shop_Timer)
-        i_count = GetInventoryFreeSlotCount()
-        if Shop_Menu == 3 and MaxInventory == true and Alex_Shop == Alex_Crank2 and (ShaftCount <= 3) then
-           if i_count > math.floor(CrankCount/2) then
-             i_count = math.floor(CrankCount/2)
-           end
-           yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." "..i_count)
-           yield("/wait "..Alex_Shop_Timer)
-           Alex_Shop = Alex_Shop + 1
-           yield("/wait "..Alex_Shop_Timer)
-           CrankCount = GetItemCount(CrankID)
-           i_count = GetInventoryFreeSlotCount()
-        end
+  -- Crank Section
+    elseif (CrankCount <=1 and Alex_Shop >= Alex_Crank1 and Alex_Shop <= Alex_Crank2) then
+      Alex_Shop = Alex_Spring1
+      -- yield("/echo Crank Count: "..CrankCount)
+      -- yield("/echo Should be moving to Shaft"
+    elseif (CrankCount >= 2) and (Alex_Shop >= Alex_Crank1) and (Alex_Shop <= Alex_Crank2) then
+      yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
+      Alex_Shop = Alex_Shop + 1
+      CrankCount = GetItemCount(CrankID)
+      --yield("/echo Shop Menu: "..Alex_Shop)
+      yield("/wait "..Alex_Shop_Timer)
+      i_count = GetInventoryFreeSlotCount()
+      if Shop_Menu == 3 and MaxInventory == true and Alex_Shop == Alex_Crank2 and (ShaftCount <= 3) then
+         if i_count > math.floor(CrankCount/2) then
+           i_count = math.floor(CrankCount/2)
+         end
+         yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." "..i_count)
+         yield("/wait "..Alex_Shop_Timer)
+         Alex_Shop = Alex_Shop + 1
+         yield("/wait "..Alex_Shop_Timer)
+         CrankCount = GetItemCount(CrankID)
+         i_count = GetInventoryFreeSlotCount()
+      end
 
   -- Springs Section
-     elseif (SpringCount <=3 and Alex_Shop >= Alex_Spring1 and Alex_Shop <= Alex_Spring2) or i_count == 0 then
+     elseif (SpringCount <=3 and Alex_Shop >= Alex_Spring1 and Alex_Shop <= Alex_Spring2) then
        Alex_Shop = Alex_Pedal1
        -- yield("/echo Spring Count: "..SpringCount)
        -- yield("/echo Should be moving to Crank")
@@ -283,7 +273,7 @@ Uldah_Ticket_Usage = "H4sIAAAAAAAACt1Qy07DMBD8lWovXExkJyHUviEeUg/lpVYpIA5WsxCLxk
       end
   
   -- Pedal Check Section
-     elseif (PedalCount <= 1 and Alex_Shop >= Alex_Pedal1 and Alex_Shop <= Alex_Pedal2) or (i_count == 0) then
+     elseif (PedalCount <= 1 and Alex_Shop >= Alex_Pedal1 and Alex_Shop <= Alex_Pedal2) then
        Alex_Shop = Alex_Bolt1
        -- yield("/echo Pedal Count: "..PedalCount)
         -- yield("/echo Should be moving to Springs")
@@ -309,7 +299,7 @@ Uldah_Ticket_Usage = "H4sIAAAAAAAACt1Qy07DMBD8lWovXExkJyHUviEeUg/lpVYpIA5WsxCLxk
       
   -- Bolt Section
     -- If no bolts, then it stops
-    elseif (BoltCount == 0 and Alex_Shop >= Alex_Bolt1 and Alex_Shop <= Alex_Bolt2) or (i_count == 0) then
+    elseif (BoltCount == 0 and Alex_Shop >= Alex_Bolt1 and Alex_Shop <= Alex_Bolt2) then
       Alex_Shop = Alex_Stop
       -- yield("/echo Bolt Count: "..BoltCount)
       -- yield("/echo Should be moving to Pedals")
@@ -326,7 +316,7 @@ Uldah_Ticket_Usage = "H4sIAAAAAAAACt1Qy07DMBD8lWovXExkJyHUviEeUg/lpVYpIA5WsxCLxk
          end
          yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." "..i_count)
          yield("/wait "..Alex_Shop_Timer)
-         Alex_Shop = Alex_Stop
+         Alex_Shop = Alex_Shop + 1
          yield("/wait "..Alex_Shop_Timer)
          BoltCount = GetItemCount(BoltID)
       end
@@ -439,7 +429,7 @@ end
   end
 
   if IsInZone(128) then -- Limsa Upper
-    yield("/visland exectemponce "..LimsaGC)
+    yield("/vnavmesh moveto 93.9 40.175 75.409")
     yield("/wait 0.5")
     goto WalkingtoGC
   end
@@ -448,52 +438,44 @@ end
   if IsInZone(130) then
     DistanceToVendor()
     yield("/vnavmesh moveto -142.361 4.1 -106.919")
-    while Distance_Test > 1 do
-      DistanceToVendor()
-      yield("/wait 0.5")
-    end
+    yield("/wait 0.5")
+    goto WalkingtoGC
   end
 
 ::Gridania::
   if IsInZone(132) then
     yield("/vnavmesh moveto -67.757 -0.501 -8.393")
     yield("/wait 0.5")
-    goto GridaniaGCDistance
-  end
-
-::GridaniaGCDistance::
-
-  DistanceGridania()
-
-  if Distance_Test > 1 then
-    yield ("/wait 0.5")
-    goto SabinaTest
+    goto WalkingtoGC
   end
 
 ::LimsaAetheryteTicket::
   if IsInZone(128) then -- Limsa Upper
-    yield("/visland exectemponce "..Limsa_Ticket_Usage)
+    yield("/vnavmesh moveto 93.9 40.175 75.409")
     yield("/wait 0.5")
     goto WalkingtoGC
   end
 
 ::GridaniaAetheryteTicket::
   if IsInZone(132) then
-    yield("/visland exectemponce "..Gridania_Ticket_Usage)
+    yield("/vnavmesh moveto -67.757 -0.501 -8.393")
     yield("/wait 0.5")
     goto WalkingtoGC
   end
 
 ::UldahAetheryteTicket::
   if IsInZone(130) then
-    yield("/visland exectemponce "..Uldah_Ticket_Usage)
+    yield("/vnavmesh moveto -142.361 4.1 -106.919")
     yield("/wait 0.5")
     goto WalkingtoGC
   end
 
 ::WalkingtoGC::
-  while IsVislandRouteRunning() do
-    yield("/wait 2")
+  DistanceToVendor()
+
+  while Distance_Test > 1 do
+    yield ("/wait 0.5")
+    DistanceToVendor()
   end
 
 ::GCTurnin::
