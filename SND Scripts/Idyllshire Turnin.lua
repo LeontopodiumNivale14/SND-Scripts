@@ -58,6 +58,9 @@ function AetheryteTeleport()
   end
 end
 
+function DistanceIdyllshire()
+  Distance_Test = GetDistanceToPoint(-19.277, 211, -36.076)
+end
 
 --tarnished gordian item ids, hardcoded.
 LensID = 12674
@@ -97,34 +100,26 @@ if IsInZone(478) == false and GetCharacterCondition(27) == false then
 end
 
 if IsInZone(478) then
-  yield("/wait 3")
-  yield("/target Aetheryte")
-  yield("/lockon")
-  yield("/automove")
-  yield("/wait 1.5")
-  yield("/automove")
-  yield("/li West")
-  yield("/wait 1")
+  
+  DistanceIdyllshire()
+  if Distance_Test > 1 then
+    if GetCharacterCondition(4) == false then
+      yield('/gaction "Mount Roulette"')
+      yield("/wait 3")
+    end
+    yield("/vnavmesh moveto -19.277 211 -36.076")
+  end
 end
 
-AetheryteTeleport()
+::SabinaTest::
 
-Distance_Test = GetDistanceToPoint(-71.618, 208.926, -24.662)
-if Distance_Test > 4 then
-  yield ("/echo hmm.... that failed for some reason. Gonna try that again")
-  goto IdyllshireTurnin
+DistanceIdyllshire()
+
+if Distance_Test > 1 then
+  yield ("/wait 0.5")
+  goto SabinaTest
 end
 
-yield("/visland resume")
-yield("/visland stop")
-yield("/visland exectemponce "..IdyllshireAlex)
-yield("/wait 0.5")
-
-while IsVislandRouteRunning() do
-  yield("/wait 0.5")
-end
-
-if (not IsVislandRouteRunning()) then
   yield("/ac dismount")
   yield("/wait 2")
   yield("/target Sabina")
@@ -137,7 +132,6 @@ if (not IsVislandRouteRunning()) then
   yield("/wait 1.0")
   yield("/pcall SelectString True 0")
   yield("/wait 1.0")
-end
 
 Shop_Menu = 1
 Gordian_Part = 1
