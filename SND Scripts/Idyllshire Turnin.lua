@@ -241,7 +241,7 @@ while (Gordian_Part == 1) and (Shop_Menu <= Alex_Shaft2)  do
     --yield("/echo Shop Menu: "..Alex_Shop)
     yield("/wait "..Alex_Shop_Timer)
 
--- Bolt Section
+  -- Bolt Section
   -- If no bolts, then it stops
   elseif (BoltCount == 0) and (Alex_Shop >= Alex_Bolt1) and (Alex_Shop <= Alex_Bolt2) then
     Alex_Shop = Alex_Stop

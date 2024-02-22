@@ -30,6 +30,10 @@ Save_Slot = 1
 -- true will make it to where you are in control till you get the Intuition
 ManualMovement = false
 
+-- If you're running on standard control scheme (like my raid mates), make sure to change this to "standard", it'll make vnavmesh work properly
+-- Options: legacy | standard 
+MovementType = legacy
+
 ::DeepDungeon::
 while IsInZone(613) == false do
   yield("/wait 1")
@@ -83,7 +87,18 @@ if GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." then
   end
 
   yield("/echo Hey! A Hoard is here and in range.")
-  yield("/pcall DeepDungeonStatus True 11 18 <wait.3.0>") -- Concealment pomander
+  if MovementType == standard then 
+    yield("/characterconfig")
+    yield("/pcall ConfigCharacter True 10 0 0 1") -- Makes sure you're on the Contorl Settings Tab
+    yield("/wait 0.2")
+    yield("/pcall ConfigCharaOpeGeneral True 18 143 1 0") --Legacy Button
+    yield("/wait 0.2")
+    yield("/pcall ConfigCharacter True 0") -- Applies the settings
+    yield("/wait 0.2")
+    yield("/pcall ConfigCharacter True 1") -- Closes the Config Menu
+    yield("/wait 0.2")
+  end
+    yield("/pcall DeepDungeonStatus True 11 18 <wait.3.0>") -- Concealment pomander
   if HasStatusId(1496) == false then -- Invisible status check
     yield("/pcall DeepDungeonStatus True 12 0") -- primal summon
     yield("/wait 3")
@@ -114,6 +129,18 @@ if Chest_Got == true then
     yield("/wait 1")
   end
   yield("/wait 1")
+  if MovementType == standard then 
+    yield("/characterconfig")
+    yield("/pcall ConfigCharacter True 10 0 0 1") -- Makes sure you're on the Contorl Settings Tab
+    yield("/wait 0.2")
+    yield("/pcall ConfigCharaOpeGeneral True 18 143 0 0") --Standard Button
+    yield("/wait 0.2")
+    yield("/pcall ConfigCharacter True 0") -- saves the Settings
+    yield("/wait 0.2")
+    yield("/pcall ConfigCharacter True 1") -- closes the character config
+    yield("/wait 0.2")
+  end
+    
   LeaveDuty()
   goto DeepDungeon
 end
