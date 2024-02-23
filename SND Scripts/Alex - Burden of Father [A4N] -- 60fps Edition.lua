@@ -1,4 +1,7 @@
 --[[
+
+FPS: 60+
+
 This is meant to be used for Alexander - The Burden of the Father (NORMAL NOT SAVAGE)
 It's setup to where you should be able to loop it as many time as you want, and be able to farm mats for GC seals
 Known classes to work: ALL
@@ -10,11 +13,11 @@ Creators note: thank you Ellipsis for getting all the classes working, you did a
 Plugins that are used are:
 -> Visland (for pathing)
 -> Pandora (Setting "Open Chest")
--> RotationSolver (Setting > Basic > Others > Enable "Make /rotation manual as a toggle command) 
+-> RotationSolver
 ]]
 
 -- How many loops do you wanna do
-NumberofLoops = 5
+NumberofLoops = 1
 
 --Visland Loops
 Alex_Start = "H4sIAAAAAAAACk2PW2vDMAyF/4ueTXCyNJv9VrYO8tDdIVvHKKbVqKG2Rq3uQsh/nxJctjcd6dPRUQ83LiBYmO/xe12vH0FB534+yEdOYF97uKPk2VME28MzWF3oqrmYmaY2Cl7AlrqY1ea8qhWswJrCNGdaV4MoitheyYKCB7f1R3ErCxFL+sSAkadJGxkPbsOd591tpv/3cjgJlXb0dZpIGnF7d/uEf/gUsVSwCMSnwy1jyOV8IrK4P2LiXI/GnfPjt9lxVNd0uKS4zZ8LNjaffMClcHp4G34B1YIamzkBAAA="
@@ -116,6 +119,7 @@ then
         local enemy_z = GetTargetRawZPos()
         yield("/visland moveto " .. enemy_x .. " " .. enemy_y .. " " .. enemy_z)
         yield("/wait 1")  
+   --yield("/send KEY_1")
         yield("/rotation manual")
         yield("/wait 4")  -- Adjust wait time as necessary for movement completion
         yield("/visland stop")  -- Stop movement after reaching near the target
@@ -133,7 +137,7 @@ while GetCharacterCondition(26) do
  -- Target selection and movement logic
     local current_target = GetTargetName()
     if not current_target or current_target == "" then
-        yield("/send TAB")  -- Attempt to auto-target the next enemy
+        yield("/targetenemy")  -- Attempt to auto-target the next enemy
         current_target = GetTargetName()
         if current_target == "" then
         yield("/wait 0.5")  -- Wait for a longer period if no target is found
@@ -158,6 +162,7 @@ end
 yield ("/wait 4")
 
 if (not GetCharacterCondition(26)) then
+yield("/rotation cancel")
 yield("/visland exectemponce "..Alex_Chest)
 end
 
