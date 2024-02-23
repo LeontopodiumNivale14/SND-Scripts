@@ -1,5 +1,5 @@
 --[[
-Version: 2.0.2.1 [Ground & Flying ]
+Version: 2.1 [Ground & Flying ]
 Author: LegendofIceman
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
@@ -63,23 +63,22 @@ Requirements:
 -- Loop amount checker
   if FlyingEnabled == true then 
     BaseLoopAmount = math.floor(ItemMax/QuartzArray[1])
+    LoopTestA = 0
     if QuartzWorkShop > 0 then
       LoopTestA = math.ceil(QuartzWorkShop/QuartzArray[1])
     end
-    XPLoopAmount = BaseLoopAmount
+    XPLoopAmount = BaseLoopAmount - LoopTestA -- if workshop was > 0, takes that amount and removes it from the loop
     yield("/echo LoopAmount = "..XPLoopAmount)
   end
   if FlyingEnabled == false and IslandLevel >= 5 then
+    LoopTestA = 0
     BaseLoopAmount = math.floor(ItemMax/ClayArray[1])
     if ClayWorkShop > 0 then
       LoopTestA = math.ceil(ClayWorkShop/ClayArray[1])
     end
-    GroundXPAmount = BaseLoopAmount
+    GroundXPAmount = BaseLoopAmount - LoopTestA -- if workshop was > 0, takes that amount and removes it from the loop
     yield("/echo LoopAmount = "..GroundXPAmount)
   end
-  if FlyingEnabled == false and IslandLevel < 5 then
-    BaseLoopAmount = math.floor(ItemMax/ClayArray[3])
-    GroundXPAmount = BaseLoopAmount
    
 
 -- Visland Routes for the script
