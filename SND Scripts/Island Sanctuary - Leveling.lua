@@ -63,22 +63,23 @@ Requirements:
 -- Loop amount checker
   if FlyingEnabled == true then 
     BaseLoopAmount = math.floor(ItemMax/QuartzArray[1])
-    LoopTestA = 0
     if QuartzWorkShop > 0 then
       LoopTestA = math.ceil(QuartzWorkShop/QuartzArray[1])
     end
-    XPLoopAmount = BaseLoopAmount - LoopTestA
+    XPLoopAmount = BaseLoopAmount
     yield("/echo LoopAmount = "..XPLoopAmount)
   end
-  if FlyingEnabled == false then
+  if FlyingEnabled == false and IslandLevel >= 5 then
     BaseLoopAmount = math.floor(ItemMax/ClayArray[1])
-    LoopTestA = 0
     if ClayWorkShop > 0 then
       LoopTestA = math.ceil(ClayWorkShop/ClayArray[1])
     end
-    GroundXPAmount = BaseLoopAmount - LoopTestA
+    GroundXPAmount = BaseLoopAmount
     yield("/echo LoopAmount = "..GroundXPAmount)
   end
+  if FlyingEnabled == false and IslandLevel < 5 then
+    BaseLoopAmount = math.floor(ItemMax/ClayArray[3])
+    GroundXPAmount = BaseLoopAmount
    
 
 -- Visland Routes for the script
@@ -176,6 +177,20 @@ Requirements:
     end
   end
 
+  function SandShop()
+    SandAmount = ItemMax-(ItemAmount*LoopAmount)
+    if SandWorkShop < 0 then
+      SandAmount = 0
+    end
+    SandSend = (SandCount-SandAmount)
+    if SandSend > 999 then
+      SandSend = 999
+    end
+    if SandWorkShop > 0 then
+      SandSend = SandSend - SandWorkShop
+    end
+  end
+
   function IronShop()
     IronAmount = ItemMax-(ItemAmount*LoopAmount)
     if IronAmount < 0 then
@@ -222,15 +237,15 @@ Requirements:
 
   function ClayShop()
     ClayAmount = ItemMax-(ItemAmount*LoopAmount)
-    if ClayWorkShop > 0 then
-      ClayAmount = ClayAmount + ClayWorkShop
+    if ClayWorkShop < 0 then
+      ClayAmount = 0
     end
     ClaySend = (ClayCount-ClayAmount)
   end
 
   function LimestoneShop()
     LimestoneAmount = ItemMax-(ItemAmount*LoopAmount)
-    if LimestoneWorkShop > 0 then
+    if LimestoneWorkShop < 0 then
       LimestoneAmount = LimestoneAmount + LimestoneWorkShop
     end
     LimestoneSend = (LimestoneCount-LimestoneAmount)
@@ -243,7 +258,7 @@ Requirements:
 
   function TinsandShop()
     TinsandAmount = ItemMax-(ItemAmount*LoopAmount)
-    if TinsandWorkShop > 0 then
+    if TinsandWorkShop < 0 then
       TinsandAmount = TinsandAmount + TinsandWorkShop
     end
     TinsandSend = (TinsandCount-TinsandAmount)
@@ -251,7 +266,7 @@ Requirements:
 
   function SugarcaneShop()
     SugarcaneAmount = ItemMax-(ItemAmount*LoopAmount)
-    if SugarcaneWorkShop > 0 then 
+    if SugarcaneWorkShop < 0 then 
       SugarcaneAmount = SugarcaneAmount + SugarcaneWorkShop
     end
     SugarcaneSend = (SugarcaneCount-SugarcaneAmount)
@@ -259,7 +274,7 @@ Requirements:
 
   function VineShop()
     VineAmount = ItemMax-(ItemAmount*LoopAmount)
-    if VineWorkShop > 0 then
+    if VineWorkShop < 0 then
       VineAmount = VineAmount + VineWorkShop
     end
     VineSend = (VineCount-VineAmount)
@@ -267,7 +282,7 @@ Requirements:
 
   function ResinShop()
     ResinAmount = ItemMax-(ItemAmount*LoopAmount)
-    if ResinWorkShop > 0 then
+    if ResinWorkShop < 0 then
       ResinAmount = ResinAmount + ResinWorkShop
     end
     ResinSend = (ResinCount-ResinAmount)
@@ -275,7 +290,7 @@ Requirements:
 
   function LogShop()
     LogAmount = ItemMax-(ItemAmount*LoopAmount)
-    if LogWorkShop > 0 then
+    if LogWorkShop < 0 then
       LogAmount = LogAmount + LogWorkShop
     end
     LogSend = (LogCount-LogAmount)
@@ -283,19 +298,10 @@ Requirements:
 
   function BranchShop()
     BranchAmount = ItemMax-(ItemAmount*LoopAmount)
-    if BranchWorkShop > 0 then
+    if BranchWorkShop < 0 then
       BranchAmount = BranchAmount + BranchWorkShop
     end
     BranchSend = (BranchCount-BranchAmount)
-  end
-
-  function SandShop()
-    SandAmount = ItemMax-(ItemAmount*LoopAmount)
-    yield("/e Sand Amount = "..SandAmount)
-    if SandWorkShop > 0 then
-      SandAmount = SandAmount + SandWorkShop
-    end
-    SandSend = (SandCount-SandAmount)
   end
 
 -- Shop Selling Functions
@@ -579,7 +585,7 @@ end
   DistanceToBase()
 
    if Distance_Test > 4 then
-    goto FlyShop 
+    goto GroundShop
   end
 
   CurrentLoop = 1
@@ -676,7 +682,7 @@ end
   end
 
   if ContinueLooping == true then
-    goto GroundXPTime
+    goto GroundShop
   elseif ContinueLooping == false then
     goto EndScript
   end
