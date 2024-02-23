@@ -1,20 +1,20 @@
 --[[
 This is meant to be used for Alexander - The Burden of the Father (NORMAL NOT SAVAGE)
 It's setup to where you should be able to loop it as many time as you want, and be able to farm mats for GC seals
-Known classes to work: MCH | SMN | RDM | BLM | BRD
+Known classes to work: ALL
+Version: 3.0 
+Created by: Ice, Class Support: Ellipsis
 
-Version: 2.1
-Created by: Ice
+Creators note: thank you Ellipsis for getting all the classes working, you did an amazing job. You deserve the credit here.
 
 Plugins that are used are:
-
 -> Visland (for pathing)
 -> Pandora (Setting "Open Chest")
--> RotationSolver
+-> RotationSolver (Setting > Basic > Others > Enable "Make /rotation manual as a toggle command) 
 ]]
 
 -- How many loops do you wanna do
-NumberofLoops = 15
+NumberofLoops = 5
 
 --Visland Loops
 Alex_Start = "H4sIAAAAAAAACk2PW2vDMAyF/4ueTXCyNJv9VrYO8tDdIVvHKKbVqKG2Rq3uQsh/nxJctjcd6dPRUQ83LiBYmO/xe12vH0FB534+yEdOYF97uKPk2VME28MzWF3oqrmYmaY2Cl7AlrqY1ea8qhWswJrCNGdaV4MoitheyYKCB7f1R3ErCxFL+sSAkadJGxkPbsOd591tpv/3cjgJlXb0dZpIGnF7d/uEf/gUsVSwCMSnwy1jyOV8IrK4P2LiXI/GnfPjt9lxVNd0uKS4zZ8LNjaffMClcHp4G34B1YIamzkBAAA="
@@ -94,34 +94,77 @@ end
 ::BattleInitialize::
 manip_phase = 0
 
-yield("/visland exectemponce "..Alex_Start)
-yield("/wait 0.3")
+if GetCharacterCondition(26, false)
+then
+-- Target selection and movement logic
+    local current_target = GetTargetName()
+    if not current_target or current_target == "" then
+        yield("/targetenemy")  -- Attempt to auto-target the next enemy
+        current_target = GetTargetName()
+        if current_target == "" then
+        yield("/wait 0.5")  -- Wait for a longer period if no target is found
+        end
+    end
+ -- This wait might be too long for fast-paced combat scenarios; adjust as needed
 
-while IsVislandRouteRunning() do
-  yield("/targetenemy")
-  yield("/rotation Manual")
-  yield("/wait 1")
+    local enemy_max_dist = 40
+    local dist_to_enemy = GetDistanceToTarget()
+    if dist_to_enemy and dist_to_enemy > 0 then
+        if dist_to_enemy <= enemy_max_dist then
+        local enemy_x = GetTargetRawXPos()
+        local enemy_y = GetTargetRawYPos()
+        local enemy_z = GetTargetRawZPos()
+        yield("/visland moveto " .. enemy_x .. " " .. enemy_y .. " " .. enemy_z)
+        yield("/wait 1")  
+        yield("/rotation manual")
+        yield("/wait 4")  -- Adjust wait time as necessary for movement completion
+        yield("/visland stop")  -- Stop movement after reaching near the target
 end
-
+    end
+end
+  
 ::StartofBattle::
 
-yield ("/wait 4")
+yield("/wait 0.5")
+--rotation
 
-while GetCharacterCondition(26) do
-  yield("/wait 2")
-  yield("/targetenemy")
+while GetCharacterCondition(26) do 
+    yield("/wait 1")
+ -- Target selection and movement logic
+    local current_target = GetTargetName()
+    if not current_target or current_target == "" then
+        yield("/send TAB")  -- Attempt to auto-target the next enemy
+        current_target = GetTargetName()
+        if current_target == "" then
+        yield("/wait 0.5")  -- Wait for a longer period if no target is found
+end-- This wait might be too long for fast-paced combat scenarios; adjust as needed
+    end
+    local enemy_max_dist = 40
+    local dist_to_enemy = GetDistanceToTarget()
+    if dist_to_enemy and dist_to_enemy > 0 then
+        if dist_to_enemy <= enemy_max_dist then
+        local enemy_x = GetTargetRawXPos()
+        local enemy_y = GetTargetRawYPos()
+        local enemy_z = GetTargetRawZPos()
+        yield("/visland moveto " .. enemy_x .. " " .. enemy_y .. " " .. enemy_z)
+        yield("/wait 2.5")  -- Adjust wait time as necessary for movement completion
+        yield("/visland stop")  -- Stop movement after reaching near the target
+        end
+    end
 end
+-- This section might need an additional command to re-target or adjust positioning
+-- if the enemy is beyond the max distance, depending on your needs.
 
 yield ("/wait 4")
 
 if (not GetCharacterCondition(26)) then
-  yield("/visland exectemponce "..Alex_Chest)
+yield("/visland exectemponce "..Alex_Chest)
 end
 
 yield("/wait 2")
 
 while IsMoving() do
-  yield("/wait 1")
+yield("/wait 1")
 end
 
 CurrentLoop = CurrentLoop + 1
