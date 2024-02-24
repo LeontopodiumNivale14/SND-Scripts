@@ -32,7 +32,7 @@ ManualMovement = false
 
 -- If you're running on standard control scheme (like my raid mates), make sure to change this to "standard", it'll make vnavmesh work properly
 -- Options: legacy | standard 
-MovementType = legacy
+MovementType = "legacy"
 
 ::DeepDungeon::
 while IsInZone(613) == false do
@@ -87,7 +87,7 @@ if GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." then
   end
 
   yield("/echo Hey! A Hoard is here and in range.")
-  if MovementType == standard then 
+  if MovementType == "standard" then 
     yield("/characterconfig")
     yield("/pcall ConfigCharacter True 10 0 0 1") -- Makes sure you're on the Contorl Settings Tab
     yield("/wait 0.2")
@@ -129,7 +129,7 @@ if Chest_Got == true then
     yield("/wait 1")
   end
   yield("/wait 1")
-  if MovementType == standard then 
+  if MovementType == "standard" then 
     yield("/characterconfig")
     yield("/pcall ConfigCharacter True 10 0 0 1") -- Makes sure you're on the Contorl Settings Tab
     yield("/wait 0.2")
