@@ -1,7 +1,16 @@
 --[[
-Version: 1.0.1
-Description: 
-This is suppose to help you farm that stupid 10,000 Accursed Hoards Found (achievement in question: https://na.finalfantasyxiv.com/lodestone/playguide/db/achievement/7e168d23176/)
+
+  **************
+  *  Version:  *
+  *   1.0.3    *
+  **************
+
+
+  *****************
+  *  Description  *
+  *****************
+ 
+  This is suppose to help you farm that stupid 10,000 Accursed Hoards Found (achievement in question: https://na.finalfantasyxiv.com/lodestone/playguide/db/achievement/7e168d23176/)
    I used HOH because it was the easiest thing to do, didn't start at a low level, and could get lucky and get a petrification in the first 10 floors
    The way this works is:
    -> Start on floor 1, run through floor 20 (kill the boss)
@@ -15,24 +24,35 @@ This is suppose to help you farm that stupid 10,000 Accursed Hoards Found (achie
    -> if it does, then it'll make a danger bongos and you have to go get it yourself, I don't have a way to map you to it (yet)
    -> if there isn't one on the floor, then it'll take you out of the DeepDungeon, and repeat the process
 
-   Plugins needed:
-   -> Pandora's Box
-   -> VNavmesh (was last tested on 0.0.0.5)
+
+  *********************
+  *  Required Plugins *
+  *********************
+
+   -> Pandora's Box | https://love.puni.sh/ment.json
+   -> VNavmesh (was last tested on 0.0.0.10) | https://puni.sh/api/repository/veyn
 
 ]]
 
---Save Data Slot 
---Top Slot = 0, Bottom Slot = 1, change the value to the save file you want to farm the achievement
-Save_Slot = 1
+--[[
 
--- If an Intuition is on the floor, and out of range, do you want to still get it manually?
--- false will leave and try to find one closer
--- true will make it to where you are in control till you get the Intuition
-ManualMovement = false
+  **************
+  *  Settings  *
+  **************
+]]
 
--- If you're running on standard control scheme (like my raid mates), make sure to change this to "standard", it'll make vnavmesh work properly
--- Options: legacy | standard 
-MovementType = "legacy"
+  --Save Data Slot 
+  --Top Slot = 0, Bottom Slot = 1, change the value to the save file you want to farm the achievement
+  Save_Slot = 1
+
+  -- If an Intuition is on the floor, and out of range, do you want to still get it manually?
+  -- false will leave and try to find one closer
+  -- true will make it to where you are in control till you get the Intuition
+  ManualMovement = false
+
+  -- If you're running on standard control scheme (like my raid mates), make sure to change this to "standard", it'll make vnavmesh work properly
+  -- Options: legacy | standard 
+  MovementLegacy = true
 
 ::DeepDungeon::
 while IsInZone(613) == false do
@@ -73,11 +93,14 @@ if GetToastNodeText(2, 3) == "The current duty uses an independent leveling syst
   yield("/wait 3")
 end
 
-yield("/pcall DeepDungeonStatus True 11 14 <wait.5.0>")
+yield("/pcall DeepDungeonStatus True 11 14 <wait.7.0>")
 
 if GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." then
-  if GetAccursedHoardRawX() == 0.0 and GetAccursedHoardRawY() == 0.0 and ManualMovement == true then
+  yield("Hoard Detected at: "..GetAccursedHoardRawX().." | "..GetAccursedHoardRawY().." | "..GetAccursedHoardRawZ())
+  yield("/wait 0.5")
+  if GetAccursedHoardRawX() == 0.0 and GetAccursedHoardRawZ() == 0.0 and ManualMovement == true then
     yield("/e Intuition is found, but out of range. Go get it!")
+    yield("/pcall DeepDungeonStatus True 11 2")
     Chest_Got = false
     goto IntuitionTime
   end  
@@ -87,7 +110,7 @@ if GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." then
   end
 
   yield("/echo Hey! A Hoard is here and in range.")
-  if MovementType == "standard" then 
+  if MovementLegacy == false then 
     yield("/characterconfig")
     yield("/pcall ConfigCharacter True 10 0 0 1") -- Makes sure you're on the Contorl Settings Tab
     yield("/wait 0.2")
@@ -129,7 +152,7 @@ if Chest_Got == true then
     yield("/wait 1")
   end
   yield("/wait 1")
-  if MovementType == "standard" then 
+  if MovementLegacy == false then 
     yield("/characterconfig")
     yield("/pcall ConfigCharacter True 10 0 0 1") -- Makes sure you're on the Contorl Settings Tab
     yield("/wait 0.2")

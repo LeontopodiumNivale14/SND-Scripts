@@ -36,3 +36,16 @@ Example: GetRealRecastTime(7514) -- if casting vercure, will track the cast time
 
 -- Checks to see how much time is left before you can cast another action/spell
 GetSpellCooldown(7514)
+
+--[[
+************
+*  ADDON   *
+* COMMANDS *
+************
+]]
+
+-- Open the duty roulette associated w/ the number. 
+-- All values/numbers casn be found under the help section of SND in: Game Data -> Duty Roulette 
+  OpenRouletteDuty(Byte contentRouletteID)
+Example: OpenRouletteDuty(6) -- Opens the duty finder directly to trial roulette
+
