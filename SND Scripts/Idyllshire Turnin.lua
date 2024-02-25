@@ -1,37 +1,65 @@
 --[[
-Description: Teleports you to Idyllshire (or if you're standing in front of an aetheryte) and takes you to the Alex Vendor to trade your raid pieces -> gear,
-which then takes you to your personal Grand Company and turns them into what you have selected from Deliveroo.
 
-If you have OTP on, and you have your company aetheryte tickets, you can do this loop for free wihtout costing you any gil.
+  ***************
+  * Description *
+  ***************
 
-This requires: 
--> IMPORTANT: YesAlready -> Yes/No -> Add this:  You cannot currently equip this item. Proceed with the transaction?
-  Yes, you can zone lock this to strictly Idyllshire if you would like (I did)
+  Teleports you to Idyllshire (or if you're standing in front of an aetheryte) and takes you to the Alex Vendor to trade your raid pieces -> gear,
+  which then takes you to your personal Grand Company and turns them into what you have selected from Deliveroo.
 
-  ALSO IMPORTANT!! YesAlready -> Bothers -> Scroll near the VERY bottom and make sure "ShopExchangeItemDialog" is checkmarked
+  If you have OTP on, and you have your company aetheryte tickets, you can do this loop for free wihtout costing you any gil.
 
-  -> Teleporter
-  -> Pandora (Enable "Auto-select Turn-ins & Automatically Confirm")
+  *********************
+  *  Required Plugins *
+  *********************
+
+  -> Teleporter | 1st Party Plugin
+  -> Pandora (Enable "Auto-select Turn-ins & Automatically Confirm") | 
   -> Lifestream 
   -> Deliveroo [If you need the link, here --> https://plugins.carvel.li/]
   -> vnavmesh (replaced visland)
 
-  Version: 3.0 [The navmesh update]
-    - Fixed the teleport issue in Idyllshire
+  -> YesAlready
+
+  **************
+  *  IMPORTANT *
+  *   SETTING  *
+  **************
+
+  -> YesAlready -> Yes/No -> Add this:  You cannot currently equip this item. Proceed with the transaction?
+  Yes, you can zone lock this to strictly Idyllshire if you would like (I did)
+
+  -> YesAlready -> Bothers -> Scroll near the VERY bottom and make sure "ShopExchangeItemDialog" is checkmarked
+
+  Version: 3.2 Inventory Buying Fix
 ]]
 
+--[[
 
-::SettingUpValues::
+  **************
+  *  Settings  *
+  **************
+
+]]
 --[[!! If you're shop is skipping buying items, increase this value. 
 Default is 1 cause that's worked for me, but 5 has helped others as well]]
 Alex_Shop_Timer = 1
 
 -- If you would like it to buy the max amount of items that it can on each run
-MaxInventory = true
--- This is meant to help try and get some of the suspicion of "why is this person teleporting to the GC so fast every time"
--- Personally have this value set at 1.5 minutes, but you can increase it if you would like, or you could just leave it be.
-SlowDownTeleport = true
-SlowDownTimer = 90 -- time is in seconds
+-- DO NOTE. This will buy multiple "unique" items to turn in to the GC
+-- No, you can't equip them, it's just meant to speed up the spending/buying process
+-- It's off by default, so nobody freak out
+MaxInventory = false
+
+
+--[[
+
+  ************
+  *  Script  *
+  *   Start  *
+  ************
+
+]]
 
 ::Functions::
 
@@ -142,6 +170,7 @@ SlowDownTimer = 90 -- time is in seconds
   Gordian_Part = 1
 
 ::ShopInitialize::
+  i_count = GetInventoryFreeSlotCount()
   -- In order it goes | Shop | Shaft 1/2 | Crank 1/2 | Spring 1/2 | Pedal 1/2 | Bolt 1/2 | Stop
   if Shop_Menu == 1 then
   Shop1Array = {3, 3, 5, 6, 8, 9, 11, 12, 14, 15, 22, 23}
@@ -189,32 +218,36 @@ SlowDownTimer = 90 -- time is in seconds
 
 ::BuyingItems::
   -- this is moreso a footnote to myself. The Gordian_Part == 1 is to break the sequence after it gets done w/ the shop ENTIRELY.
-  while (Gordian_Part == 1) and (Shop_Menu <= Alex_Shaft2)  do
+  while (Alex_Shop < Alex_Stop) do
   
-  ShaftCount = GetItemCount(ShaftID) -- 4
-  CrankCount = GetItemCount(CrankID) -- 2 
-  SpringCount = GetItemCount(SpringID) -- 4
-  PedalCount = GetItemCount(PedalID) -- 2 
-  BoltCount = GetItemCount(BoltID) -- 1
-  i_count = GetInventoryFreeSlotCount()
-
+    ShaftCount = GetItemCount(ShaftID) -- 4
+    CrankCount = GetItemCount(CrankID) -- 2 
+    SpringCount = GetItemCount(SpringID) -- 4
+    PedalCount = GetItemCount(PedalID) -- 2 
+    BoltCount = GetItemCount(BoltID) -- 1
+  
+    i_count = GetInventoryFreeSlotCount()
+  
+    if i_count == 0 then
+      Alex_Shop = Alex_Stop
   -- Shaft Section
-    if (ShaftCount <=3) and (Alex_Shop >= Alex_Shaft1) and (Alex_Shop <= Alex_Shaft2) then
+    elseif (ShaftCount <=3 and Alex_Shop >= Alex_Shaft1 and Alex_Shop <= Alex_Shaft2) then
       Alex_Shop = Alex_Crank1
       -- yield("/echo Shaft Count: "..ShaftCount)
       -- yield("/echo Should be moving to next menu")
       -- yield("/echo Shop Menu: "..Alex_Shop)
-    elseif (ShaftCount >= 4 ) and (Alex_Shop >= Alex_Shaft1) and (Alex_Shop <= Alex_Shaft2) then
+    elseif (ShaftCount >= 4 ) and (Alex_Shop >= Alex_Shaft1 and Alex_Shop <= Alex_Shaft2) then
       yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
       Alex_Shop = Alex_Shop + 1
-      ShaftCount = GetItemCount(ShaftID)
       --yield("/echo Shop Menu: "..Alex_Shop) -- Just Debugging Stuff
       yield("/wait "..Alex_Shop_Timer)
       i_count = GetInventoryFreeSlotCount()
       if Shop_Menu == 3 and MaxInventory == true and Alex_Shop == Alex_Shaft2 then
-         if i_count > math.floor(ShaftCount/4) then
+         ShaftCount = GetItemCount(ShaftID)
+		 if i_count > math.floor(ShaftCount/4) then
            i_count = math.floor(ShaftCount/4)
          end
+		 yield("/e Shaft Send Amount = "..i_count)
          yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." "..i_count)
          yield("/wait "..Alex_Shop_Timer)
          Alex_Shop = Alex_Shop + 1
@@ -224,21 +257,22 @@ SlowDownTimer = 90 -- time is in seconds
       end
 
   -- Crank Section
-    elseif (CrankCount <=1 and Alex_Shop >= Alex_Crank1 and Alex_Shop <= Alex_Crank2) then
+    elseif (CrankCount <=1) and (Alex_Shop >= Alex_Crank1 and Alex_Shop <= Alex_Crank2) then
       Alex_Shop = Alex_Spring1
       -- yield("/echo Crank Count: "..CrankCount)
       -- yield("/echo Should be moving to Shaft"
-    elseif (CrankCount >= 2) and (Alex_Shop >= Alex_Crank1) and (Alex_Shop <= Alex_Crank2) then
+    elseif (CrankCount >= 2) and (Alex_Shop >= Alex_Crank1 and Alex_Shop <= Alex_Crank2) then
       yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
       Alex_Shop = Alex_Shop + 1
-      CrankCount = GetItemCount(CrankID)
       --yield("/echo Shop Menu: "..Alex_Shop)
       yield("/wait "..Alex_Shop_Timer)
       i_count = GetInventoryFreeSlotCount()
       if Shop_Menu == 3 and MaxInventory == true and Alex_Shop == Alex_Crank2 and (ShaftCount <= 3) then
-         if i_count > math.floor(CrankCount/2) then
+         CrankCount = GetItemCount(CrankID)
+		 if i_count > math.floor(CrankCount/2) then
            i_count = math.floor(CrankCount/2)
          end
+		 yield("/e Crank Send Amount = "..i_count)
          yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." "..i_count)
          yield("/wait "..Alex_Shop_Timer)
          Alex_Shop = Alex_Shop + 1
@@ -248,19 +282,19 @@ SlowDownTimer = 90 -- time is in seconds
       end
 
   -- Springs Section
-     elseif (SpringCount <=3 and Alex_Shop >= Alex_Spring1 and Alex_Shop <= Alex_Spring2) then
+     elseif (SpringCount <=3) and (Alex_Shop >= Alex_Spring1 and Alex_Shop <= Alex_Spring2) then
        Alex_Shop = Alex_Pedal1
        -- yield("/echo Spring Count: "..SpringCount)
        -- yield("/echo Should be moving to Crank")
-     elseif (SpringCount >=4) and (Alex_Shop >= Alex_Spring1) and (Alex_Shop <= Alex_Spring2) then
+     elseif (SpringCount >=4) and (Alex_Shop >= Alex_Spring1 and Alex_Shop <= Alex_Spring2) then
        yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
        Alex_Shop = Alex_Shop + 1
-       SpringCount = GetItemCount(SpringID)
        --yield("/echo Shop Menu: "..Alex_Shop)
        yield("/wait "..Alex_Shop_Timer)
        i_count = GetInventoryFreeSlotCount()
       if Shop_Menu == 3 and MaxInventory == true and Alex_Shop == Alex_Spring2 and (ShaftCount <= 3 and CrankCount <=1) then
-         if i_count > math.floor(SpringCount/4) then
+         SpringCount = GetItemCount(SpringID)
+		 if i_count > math.floor(SpringCount/4) then
            i_count = math.floor(SpringCount/4)
          end
          yield("/e Spring Send Amount = "..i_count)
@@ -273,22 +307,23 @@ SlowDownTimer = 90 -- time is in seconds
       end
   
   -- Pedal Check Section
-     elseif (PedalCount <= 1 and Alex_Shop >= Alex_Pedal1 and Alex_Shop <= Alex_Pedal2) then
+     elseif (PedalCount <= 1) and (Alex_Shop >= Alex_Pedal1 and Alex_Shop <= Alex_Pedal2) then
        Alex_Shop = Alex_Bolt1
        -- yield("/echo Pedal Count: "..PedalCount)
         -- yield("/echo Should be moving to Springs")
        yield("/wait 0.2")
-     elseif (PedalCount >= 2) and (Alex_Shop >= Alex_Pedal1) and (Alex_Shop <= Alex_Pedal2) then
+     elseif (PedalCount >= 2) and (Alex_Shop >= Alex_Pedal1 and Alex_Shop <= Alex_Pedal2) then
        yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
        Alex_Shop = Alex_Shop + 1
-       PedalCount = GetItemCount(PedalID)
        --yield("/echo Shop Menu: "..Alex_Shop)
        yield("/wait "..Alex_Shop_Timer)
        i_count = GetInventoryFreeSlotCount()
       if Shop_Menu == 3 and MaxInventory == true and Alex_Shop == Alex_Pedal2 and (ShaftCount <= 3 and CrankCount <=1 and SpringCount <= 3) then
-         if i_count > math.floor(PedalCount/2) then
+         PedalCount = GetItemCount(PedalID)
+		 if i_count > math.floor(PedalCount/2) then
            i_count = math.floor(PedalCount/2)
          end
+		 yield("/e Pedal Send Amount = "..i_count)
          yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." "..i_count)
          yield("/wait "..Alex_Shop_Timer)
          Alex_Shop = Alex_Shop + 1
@@ -299,30 +334,33 @@ SlowDownTimer = 90 -- time is in seconds
       
   -- Bolt Section
     -- If no bolts, then it stops
-    elseif (BoltCount == 0 and Alex_Shop >= Alex_Bolt1 and Alex_Shop <= Alex_Bolt2) then
+    elseif (BoltCount == 0) and (Alex_Shop >= Alex_Bolt1 and Alex_Shop <= Alex_Bolt2) then
       Alex_Shop = Alex_Stop
       -- yield("/echo Bolt Count: "..BoltCount)
       -- yield("/echo Should be moving to Pedals")
-    elseif (BoltCount >= 1) and (Alex_Shop >= Alex_Bolt1) and (Alex_Shop <= Alex_Bolt2) then
+    elseif (BoltCount >= 1) and (Alex_Shop >= Alex_Bolt1 and Alex_Shop <= Alex_Bolt2) then
       yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." 1")
       Alex_Shop = Alex_Shop + 1
-      BoltCount = GetItemCount(BoltID)
       --yield("/echo Shop Menu: "..Alex_Shop)
       yield("/wait "..Alex_Shop_Timer)
       i_count = GetInventoryFreeSlotCount()
       if Shop_Menu == 3 and MaxInventory == true and Alex_Shop == Alex_Bolt2 and (ShaftCount <= 3 and CrankCount <=1 and SpringCount <= 3 and PedalCount <= 1) then
-         if i_count > BoltCount then
+         BoltCount = GetItemCount(BoltID)
+		 if i_count > BoltCount then
            i_count = BoltCount
          end
+		 yield("/e Bolt Send Amount = "..i_count)
          yield("/pcall ShopExchangeItem True 0 "..Alex_Shop.." "..i_count)
          yield("/wait "..Alex_Shop_Timer)
          Alex_Shop = Alex_Shop + 1
          yield("/wait "..Alex_Shop_Timer)
          BoltCount = GetItemCount(BoltID)
       end
-
+    end
+  end
+	  
   -- Time to swap menu's  
-    elseif (Alex_Shop == Alex_Stop) and (Shop_Menu == 1) then
+    if (Alex_Shop == Alex_Stop) and (Shop_Menu == 1) then
       -- yield("/echo DOW 1 Menu is completed")
 
       Shop_Menu = (Shop_Menu + 1)
@@ -350,7 +388,7 @@ SlowDownTimer = 90 -- time is in seconds
 
       goto ShopInitialize
 
-    elseif (Alex_Shop == Alex_Stop) and (Shop_Menu == 3) then
+    elseif (Alex_Shop == Alex_Stop and Shop_Menu == 3) then
       --yield("/echo DOM Menu is completed")
 
       Gordian_Part = Gordian_Part + 1
@@ -362,9 +400,8 @@ SlowDownTimer = 90 -- time is in seconds
       yield("/wait 1")
       yield("/pcall SelectString True 7")
       yield("/wait 1.5")
+    end
 
-  end
-end
 
 ::TicketsPlease::
   LimsaGCTicket = GetItemCount(LimsaTicketID)
