@@ -1,9 +1,26 @@
 --[[
 
+  ****************
+  * Authors Note *
+  ****************
+
+  Authors note: TECHNICALLY if you get a Concealment, you are going to be WAY quicker on your runs. It's a 1 pom usage vs 2, which shaves off ~3 seconds per run
+                And that can add up... VERY quickly. I have went through and made this as fast as I can (possibly) made it at this second. 
+
+  Author: Ice 
+  Quick note: thank you the two of you who kept bug fixing my things and asking for new features
+              this wouldn't have gotten better w/o you buggin me in my dms
+
   **************
   *  Version:  *
-  *   1.0.3    *
+  *  1.0.4.2   *
   **************
+
+  Version Update Notes:
+  1.0.4.2 -> Fixed sprint, made it constantly try to use while moving to spot
+  1.0.4.1 -> Concealment save file setting added
+  1.0.4   -> Speed Update (Made checking Intuition SO much faster, pomander timers as well are now fast af)
+  1.0.3   -> First proper working version
 
 
   *****************
@@ -50,12 +67,19 @@
   -- true will make it to where you are in control till you get the Intuition
   ManualMovement = false
 
-  -- If you're running on standard control scheme (like my raid mates), make sure to change this to "standard", it'll make vnavmesh work properly
-  -- Options: legacy | standard 
+  -- If you're running on standard control scheme (like my raid mates), make sure to change this to false, it'll make vnavmesh work properly
+  -- Options: true | false 
   MovementLegacy = true
+
+  -- This setting is so you can mark off if you have concealment or not 
+  -- Concealment is 100% quicker, so if you do have it in a save, would highly recommend setting this to true 
+  -- if not, it'll use a primal + safety for movmement (sight doesn't really do TOO much, safety is so you don't hit a luring on the way there lol)
+  -- Options: true | false 
+  ConcealmentSaveFile = true 
 
 ::DeepDungeon::
 while IsInZone(613) == false do
+  PathStop()
   yield("/wait 1")
 end
 
@@ -85,26 +109,29 @@ end
 ::ZoneCheck::
 
 if GetZoneID() == 771 then
-  yield("/wait 3")
+  repeat 
+    yield("/wait 0.1")
+  until IsPlayerAvailable()
 end
 
 ::IntuitionCheck::
-if GetToastNodeText(2, 3) == "The current duty uses an independent leveling system." then
-  yield("/wait 3")
-end
+yield("/pcall DeepDungeonStatus True 11 14")
 
-yield("/pcall DeepDungeonStatus True 11 14 <wait.7.0>")
+repeat 
+  yield("/wait 0.1")
+until GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." or GetToastNodeText(2, 3) == "You do not sense the call of the Accursed Hoard on this floor..."
 
 if GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." then
   yield("Hoard Detected at: "..GetAccursedHoardRawX().." | "..GetAccursedHoardRawY().." | "..GetAccursedHoardRawZ())
   yield("/wait 0.5")
   if GetAccursedHoardRawX() == 0.0 and GetAccursedHoardRawZ() == 0.0 and ManualMovement == true then
     yield("/e Intuition is found, but out of range. Go get it!")
-    yield("/pcall DeepDungeonStatus True 11 2")
+    yield("/pcall DeepDungeonStatus True 11 2") -- sight popped 
     Chest_Got = false
     goto IntuitionTime
   end  
   if GetAccursedHoardRawX() == 0.0 and GetAccursedHoardRawY() == 0.0 and ManualMovement == false then
+    yield("/e It's out of range, getting out of here")
     LeaveDuty()
     goto DeepDungeon
   end
@@ -121,15 +148,21 @@ if GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." then
     yield("/pcall ConfigCharacter True 1") -- Closes the Config Menu
     yield("/wait 1")
   end
-    yield("/pcall DeepDungeonStatus True 11 18 <wait.3.0>") -- Concealment pomander
-  if HasStatusId(1496) == false then -- Invisible status check
-    yield("/pcall DeepDungeonStatus True 12 0") -- primal summon
-    yield("/wait 3")
-    yield("/pcall DeepDungeonStatus True 11 1") -- safety pomander
-    yield("/wait 3")
-  end
+    if ConcealmentSaveFile == true then 
+      yield("/pcall DeepDungeonStatus True 11 18") -- Concealment pomander
+      repeat 
+        yield("/wait 0.1")
+      until IsPlayerAvailable()
+    elseif ConcealmentSaveFile == false then 
+      yield("/pcall DeepDungeonStatus True 12 0") -- primal summon
+      yield("/wait 3")
+      yield("/pcall DeepDungeonStatus True 11 1") -- safety pomander
+      yield("/wait 0.5")
+      repeat 
+        yield("/wait 0.1")
+      until IsPlayerAvailable()
+    end
   yield("/vnavmesh moveto "..string.format("%.2f", GetAccursedHoardRawX()).." "..string.format("%.2f", GetAccursedHoardRawY()).." "..string.format("%.2f", GetAccursedHoardRawZ()))
-  yield("/ac sprint")
   Chest_Got = false
   
 elseif GetToastNodeText(2, 3) == "You do not sense the call of the Accursed Hoard on this floor..." then
@@ -139,7 +172,8 @@ end
 
 ::IntuitionTime::
 while Chest_Got == false do
-  yield("/wait 1")
+  yield("/wait 0.1")
+  yield("/ac sprint")
   if GetToastNodeText(2, 3) == "You obtain a piece of the Accursed Hoard." then
     Chest_Got = true
   elseif GetToastNodeText(2, 3) == "You discover a piece of the Accursed Hoard!" then

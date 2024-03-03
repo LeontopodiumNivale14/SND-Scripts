@@ -29,9 +29,21 @@ Uses
   5 -> Coconut
   6 -> Apple
   7 -> Marble/Limestone
-  8 -> Clay/Sand
+  8 -> Clay/Sand [Ground XP Loop]
   9 -> Cotton
-  10 -> 
+  10 -> Branch/Log/Resin
+  11 -> Copper/Mythril 
+  12 -> Opal/Log/Sap
+  13 -> Hemp 
+  14 -> Multi-colored Isleblooms 
+  15 -> Iron Ore
+  16 -> Laver/Squid | Jellyfish/Coral
+  17 -> Rocksalt 
+  18 -> Leucogranite 
+  19 -> Quartz [Mountain XP Loop]
+  20 -> Coal/Shale | Glimshroom 
+  21 -> Effervescent Water 
+  22 -> Crystal/Hawk Sand | Yelow Copper/Gold Ore
 ]]
 
 -- If you want to skip a specific route (check above one section) change that route to true

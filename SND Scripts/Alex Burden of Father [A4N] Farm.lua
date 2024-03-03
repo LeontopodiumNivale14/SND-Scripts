@@ -7,12 +7,15 @@
   This is meant to be used for Alexander - The Burden of the Father (NORMAL NOT SAVAGE)
   It's setup to where you should be able to loop it as many time as you want, and be able to farm mats for GC seals
   Known classes to work: ALL
-  Version: 3.3.1
+  Version: 3.3.2
+    -> 3.3.2: Added the ability to Infinite Loop w/o having to set a number
     -> 3.3.1: Added some checks to wait till you're fully loaded out (in case of high ping) [Chest fix is next on the list for high ping]
-    -> 3.3: Repair Functionality & Potentional duty load check (@leaf update)
-  Created by: Ice, Class Support: Ellipsis | Menu Optimizing: Leaf
+    -> 3.3.0: Repair Functionality & Potentional duty load check (@leaf update)
+  Created by: Ice, Class Support: Ellipsis | Menu Optimizing/tweaks: Leaf
 
   Creators note: thank you Ellipsis for getting all the classes working, you did an amazing job. You deserve the credit here.
+                 also @Leaf thanks for tweaking it and making this more friendly for situations I didn't account for, you're the best 
+
 
   *********************
   *  Required Plugins *
@@ -21,13 +24,9 @@
 
   Plugins that are used are:
   -> Visland (for pathing) : https://puni.sh/api/repository/veyn
-  -> NEW Vnavmesh (needed for visland) : https://puni.sh/api/repository/veyn  (this might be temporary, waiting on some news/update, but for now)
   -> Pandora (Setting "Open Chest") : https://love.puni.sh/ment.json
   -> RotationSolver : https://puni.sh/api/repository/croizat
   -> Something Need Doing [Expanded Edition] : https://puni.sh/api/repository/croizat
-    -> In the SND window, press the question mark to make the help setting's menu open 
-    -> Go to options tab -> /target -> DISABLE THIS!! "Stop macro if target not found (only applies to SND's targeting system')"
-
 ]]
 
 --[[
@@ -37,7 +36,12 @@
   **************
   ]]
 
-  NumberofLoops = 5  -- How many loops do you wanna do
+  NumberofLoops = 5 -- number of loops you would like to do 
+  InfiniteLoops = false -- options: true | false 
+  -- If you want it to continually loop w/o a cap, change InfiniteLoops to true 
+  -- this will ignore the number of loops and continually go w/o stopping
+
+
   rate = 0.3 -- Increase this at lower fps [0.3 works on 15fps+]
   timeoutThreshold = 15 -- Number of seconds to wait before timeout
 
@@ -54,8 +58,8 @@
 
   ManualRepair = false -- if you want to repair between the loops that you do. [defaults is false | on is true]
   RepairAmount = 75 -- lowest point your gear will 
-  
-  
+
+  CastingDebug = false
 
 --[[
 
@@ -65,30 +69,76 @@
   ************
 
 ]]
+-- functions
+  function TargetNearestObjectKind(objectKind, radius, subKind)
+    local smallest_distance = 10000000000000.0
+    local closest_target
+    local radius = radius or 0
+    local subKind = subKind or 5
+    local nearby_objects = GetNearbyObjectNames(radius^2,objectKind)
+    
+    if nearby_objects.Count > 0 then
+        for i = 0, nearby_objects.Count - 1 do
+            yield("/target "..nearby_objects[i])
+            if not GetTargetName() or nearby_objects[i] ~= GetTargetName()
+                or (objectKind == 2 and subKind ~= GetTargetSubKind()) then
+            elseif GetDistanceToTarget() < smallest_distance then
+                smallest_distance = GetDistanceToTarget()
+                closest_target = GetTargetName()
+            end
+        end
+        ClearTarget()
+        if closest_target then yield("/target "..closest_target) end
+    end
+    return closest_target
+  end
+
+  function PlayerTest()
+    repeat
+      yield("/wait "..rate)
+    until IsPlayerAvailable()
+  end
+    
 
 --Visland Loops
-Alex_Start = "H4sIAAAAAAAACk2PW2vDMAyF/4ueTXCyNJv9VrYO8tDdIVvHKKbVqKG2Rq3uQsh/nxJctjcd6dPRUQ83LiBYmO/xe12vH0FB534+yEdOYF97uKPk2VME28MzWF3oqrmYmaY2Cl7AlrqY1ea8qhWswJrCNGdaV4MoitheyYKCB7f1R3ErCxFL+sSAkadJGxkPbsOd591tpv/3cjgJlXb0dZpIGnF7d/uEf/gUsVSwCMSnwy1jyOV8IrK4P2LiXI/GnfPjt9lxVNd0uKS4zZ8LNjaffMClcHp4G34B1YIamzkBAAA="
-Alex_Chest = "H4sIAAAAAAAACuWQSWvDMBCF/0qZsyMkR7It3UIX8CHdCLgLJYhkTASxVWy5C8b/vYpj40ALvRZ605t5enr6WrjWBYKCxR4/1ny9ggAy/flqTelqUM8t3NraOGNLUC08gAqJFDGXEQ/gERSjJKJcijCAJ1AzQZKEJiHrvLQlphegaAD3emsaH8aIF0v7hgWWrt+kpcNKb1xm3O5mcJ/Ohm6+U72z7+PGl/Fpud7XONn7hiyAy8K68eHUYTEcF71jEHcN1m44H4IzbdyUeFBXtjq35Xb4OD0OV6bApffRLviGZUYJo5IyGU9kBOeRkEcykgjJEhH/QzIhoaHkyURlLrk4UonIPJpTmZxQ4YfdyMVf/Y0Ljz3hH8i4CnXdVHi2sXmO1Z8D9dJ9Ad/rgrl7AwAA"
+  Alex_Chest = "H4sIAAAAAAAACuWQSWvDMBCF/0qZsyMkR7It3UIX8CHdCLgLJYhkTASxVWy5C8b/vYpj40ALvRZ605t5enr6WrjWBYKCxR4/1ny9ggAy/flqTelqUM8t3NraOGNLUC08gAqJFDGXEQ/gERSjJKJcijCAJ1AzQZKEJiHrvLQlphegaAD3emsaH8aIF0v7hgWWrt+kpcNKb1xm3O5mcJ/Ohm6+U72z7+PGl/Fpud7XONn7hiyAy8K68eHUYTEcF71jEHcN1m44H4IzbdyUeFBXtjq35Xb4OD0OV6bApffRLviGZUYJo5IyGU9kBOeRkEcykgjJEhH/QzIhoaHkyURlLrk4UonIPJpTmZxQ4YfdyMVf/Y0Ljz3hH8i4CnXdVHi2sXmO1Z8D9dJ9Ad/rgrl7AwAA"
 
 -- Values that are needed for the whole script
-CurrentLoop = 1 -- This is just the loop counter itself, keeps tracks of how many you've done.
-DutyCounter = 0
-DutyFail = 0
+  CurrentLoop = 1 -- This is just the loop counter itself, keeps tracks of how many you've done.
+  DutyCounter = 0
+  DutyFail = 0
+
 
 if ManualSetDuty == true then
   DutyCounter = 1
 end
 
-::LoopTest::
-if NumberofLoops >= CurrentLoop then
-    yield("/echo Loop: "..CurrentLoop.." out of ".. NumberofLoops)
-elseif NumberofLoops < CurrentLoop then
-    goto StopLoop
+if NumberofLoops == 0 then 
+  InfiniteLoops = true 
+  yield("/e Hmm... you didn't set it to infinite, but you also set it as 0, so I'm going to safely assume you meant to put it as infinite. Fixed that for you")
 end
 
-repeat
-yield("/wait 0.1")
-until IsPlayerAvailable()
+::LoopTest::
+if NumberofLoops >= CurrentLoop and InfiniteLoops == false then
+    yield("/echo Loop: "..CurrentLoop.." out of ".. NumberofLoops)
+    PlayerTest()
+elseif NumberofLoops < CurrentLoop and InfiniteLoops == false then
+    goto StopLoop
+elseif InfiniteLoops == true then 
+  yield("/e Current Loop is at: "..CurrentLoop)
+  PlayerTest()
+end
+
+if CurrentLoop == 69 then 
+  yield("/e Heh... nice.")
+elseif CurrentLoop == 100 then 
+  yield("/e Woo! 100 in, only... many more to go")
+elseif CurrentLoop == 300 then 
+  yield("/e Wow, 300. Man Idyllshire is going to be hurting for gear after this")
+elseif CurrentLoop = 500 then 
+  yield("/e Wanna know what a pirate's favorite letter is?")
+  yield("/e You might this it's 'Arr' but his first love was the 'C' ")
+end
 
 -- Repair Functionality
 if ManualRepair == true then
@@ -108,10 +158,6 @@ if ManualRepair == true then
     yield("/pcall Repair true -1")
   end
 end
-
-repeat
-yield("/wait 0.1")
-until IsPlayerAvailable()
 
 ::DutyFinder::
 if DutyFail == 4 then
@@ -184,8 +230,6 @@ elseif DutyCounter == 1 then -- Quicker menu'ing here to load in
     while not IsAddonReady("ContentsFinder") do
         yield("/wait "..rate)
     end
-  -- Setting up Unsync if it wasn't already
-    SetDFUnrestricted(true)
     yield("/pcall ContentsFinder True 12 0") --Duty Load
     repeat
         yield("/wait "..rate)
@@ -214,9 +258,6 @@ while not GetCharacterCondition(26) do
         current_target = GetTargetName()
         if current_target == "" then
             yield("/wait "..rate)
-            if CastingDebug == true then
-              yield("/e Target system is working, if it's targeting something here")
-            end
         end
     end
 
@@ -230,9 +271,6 @@ while not GetCharacterCondition(26) do
             yield("/visland moveto " .. enemy_x .. " " .. enemy_y .. " " .. enemy_z)
             yield("/wait "..rate)
             yield("/rotation manual")
-            if CastingDebug == true then 
-              yield("/e Break B")
-            end
         else
             yield("/visland stop")  -- Stop movement after reaching near the target
         end
@@ -287,6 +325,13 @@ until IsMoving()
 repeat
     yield("/wait "..rate)
 until not IsVislandRouteRunning()
+
+while TargetNearestObjectKind(4) do
+    if not IsVislandRouteRunning() then
+        yield("/visland moveto " .. GetTargetRawXPos() .. " " .. GetTargetRawYPos() .. " " .. GetTargetRawZPos())
+    end
+    yield("/wait "..rate)
+end
 
 CurrentLoop = CurrentLoop + 1
 yield("/echo Leaving the instance")
