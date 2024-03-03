@@ -13,10 +13,11 @@
 
   **************
   *  Version:  *
-  *  1.0.4.2   *
+  *    1.1     *
   **************
 
   Version Update Notes:
+  1.1     -> NVM. Turns out this is faster than I could before. Updated timers again, added one before loading into NPC to make it more normalish on loadout
   1.0.4.2 -> Fixed sprint, made it constantly try to use while moving to spot
   1.0.4.1 -> Concealment save file setting added
   1.0.4   -> Speed Update (Made checking Intuition SO much faster, pomander timers as well are now fast af)
@@ -80,14 +81,15 @@
 ::DeepDungeon::
 while IsInZone(613) == false do
   PathStop()
-  yield("/wait 1")
+  yield("/wait 0.1")
 end
 
 while GetCharacterCondition(45) do
-yield("/wait 3")
+yield("/wait 0.1")
 end
 
 if IsInZone(613) then
+  yield("/wait 0.5")
   while GetCharacterCondition(34, false) and GetCharacterCondition(45, false) do
     if IsAddonVisible("ContentsFinderConfirm") then
       yield("/pcall ContentsFinderConfirm true 8")
@@ -103,7 +105,7 @@ if IsInZone(613) then
   end
   while GetCharacterCondition(79, false) do yield("/wait 1") end
   if GetCharacterCondition(79) then yield("/wait 1") end
-  yield("/wait 3")
+  yield("/wait 0.1")
 end
 
 ::ZoneCheck::
@@ -115,6 +117,7 @@ if GetZoneID() == 771 then
 end
 
 ::IntuitionCheck::
+yield("/wait 0.2")
 yield("/pcall DeepDungeonStatus True 11 14")
 
 repeat 
