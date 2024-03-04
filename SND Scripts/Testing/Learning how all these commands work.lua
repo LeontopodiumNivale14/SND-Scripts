@@ -103,19 +103,19 @@ SetDFLimitedLeveling(Boolean state)
 -- Info text here when I get the second 
 Int32 GetDiademAetherGaugeBarCount()
 
--- Info text here when I get the second 
+-- Check if a game UI window is "visible". Becomes true as soon as the addon begins loading, before it's actually on screen and usable.
 Boolean IsAddonVisible(String addonName)
 
--- Info text here when I get the second 
+-- Check if an element node is visible in game UI windows. Does not support nested nodes (it was supposed to, but it didn't work).
 Boolean IsNodeVisible(String addonName, Int32 node, Int32 child1 = -1, Int32 child2 = -1)
 
--- Info text here when I get the second 
+-- Similar to IsAddonVisible, but waits for the addon to finish loading. Slower, but better to use if you're reading text nodes, as the text nodes are not populated immediately.
 Boolean IsAddonReady(String addonName)
 
 -- Info text here when I get the second 
 String GetToastNodeText(Int32 index, Int32[] nodeNumbers)
 
--- Info text here when I get the second 
+-- Used for reading text from game UI windows. Addon name needs to be in "quotes". Supports nested text nodes. Use the Node List in addon inspector, and the index you want is in [1] square brackets at the start of the line.
 String GetNodeText(Int32 index, Int32[] nodeNumbers)
 
 -- Info text here when I get the second 
