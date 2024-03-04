@@ -5,7 +5,7 @@
 **********
 
 Have you ever wondered how this command works? Ever just need some documentation on all the custom lua functions we have in our SND [Expanded Edition]
-Well... this is my atttempt to kinda write where/how all these work, and 
+Well... this is a general attempt to try and get it all in one place, that way maybe... making scripts is a lot more user friendly. 
 
 ]]
 
@@ -38,18 +38,18 @@ Example: GetRealRecastTime(7514) -- if casting vercure, will track the cast time
    GetSpellCooldown(UInt32 actionId)
 or GetRealSpellCooldown(UInt32 actionId)
 
--- Info text here when I get the second 
+-- Info here!
   GetSpellCooldownInt(UInt32 actionId)
   Example: GetSpellCooldownInt(24298) -- Kerachole [SGE AOE Mit]
   Example: yield("/e Spell CD: "..GetSpellCooldownInt(24298)) -- Echos back how much time is left on Kerachole [SGE AOE Mit]
 
--- Info text here when I get the second 
+-- Info here!
 GetActionStackCount(Int32 maxStacks, UInt32 actionId)
 
--- Info text here when I get the second 
+-- Info here!
 ExecuteAction(UInt32 actionId)
 
--- Info text here when I get the second 
+-- Info here!
 ExecuteGeneralAction(UInt32 actionId)
 
 --[[
@@ -64,67 +64,67 @@ ExecuteGeneralAction(UInt32 actionId)
   OpenRouletteDuty(Byte contentRouletteID)
 Example: OpenRouletteDuty(6) -- Opens the duty finder directly to trial roulette
 
--- Info text here when I get the second 
+-- Info here!
 OpenRegularDuty(UInt32 cfcID)
 
--- Info text here when I get the second 
+-- Info here!
 SetDFLanguageJ(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 SetDFLanguageE(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 SetDFLanguageD(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 SetDFLanguageF(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 SetDFJoinInProgress(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 SetDFUnrestricted(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 SetDFLevelSync(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 SetDFMinILvl(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 SetDFSilenceEcho(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 SetDFExplorerMode(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 SetDFLimitedLeveling(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 Int32 GetDiademAetherGaugeBarCount()
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsAddonVisible(String addonName)
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsNodeVisible(String addonName, Int32 node, Int32 child1 = -1, Int32 child2 = -1)
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsAddonReady(String addonName)
 
--- Info text here when I get the second 
+-- Info here!
 String GetToastNodeText(Int32 index, Int32[] nodeNumbers)
 
--- Info text here when I get the second 
+-- Info here!
 String GetNodeText(Int32 index, Int32[] nodeNumbers)
 
--- Info text here when I get the second 
+-- Info here!
 String GetSelectStringText(Int32 index)
 
--- Info text here when I get the second 
+-- Info here!
 String GetSelectIconStringText(Int32 index)
 
--- Info text here when I get the second 
+-- Info here!
 Int32 GetNodeListCount(String addonName)
 
 --[[
@@ -134,118 +134,118 @@ Int32 GetNodeListCount(String addonName)
 *********************
 ]]
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsPlayerAvailable()
 
--- Info text here when I get the second 
+-- Info here!
 Boolean HasStatus(String statusName)
 
--- Info text here when I get the second 
+-- Info here!
 Boolean HasStatusID(UInt32[] statusIDs)
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetStatusStackCount(UInt32 statusID)
 
 -- Info text here when I get the second
 Single GetStatusTimeRemaining(UInt32 statusID)
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetStatusSourceID(UInt32 statusID)
 
--- Info text here when I get the second 
+-- Info here!
 Boolean GetCharacterCondition(Int32 flagID, Boolean hasCondition = True)
 
--- Info text here when I get the second 
+-- Info here!
 String GetCharacterName(Boolean includeWorld = False)
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsInZone(Int32 zoneID)
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsLocalPlayerNull()
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsPlayerDead()
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsPlayerCasting()
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsMoving()
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsPlayerOccupied()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetGil()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetClassJobId()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetPlayerRawXPos(String character = )
 
--- Info text here when I get the second 
+-- Info here!
 Single GetPlayerRawYPos(String character = )
 
--- Info text here when I get the second 
+-- Info here!
 Single GetPlayerRawZPos(String character = )
 
--- Info text here when I get the second 
+-- Info here!
 Int32 GetLevel(Int32 expArrayIndex = =1)
 
--- Info text here when I get the second 
+-- Info here!
 Byte GetPlayerGC()
 
--- Info text here when I get the second 
+-- Info here!
 Int32 GetFCRank()
 
--- Info text here when I get the second 
+-- Info here!
 String GetFCGrandCompany()
 
--- Info text here when I get the second 
+-- Info here!
 Int32 GetFCOnlineMembers()
 
--- Info text here when I get the second 
+-- Info here!
 Int32 GetFCTotalMembers()
 
--- Info text here when I get the second 
+-- Info here!
 Void RequestAchievementProgress(UInt32 id)
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetRequestedAchievementProgress()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetCurrentBait()
 
--- Info text here when I get the second 
+-- Info here!
 Uint16 GetLimitBreakCurrentValue()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetLimitBreakBarValue()
 
--- Info text here when I get the second 
+-- Info here!
 Byte GetLimitBreakBarCount()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetPenaltyTimeRemainingInMinutes()
 
--- Info text here when I get the second 
+-- Info here!
 Byte GetMaelstromGCRank()
 
--- Info text here when I get the second 
+-- Info here!
 Byte GetFlamesGCRank()
 
--- Info text here when I get the second 
+-- Info here!
 Byte GetAddersGCRank()
 
--- Info text here when I get the second 
+-- Info here!
 Void SetMaelstromGCRank(Byte rank)
 
--- Info text here when I get the second 
+-- Info here!
 Void SetFlamesGCRank(Byte rank)
 
--- Info text here when I get the second 
+-- Info here!
 Void SetAddersGCRank(Byte rank)
 
 --[[
@@ -265,124 +265,124 @@ Void SetAddersGCRank(Byte rank)
 ******************
 ]]
 
--- Info text here when I get the second 
+-- Info here!
 Single GetDistanceToPoint(Single x, Single y, Single z)
 
--- Info text here when I get the second 
+-- Info here!
 Single GetTargetName()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetTargetRawXPos()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetTargetRawYPos()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetTargetRawZPos()
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsTargetCasting()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetTargetActionID()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetTargetUsedActionID()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetTargetHP()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetTargetMaxHP()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetTargetHPP()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetTargetRotation()
 
--- Info text here when I get the second 
+-- Info here!
 Nullable`1 GetTargetObjectKind()
 
--- Info text here when I get the second 
+-- Info here!
 Nullable`1 GetTargetSubKind()
 
--- Info text here when I get the second 
+-- Info here!
 Void TargetClosestEnemy(Single distance = 0)
 
--- Info text here when I get the second 
+-- Info here!
 Void ClearTarget()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetDistanceToTarget()
 
--- Info text here when I get the second 
+-- Info here!
 String GetFocusTargetName()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetFocusTargetRawXPos()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetFocusTargetRawYPos()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetFocusTargetRawZPos()
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsFocusTargetCasting()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetFocusTargetActionID()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetFocusTargetUsedActionID()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetFocusTargetHP()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetFocusTargetMaxHP() 
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetFocusTargetHPP()
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetFocusTargetRotation()
 
--- Info text here when I get the second 
+-- Info here!
 Void ClearFocusTarget()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetDistanceToFocusTarget()
 
--- Info text here when I get the second 
+-- Info here!
 Single GetObjectRawXPos(String name)
 
--- Info text here when I get the second 
+-- Info here!
 Single GetObjectRawYPos(String name)
 
--- Info text here when I get the second 
+-- Info here!
 Single GetObjectRawZPos(String name)
 
--- Info text here when I get the second 
+-- Info here!
 Boolean IsObjectCasting(String name)
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetObjectActionID(String name)
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetObjectUsedActionID(String name)
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetObjectHP(String name)
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetObjectMaxHP(String name)
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetObjectHPP(String name)
 
--- Info text here when I get the second 
+-- Info here!
 UInt32 GetObjectRotation(String name)
 
 --[[
@@ -394,10 +394,10 @@ UInt32 GetObjectRotation(String name)
 
 ]]
 
--- Info text here when I get the second 
+-- Info here!
 Int32 GetItemCount(Int32 itemID, Boolean includeHQ = True)
 
--- Info text here when I get the second 
+-- Info here!
 Int32 GetInventoryFreeSlotCount()
 
 --[[
@@ -409,37 +409,37 @@ Int32 GetInventoryFreeSlotCount()
 
 ]]
 
--- Info text here when I get the second 
+-- Info here!
 Nullable`1 PandoraGetFeatureEnabled(String feature)
 
--- Info text here when I get the second 
+-- Info here!
 Nullable`1 PandoraGetFeatureConfigEnabled(String feature, String config)
 
--- Info text here when I get the second 
+-- Info here!
 Void PandoraSetFeatureState(String feature, String config)
 
--- Info text here when I get the second 
+-- Info here!
 Void PandoraSetFeatureConfigState(String feature, String config, Boolean State)
 
--- Info text here when I get the second 
+-- Info here!
 Void PandoraPauseFeature(String feature, Int32 ms)
 
--- Info text here when I get the second 
+-- Info here!
 Void SetAutoHookState(Boolean State)
 
--- Info text here when I get the second 
+-- Info here!
 Void SetAutoHookGigState(Boolean state)
 
--- Info text here when I get the second 
+-- Info here!
 Void SetAutoHookGigSize(Int32 size)
 
--- Info text here when I get the second 
+-- Info here!
 Void SetAutoHookGigSpeed(Int32 speed)
 
--- Info text here when I get the second 
+-- Info here!
 Void SetAutoHookPreset(Spring preset)
 
--- Info text here when I get the second 
+-- Info here!
 Void UseAutoHookAnonymousPreset(String preset)
 
 -- Info text here when I get the second

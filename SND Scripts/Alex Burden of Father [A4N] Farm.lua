@@ -7,7 +7,8 @@
   This is meant to be used for Alexander - The Burden of the Father (NORMAL NOT SAVAGE)
   It's setup to where you should be able to loop it as many time as you want, and be able to farm mats for GC seals
   Known classes to work: ALL
-  Version: 3.3.2
+  Version: 3.3.3 
+    -> 3.3.3: Added the fucking manual like the main repo. 
     -> 3.3.2: Added the ability to Infinite Loop w/o having to set a number
     -> 3.3.1: Added some checks to wait till you're fully loaded out (in case of high ping) [Chest fix is next on the list for high ping]
     -> 3.3.0: Repair Functionality & Potentional duty load check (@leaf update)
@@ -26,7 +27,9 @@
   -> Visland (for pathing) : https://puni.sh/api/repository/veyn
   -> Pandora (Setting "Open Chest") : https://love.puni.sh/ment.json
   -> RotationSolver : https://puni.sh/api/repository/croizat
-  -> Something Need Doing [Expanded Edition] : https://puni.sh/api/repository/croizat
+   -> Something Need Doing [Expanded Edition] : https://puni.sh/api/repository/croizat
+    -> In the SND window, press the question mark to make the help setting's menu open 
+    -> Go to options tab -> /target -> DISABLE THIS!! "Stop macro if target not found (only applies to SND's targeting system')"
 ]]
 
 --[[
@@ -58,6 +61,8 @@
 
   ManualRepair = false -- if you want to repair between the loops that you do. [defaults is false | on is true]
   RepairAmount = 75 -- lowest point your gear will 
+
+  EchoHowMany = true -- Would you like to know where in the script the loop is at? [default is true | off is false]
 
   CastingDebug = false
 
@@ -120,12 +125,16 @@ end
 
 ::LoopTest::
 if NumberofLoops >= CurrentLoop and InfiniteLoops == false then
+  if EchoHowMany == true then
     yield("/echo Loop: "..CurrentLoop.." out of ".. NumberofLoops)
+  end
     PlayerTest()
 elseif NumberofLoops < CurrentLoop and InfiniteLoops == false then
     goto StopLoop
 elseif InfiniteLoops == true then 
-  yield("/e Current Loop is at: "..CurrentLoop)
+  if EchoHowMany == true then 
+    yield("/e Current Loop is at: "..CurrentLoop)
+  end
   PlayerTest()
 end
 
@@ -135,7 +144,7 @@ elseif CurrentLoop == 100 then
   yield("/e Woo! 100 in, only... many more to go")
 elseif CurrentLoop == 300 then 
   yield("/e Wow, 300. Man Idyllshire is going to be hurting for gear after this")
-elseif CurrentLoop = 500 then 
+elseif CurrentLoop == 500 then 
   yield("/e Wanna know what a pirate's favorite letter is?")
   yield("/e You might this it's 'Arr' but his first love was the 'C' ")
 end
