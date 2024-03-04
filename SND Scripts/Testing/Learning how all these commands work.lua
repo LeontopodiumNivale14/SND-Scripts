@@ -39,7 +39,9 @@ Example: GetRealRecastTime(7514) -- if casting vercure, will track the cast time
 or GetRealSpellCooldown(UInt32 actionId)
 
 -- Info text here when I get the second 
-GetSpellCooldownInt(UInt32 actionId)
+  GetSpellCooldownInt(UInt32 actionId)
+  Example: GetSpellCooldownInt(24298) -- Kerachole [SGE AOE Mit]
+  Example: yield("/e Spell CD: "..GetSpellCooldownInt(24298)) -- Echos back how much time is left on Kerachole [SGE AOE Mit]
 
 -- Info text here when I get the second 
 GetActionStackCount(Int32 maxStacks, UInt32 actionId)
