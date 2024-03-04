@@ -20,7 +20,7 @@
   * Credits *
   ***********
 
-  Author: LegendofIceman
+  Author: Leontopodium Nivale
   Version: 6.2.4 [Tweaked BTN/Miner Route to be smoother/fixed potentional collision against the wall in the miner route]
   Class: Miner/BTN
   Link: https://discord.com/channels/1001823907193552978/1191076157882388581/1193291297067384873

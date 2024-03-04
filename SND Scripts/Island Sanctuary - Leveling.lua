@@ -1,6 +1,6 @@
 --[[
 Version: 2.1 [Ground & Flying ]
-Author: LegendofIceman
+Author: Leontopodium Nivale
 This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
 Note: This does require flying atm, I'll work on making a non-flying verison in a bit. (When I get a second or need a breather from the other script lol.)

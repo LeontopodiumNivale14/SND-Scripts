@@ -1,5 +1,7 @@
 --[[
 
+  Author: Leontopodium Nivale
+
   ***************
   * Description *
   ***************

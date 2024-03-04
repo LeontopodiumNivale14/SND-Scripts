@@ -8,7 +8,7 @@
   It's setup to where you should be able to loop it as many time as you want, and be able to farm mats for GC seals
   Known classes to work: ALL
   Version: 1.0
-  Created by: Ice
+  Created by: Leontopodium Nivale
 
 
   *********************

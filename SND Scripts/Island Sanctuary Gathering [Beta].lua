@@ -43,7 +43,7 @@ Uses
   19 -> Quartz [Mountain XP Loop]
   20 -> Coal/Shale | Glimshroom 
   21 -> Effervescent Water 
-  22 -> Crystal/Hawk Sand | Yelow Copper/Gold Ore
+  22 -> Crystal/Hawk Sand | Yelow Copper/Gold Ore [x2]
 ]]
 
 -- If you want to skip a specific route (check above one section) change that route to true

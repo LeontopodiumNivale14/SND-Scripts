@@ -2,7 +2,7 @@
   Description: Spearfishing Auto Desynth
   The script allows you to have it running a visland route (while spearfishing) and when you get to a certain inventory amount it will pause for you and proceed to desynth all your collectables.
   Version: 6.1 (Now with a built in route, and ability to add your own!)
-  Author: LegendofIceman
+  Author: Leontopodium Nivale
 ]]
 
 Fishing_Start = 0

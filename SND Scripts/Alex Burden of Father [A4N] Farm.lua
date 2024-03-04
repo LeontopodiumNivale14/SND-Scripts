@@ -11,7 +11,7 @@
     -> 3.3.2: Added the ability to Infinite Loop w/o having to set a number
     -> 3.3.1: Added some checks to wait till you're fully loaded out (in case of high ping) [Chest fix is next on the list for high ping]
     -> 3.3.0: Repair Functionality & Potentional duty load check (@leaf update)
-  Created by: Ice, Class Support: Ellipsis | Menu Optimizing/tweaks: Leaf
+  Created by: Leontopodium Nivale, Class Support: Ellipsis | Menu Optimizing/tweaks: Leaf
 
   Creators note: thank you Ellipsis for getting all the classes working, you did an amazing job. You deserve the credit here.
                  also @Leaf thanks for tweaking it and making this more friendly for situations I didn't account for, you're the best 
