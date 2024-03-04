@@ -596,6 +596,15 @@ Void SetClipboard(String text)
 -- ... Pretty self explanitory. Crashes the game for you (WHY... idk)
 Void CrashTheGame()
 
+-- Info Text Here
+Void LogInfo(String text)
+
+-- Info Text Here
+Void LogDebug(String text)
+
+-- Info Text Here
+Void LogVerbose(String text)
+
 --[[
 *****************
 *  WORLD STATE  *
