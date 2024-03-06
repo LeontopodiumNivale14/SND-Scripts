@@ -77,7 +77,7 @@
   -- if not, it'll use a primal + safety for movmement (sight doesn't really do TOO much, safety is so you don't hit a luring on the way there lol)
   -- Options: true | false 
 
-  ChatTracker = true
+  ChatTracker = false
   -- Option to track how many intuitions you've found over time 
   -- false by default, if you would like it to tell you upon every return back in front of the NPC, set it to true 
   -- Options: true | false 
