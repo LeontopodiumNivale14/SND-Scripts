@@ -11,10 +11,11 @@ Uses
 -- Make another route listing, but have it if workshop == true
 -- then (this is in thought) make a formula to tell how many less routes it should do (aka )
 
--- Need this to tell what the caps on items is 
--- 999 is the default max
--- 800 is what you would use if you have workshops running currently.
-  PersonalItemCap = 999
+-- Used to say how much items you want to keep for workshop 
+-- Making this a general "this is the amount I want to keep on all" for the second. 
+-- So for example, if I had a workshop that had 60 stone for instance, and everything else was lower than 60, I would put 60 here 
+-- Mainly used to make sure that you wont' error out on selling items
+  WorkshopKeepAmount = 0
 
 -- If you want feedback on how what loop your currently on, or how many items are being sent to the shop, enable them as "true" below
 
@@ -57,78 +58,121 @@ Uses
   SkipRoute7 = false
   SkipRoute8 = false
 
--- Route Loop Amounts
-  --[[
-    I'll have the max amount each can run on the side, but on the chance you're currently using materials for workshop,
-    IF YOU'RE DOING A CUSTOM AMOUNT, ADJUST THE TOP ONE, AND LEAVE THE CAP AT 999
-    ]]
+-- Array's that are for each route
 
-  if PersonalItemCap == 999 then
+  -- Clam/Islefish | Laver/Squid
+    ClamArray = {8, 4}
+
+  -- Islewort | Popoto Seeds | Parsnip Seeds
+    IslewortArray = {14, 1}
+
+  -- Sugarcane | Vine 
+    SugarcaneArray = {11}
+
+  -- Tinsand/Sand | Marble/Limestone
+    TinsandArray = {7, 4}
+
+  -- Coconut/Palm Log/Leaf | Marble/Limestone
+    CoconutArray = {7, 4}
+
+  -- Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
+  AppleArray = {5, 3, 2}
+
+  -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
+  MarbleArray = {7, 1}
+
+  -- Clay | Tinsand | (Marble/Limestone | Branch/Log/Resin) | Sand
+  ClayArray = {7, 2, 1, 10}
+
+  -- Cotton | Hemp | Palm Leaf/
+  CottonArray = {7, 3, 1, 11}
+
+  -- Still Figuring out order here --
+
+  -- XP Route || Quarts | Iron | Durium Sand | Leucogranite
+  QuartzArray = {6, 3, 2}
+
+  -- Jellyfish/Coral | Laver/Squid
+  LaverJellyfishArray = {8, 6}
+
+  -- Isleblooms | Quartz | Leucogranite | Iron
+  IslebloomsArray = {4, 5, 1, 1}
+
+-- Route Loop Amounts
 
     ItemMax = 999 
 
     --Islefish/Clam | Laver/Squid
-    Route1Loop = 124 -- Max 124
+    Route1Base = (ItemMax//ClamArray[1])
+    LoopTestA = 0
+    if WorkshopKeepAmount > 0 then 
+      LoopTestA = math.ceil(WorkshopKeepAmount/ClamArray[1])
+    end
+    Route1Loop = Route1Base - LoopTestA
 
     -- Islewort | Popoto Seeds | Parsnip Seeds
-    Route2Loop = 71 --base is 71
+    Route1Base = (ItemMax//IslewortArray[1])
+    LoopTestA = 0
+    if WorkshopKeepAmount > 0 then 
+      LoopTestA = math.ceil(WorkshopKeepAmount/IslewortArray[1])
+    end
+    Route2Loop = Route1Base - LoopTestA
 
-    --Sugarcane | Vine
-    Route3Loop = 90 -- base is 90
-
-    -- Tinsand/Sand | Marble/Limestone
-    Route4Loop = 142 -- base is 142
-
-    -- Coconut/Palm Log/Leaf | Marble/Limestone
-    Route5Loop = 142 -- base is 142
-
-    --  Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
-    Route6Loop = 199 -- base is 199
-
-    -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
-    Route7Loop = 142 -- base is 142
-
-    -- Clay | Tinsand | Marble/Limestone | Branch/Log/Resin | Sand
-    Route8Loop = 142 -- base is 142
-
-    -- Cotton | Islewort | Log/Branch/Resin | Hemp
-    Route9Loop = x -- base is x
-
-  elseif PersonalItemCap == 800 then 
-    
-    ItemMax = 999
-
-    --Islefish/Clam | Laver/Squid
-    Route1Loop = 100 -- Max 100
-
-    -- Islewort | Popoto Seeds | Parsnip Seeds
-    Route2Loop = 57 --base is 57
-
-    --Sugarcane | Vine
-    Route3Loop = 72 -- base is 72
+    -- Sugarcane | Vine
+    Route1Base = (ItemMax//SugarcaneArray[1])
+    LoopTestA = 0
+    if WorkshopKeepAmount > 0 then 
+      LoopTestA = math.ceil(WorkshopKeepAmount/SugarcaneArray[1])
+    end
+    Route3Loop = Route1Base - LoopTestA
 
     -- Tinsand/Sand | Marble/Limestone
-    Route4Loop = 114 -- base is 114
+    Route1Base = (ItemMax//TinsandArray[1])
+    LoopTestA = 0
+    if WorkshopKeepAmount > 0 then 
+      LoopTestA = math.ceil(WorkshopKeepAmount/TinsandArray[1])
+    end
+    Route4Loop = Route1Base - LoopTestA
 
     -- Coconut/Palm Log/Leaf | Marble/Limestone
-    Route5Loop = 114 -- base is 114
+    Route1Base = (ItemMax//CoconutArray[1])
+    LoopTestA = 0
+    if WorkshopKeepAmount > 0 then 
+      LoopTestA = math.ceil(WorkshopKeepAmount/CoconutArray[1])
+    end
+    Route5Loop = Route1Base - LoopTestA
 
     --  Apple/Vine/Beehive | Log/Sap/Opal | Sugarcane/Vine | Log/Resin
-     Route6Loop = 160 -- base is 160
+    Route1Base = (ItemMax//AppleArray[1])
+    LoopTestA = 0
+    if WorkshopKeepAmount > 0 then 
+      LoopTestA = math.ceil(WorkshopKeepAmount/AppleArray[1])
+    end
+    Route6Loop = Route1Base - LoopTestA
 
     -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
-    Route7Loop = 114 -- base is 114
-   
+    Route1Base = (ItemMax//MarbleArray[1])
+    LoopTestA = 0
+    if WorkshopKeepAmount > 0 then 
+      LoopTestA = math.ceil(WorkshopKeepAmount/MarbleArray[1])
+    end
+    Route7Loop = Route1Base - LoopTestA
+
     -- Clay | Tinsand | Marble/Limestone | Branch/Log/Resin | Sand
-    Route8Loop = 114 -- base is 114
+    Route1Base = (ItemMax//ClayArray[1])
+    LoopTestA = 0
+    if WorkshopKeepAmount > 0 then 
+      LoopTestA = math.ceil(WorkshopKeepAmount/ClayArray[1])
+    end
+    Route8Loop = Route1Base - LoopTestA
 
     -- Cotton | Islewort | Log/Branch/Resin | Hemp
-    Route9Loop = x -- base is x
-
-  elseif (ItemMax < 799) or (ItemMax > 800 and ItemMax < 999) then
-    yield("/echo *-tilts head-* somehow... you managed to input a number outside the 2 I specificied, go back to the top and try again... Please?")
-    yield("/snd stop")
-  end
+    Route1Base = (ItemMax//ClamArray[1])
+    LoopTestA = 0
+    if WorkshopKeepAmount > 0 then 
+      LoopTestA = math.ceil(WorkshopKeepAmount/ClamArray[1])
+    end
+    Route9Loop = Route1Base - LoopTestA
 
  --Visland Routes
   B2Islefish = "H4sIAAAAAAAACuWVTWvcMBCG/0rQ2TvVjL5GvrVpC3tI24TAtg05mEZhDWurxEpCWPa/Z9Z2CCGXXotvmg+/jB40r/fqW9MlVatPzZBOSj5ZD7t02w7bD6e7plOV2jRPf3Pbl0HVV3v1Iw9taXOv6r36qeoVaQfBB2sq9UvVAYGtI+sq9VvVyFFqms1Bwtyn9WfJaSfFi+amvRdBBF2ps/yQutQXCSu17ku6a/6UTVu2348f6Le5eViZa9jmx5eKDCRqt81uSK/t45Qi+aXLJb1IldTNx49jxxyc36ehzOej8KZpy6viMfqa705zfzNfXk/Jy7ZLZ9KnD9V7NKgJAtsjDEGDGsFQYJrQUACKwbllorERUAf0MxkNZEwwIxnvIVoJFgoGXESiOIKR9WHywY9cVug1yG7hUsGgMQ7DZDMEkdngBMZYD95YXiQYBI9O2zivEoFj8Rg7kXHsQFNc5i55IA4UabJfA85Gp+NkMisfGJiZFkkGjdzdc5hcZmXEjIOOOD8aHxms9v+8TvJD+1/RXB+eAbz3pC7+CAAA"
@@ -285,6 +329,7 @@ Uses
   function CottonNode()
     CottonID = 37568
     CottonCount = GetItemCount(CottonID)
+  end
 
   -- These are Items that are shared across multiple nodes
 
@@ -1432,6 +1477,7 @@ Uses
   end
   if LogSend > 0 then
     LogSell()
+  end
   if ResinSend > 0 then 
     ResinSell()
   end
@@ -1502,9 +1548,6 @@ Uses
    end
 
    LeavingShop()
-
-
-
 
 
 ::DemoComplete::
