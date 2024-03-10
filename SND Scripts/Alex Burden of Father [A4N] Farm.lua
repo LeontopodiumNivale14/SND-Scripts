@@ -63,6 +63,7 @@
   RepairAmount = 75 -- lowest point your gear will 
 
   EchoHowMany = true -- Would you like to know where in the script the loop is at? [default is true | off is false]
+  TrueLoop = false -- would you like to know how many loops you're currently at actually? (tracks how many bolts/things you have) [default is false | on is true]
 
   CastingDebug = false
 
@@ -108,8 +109,29 @@
 --Visland Loops
   Alex_Chest = "H4sIAAAAAAAACuWQSWvDMBCF/0qZsyMkR7It3UIX8CHdCLgLJYhkTASxVWy5C8b/vYpj40ALvRZ605t5enr6WrjWBYKCxR4/1ny9ggAy/flqTelqUM8t3NraOGNLUC08gAqJFDGXEQ/gERSjJKJcijCAJ1AzQZKEJiHrvLQlphegaAD3emsaH8aIF0v7hgWWrt+kpcNKb1xm3O5mcJ/Ohm6+U72z7+PGl/Fpud7XONn7hiyAy8K68eHUYTEcF71jEHcN1m44H4IzbdyUeFBXtjq35Xb4OD0OV6bApffRLviGZUYJo5IyGU9kBOeRkEcykgjJEhH/QzIhoaHkyURlLrk4UonIPJpTmZxQ4YfdyMVf/Y0Ljz3hH8i4CnXdVHi2sXmO1Z8D9dJ9Ad/rgrl7AwAA"
 
+-- custom stuff for me to be insane, ignore This
+  LensID = 12674
+  ShaftID = 12675
+  CrankID = 12676
+  SpringID = 12677
+  PedalID = 12678
+  BoltID = 12680
+
+  LensCount = GetItemCount(LensID)
+  ShaftCount = GetItemCount(ShaftID)
+  CrankCount = GetItemCount(CrankID)
+  SpringCount = GetItemCount(SpringID)
+  PedalCount = GetItemCount(PedalID)
+  BoltCount = GetItemCount(BoltID)
+
+  ActualLoopCount = math.min(BoltCount//2,ShaftCount//2,SpringCount//2,PedalCount//1,CrankCount//1)
+
+
 -- Values that are needed for the whole script
   CurrentLoop = 1 -- This is just the loop counter itself, keeps tracks of how many you've done.
+  if ActualLoopCount > CurrentLoop and TrueLoop == true then 
+    CurrentLoop = ActualLoopCount
+  end
   DutyCounter = 0
   DutyFail = 0
 

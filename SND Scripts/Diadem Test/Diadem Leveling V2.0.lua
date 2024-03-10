@@ -7,12 +7,6 @@
 ]]
 
 --Functions
-function VNavMovement()
-  while PathIsRunning() do 
-    yield("/wait 0.1")
-    yield("/e Test A")
-  end
-end
 
 function MineralTarget()
   yield("/target Mineral Deposit")
@@ -96,60 +90,90 @@ while IsInZone(939) do
   -- 1st Node 
     MountFly()
     PathfindAndMoveTo(-162.71871948242,-3.5657231807709,-380.83001708984,true)
-    VNavMovement()
+    yield("/wait 0.3")
+    while PathIsRunning() do 
+      yield("/wait 0.1")
+    end
  
     RockyTarget()
 
   -- 2nd Node
     MountFly()
     PathfindAndMoveTo(-168.53330993652,-7.1620492935181,-517.23455810547,true)
-    VNavMovement()
+    yield("/wait 0.3")
+    while PathIsRunning() do 
+      yield("/wait 0.1")
+    end
     UnMounty = true 
     MineralTarget()
 
   -- 3rd Node 
     MountFly()
     PathfindAndMoveTo(-156.49293518066,0.51802706718445,-532.48718261719,true)
-    VNavMovement()
+    yield("/wait 0.3")
+    while PathIsRunning() do 
+      yield("/wait 0.1")
+    end
     PathfindAndMoveTo(-79.378227233887,-19.081031799316,-595.35748291016,true)
-    VNavMovement()
+    yield("/wait 0.3")
+    while PathIsRunning() do 
+      yield("/wait 0.1")
+    end
     UnMounty = true 
     MineralTarget()
 
   -- 4th Node
     MountFly()
     PathfindAndMoveTo(-50.906860351563,-47.829128265381,-515.34356689453,true)
-    VNavMovement()
+    yield("/wait 0.3")
+    while PathIsRunning() do 
+      yield("/wait 0.1")
+    end
     UnMounty = true 
     MineralTarget()
 
   -- 5th Node 
     MountFly()
     PathfindAndMoveTo(-21.170042037964,-27.940048217773,-535.30084228516,true)
-    VNavMovement()
+    yield("/wait 0.3")
+    while PathIsRunning() do 
+      yield("/wait 0.1")
+    end
     UnMounty = true 
     RockyTarget()
 
   -- 6th Node 
     MountFly()
     PathfindAndMoveTo(58.757160186768,-46.921642303467,-518.07025146484,true)
-    VNavMovement()
+    yield("/wait 0.3")
+    while PathIsRunning() do 
+      yield("/wait 0.1")
+    end
     UnMounty = true 
     RockyTarget()
 
   -- 7th Node 
     MountFly()
     PathfindAndMoveTo(106.36954498291,-48.547618865967,-502.35317993164,true)
-    VNavMovement()
+    yield("/wait 0.3")
+    while PathIsRunning() do 
+      yield("/wait 0.1")
+    end
     UnMounty = true 
     MineralTarget()
 
   -- 8th Node 
     MountFly()
     PathfindAndMoveTo(-205.19468688965,-3.7425479888916,-356.46331787109,true)
-    VNavMovement()
+    yield("/wait 0.3")
+    while PathIsRunning() do 
+      yield("/wait 0.1")
+    end
     UnMounty = true 
     MineralTarget()
 
     goto MinerRouteLoop
 end
+
+yield("/vnavmesh stop")
+yield("/e success")

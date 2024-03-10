@@ -59,6 +59,10 @@
 -- Movement for Part 3
   PathfindAndMoveTo(-48.217552185059,40.984283447266,-70.252174377441) -- pre-positioning
   VNavMovement()
+  PathMoveTo(-49.73458480835,40.977420806885,-70.258201599121) -- Pre-positioning
+  VNavMovement()
+  PathMoveTo(-47.870979309082,40.861660003662,-70.359855651855) -- Pre-positioning
+  VNavMovement()
   PathMoveTo(-46.516757965088,42.110000610352,-70.346618652344) -- Peg 1
   yield("/wait 0.03")
   yield("/gaction jump")
@@ -74,6 +78,8 @@
   PathMoveTo(-49.622097015381,47.109996795654,-70.242881774902) -- Peg 4
   yield("/wait 0.1")
   yield("/gaction jump")
+  VNavMovement()
+  PathMoveTo(-49.143260955811,47.110000610352,-70.668403625488) -- Repositioning
   VNavMovement()
   PathMoveTo(-46.39,48.91,-70.686) -- 2nd to last jump before 3rd roof
   yield("/wait 0.12")
@@ -175,11 +181,17 @@
   yield("/wait 0.08")
   yield("/gaction jump")
   VNavMovement()
+  PathMoveTo(-41.509757995605,82.249969482422,-62.523979187012) -- Repositioning on right #1
+  VNavMovement()
+  PathMoveTo(-41.53165435791,82.249969482422,-60.6) -- Repositioning on right #2
+  VNavMovement()
   PathMoveTo(-41.543075561523,82.249969482422,-56.473731994629) -- Left side of flag
   yield("/wait 0.1")
   yield("/gaction jump")
   VNavMovement()
   -- Seperator for myself.. cause this is a problem
+  PathMoveTo(-41.541080474854,82.249969482422,-57.1)
+  VNavMovement()
   PathMoveTo(-40.436363220215,83.75,-55.311138153076) -- Peg 1
   yield("/wait 0.05")
   yield("/gaction jump")
@@ -194,7 +206,7 @@
   yield("/wait 0.09")
   yield("/gaction jump")
   VNavMovement()
-  PathMoveTo(-39.,87.35,-54.8) -- Repositioning
+  PathMoveTo(-39.,87.35,-54.5) -- Repositioning
   VNavMovement()
   yield("/wait 0.5")
   PathMoveTo(-40.348064422607,88.492851257324,-54.418590545654) -- Jumping to ledge
