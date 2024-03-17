@@ -13,10 +13,11 @@
 
   **************
   *  Version:  *
-  *  1.1.3.2   *
+  *  1.1.3.3   *
   **************
 
   Version Update Notes:
+  1.1.3.3 -> Fixed it getting stuck on a step sometimes.... 
   1.1.3.2 -> make it to where sprint would toggle off upon exit
   1.1.3.1 -> Made it to where if you get spotted w/o Concealment, it'll pop a Magicite for safety
   1.1.3   -> New plugin suggestion: "Burnt Toast". Esentially saves you ~3-6 seconds per pull. 
@@ -94,6 +95,21 @@
   -- false by default, if you would like it to tell you upon every return back in front of the NPC, set it to true 
   -- Options: true | false 
 
+ --[[
+
+    ********************
+    *  Safety Options  *
+    ********************
+
+ ]]
+
+   DemiSafety = false 
+   -- if for whatever reason you're in concealment and it either doesn't activate for you, or you manage to get stuck on a step(this has happened before more than I'd like to admit)
+   -- this will make it to where you activate a demi -> safety to ensure you don't hit the trap by accident
+
+   ConcealmentSafety = false 
+   -- if you get stuck on a step and your concealment
+
   --[[
    
     ********************
@@ -106,10 +122,9 @@
   IntuitFound = 0 
   IntuitNotFound  = 0
   IntuitOutofRanged = 0 
-  PomsMissed = 0
 
 -- Functions
-function SafetyProtocol()
+function SafetyProtocolDemi()
   yield("/pcall DeepDungeonStatus True 12 0") -- primal summon
   yield("/wait 3")
   yield("/pcall DeepDungeonStatus True 11 1") -- safety pomander
@@ -118,6 +133,17 @@ function SafetyProtocol()
     yield("/wait 0.1")
   until IsPlayerAvailable()
 end
+
+function DistancetoHoard()
+  DistanceCheckStart = GetDistanceToPoint(tonumber(HoardX), tonumber(HoardY), tonumber(HoardZ))
+  yield("/wait 0.1")
+  DistanceCheckEnd = GetDistanceToPoint(tonumber(HoardX), tonumber(HoardY), tonumber(HoardZ))
+  yield("/wait 0.1")
+  if DistanceCheckStart == DistanceCheckEnd and PathIsRunning() then 
+    yield("/gaction jump")
+  end
+end
+
 
 
 ::DeepDungeon::
@@ -138,7 +164,6 @@ if IsInZone(613) then
     yield("/e ->  Intuitions Found Currently at: "..IntuitFound)
     yield("/e ->  Intuitions Not Found: "..IntuitNotFound)
     yield("/e ->  Intuitions Out of Range: "..IntuitOutofRanged)
-    yield("/e ->  Poms Missed due to collision: "..PomsMissed)
     yield("/e ┣━━━━━━━━━━━━━━━━━┫")
   end
   while GetCharacterCondition(34, false) and GetCharacterCondition(45, false) do
@@ -168,9 +193,13 @@ if (GetZoneID() == 771 or GetZoneID() == 772) then
 end
 
 ::IntuitionCheck::
+
 repeat 
     yield("/wait 0.1")
     yield("/pcall DeepDungeonStatus True 11 14")
+    repeat 
+      yield("/wait 0.1")
+    until IsPlayerAvailable()
 until GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." or GetToastNodeText(2, 3) == "You do not sense the call of the Accursed Hoard on this floor..."
 
 if GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." then
@@ -199,7 +228,7 @@ if GetToastNodeText(2, 3) == "You sense the Accursed Hoard calling you..." then
         yield("/wait 0.1")
       until IsPlayerAvailable()
     elseif ConcealmentSaveFile == false then 
-      SafetyProtocol()
+      SafetyProtocolDemi()
     end
   
 elseif GetToastNodeText(2, 3) == "You do not sense the call of the Accursed Hoard on this floor..." then
@@ -208,15 +237,19 @@ elseif GetToastNodeText(2, 3) == "You do not sense the call of the Accursed Hoar
     goto DeepDungeon
 end
 
+HoardX = string.format("%.2f", GetAccursedHoardRawX())
+HoardY = string.format("%.2f", GetAccursedHoardRawY())
+HoardZ = string.format("%.2f", GetAccursedHoardRawZ())
+
 ::IntuitionTime::
 while Chest_Got == false and (GetZoneID() == 771 or GetZoneID() == 772) do
   yield("/wait 0.2")
-  yield("/gaction jump")
   if HasStatusId(50) == false then
     yield("/ac sprint")
   end
-  if GetCharacterCondition(26) == true then 
-    SafetyProtocol()
+  DistancetoHoard()
+  if GetCharacterCondition(26) == true and DemiSafety == true then 
+    SafetyProtocolDemi()
   end
   if GetToastNodeText(2, 3) == "You obtain a piece of the Accursed Hoard." then
     Chest_Got = true
