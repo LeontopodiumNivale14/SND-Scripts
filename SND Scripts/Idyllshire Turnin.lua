@@ -1,16 +1,18 @@
 --[[
 
-  ************
-  * VERSION  *
-  *   3.3    *
-  ************
+  *************
+  *  VERSION  *
+  *  3.3.1.10 *
+  *************
 
   Update notes:
-    3.3 -> Rewrote the buying process to go from bolts -> pedal -> spring -> crank -> shaft
-           This functionally does nothing for normal buyer peeps 
-           Also made it to where you could max buy on the first page, so it'll get in/out of Idyllshire quicker
-             -> This setting is "MaxSingleItem", you'll find the toglle under Settings, off by default as always
-    3.2 -> Inventory Buying Fix
+    3.3.1.10 -> Made some tiny optimizations that's been bugging me, nothing to major. mounting in Idyllshire for instance...
+    3.3.1.0 -> Small fix to if you're buying in gridania, added a waypoint so you wouldn't get stuck on the step trying to turn it in
+    3.3.0.0 -> Rewrote the buying process to go from bolts -> pedal -> spring -> crank -> shaft
+               This functionally does nothing for normal buyer peeps 
+               Also made it to where you could max buy on the first page, so it'll get in/out of Idyllshire quicker
+                 -> This setting is "MaxSingleItem", you'll find the toglle under Settings, off by default as always
+    3.2.0.0 -> Inventory Buying Fix
 
   Author: Leontopodium Nivale
 
@@ -53,8 +55,8 @@
   **************
 
 ]]
---[[!! If you're shop is skipping buying items, increase this value. 
-Default is 1 cause that's worked for me, but 5 has helped others as well]]
+-- If you're shop is skipping buying items, increase this value. 
+-- Default is 1 cause that's worked for me, but 5 has helped others as well
 Alex_Shop_Timer = 1
 
 -- If you would like it to buy the max amount of items that it can on each run
@@ -139,14 +141,14 @@ MaxSingleItem = false
 
   while IsInZone(478) == false and GetCharacterCondition(27) == false do
     yield("/tp Idyllshire")
-    yield("/wait 1.0")
+    yield("/wait 0.1")
   end
 
   TeleportTest()
 
   if IsInZone(478) == false and GetCharacterCondition(27) == false then
     yield("/echo Hmm.... either you moved, or the teleport failed, lets try that again")
-    yield("/wait 1")
+    yield("/wait 0.5")
     goto IdyllshireTurnin
   end
 
@@ -154,10 +156,15 @@ MaxSingleItem = false
   
     DistanceToVendor()
     if Distance_Test > 1 then
-      if GetCharacterCondition(4) == false then
+      while GetCharacterCondition(4, false) do
         yield('/gaction "Mount Roulette"')
-         yield("/wait 3")
+        yield("/wait 0.3")
+        while IsPlayerCasting() do  
+          yield("/wait 0.1")
+        end
+        yield("/wait 0.2")
       end
+      yield("/wait 0.5")
       yield("/vnavmesh moveto -19.277 211 -36.076")
     end
   end
@@ -167,12 +174,17 @@ MaxSingleItem = false
   DistanceToVendor()
 
   while Distance_Test > 1 do
-    yield ("/wait 0.5")
+    yield ("/wait 0.1")
     DistanceToVendor()
   end
 
-  yield("/ac dismount")
-  yield("/wait 2")
+  if GetCharacterCondition(4, true) then 
+    yield("/ac dismount")
+    repeat
+      yield("/wait 0.1")
+    until GetCharacterCondition(4, false)
+  end 
+  yield("/wait 1")
   yield("/target Sabina")
   yield("/wait 0.35")
   yield("/pint Sabina")
@@ -431,6 +443,7 @@ MaxSingleItem = false
 
 ::LimsaLower::
   if IsInZone(129) then -- Limsa's Lower, moving to the upper to get to the GC
+    yield("/wait 1")
     yield("/target Aetheryte")
     yield("/lockon")
     yield("/automove")
@@ -447,6 +460,7 @@ MaxSingleItem = false
   end
 
   if IsInZone(128) then -- Limsa Upper
+    yield("/wait 1")
     yield("/vnavmesh moveto 93.9 40.175 75.409")
     yield("/wait 0.5")
     goto WalkingtoGC
@@ -454,6 +468,7 @@ MaxSingleItem = false
 
 ::Uldah::
   if IsInZone(130) then
+    yield("/wait 1")
     DistanceToVendor()
     yield("/vnavmesh moveto -142.361 4.1 -106.919")
     yield("/wait 0.5")
@@ -462,6 +477,14 @@ MaxSingleItem = false
 
 ::Gridania::
   if IsInZone(132) then
+    yield("/wait 1")
+    X = -59.564868927002
+    Y = -1.7171915769577
+    Z = 11.678337097168
+    PathfindAndMoveTo(X, Y, Z, false)
+    while GetDistanceToPoint(X, Y, Z) > 4 do 
+      yield("/wait 0.1")
+    end 
     yield("/vnavmesh moveto -67.757 -0.501 -8.393")
     yield("/wait 0.5")
     goto WalkingtoGC
@@ -469,6 +492,7 @@ MaxSingleItem = false
 
 ::LimsaAetheryteTicket::
   if IsInZone(128) then -- Limsa Upper
+    yield("/wait 1")
     yield("/vnavmesh moveto 93.9 40.175 75.409")
     yield("/wait 0.5")
     goto WalkingtoGC
@@ -476,6 +500,7 @@ MaxSingleItem = false
 
 ::GridaniaAetheryteTicket::
   if IsInZone(132) then
+    yield("/wait 1")
     yield("/vnavmesh moveto -67.757 -0.501 -8.393")
     yield("/wait 0.5")
     goto WalkingtoGC
@@ -483,6 +508,7 @@ MaxSingleItem = false
 
 ::UldahAetheryteTicket::
   if IsInZone(130) then
+    yield("/wait 1")
     yield("/vnavmesh moveto -142.361 4.1 -106.919")
     yield("/wait 0.5")
     goto WalkingtoGC
@@ -513,11 +539,11 @@ MaxSingleItem = false
   BoltCount = GetItemCount(BoltID) -- 1
 
   if (ShaftCount <= 3 and CrankCount <= 1 and SpringCount <=3 and PedalCount <=1 and BoltCount == 0) then
-  yield("/visland stop")
-  goto StoppingScript
+    PathStop()
+    goto StoppingScript
   elseif (ShaftCount >= 4 or CrankCount >= 2 or SpringCount >= 4 or PedalCount >= 2 or BoltCount >= 1) then
-  yield("/visland stop")
-  goto IdyllshireTurnin
+    PathStop()
+    goto IdyllshireTurnin
 end
 
 ::StoppingScript::

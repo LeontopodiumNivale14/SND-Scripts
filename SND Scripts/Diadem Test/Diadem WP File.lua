@@ -526,3 +526,10 @@
             MineralTarget()
         end 
     end 
+
+
+    -------------- 
+    X = -59.564868927002
+    Y = -1.7171915769577
+    Z = 11.678337097168
+    PathfindAndMoveTo(X, Y, Z, false)
