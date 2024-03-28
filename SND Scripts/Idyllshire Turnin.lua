@@ -1,11 +1,12 @@
 --[[
 
-  *************
-  *  VERSION  *
-  *  3.3.1.10 *
-  *************
+  **************
+  *   VERSION  *
+  *  3.3.1.11  *
+  **************
 
   Update notes:
+    3.3.1.11 -> Removed Old GC Ticket teleport system, since that's just baked into the GCTeleport itself. Took that time to also re-write that whole section and clean it up a bit.
     3.3.1.10 -> Made some tiny optimizations that's been bugging me, nothing to major. mounting in Idyllshire for instance...
     3.3.1.0 -> Small fix to if you're buying in gridania, added a waypoint so you wouldn't get stuck on the step trying to turn it in
     3.3.0.0 -> Rewrote the buying process to go from bolts -> pedal -> spring -> crank -> shaft
@@ -83,37 +84,31 @@ MaxSingleItem = false
 
 ::Functions::
 
-  function TeleportTest()
-    while GetCharacterCondition(27) do 
-      yield("/wait 1") 
+    function TeleportTest()
+        while GetCharacterCondition(27) do 
+            yield("/wait 1") 
+        end
+        yield("/wait 1")
+        while GetCharacterCondition(45) or GetCharacterCondition(51) do 
+            yield("/wait 3") 
+        end
     end
-    yield("/wait 1")
-    while GetCharacterCondition(45) or GetCharacterCondition(51) do 
-      yield("/wait 3") 
-    end
-  end
 
-  function AetheryteTeleport()
-    while GetCharacterCondition(32) do
-     yield("/wait 1")
+    function AetheryteTeleport()
+        while GetCharacterCondition(32) do
+            yield("/wait 1")
+        end
+        yield("/wait 1")
+        while GetCharacterCondition(45) or GetCharacterCondition(51) do
+            yield("/wait 1") 
+        end
     end
-    yield("/wait 1")
-    while GetCharacterCondition(45) or GetCharacterCondition(51) do
-     yield("/wait 1") 
-    end
-  end
 
-  function DistanceToVendor()
-    if IsInZone(478) then -- Idyllshire
-      Distance_Test = GetDistanceToPoint(-19.277, 211, -36.076)
-    elseif IsInZone(132) then -- Gridania
-      Distance_Test = GetDistanceToPoint(-67.769, -0.501, -8.502)
-    elseif IsInZone(128) then -- Limsa Upper
-      Distance_Test = GetDistanceToPoint(93.219, 40.275, 75.265)
-    elseif IsInZone(130) then -- Ul' dah
-      Distance_Test = GetDistanceToPoint(-142.361, 4.1, -106.919)
+    function DistanceToVendor()
+        if IsInZone(478) then -- Idyllshire
+            Distance_Test = GetDistanceToPoint(-19.277, 211, -36.076)
+        end
     end
-  end
 
 --tarnished gordian item ids, hardcoded.
   LensID = 12674
@@ -200,18 +195,18 @@ MaxSingleItem = false
   Gordian_Part = 1
 
 ::ShopInitialize::
-  i_count = GetInventoryFreeSlotCount()
-  -- In order it goes | Shop | Shaft 1/2 | Crank 1/2 | Spring 1/2 | Pedal 1/2 | Bolt 1/2 | Stop
-  if Shop_Menu == 1 then
-    ShopArray = {22, 15, 14, 12, 11, 9, 8, 6, 5, 3, 2}
-    Alex_Shop = ShopArray[1]
-  elseif Shop_Menu == 2 then
-    ShopArray = {13, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
-    Alex_Shop = ShopArray[1]
-  elseif Shop_Menu == 3 then
-    ShopArray = {17, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
-    Alex_Shop = ShopArray[1]
-  end
+    i_count = GetInventoryFreeSlotCount()
+    -- In order it goes | Shop | Shaft 1/2 | Crank 1/2 | Spring 1/2 | Pedal 1/2 | Bolt 1/2 | Stop
+    if Shop_Menu == 1 then
+        ShopArray = {22, 15, 14, 12, 11, 9, 8, 6, 5, 3, 2}
+        Alex_Shop = ShopArray[1]
+    elseif Shop_Menu == 2 then
+        ShopArray = {13, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+        Alex_Shop = ShopArray[1]
+    elseif Shop_Menu == 3 then
+        ShopArray = {17, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+        Alex_Shop = ShopArray[1]
+    end
 
   if MaxSingleItem == true then 
     MaxInventory = false  
@@ -395,136 +390,66 @@ MaxSingleItem = false
       yield("/wait 1.5")
     end
 
-
-::TicketsPlease::
-  LimsaGCTicket = GetItemCount(LimsaTicketID)
-  GridaniaGCTicket = GetItemCount(GridaniaTicketID)
-  UldahGCTicket = GetItemCount(UldahTicketID)
-
 ::GrandCompanyTurnin::
 
-  if (LimsaGCTicket >= 1) then 
-    yield("/item Maelstrom aetheryte ticket")
-    yield("/wait 1.0")
-  elseif (GridaniaGCTicket >= 1) then
-    yield("/item Twin Adder aetheryte ticket")
-    yield("/wait 1.0")
-  elseif (UldahGCTicket >= 1) then
-    yield("/item Immortal Flames aetheryte ticket")
-    yield("/wait 1.0")
-  elseif (LimsaGCTicket == 0) or (GridaniaGCTicket == 0) or (UldahGCTicket == 0) then
-    TeleportToGCTown()
-    yield("/wait 1.0")
-  end
-
-
-  TeleportTest()
-
-  if IsInZone(478) == true and GetCharacterCondition(27) == false then
-    yield("/echo Hmm.... either you moved, or the teleport failed, lets try that again")
-    yield("/wait 1")
-    goto GrandCompanyTurnin
-  end
+    while IsInZone(478) == true do 
+        TeleportToGCTown()
+        if GetCharacterCondition(27) == false then 
+            yield("/wait 1.0")
+            TeleportTest()
+        end 
+    end
 
 ::GrandCompanyCheck::
-  if (LimsaGCTicket >= 1) then 
-    goto LimsaAetheryteTicket
-  elseif (GridaniaGCTicket >= 1) then
-    goto GridaniaAetheryteTicket
-  elseif (UldahGCTicket >= 1) then
-    goto UldahAetheryteTicket
-  elseif IsInZone(129) and (LimsaGCTicket == 0) then -- Limsa's GC
-    goto LimsaLower
-  elseif IsInZone(130) and (GridaniaGCTicket == 0) then -- Ul'dah's GC
-    goto Uldah
-  elseif IsInZone(132) and (UldahGCTicket == 0) then -- Grdiania's GC
-    goto Gridania
-  end
-
-::LimsaLower::
-  if IsInZone(129) then -- Limsa's Lower, moving to the upper to get to the GC
-    yield("/wait 1")
-    yield("/target Aetheryte")
-    yield("/lockon")
-    yield("/automove")
-    yield("/wait 1.0")
-    yield("/automove")
-    yield("/li The Aftcastle")
-    yield("/wait 1")
-      while GetCharacterCondition(32) do
+while DeliverooIsTurnInRunning() == false do
+    if IsInZone(129) then -- Limsa Upper
+        yield("/target Aetheryte")
+        AetheryteX = GetTargetRawXPos()
+        AetheryteY = GetTargetRawYPos()
+        AetheryteZ = GetTargetRawZPos()
+        PathfindAndMoveTo(AetheryteX, AetheryteY, AetheryteZ, false)
+        while GetDistanceToPoint(AetheryteX, AetheryteY, AetheryteZ) > 7 do 
+            yield("/wait 0.1")
+        end 
+        PathStop()
+        yield("/li The Aftcastle")
+        while GetCharacterCondition(32) do
+            yield("/wait 1")
+        end
+        while GetCharacterCondition(45) or GetCharacterCondition(51) do
+            yield("/wait 1") 
+        end
+    elseif IsInZone(128) then -- Limsa Upper
         yield("/wait 1")
-      end
-      while GetCharacterCondition(45) or GetCharacterCondition(51) do
-        yield("/wait 1") 
-      end
-  end
-
-  if IsInZone(128) then -- Limsa Upper
-    yield("/wait 1")
-    yield("/vnavmesh moveto 93.9 40.175 75.409")
-    yield("/wait 0.5")
-    goto WalkingtoGC
-  end
-
-::Uldah::
-  if IsInZone(130) then
-    yield("/wait 1")
-    DistanceToVendor()
-    yield("/vnavmesh moveto -142.361 4.1 -106.919")
-    yield("/wait 0.5")
-    goto WalkingtoGC
-  end
-
-::Gridania::
-  if IsInZone(132) then
-    yield("/wait 1")
-    X = -59.564868927002
-    Y = -1.7171915769577
-    Z = 11.678337097168
-    PathfindAndMoveTo(X, Y, Z, false)
-    while GetDistanceToPoint(X, Y, Z) > 4 do 
-      yield("/wait 0.1")
-    end 
-    yield("/vnavmesh moveto -67.757 -0.501 -8.393")
-    yield("/wait 0.5")
-    goto WalkingtoGC
-  end
-
-::LimsaAetheryteTicket::
-  if IsInZone(128) then -- Limsa Upper
-    yield("/wait 1")
-    yield("/vnavmesh moveto 93.9 40.175 75.409")
-    yield("/wait 0.5")
-    goto WalkingtoGC
-  end
-
-::GridaniaAetheryteTicket::
-  if IsInZone(132) then
-    yield("/wait 1")
-    yield("/vnavmesh moveto -67.757 -0.501 -8.393")
-    yield("/wait 0.5")
-    goto WalkingtoGC
-  end
-
-::UldahAetheryteTicket::
-  if IsInZone(130) then
-    yield("/wait 1")
-    yield("/vnavmesh moveto -142.361 4.1 -106.919")
-    yield("/wait 0.5")
-    goto WalkingtoGC
-  end
-
-::WalkingtoGC::
-  DistanceToVendor()
-
-  while Distance_Test > 1 do
-    yield ("/wait 0.5")
-    DistanceToVendor()
-  end
-
-::GCTurnin::
-  yield("/deliveroo enable")
-  yield("/wait 0.5")
+        PathfindAndMoveTo(93.9,40.175,75.409, false)
+        yield("/wait 0.5")
+        while GetDistanceToPoint(93.9,40.175,75.409) > 1 do 
+            yield("/wait 0.1")
+        end 
+        yield("/deliveroo enable")
+        yield("/wait 0.5")
+    elseif IsInZone(130) then -- Ul'dah's GC
+        yield("/wait 1")
+        PathfindAndMoveTo(-142.361,4.1,-106.919, false)
+        while GetDistanceToPoint(93.9,40.175,75.409) > 1 do 
+            yield("/wait 0.1")
+        end 
+        yield("/deliveroo enable")
+        yield("/wait 0.5")
+    elseif IsInZone(132) then -- Grdiania's GC
+        yield("/wait 1")
+        PathfindAndMoveTo(-59.564868927002, -1.7171915769577, 11.678337097168, false)
+        while GetDistanceToPoint(-59.564868927002, -1.7171915769577, 11.678337097168) > 4 do 
+            yield("/wait 0.1")
+        end 
+        PathfindAndMoveTo(-67.757,-0.501,-8.393, false)
+        while GetDistanceToPoint(-67.757,-0.501,-8.393) > 1 do 
+            yield("/wait 0.1")
+        end 
+        yield("/deliveroo enable")
+        yield("/wait 0.5")
+    end
+end
 
   while DeliverooIsTurnInRunning() do
     yield("/wait 1")
