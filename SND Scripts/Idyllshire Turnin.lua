@@ -1,5 +1,10 @@
 --[[
 
+  ***********************
+  *  Idyllshire Turnin  *
+  *   Alex 1-4 Edition  *
+  ***********************
+
   **************
   *   VERSION  *
   *  3.3.1.11  *
@@ -440,11 +445,17 @@ while DeliverooIsTurnInRunning() == false do
         yield("/wait 1")
         PathfindAndMoveTo(-59.564868927002, -1.7171915769577, 11.678337097168, false)
         while GetDistanceToPoint(-59.564868927002, -1.7171915769577, 11.678337097168) > 4 do 
+            if PathIsRunning() == false then 
+                PathfindAndMoveTo(-59.564868927002, -1.7171915769577, 11.678337097168, false)
+            end
             yield("/wait 0.1")
         end 
         PathfindAndMoveTo(-67.757,-0.501,-8.393, false)
         while GetDistanceToPoint(-67.757,-0.501,-8.393) > 1 do 
             yield("/wait 0.1")
+            if PathIsRunning() == false then 
+                PathfindAndMoveTo(-67.757,-0.501,-8.393, false)
+            end 
         end 
         yield("/deliveroo enable")
         yield("/wait 0.5")
