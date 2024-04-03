@@ -218,7 +218,7 @@ end
 
 -- Repair Functionality
     if ManualRepair == true then
-        if NeedsRepair(99) then
+        if NeedsRepair(RepairAmount) then
             while not IsAddonVisible("Repair") do
                 yield("/generalaction repair")
                 yield("/wait 0.5")

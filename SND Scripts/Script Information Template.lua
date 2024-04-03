@@ -1,38 +1,43 @@
 --[[
+    
+    *******************************************
+    *          Title Goes Here                * 
+    *  Can Either Multiline it or Single Line *
+    *******************************************
 
-      *******************************************
-      *          Title Goes Here                * 
-      *  Can Either Multiline it or Single Line *
-      *******************************************
+    *********************************
+    *  Author: Leontopodium Nivale  *
+    *********************************
 
-      **********************
-      * Version  |  0.0.5  *
-      **********************
+    **********************
+    * Version  |  0.0.6  *
+    **********************
 
-      -> 0.0.5  : Just some running examples of how I write notes on updates. Sometimes I skip numbers dignifying how many revisions between them
-      -> 0.0.4  :
-      -> 0.0.3  :
-      -> 0.0.2  : 
-      -> 0.0.1  : 
+    -> 0.0.6  : Author Section wooooooo
+    -> 0.0.5  : Just some running examples of how I write notes on updates. Sometimes I skip numbers dignifying how many revisions between them
+    -> 0.0.4  :
+    -> 0.0.3  :
+    -> 0.0.2  : 
+    -> 0.0.1  : 
 
-      ***************
-      * Description *
-      ***************
+    ***************
+    * Description *
+    ***************
 
-      Insert the description here. Talking about what it all does, so people MAYBE READ THE F******* MANUAL
+    Insert the description here. Talking about what it all does, so people MAYBE READ THE F******* MANUAL
 
-      *********************
-      *  Required Plugins *
-      *********************
+    *********************
+    *  Required Plugins *
+    *********************
 
 
-      Plugins that are used are:
-      -> 
-      -> 
-      -> 
-      -> Something Need Doing [Expanded Edition] : https://puni.sh/api/repository/croizat
-            -> If there's extra settings needed to be changed in the plugin
-            -> I try and put it below it so people know that it's related to this
+    Plugins that are used are:
+    -> 
+    -> 
+    -> 
+    -> Something Need Doing [Expanded Edition] : https://puni.sh/api/repository/croizat
+          -> If there's extra settings needed to be changed in the plugin
+          -> I try and put it below it so people know that it's related to this
 ]]
 
 --[[ 
@@ -50,10 +55,10 @@
 
 --[[
 
-  ************
-  *  Script  *
-  *   Start  *
-  ************
+    ************
+    *  Script  *
+    *   Start  *
+    ************
 
 ]]
 
