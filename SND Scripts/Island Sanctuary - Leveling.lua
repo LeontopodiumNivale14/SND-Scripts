@@ -1,97 +1,141 @@
 --[[
-Version: 2.1 [Ground & Flying ]
-Author: Leontopodium Nivale
-This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
 
-Note: This does require flying atm, I'll work on making a non-flying verison in a bit. (When I get a second or need a breather from the other script lol.)
-Requirements:
--> Visland (V)ery Island
--> vnavmesh (Just got released on 2.19, same place on visland)
+    ****************************************
+    *  Island Sanctuary - Leveling Script  * 
+    ****************************************
+
+    *********************************
+    *  Author: Leontopodium Nivale  *
+    *********************************
+
+    **********************
+    * Version  |  2.1.1  *
+    **********************
+
+    -> 2.1.1  : Updated script information, made sure to actually say the pandora plugin was necessary (curse you past me for not remembering)
+    -> 2.1.0  : Ground & Flying Leveling is completed! Select which one you would like to do in the settings 
+
+    ***************
+    * Description *
+    ***************
+    This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
+
+    *********************
+    *  Required Plugins *
+    *********************
+
+
+    Plugins that are used are:
+    -> Visland  : https://puni.sh/api/repository/veyn
+    -> Vnavmesh : https://puni.sh/api/repository/veyn
+    -> Pandora's Box: https://love.puni.sh/ment.json
+    -> Something Need Doing [Expanded Edition] : https://puni.sh/api/repository/croizat
 ]]
 
--- Settings
-  IslandLevel = 17
-  ItemCountEcho = true
-  LoopEcho = true
-  ContinueLooping = true
+--[[ 
 
-  -- Testing 
-  TestingShopSend = false
+    **************
+    *  Settings  *
+    **************
+    ]]
+    FlyingEnabled = true
+    -- If flying is disabled, it will do the ground version of the route for xp
+    -- if flying is enabled, it will do the faster/xp route on top of the mountain
 
-  -- If flying is disabled, it will do the ground version of the route for xp
-  -- if flying is enabled, it will do the faster/xp route on top of the mountain
-  FlyingEnabled = true
+    ContinueLooping = true
+    -- Is this something you want to continually do? Or is it a one time level loop? 
+    -- Options: true | false [true by default]
 
--- If you are currently running the workshop and you have items being used in it, make sure to add the amount you're using in the shops here
--- or if you would like to keep a certain amount of that item, also change it here
+    IslandLevel = 17
+    -- What your current level is. Used to know WHAT exactly you're selling 
+    -- The MINIMUM. Level this script is configured to run at is Lv. 5.
+    -- If you're below Lv. 17 and have flying, this will just skip a sell check for one of the higher gathering items if you don't have the tool
+    
+    ItemCountEcho = true
+    -- Would you like it to tell you how many items are being sold at the shop? 
 
-  -- For the flying Loop
+    LoopEcho = true
+    -- Tells you in echo chat what loop your currently on in the gathering process
 
-  if FlyingEnabled == true then
-     QuartzWorkShop = 0 
-     IronWorkShop = 0 
-     DuriumWorkShop = 0
-     LeucograniteWorkShop = 0
-     StoneWorkShop = 0
-  end
-  -- For the ground XP Loop
-  if FlyingEnabled == false then 
-    ClayWorkShop = 0
-    LimestoneWorkShop = 0 
-    MarbleWorkShop = 0
-    TinsandWorkShop = 0
-    SugarcaneWorkShop = 0
-    VineWorkShop = 0
-    ResinWorkShop = 0 
-    LogWorkShop = 0 
-    BranchWorkShop = 0
+    TestingShopSend = false
+    -- Testing
 
-    StoneWorkShop = 0
-    SandWorkShop = 0
-  end
+    -- If you are currently running the workshop and you have items being used in it, make sure to add the amount you're using in the shops here
+    -- or if you would like to keep a certain amount of that item, also change it here
 
-  -- Array for the Route
-  -- XP Route || Quarts | Iron | Durium Sand | Leucogranite
-  QuartzArray = {6, 3, 2, 11}
+    -- For the flying Loop
+    if FlyingEnabled == true then
+        QuartzWorkShop = 0 
+        IronWorkShop = 0 
+        DuriumWorkShop = 0
+        LeucograniteWorkShop = 0
+        StoneWorkShop = 0
+    end
+    
+    -- For the ground XP Loop
+    if FlyingEnabled == false then 
+        ClayWorkShop = 0
+        LimestoneWorkShop = 0 
+        MarbleWorkShop = 0
+        TinsandWorkShop = 0
+        SugarcaneWorkShop = 0
+        VineWorkShop = 0
+        ResinWorkShop = 0 
+        LogWorkShop = 0 
+        BranchWorkShop = 0
 
-  -- Ground XP Route || Clay | { Stone/Limestone/Marble | Tinsand | Sugarcane/Vine | Resin/Log/Branch} | Sand
-  ClayArray = {7, 1, 9}
+        StoneWorkShop = 0
+        SandWorkShop = 0
+    end
 
-  -- Max item amount. DO NOT CHANGE
+--[[
+
+    ************
+    *  Script  *
+    *   Start  *
+    ************
+
+]]
+
+-- Starting values of the script 
+
+-- Array for the Route
+    QuartzArray = {6, 3, 2, 11} -- XP Route || Quarts | Iron | Durium Sand | Leucogranite
+    ClayArray = {7, 1, 9} -- Ground XP Route || Clay | { Stone/Limestone/Marble | Tinsand | Sugarcane/Vine | Resin/Log/Branch} | Sand
+
+-- Max item amount. DO NOT CHANGE
     ItemMax = 999
 
 -- Loop amount checker
-  if FlyingEnabled == true then 
-    BaseLoopAmount = math.floor(ItemMax/QuartzArray[1])
-    LoopTestA = 0
-    if QuartzWorkShop > 0 then
-      LoopTestA = math.ceil(QuartzWorkShop/QuartzArray[1])
+    if FlyingEnabled == true then 
+        BaseLoopAmount = math.floor(ItemMax/QuartzArray[1])
+        LoopTestA = 0
+        if QuartzWorkShop > 0 then
+            LoopTestA = math.ceil(QuartzWorkShop/QuartzArray[1])
+        end
+        XPLoopAmount = BaseLoopAmount - LoopTestA -- if workshop was > 0, takes that amount and removes it from the loop
+        yield("/echo LoopAmount = "..XPLoopAmount)
+    elseif FlyingEnabled == false and IslandLevel >= 5 then
+        LoopTestA = 0
+        BaseLoopAmount = math.floor(ItemMax/ClayArray[1])
+        if ClayWorkShop > 0 then
+            LoopTestA = math.ceil(ClayWorkShop/ClayArray[1])
+        end
+        GroundXPAmount = BaseLoopAmount - LoopTestA -- if workshop was > 0, takes that amount and removes it from the loop
+        yield("/echo LoopAmount = "..GroundXPAmount)
     end
-    XPLoopAmount = BaseLoopAmount - LoopTestA -- if workshop was > 0, takes that amount and removes it from the loop
-    yield("/echo LoopAmount = "..XPLoopAmount)
-  end
-  if FlyingEnabled == false and IslandLevel >= 5 then
-    LoopTestA = 0
-    BaseLoopAmount = math.floor(ItemMax/ClayArray[1])
-    if ClayWorkShop > 0 then
-      LoopTestA = math.ceil(ClayWorkShop/ClayArray[1])
-    end
-    GroundXPAmount = BaseLoopAmount - LoopTestA -- if workshop was > 0, takes that amount and removes it from the loop
-    yield("/echo LoopAmount = "..GroundXPAmount)
-  end
-   
 
 -- Visland Routes for the script
-  B2Quartz = "H4sIAAAAAAAACuVS20rEMBD9lWWe25A0aZvmQfAKfVh1RagXfAhuZAM2kSZVtPTfTdssK/gH+jZn5nDmzGEGuJStAgEn0qlVerTa9LLzX5BAIz/frDbegXgc4No67bU1IAa4A5GSMkeMlhVN4B4EwQRRTlgCDwEUGBFasXwM0BpVn4HACdzIre6DGEEBrO27apXxASZQG686+ewb7XdXkf2zFx0GT25nP/aTYCaovchXpw702WGQPG+t3y+uvWpjeTwzItj0yvlYT8KN1P6gOKEL251as42H46V5q1u1Djw8Jr9ioZQhxrN8DoVWJcowLeZQUspzxDFh/B+mkofrKlosv0IrjkrKC77kwqbXKbPiz+fyNH4DG0XUEmwDAAA="
-  VQuartz = "H4sIAAAAAAAACu2WXW/TMBSG/0rk62D8bZ/cIT6kSgw2hNTBtIvQejRqE5fEBUHV/z6ns5MhddpVJSp65xOfnJw8On79btGHsraoQIzg7Ob6Mnvv3Po2u9qUrf/zctK6BuVoWv5eu6rxHSputujSdZWvwkaxRdeo4EJjwyTL0ZcQgMCUAc/RV1S84KAwMMV3IXSNnbxBBcnRp3JebUIphkNw4X7a2jZ+vzNpvG3LmZ9WfvGxz2YkFDPy753YcOs23xfZt1U5W2atmy1Dn93C/UqZocHwjbty1dnx9X3XNEdva+dTOxNv67h8tc+IwdXGdj6u+8LTsvJjxT5659rXrplHGOTh4eeqthchj+zyA6gU1proARWjSj+gEoRgEXgdBVW3trPlys5PhxNgDZyOM8UZ0WIkpaQ08jAqgpl8jhU5SOkkwDBsCEsDxDEQQxMWjRnXcJQB+rGXg+zOtXW5b+cUUAE23AwTJCVjiZQMGiXNmVQkJRlmeiRFQAyiZAJDRc/6nUgpLLmEARVw9ggV8Cc06T88fRJw/0sDKaMUJFIiXIL0LFQJlaKYEiUGTdcG4lBxACwJF+fzl6bKBHXqb7yIyug0VRyCC1XkOFbz5PyTlJgTLUefqUR0TxwkBn2WqQSKYm7YI1LUJJ/JwQR/LtUTsPjzI3W6NlMGxw09iEglSFK0mb0kGSGPc87++YvudncPgcau5jAPAAA="
+    B2Quartz = "H4sIAAAAAAAACuVS20rEMBD9lWWe25A0aZvmQfAKfVh1RagXfAhuZAM2kSZVtPTfTdssK/gH+jZn5nDmzGEGuJStAgEn0qlVerTa9LLzX5BAIz/frDbegXgc4No67bU1IAa4A5GSMkeMlhVN4B4EwQRRTlgCDwEUGBFasXwM0BpVn4HACdzIre6DGEEBrO27apXxASZQG686+ewb7XdXkf2zFx0GT25nP/aTYCaovchXpw702WGQPG+t3y+uvWpjeTwzItj0yvlYT8KN1P6gOKEL251as42H46V5q1u1Djw8Jr9ioZQhxrN8DoVWJcowLeZQUspzxDFh/B+mkofrKlosv0IrjkrKC77kwqbXKbPiz+fyNH4DG0XUEmwDAAA="
+    VQuartz = "H4sIAAAAAAAACu2WXW/TMBSG/0rk62D8bZ/cIT6kSgw2hNTBtIvQejRqE5fEBUHV/z6ns5MhddpVJSp65xOfnJw8On79btGHsraoQIzg7Ob6Mnvv3Po2u9qUrf/zctK6BuVoWv5eu6rxHSputujSdZWvwkaxRdeo4EJjwyTL0ZcQgMCUAc/RV1S84KAwMMV3IXSNnbxBBcnRp3JebUIphkNw4X7a2jZ+vzNpvG3LmZ9WfvGxz2YkFDPy753YcOs23xfZt1U5W2atmy1Dn93C/UqZocHwjbty1dnx9X3XNEdva+dTOxNv67h8tc+IwdXGdj6u+8LTsvJjxT5659rXrplHGOTh4eeqthchj+zyA6gU1proARWjSj+gEoRgEXgdBVW3trPlys5PhxNgDZyOM8UZ0WIkpaQ08jAqgpl8jhU5SOkkwDBsCEsDxDEQQxMWjRnXcJQB+rGXg+zOtXW5b+cUUAE23AwTJCVjiZQMGiXNmVQkJRlmeiRFQAyiZAJDRc/6nUgpLLmEARVw9ggV8Cc06T88fRJw/0sDKaMUJFIiXIL0LFQJlaKYEiUGTdcG4lBxACwJF+fzl6bKBHXqb7yIyug0VRyCC1XkOFbz5PyTlJgTLUefqUR0TxwkBn2WqQSKYm7YI1LUJJ/JwQR/LtUTsPjzI3W6NlMGxw09iEglSFK0mb0kGSGPc87++YvudncPgcau5jAPAAA="
 
-  VClay = "H4sIAAAAAAAACu2YS2vcMBSF/4rR2oirq7d3JX0QaNo0FJI2ZOFmlBnTsVVsTUII+e+VLTlpYQrdzGKS8cqyhSx/vufcM/NAPtWtIxU5Wtf3xZnfBFdcfuj9plsUF6fFR3fr1k23vCIlOa/vf/mmCwOpLh/IqR+a0PiOVA/kglSIggLTlpfkG6mkokJKNCX5TirDKGqB7DGOfOeO35IKSnJWL5pNXIrRODjxt651XYjrlOS4C66vr8N5E1af8+w/r+UNxx0NK38334lbiavd1OvBPU+f9sdK8q71YX7wcXBtPn0zzciDLxs3hHw+LnxeN+F5xXH03vdHvlvk14Z08WvTupM4Dx7LLVCAciYxMdGUc+AJiaBSaPgHEvwbCWxBgsDQGrkVzNB6H1bF3aqJ37L31z/3ghRSbY1NpAxlWguRUGkKCkDsBFU71bm/KRZNH/YCk6RKGs4SJ0sVKJFrygrKFTdM/pfO4EXpjMe3U/hEBUU8MFHh1IJS5pVSMQbM7D4aRnceJWWoMELvxn32TlJcUougZ0pWcJ0oWcrRqIPxJEpRVbPAoiMLrTIlRQ0z8kBpoiSASqnmJgZa6xSBLKOKIfCD4iZKgjLL+JMvocySi5gs1xYPmCZMiiqLYg7UmgHL1QQUmT1gSppTPHY5mbucoDEGQGr9RsbAzXZk4MPmR+v6pVsUQ90t9qHPjWnRGC3nekIQLGdsPd6KP9heY0hSMSSpUVjJs42xaBOUaEaAIHdUPsu6v647tyd+rYWxua9ZarjJfU0hlVpa/grrJkIBgUlNYw1JYGxiImXMABJ3UzdhU699tyxC7/aidGK45gyeehhaJXiso1FeGLub1Oql/yt09fgblrr3aWMTAAA="
+    VClay = "H4sIAAAAAAAACu2YS2vcMBSF/4rR2oirq7d3JX0QaNo0FJI2ZOFmlBnTsVVsTUII+e+VLTlpYQrdzGKS8cqyhSx/vufcM/NAPtWtIxU5Wtf3xZnfBFdcfuj9plsUF6fFR3fr1k23vCIlOa/vf/mmCwOpLh/IqR+a0PiOVA/kglSIggLTlpfkG6mkokJKNCX5TirDKGqB7DGOfOeO35IKSnJWL5pNXIrRODjxt651XYjrlOS4C66vr8N5E1af8+w/r+UNxx0NK38334lbiavd1OvBPU+f9sdK8q71YX7wcXBtPn0zzciDLxs3hHw+LnxeN+F5xXH03vdHvlvk14Z08WvTupM4Dx7LLVCAciYxMdGUc+AJiaBSaPgHEvwbCWxBgsDQGrkVzNB6H1bF3aqJ37L31z/3ghRSbY1NpAxlWguRUGkKCkDsBFU71bm/KRZNH/YCk6RKGs4SJ0sVKJFrygrKFTdM/pfO4EXpjMe3U/hEBUU8MFHh1IJS5pVSMQbM7D4aRnceJWWoMELvxn32TlJcUougZ0pWcJ0oWcrRqIPxJEpRVbPAoiMLrTIlRQ0z8kBpoiSASqnmJgZa6xSBLKOKIfCD4iZKgjLL+JMvocySi5gs1xYPmCZMiiqLYg7UmgHL1QQUmT1gSppTPHY5mbucoDEGQGr9RsbAzXZk4MPmR+v6pVsUQ90t9qHPjWnRGC3nekIQLGdsPd6KP9heY0hSMSSpUVjJs42xaBOUaEaAIHdUPsu6v647tyd+rYWxua9ZarjJfU0hlVpa/grrJkIBgUlNYw1JYGxiImXMABJ3UzdhU699tyxC7/aidGK45gyeehhaJXiso1FeGLub1Oql/yt09fgblrr3aWMTAAA="
 
 -- Node Functions
-  function QuartzNode()
-    QuartzID = 37573
-    QuartzCount = GetItemCount(QuartzID)
-  end
+    function QuartzNode()
+        QuartzID = 37573
+        QuartzCount = GetItemCount(QuartzID)
+    end
 
   function Iron_DuriumNode()
     IronID = 37572
@@ -141,25 +185,25 @@ Requirements:
 
   -- These are Items that are shared across multiple nodes
 
-  function SandNode()
-    SandID = 37559
-    SandCount = GetItemCount(SandID)
-  end
+    function SandNode()
+        SandID = 37559
+        SandCount = GetItemCount(SandID)
+    end
 
-  function VineNode()
-    VineID = 37562
-    VineCount = GetItemCount(VineID)
-  end
+    function VineNode()
+        VineID = 37562
+        VineCount = GetItemCount(VineID)
+    end
 
-  function LogNode()
-    LogID = 37560
-    LogCount = GetItemCount(LogID)
-  end
+    function LogNode()
+        LogID = 37560
+        LogCount = GetItemCount(LogID)
+    end
 
-  function StoneNode()
-    StoneID = 37554
-    StoneCount = GetItemCount(StoneID)
-  end
+    function StoneNode()
+        StoneID = 37554
+        StoneCount = GetItemCount(StoneID)
+    end
 
 -- Item Count Check/Shop Amount Check
   function StoneShop()
@@ -305,182 +349,176 @@ Requirements:
 
 -- Shop Selling Functions
 
-  function StoneSell()
-    yield("/pcall MJIDisposeShop True 12 2 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..StoneSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function StoneSell()
+        yield("/pcall MJIDisposeShop True 12 2 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..StoneSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function IronSell()
-    yield("/pcall MJIDisposeShop True 12 24 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..IronSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function IronSell()
+        yield("/pcall MJIDisposeShop True 12 24 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..IronSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function QuartzSell()
-    yield("/pcall MJIDisposeShop True 12 25 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..QuartzSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function QuartzSell()
+        yield("/pcall MJIDisposeShop True 12 25 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..QuartzSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function LeucograniteSell()
-    yield("/pcall MJIDisposeShop True 12 26 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..LeucograniteSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function LeucograniteSell()
+        yield("/pcall MJIDisposeShop True 12 26 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..LeucograniteSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function DuriumSell()
-    yield("/pcall MJIDisposeShop True 12 39 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..DuriumSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function DuriumSell()
+        yield("/pcall MJIDisposeShop True 12 39 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..DuriumSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function ClaySell()
-    yield("/pcall MJIDisposeShop True 12 16 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..ClaySend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function ClaySell()
+        yield("/pcall MJIDisposeShop True 12 16 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..ClaySend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function LimestoneSell()
-    yield("/pcall MJIDisposeShop True 12 14 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..LimestoneSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function LimestoneSell()
+        yield("/pcall MJIDisposeShop True 12 14 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..LimestoneSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function MarbleSell()
-    yield("/pcall MJIDisposeShop True 12 36 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..MarbleSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function MarbleSell()
+        yield("/pcall MJIDisposeShop True 12 36 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..MarbleSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function TinsandSell()
-    yield("/pcall MJIDisposeShop True 12 17 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..TinsandSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function TinsandSell()
+        yield("/pcall MJIDisposeShop True 12 17 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..TinsandSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function SugarcaneSell()
-    yield("/pcall MJIDisposeShop True 12 18 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..SugarcaneSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function SugarcaneSell()
+        yield("/pcall MJIDisposeShop True 12 18 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..SugarcaneSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function VineSell()
-    yield("/pcall MJIDisposeShop True 12 8 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..VineSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function VineSell()
+        yield("/pcall MJIDisposeShop True 12 8 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..VineSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function ResinSell()
-    yield("/pcall MJIDisposeShop True 12 28 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..ResinSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function ResinSell()
+        yield("/pcall MJIDisposeShop True 12 28 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..ResinSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function LogSell()
-    yield("/pcall MJIDisposeShop True 12 11 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..LogSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function LogSell()
+        yield("/pcall MJIDisposeShop True 12 11 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..LogSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
+     function BranchSell()
+        yield("/pcall MJIDisposeShop True 12 1 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..BranchSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function BranchSell()
-    yield("/pcall MJIDisposeShop True 12 1 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..BranchSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+    function SandSell()
+        yield("/pcall MJIDisposeShop True 12 7 <wait.0.5>")
+        yield("/pcall MJIDisposeShopShipping True 11 "..SandSend)
+        yield("/pcall SelectYesno True 0")
+        yield("/wait 1.5")
+    end
 
-  function SandSell()
-    yield("/pcall MJIDisposeShop True 12 7 <wait.0.5>")
-    yield("/pcall MJIDisposeShopShipping True 11 "..SandSend)
-    yield("/pcall SelectYesno True 0")
-    yield("/wait 1.5")
-  end
+-- Base Script Functions 
+    function Sellingitemsto() -- Setup for moving to the shop, and getting ready to sell the items
+        yield("/visland moveto -268 40 226")
+        yield("/wait 1")
+        MovingTest()
 
--- Setup for moving to the shop, and getting ready to sell the items
-  function Sellingitemsto()
-    yield("/visland moveto -268 40 226")
-    yield("/wait 1")
-    MovingTest()
+        yield("/visland moveto -267.281 41 216.883")
+        yield("/wait 1")
+        MovingTest()
 
-    yield("/visland moveto -267.281 41 216.883")
-    yield("/wait 1")
-    MovingTest()
+        yield("/visland moveto -267.065 41 209.221")
+        yield("/wait 1")
+        MovingTest()
 
-    yield("/visland moveto -267.065 41 209.221")
-    yield("/wait 1")
-    MovingTest()
+        yield("/target Enterprising Exporter <wait.0.5>")
+        yield("/pint <wait.0.5>")
+        yield("/pcall SelectString True 0 <wait.1.0>")
+    end
 
-    yield("/target Enterprising Exporter <wait.0.5>")
-    yield("/pint <wait.0.5>")
-    yield("/pcall SelectString True 0 <wait.1.0>")
-  end
+    function LeavingShop()
+        yield("/pcall MJIDisposeShop False -2")
 
-  function LeavingShop()
-    yield("/pcall MJIDisposeShop False -2")
-
-    yield("/visland moveto -267.841 40 230.751")
-    yield("/wait 1")
-    MovingTest()
+        yield("/visland moveto -267.841 40 230.751")
+        yield("/wait 1")
+        MovingTest()
     
-    yield('/mount "Company Chocobo"')
-    yield("/wait 5")
-  end
-
--- Checks to see how far you are from in front of the main workshop, if a certain distance, will teleport you in front of It
-  function IslandReturn()
-
-    yield("/pcall _ActionContents True 9 1 <wait.0.5>")
-    while GetCharacterCondition(27) do
-      yield("/wait 1")
-    end
-    yield("/wait 1")
-    while GetCharacterCondition(45) do
-      yield("/wait 1")
+        yield('/mount "Company Chocobo"')
+        yield("/wait 5")
     end
 
-    yield("/wait 1")
-  end
-
--- Distance Test
-  function DistanceToBase()  
-  Distance_Test = GetDistanceToPoint(-268, 40, 226)
-  end
-
--- Moving Test
-  function MovingTest()
-    while IsMoving() do 
-      yield("/wait 1")
+    function IslandReturn() -- Checks to see how far you are from in front of the main workshop, if a certain distance, will teleport you in front of It
+        yield("/pcall _ActionContents True 9 1 <wait.0.5>")
+        while GetCharacterCondition(27) do
+            yield("/wait 1")
+        end
+        yield("/wait 1")
+        while GetCharacterCondition(45) do
+            yield("/wait 1")
+        end
+        yield("/wait 1")
     end
-  end
 
--- Visland Route Check 
-  function VislandCheck()
-    while IsVislandRouteRunning() do
-      yield("/wait 3")
+    function DistanceToBase() -- Distance Test
+        Distance_Test = GetDistanceToPoint(-268, 40, 226)
     end
-  end
+
+    function MovingTest() -- Moving Test
+        while IsMoving() do 
+            yield("/wait 1")
+        end
+    end
+
+    function VislandCheck() -- Visland Route Check 
+        while IsVislandRouteRunning() do
+            yield("/wait 3")
+        end
+    end
 
 -- Route Check
-if FlyingEnabled == true then
-  goto FlyShop
-elseif FlyingEnabled == false then
-  goto GroundShop
-end
+
+    if FlyingEnabled == true then
+        goto FlyShop
+    elseif FlyingEnabled == false then
+        goto GroundShop
+    end
 
 -- Start of the Loop
 ::FlyShop::
