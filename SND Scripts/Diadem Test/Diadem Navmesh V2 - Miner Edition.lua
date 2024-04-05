@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.33  *
+    *  Version -> 0.0.0.36  *
     *************************
 
     Version Notes:
@@ -61,7 +61,7 @@
 ]]
 
     UseFood = false 
-    FoodKind = "Sideritis Cookie"
+    FoodKind = "Sideritis Cookie <HQ>"
     RemainingFoodTimer = 5 -- This is in minutes
     -- If you would like to use food while in diadem, and what kind of food you would like to use. 
     -- With the suggested TeamCraft melds, Sideritis Cookies (HQ) are the best ones you can be using to get the most bang for your buck
@@ -80,17 +80,18 @@
     -- This will NOT work with Pandora's Gathering, as a fair warning in itself. 
     -- Options : 1 | 2 | 3 | 4 | 7 | 8 (1st slot... 2nd slot... ect)
 
-    BuffYield2 = true -- Kings Yield 2 (Min) | Bountiful Yield 2 (Btn)
-    BuffTidings2 = true -- Nald'thal's Tidings (Min) | Nophica's Tidings (Btn)
-    BuffGift2 = true -- Mountaineer's Gift 2 (Min) | Pioneer's Gift 2 (Btn)
-    BuffBYieldHarvest2  = true -- Bountiful Yield 2 (Min) | Bountiful Harvest 2 (Btn) 
+    BuffYield2 = true -- Kings Yield 2 (Min) | Bountiful Yield 2 (Btn) [+2 to all hits]
+    BuffGift2 = true -- Mountaineer's Gift 2 (Min) | Pioneer's Gift 2 (Btn) [+30% to perception hit]
+    BuffGift1 = true -- Mountaineer's Gift 1 (Min) | Pioneer's Gift 1 (Btn) [+10% to perception hit]
+    BuffTidings2 = true -- Nald'thal's Tidings (Min) | Nophica's Tidings (Btn) [+1 extra if perception bonus is hit]
+    BuffBYieldHarvest2  = true -- Bountiful Yield 2 (Min) | Bountiful Harvest 2 (Btn) [+x (based on gathering) to that hit on the node (only once)]
     -- Here you can select which buffs get activated whenever you get to the mega node (aka the node w/ +5 Integrity) 
     -- These are all togglable with true | false 
     -- They will go off in the order they are currently typed out, so keep that in mind for GP Usage if that's something you want to consider
 
     Repair_Amount = 99
-    Self_Repair = false --if its true script will try to self reapair
-	Npc_Repair = true --if its true script will try to go to mender npc and repair
+    Self_Repair = true --if its true script will try to self reapair
+	Npc_Repair = false --if its true script will try to go to mender npc and repair
     --When do you want to repair your own gear? From 0-100 (it's in percentage, but enter a whole value
 
     PlayerWaitTime = false 
@@ -173,9 +174,9 @@
 --Functions
 
     function GatheringTarget(i)
-	LoopClear()
+	    LoopClear()
 		while GetCharacterCondition(45,false) and GetCharacterCondition(6, false) do
-            if GetTargetName() == "" then 
+            while GetTargetName() == "" do
                 if miner_table[i][5] == 0 then 
                     yield("/target Mineral Deposit")
                 end
@@ -190,7 +191,6 @@
                     yield("/wait 0.1")
                     GetDistanceToTarget_flytarget_Loop = GetDistanceToTarget_flytarget_Loop + 1
                 end
-                PathStop()
             end
             yield("/vnavmesh movetarget")
             while GetDistanceToTarget() > 3 do 
@@ -252,7 +252,7 @@
     end
 
     function AetherGaugeKiller()
-	LoopClear()
+	    LoopClear()
         if GetCharacterCondition(45,false) then 
             yield("/targetenemy")
             if GetTargetName() ~= "" and GetCharacterCondition(45,false) and GetDistanceToTarget() < 40 then 
@@ -342,40 +342,41 @@
         LoopClear() 
         while GetCharacterCondition(6, true) do 
             if GetNodeText("_TargetInfoMainTarget", 3) == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false then 
-                yield("/e [Node Type] This is a Max Integrity Node, time to start buffing/smacking")
-                yield("/wait 2")
-                while BuffYield2 == true and GetGp() >= 500 and HasStatusId(219) == false and GetLevel() >= 40 do 
-                    yield("/e [Debug] Should be applying Kings Yield 2")
-                    if GetClassJobId() == 16 then 
-                        ExecuteAction(241) -- King's Yield 2
-                        StatusCheck()
+                while GetNodeText("_TargetInfoMainTarget", 3) == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false do 
+                    yield("/e [Node Type] This is a Max Integrity Node, time to start buffing/smacking")
+                    yield("/wait 2")
+                    while BuffYield2 == true and GetGp() >= 500 and HasStatusId(219) == false and GetLevel() >= 40 do 
+                        yield("/e [Debug] Should be applying Kings Yield 2")
+                        if GetClassJobId() == 16 then 
+                            yield("/ac \"King's Yield II\"")-- King's Yield 2
+                            StatusCheck()
+                        end 
+                    end
+                    while BuffTidings2 == true and GetGp() >= 200 and HasStatusId(2667) == false and GetLevel() >= 81 do 
+                        yield("/e [Debug] Should be applying Tidings")
+                        if GetClassJobId() == 16 then 
+                            yield("/ac \"Nald'thal's Tidings\"") -- Nald'thal's Tidings (Min)
+                            StatusCheck()
+                        end 
                     end 
+                    while BuffGift2 == true and GetGp() >= 100 and HasStatusId(759) == false and GetLevel() >= 50 do
+                        yield("/e [Debug] Should be applying Mountaineer's Gift 2'")
+                        if GetClassJobId() == 16 then 
+                            yield("/ac \"Mountaineer's Gift II\"") -- Mountaineer's Gift 2 (Min)
+                            StatusCheck()
+                        end 
+                    end
+                    while BuffBYieldHarvest2  == true and GetGp() >= 100 and HasStatusId(1286) == false and GetLevel() >= 68 do
+                        yield("/e [Debug] Should be applying Bountiful Yield 2")
+                        if GetClassJobId() == 16 then 
+                            yield("/ac \"Bountiful Yield II\"") 
+                            StatusCheck()
+                        end 
+                    end 
+                    DGatheringLoop = true
                 end
-                while BuffTidings2 == true and GetGp() >= 200 and HasStatusId(2667) == false and GetLevel() >= 81 do 
-                    yield("/e [Debug] Should be applying Tidings")
-                    if GetClassJobId() == 16 then 
-                        ExecuteAction(21203) -- Nald'thal's Tidings (Min)
-                        StatusCheck()
-                    end 
-                end 
-                while BuffGift2 == true and GetGp() >= 100 and HasStatusId(759) == false and GetLevel() >= 50 do
-                    yield("/e [Debug] Should be applying Mountaineer's Gift 2'")
-                    if GetClassJobId() == 16 then 
-                        ExecuteAction(25589) -- Mountaineer's Gift 2 (Min)
-                        StatusCheck()
-                    end 
-                end
-                while BuffBYieldHarvest2  == true and GetGp() >= 100 and HasStatusId(1286) == false and GetLevel() >= 68 do
-                    yield("/e [Debug] Should be applying Bountiful Yield 2")
-                    if GetClassJobId() == 16 then 
-                        ExecuteAction(272)
-                        StatusCheck()
-                    end 
-                end 
             elseif GetNodeText("_TargetInfoMainTarget", 3) ~= "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false then 
-                yield("/e [Node Type] Not max integrity node")
-            end 
-            if DGatheringLoop == false then 
+                yield("/e [Node Type] Normal Node")
                 DGatheringLoop = true
             end 
             yield("/pcall Gathering true "..NodeSelection)
@@ -428,7 +429,6 @@
 		GetCharacterCondition_mounted_Loop = 0
 		GetCharacterCondition_jump_Loop = 0
 		GetCharacterCondition_interact_Loop = 0
-		
     end
         
 	
