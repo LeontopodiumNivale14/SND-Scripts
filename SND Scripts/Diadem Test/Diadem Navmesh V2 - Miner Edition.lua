@@ -224,7 +224,7 @@ end
                 end
             end
             yield("/vnavmesh movetarget")
-            while GetDistanceToTarget() > 4 do 
+            while GetDistanceToTarget() > 3.6 do 
                 yield("/wait 0.1")
             end
             while GetCharacterCondition(4) do  
