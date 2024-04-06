@@ -110,7 +110,7 @@
     PlayerWaitTime = true 
     -- this is if you want to make it... LESS sus on you just jumping from node to node instantly/firing a cannon off at an enemy and then instantly flying off
     -- default is true, just for safety. If you want to turn this off, do so at your own risk. 
-    debug = false
+    debug = true
     -- This is for debugging 
 	
 
@@ -277,10 +277,8 @@ end
                 if GetTargetName() ~= "" then
                     while GetDistanceToTarget() > 7 and iterationCount < maxIterations do
                         CanadianMounty()
-                        yield("/wait 0.1")
-                        if PathIsRunning() == false then 
-                            yield("/vnavmesh movetarget")
-                        end
+                        yield("/wait 1")
+                        yield("/vnavmesh movetarget")
                     end
                     while GetDistanceToTarget() >= 5 and iterationCount < maxIterations do
                     yield("/wait 0.1")
@@ -289,11 +287,12 @@ end
                     PathStop()
                     yield("/wait 0.1")
                     while GetCharacterCondition(4) and iterationCount < maxIterations do 
+                        yield("/e [I - Debug] problem child here")
                         yield("/ac dismount")
                         yield("/wait 0.3")
                         iterationCount = iterationCount + 1
                     end
-                
+                    yield("/e MAYDAY MAYDAY")
                     while GetTargetHP() > 1.0 and iterationCount < maxIterations do
                         if GetCharacterCondition(27) then -- casting
                             yield("/wait 0.1")
@@ -309,23 +308,23 @@ end
             end
         end
     end
---[[
 
-changed it to my version
-    function CanadianMounty()
-        while GetCharacterCondition(4, false) and IsInZone(939) do 
-            while GetCharacterCondition(27, false) and IsInZone(939) do
-                yield("/wait 0.1")
-                yield('/gaction "mount roulette"')
+    --[[ changed it to my version
+            function CanadianMounty()
+                while GetCharacterCondition(4, false) and IsInZone(939) do 
+                    while GetCharacterCondition(27, false) and IsInZone(939) do
+                        yield("/wait 0.1")
+                        yield('/gaction "mount roulette"')
+                    end
+                    while GetCharacterCondition(27) and IsInZone(939) do 
+                        yield("/wait 0.1")
+                    end 
+                    yield("/wait 2")
+                end
+		        DebugMessage("CanadianMounty")
             end
-            while GetCharacterCondition(27) and IsInZone(939) do 
-                yield("/wait 0.1")
-            end 
-            yield("/wait 2")
-        end
-		DebugMessage("CanadianMounty")
-    end
---]]
+    --]]
+
     function MountFly()
         if GetCharacterCondition(4, false) and IsInZone(939) then 
             while GetCharacterCondition(4, false) and IsInZone(939) do 
@@ -347,8 +346,6 @@ changed it to my version
         end
 		DebugMessage("WalkTo")
     end
-
-
 
     function AetherGaugeKiller()
         yield("/targetenemy")
