@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.47  *
+    *  Version -> 0.0.0.48  *
     *************************
 
     Version Notes:
@@ -283,10 +283,10 @@ end
     function AetherGaugeKiller()
         yield("/targetenemy")
         if GetTargetName() ~= "" and GetCharacterCondition(45,false) and GetDistanceToTarget() < 40 then 
-            if GetDistanceToTarget() < 0 and GetDistanceToTarget() > 10 then 
+            if GetDistanceToTarget() <= 10 then 
                 CanadianMounty()
                 yield("/vnavmesh movetarget")
-            elseif GetDistanceToTarget() < 40 and GetDistanceToTarget() > 10 then 
+            elseif GetDistanceToTarget() > 10 and GetDistanceToTarget() < 40 then 
                 MountFly()
                 yield("/vnavmesh flytarget")
             end
@@ -298,7 +298,7 @@ end
                 yield("/ac dismount")
                 yield("/wait 0.3")			
             end 
-            yield("/wait 1")
+            yield("/wait 2")
             while GetTargetHP() > 1.0 and GetTargetName() ~= "" and GetDistanceToTarget() ~= 0.0 do
                 if GetCharacterCondition(27) then -- casting
                     yield("/wait 0.1")
@@ -367,10 +367,11 @@ end
 
     function DGathering()
         LoopClear() 
+        UiElementSelector()
         while GetCharacterCondition(6) do 
 		yield("/wait 1") -- added this to throtle down the while loop lua calls it too much and it ads +1 to Node_ThreshHold
-            if GetNodeText("_TargetInfoMainTarget", 3) == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false then 
-                while GetNodeText("_TargetInfoMainTarget", 3) == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false do 
+            if VisibleNode == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false then 
+                while VisibleNode == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false do 
                     yield("/e [Node Type] This is a Max Integrity Node, time to start buffing/smacking")
                     yield("/wait 2")
                     while BuffYield2 == true and GetGp() >= 500 and HasStatusId(219) == false and GetLevel() >= 40 do -- 
@@ -410,7 +411,7 @@ end
                     end 
                     DGatheringLoop = true
                 end
-            elseif GetNodeText("_TargetInfoMainTarget", 3) ~= "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false then 
+            elseif VisibleNode ~= "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false then 
                 yield("/e [Node Type] Normal Node")
                 DGatheringLoop = true
             end 
@@ -473,6 +474,14 @@ end
             yield("/e Debug:" .. func .. ":Runned")
 	    end
     end
+
+    function UiElementSelector()
+        if IsAddonVisible("_TargetInfoMainTarget") then 
+            VisibleNode = GetNodeText("_TargetInfoMainTarget", 3)
+        elseif IsAddonVisible("_TargetInfo") then 
+            VisibleNode = GetNodeText("_TargetInfo", 34)
+        end 
+    end 
 
 ::SettingNodeValue:: 
     WhileBrake = 0 --this is experimental
