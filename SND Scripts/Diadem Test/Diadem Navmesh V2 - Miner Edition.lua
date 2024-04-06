@@ -9,6 +9,7 @@
     *************************
 
     Version Notes:
+    0.0.0.56 ->   Lot of adjustments overall, new Red Route WP's'
     0.0.0.51 ->   New targeting logic in testing 
     0.0.0.47 ->   Tweaked some stuff added 2 new functions -byUcanPatates
     0.0.0.41 ->   "Red Route" is running!
@@ -110,6 +111,7 @@
     PlayerWaitTime = true 
     -- this is if you want to make it... LESS sus on you just jumping from node to node instantly/firing a cannon off at an enemy and then instantly flying off
     -- default is true, just for safety. If you want to turn this off, do so at your own risk. 
+
     debug = true
     -- This is for debugging 
 	
@@ -287,7 +289,6 @@ end
                     PathStop()
                     yield("/wait 0.1")
                     while GetCharacterCondition(4) and iterationCount < maxIterations do 
-                        yield("/e [I - Debug] problem child here")
                         yield("/ac dismount")
                         yield("/wait 0.3")
                         iterationCount = iterationCount + 1
