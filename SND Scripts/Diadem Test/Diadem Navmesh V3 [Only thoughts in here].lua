@@ -25,6 +25,7 @@
                 -> Make the time between gathering at a node 1s 
                 -> Make Flying/Moving between nodes 0.3s 
                 -> 
+        -> Adding "--" to functions and logic soo we can understand each other with the code
 
     ***************
     * Description *
