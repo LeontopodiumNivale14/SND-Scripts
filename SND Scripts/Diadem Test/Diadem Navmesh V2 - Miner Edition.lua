@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.48  *
+    *  Version -> 0.0.0.50  *
     *************************
 
     Version Notes:
@@ -309,6 +309,7 @@ end
             end
             PlayerWait()
             MountFly()
+            ClearTarget()
             DebugMessage("AetherGaugeKiller")
         end
     end
@@ -471,7 +472,7 @@ end
 
     function DebugMessage(func)
 	    if debug==true then
-            yield("/e Debug:" .. func .. ":Runned")
+            yield("/e [Debug]: " .. func .. ": Completed")
 	    end
     end
 
