@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.37  *
+    *  Version -> 0.0.0.38  *
     *************************
 
     Version Notes:
@@ -128,8 +128,8 @@
     -- for 5th var
         -- mineral target [red] = 0
         -- rocky target [blue]  = 1
-    if MinerRouteType = "AllIslands" then 
-        local miner_table =
+    if MinerRouteType == "AllIslands" then 
+        miner_table =
             {
                 {-570.90,45.80,-242.08,1,0},
                 {-512.28,35.19,-256.92,1,0},
@@ -181,8 +181,8 @@
                 {-558.09,334.52,448.38,1,0}, -- End of Island #7 
                 {-729.13,272.73,-62.52,1,0}, -- Final Node in the Loop
             }
-    elseif MinerRouteType = "RedRoute" then 
-        local miner_table = 
+    elseif MinerRouteType == "RedRoute" then 
+        miner_table = 
             {
                 {-164.12,-3.79,-385.03},
                 {-163.70,-6.93,-520.71},
@@ -193,7 +193,7 @@
                 {109.44, -48.58, -501.24},
                 {-210.26, -3.73, -358.19},
             }
-
+    end
 
 --Functions
 
