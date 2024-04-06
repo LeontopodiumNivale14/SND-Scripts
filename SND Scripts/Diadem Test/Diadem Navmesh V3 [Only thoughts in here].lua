@@ -20,7 +20,11 @@
                 -> if this fails to path properly, then mountfly? 
             -> If you're within 25 yalms, it'll fly to it 
             -> if nothing is detected, will continue the route, but check along the way, then execute the aethercannon process to head to it 
-        -> 
+        -> Something to consider, SND starts to break when it hits in the 400,000's on step wise... might be a good idea to add a global wait timer in the settings for us to adjust as necessary 
+            -> Maybe make the following cause LUA is firing off so fast: 
+                -> Make the time between gathering at a node 1s 
+                -> Make Flying/Moving between nodes 0.3s 
+                -> 
 
     ***************
     * Description *

@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.41  *
+    *  Version -> 0.0.0.44  *
     *************************
 
     Version Notes:
@@ -219,7 +219,7 @@
                 end
             end
             yield("/vnavmesh movetarget")
-            while GetDistanceToTarget() > 3 do 
+            while GetDistanceToTarget() > 4 do 
                 yield("/wait 0.1")
                 GetDistanceToTarget_movetarget_Loop = GetDistanceToTarget_movetarget_Loop + 1
             end
@@ -278,51 +278,47 @@
     end
 
     function AetherGaugeKiller()
-	    LoopClear()
-        if GetCharacterCondition(45,false) then 
-            yield("/targetenemy")
-            if GetTargetName() ~= "" and GetCharacterCondition(45,false) and GetDistanceToTarget() < 40 then 
-                if GetDistanceToTarget() < 0 and GetDistanceToTarget() > 10 then 
-                    CanadianMounty()
-                    yield("/vnavmesh movetarget")
-                elseif GetDistanceToTarget() < 40 and GetDistanceToTarget() > 10 then 
-                    MountFly()
-                    yield("/vnavmesh flytarget")
-                end
-                while GetDistanceToTarget() > 5 do
+	    LoopClear() 
+        yield("/targetenemy")
+        if GetTargetName() ~= "" and GetCharacterCondition(45,false) and GetDistanceToTarget() < 40 then 
+            if GetDistanceToTarget() < 0 and GetDistanceToTarget() > 10 then 
+                CanadianMounty()
+                yield("/vnavmesh movetarget")
+            elseif GetDistanceToTarget() < 40 and GetDistanceToTarget() > 10 then 
+                MountFly()
+                yield("/vnavmesh flytarget")
+            end
+            while GetDistanceToTarget() >= 5 do
+                yield("/wait 0.1")
+            end
+            PathStop()
+            while GetCharacterCondition(4) == true do 
+                yield("/ac dismount")
+                yield("/wait 0.3")			
+            end 
+            yield("/wait 1")
+            while GetTargetHP() > 1.0 and GetTargetName() ~= "" do
+                if GetCharacterCondition(27) then -- casting
+                    yield("/wait 0.1")
+                else
+			        yield("/gaction \"Duty Action I\"")
                     yield("/wait 0.1")
                 end
-                while PathIsRunning() == true do 
-                    PathStop()
-                end
-                while GetCharacterCondition(4) == true do 
-                    yield("/ac dismount")
-                    yield("/wait 0.1")			
-                end 
-                while GetTargetHP() > 1.0 and GetTargetName() ~= "" do
-                    if GetCharacterCondition(27) then -- casting
-                        yield("/wait 0.1")
-                    else
-					    yield("/gaction \"Duty Action I\"")
-                        yield("/wait 0.1")
-                    end
-                end
-                if PlayerWaitTime == true then 
-                    RanRouteTime()
-                    yield("/wait "..RandomTimeWait)
-                end
-                MountFly()
             end
+            if PlayerWaitTime == true then 
+                RanRouteTime()
+                yield("/wait "..RandomTimeWait)
+            end
+            MountFly()
+            EnemyAttempted = true 
         end
     end
   
     function VNavMoveTime()
         -- Setting the camera setting for Navmesh (morso for the standard players that way they don't get nauseas)
+        LoopClear()
         if PathGetAlignCamera() == false then 
             PathSetAlignCamera(true) 
-        end 
-        if GetDiademAetherGaugeBarCount() >= 1 then 
-            AetherGaugeKiller()
         end 
         while GetDistanceToPoint(X, Y, Z) > 6 and IsInZone(939) do
             if GetCharacterCondition(4) == false then 
@@ -336,9 +332,9 @@
                 end 
             end
             yield("/wait 0.1")
-            if GetDiademAetherGaugeBarCount() >= 1 then 
+            if GetDiademAetherGaugeBarCount() >= 1 and EnemyAttempted == false then 
                 AetherGaugeKiller()
-            end
+            end 
         end
     end
 
@@ -426,8 +422,6 @@
         end 
     end
 
-    
-
     function FoodCheck() 
         LoopClear()
         while (GetStatusTimeRemaining(48) <= FoodTimeRemaining or HasStatusId(48) == false) and Food_Tick < FoodTimeout do 
@@ -464,6 +458,7 @@
 		GetCharacterCondition_mounted_Loop = 0
 		GetCharacterCondition_jump_Loop = 0
 		GetCharacterCondition_interact_Loop = 0
+        EnemyAttempted = false 
     end
 
 ::SettingNodeValue:: 
