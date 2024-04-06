@@ -5,10 +5,11 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.58  *
+    *  Version -> 0.0.0.65  *
     *************************
 
     Version Notes:
+    0.0.0.62 ->   Hope this fixes the red route rock issue, as well as the aether cannon problem. . . 
     0.0.0.56 ->   Lot of adjustments overall, new Red Route WP's'
     0.0.0.51 ->   New targeting logic in testing 
     0.0.0.47 ->   Tweaked some stuff added 2 new functions -byUcanPatates
@@ -58,7 +59,8 @@
     * Credits *
     ***********
 
-    Author: Leontopodium Nivale
+    Author: Leontopodium Nivale 
+    Co-Laborator/Co-Author: UcanPatates
     Class: Miner
 
     **************
@@ -133,8 +135,8 @@ end
     local Y = 0
     local Z = 0
     -- for 4th var
-        -- visland movement     = 0 
-        -- navmesh movement     = 1 
+        -- MoveTarget = 0 
+        -- FlyTarget  = 1 
     -- for 5th var
         -- mineral target [red] = 0
         -- rocky target [blue]  = 1
@@ -199,7 +201,7 @@ end
                 {-79.07,-17.95,-589.16,1,0},
                 {-52.39,-41.39,-529.72,1,0},
                 {-23.12,-27.32,-532.47,1,1},
-                {48.87,-38.07,-515.70,1,1},
+                {60.74,-45.80,-516.52,0,1},
                 {98.86,-43.16,-501.89,1,0},
                 {-192.44,-1.99,-359.21,1,0},
             }
@@ -221,7 +223,11 @@ end
             end
             yield("/wait 0.1")
             if GetDistanceToTarget() > 6 then 
-                yield("/vnavmesh flytarget")
+                if miner_table[i][4] == 1 then 
+                    yield("/vnavmesh flytarget")
+                elseif miner_table[i][4] == 0 then 
+                    yield("/vnavmesh movetarget")
+                end
                 while GetDistanceToTarget() > 6 do 
                     yield("/wait 0.1")
                 end
@@ -239,7 +245,7 @@ end
                 yield("/wait 0.1")
                 yield("/interact")
                 ToFarFromNode = ToFarFromNode + 1
-                if ToFarFromNode >= 20 then 
+                if ToFarFromNode >= 100 then 
                     yield("/vnavmesh movetarget")
                     ToFarFromNode = 0 
                 end 
@@ -279,27 +285,27 @@ end
         local iterationCount = 0
     
         if IsInZone(939) then
-            while GetDistanceToTarget() == 0 and GetCharacterCondition(45, false) and iterationCount < maxIterations and GetDiademAetherGaugeBarCount() >= 1 do
+            while GetDistanceToTarget() == 0.0 and GetCharacterCondition(45, false) and iterationCount < maxIterations and GetDiademAetherGaugeBarCount() >= 1 do
                 yield("/targetenemy")
                 yield("/wait 1")
                 if GetTargetName() ~= "" then
-                    while GetDistanceToTarget() > 7 and iterationCount < maxIterations do
-                        CanadianMounty()
+                    while GetDistanceToTarget() > 7 and GetTargetName() ~= "" and iterationCount < maxIterations do
+                        MountFly()
                         yield("/wait 1")
                         yield("/vnavmesh flytarget")
                     end
-                    while GetDistanceToTarget() >= 5 and iterationCount < maxIterations do
-                    yield("/wait 0.1")
-                    iterationCount = iterationCount + 1
+                    while GetDistanceToTarget() >= 5 and GetTargetName() ~= "" and iterationCount < maxIterations do
+                        yield("/wait 0.1")
+                        iterationCount = iterationCount + 1
                     end
                     PathStop()
                     yield("/wait 0.1")
-                    while GetCharacterCondition(4) and iterationCount < maxIterations and GetTargetName() ~= "" do 
+                    while GetCharacterCondition(4) and GetTargetName() ~= "" and iterationCount < maxIterations do 
                         yield("/ac dismount")
                         yield("/wait 0.3")
                         iterationCount = iterationCount + 1
                     end
-                    while GetTargetHP() > 1.0 and iterationCount < maxIterations do
+                    while GetTargetHP() > 1.0 and GetTargetName() ~= "" and iterationCount < maxIterations do
                         if GetCharacterCondition(27) then -- casting
                             yield("/wait 0.1")
                         else
@@ -309,8 +315,9 @@ end
                         end
                         iterationCount = iterationCount + 1
                     end
-                end
+                    ClearTarget()
                 DebugMessage("KillTarget")
+                end
             end
         end
     end
@@ -494,7 +501,7 @@ end
             while GetCharacterCondition(42) and WhileBrake <= 1000 do
                 yield("/wait 0.1")
                 WhileBrake = WhileBrake + 1
-                if WhileBrake > 1000 then
+                if WhileBrake <= 1000 then
                     yield("/e WhileBrake: "..WhileBrake.." exceeded 1000, breaking the loop")
                     break  -- Break the loop if WhileBrake exceeds 1000
                 end
@@ -522,6 +529,7 @@ end
         end
 		DebugMessage("FoodCheck")
     end
+
     function TargetedInteract(target)
         yield("/target "..target.."")
         repeat
@@ -555,6 +563,16 @@ end
         elseif IsAddonVisible("_TargetInfo") then 
             VisibleNode = GetNodeText("_TargetInfo", 34)
         end 
+    end 
+
+    function BountifulYieldII()
+        while BuffBYieldHarvest2 == true and GetGp() >= 100 and GetLevel() >= 68 and VisibleNode == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" do
+            yield("/e [Debug] Should be applying Kings Yield 2")
+            if GetClassJobId() == 16 then 
+                yield("/ac \"Bountiful Yield II\"")
+                StatusCheck()
+            end 
+        end
     end 
 
 ::SettingNodeValue:: 
@@ -665,11 +683,9 @@ end
                 X = miner_table[i][1]
                 Y = miner_table[i][2]
                 Z = miner_table[i][3]
-                if miner_table[i][4] == 0 then 
-                    VislandMoveTime() 
-                elseif miner_table[i][4] == 1 then 
-                    VNavMoveTime() 
-                end
+                ClearTarget()
+                KillTarget()
+                VNavMoveTime() 
                 if miner_table[i][5] == 0 or miner_table[i][5] == 1 then 
 				    GatheringTarget(i)
                 end 
