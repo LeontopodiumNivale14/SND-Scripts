@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.51  *
+    *  Version -> 0.0.0.52  *
     *************************
 
     Version Notes:
@@ -273,15 +273,20 @@ end
         if IsInZone(939) then
             while GetDistanceToTarget() == 0 and GetCharacterCondition(45, false) and iterationCount < maxIterations and GetDiademAetherGaugeBarCount() >= 1 do
                 yield("/targetenemy")
-                yield("/wait 0.1")
+                yield("/wait 1")
                 if GetTargetName() ~= "" then
                     while GetDistanceToTarget() > 7 and iterationCount < maxIterations do
                         CanadianMounty()
-                        yield("/vnavmesh movetarget")
                         yield("/wait 0.1")
-                        iterationCount = iterationCount + 1
+                        if PathIsRunning() == false then 
+                            yield("/vnavmesh movetarget")
+                        end
                     end
-                
+                    while GetDistanceToTarget() >= 5 do
+                    yield("/wait 0.1")
+                    iterationCount = iterationCount + 1
+                    end
+                    PathStop()
                     yield("/wait 0.1")
                     while GetCharacterCondition(4) and iterationCount < maxIterations do 
                         yield("/ac dismount")
@@ -300,9 +305,9 @@ end
                         iterationCount = iterationCount + 1
                     end
                 end
+                DebugMessage("KillTarget")
             end
         end
-	    DebugMessage("KillTarget")
     end
 --[[
 
