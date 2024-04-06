@@ -15,6 +15,11 @@
         -> Make a Proper Debug function to use
         -> add auto go to firmament if not there when the script starts and other checks
         -> add a materia extractor just thougs maybe be in the main loop or event trigger after every dungeon exit
+        -> Fix the AetherCannon/Re-write that whole function 
+            -> Make it to where if you're within 10 yalms, do a non-fly moveto (attempt to)
+                -> if this fails to path properly, then mountfly? 
+            -> If you're within 25 yalms, it'll fly to it 
+            -> if nothing is detected, will continue the route, but check along the way, then execute the aethercannon process to head to it 
         -> 
 
     ***************
