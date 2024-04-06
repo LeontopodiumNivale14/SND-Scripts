@@ -1,18 +1,19 @@
-﻿--[[
+--[[
 
     ***********************************
     * Diadem Farming - Miner Edition  *
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.44  *
+    *  Version -> 0.0.0.47  *
     *************************
 
     Version Notes:
 
+    0.0.0.47 ->   Twaked some stuff added 2 new functions -byUcanPatates
     0.0.0.41 ->   "Red Route" is running!
     0.0.0.37 ->   Wrote out the baseline of adding multiple routes. Need to actually add RedRoute for miner.
-    0.0.0.30 ->   "Heyoo ice UcanPatates here added" npc repair option and fixed the casting spamming
+    0.0.0.30 ->   Added npc repair option and fixed the casting spamming -byUcanPatates
     0.0.0.21 ->   Was a dumb dumb, and might of forgotten about checking a character condition... WOOPSIE
     0.0.0.20 ->   "Diadem Gathering" Is now live. This will try and maximize the amount of GP that you use, and will also make it to where you will get the most items on the node where you get the maximum integrity you can.
                   The intention of this is to use over P.Gathering (Pandora Gathering) but also, this is meant to be overall better. Please give it a shot :D 
@@ -103,13 +104,15 @@
 
     Repair_Amount = 99
     Self_Repair = true --if its true script will try to self reapair
-	Npc_Repair = false --if its true script will try to go to mender npc and repair
+    Npc_Repair = false --if its true script will try to go to mender npc and repair
     --When do you want to repair your own gear? From 0-100 (it's in percentage, but enter a whole value
 
-    PlayerWaitTime = false 
+    PlayerWaitTime = true 
     -- this is if you want to make it... LESS sus on you just jumping from node to node instantly/firing a cannon off at an enemy and then instantly flying off
     -- default is true, just for safety. If you want to turn this off, do so at your own risk. 
-
+    debug = false
+    -- This is for debugging 
+	
 
 --[[
 
@@ -119,7 +122,10 @@
 
 
 ]]
-
+--script Started echo for debug
+if debug==true then
+yield("/e ------------STARTED------------")
+end
 -- Waypoint (V2) Tables 
     local X = 0
     local Y = 0
@@ -200,8 +206,8 @@
 --Functions
 
     function GatheringTarget(i)
-	    LoopClear()
-		while GetCharacterCondition(45,false) and GetCharacterCondition(6, false) do
+        LoopClear()
+        while GetCharacterCondition(45,false) and GetCharacterCondition(6, false) do
             while GetTargetName() == "" do
                 if miner_table[i][5] == 0 then 
                     yield("/target Mineral Deposit")
@@ -215,33 +221,27 @@
                 yield("/vnavmesh flytarget")
                 while GetDistanceToTarget() > 6 do 
                     yield("/wait 0.1")
-                    GetDistanceToTarget_flytarget_Loop = GetDistanceToTarget_flytarget_Loop + 1
                 end
             end
             yield("/vnavmesh movetarget")
             while GetDistanceToTarget() > 4 do 
                 yield("/wait 0.1")
-                GetDistanceToTarget_movetarget_Loop = GetDistanceToTarget_movetarget_Loop + 1
             end
-            while GetCharacterCondition(4, true) do  
+            while GetCharacterCondition(4) do  
                 yield("/ac dismount")
                 yield("/wait 0.1")
-				GetCharacterCondition_dismount_Loop = GetCharacterCondition_dismount_Loop + 1
                 PathStop()
             end
             while GetCharacterCondition(6, false) do 
                 yield("/wait 0.1")
                 yield("/interact")
-				GetCharacterCondition_interact_Loop = GetCharacterCondition_interact_Loop + 1
             end 
-		end
+        end
         PathStop()
         yield("/wait 2")
         DGathering()
-        if PlayerWaitTime == true then 
-            RanRouteTime()
-            yield("/wait "..RandomTimeWait)
-        end
+        PlayerWait()
+		DebugMessage("GatheringTarget")
     end
 
     function CanadianMounty()
@@ -250,11 +250,12 @@
                 yield("/wait 0.1")
                 yield('/gaction "mount roulette"')
             end
-            while GetCharacterCondition(27, true) and IsInZone(939) do 
+            while GetCharacterCondition(27) and IsInZone(939) do 
                 yield("/wait 0.1")
             end 
             yield("/wait 2")
         end
+		DebugMessage("CanadianMounty")
     end
 
     function MountFly()
@@ -268,6 +269,7 @@
             yield("/wait 0.1")
             yield("/gaction jump")
         end
+		DebugMessage("MountFly")
     end
 
     function WalkTo(x, y, z)
@@ -275,6 +277,7 @@
         while (PathIsRunning() or PathfindInProgress()) do
             yield("/wait 0.5")
         end
+		DebugMessage("WalkTo")
     end
 
     function AetherGaugeKiller()
@@ -292,7 +295,7 @@
                 yield("/wait 0.1")
             end
             PathStop()
-            while GetCharacterCondition(4) == true do 
+            while GetCharacterCondition(4) do 
                 yield("/ac dismount")
                 yield("/wait 0.3")			
             end 
@@ -301,16 +304,14 @@
                 if GetCharacterCondition(27) then -- casting
                     yield("/wait 0.1")
                 else
-			        yield("/gaction \"Duty Action I\"")
+                    yield("/gaction \"Duty Action I\"")
                     yield("/wait 0.1")
                 end
             end
-            if PlayerWaitTime == true then 
-                RanRouteTime()
-                yield("/wait "..RandomTimeWait)
-            end
+            PlayerWait()
             MountFly()
             EnemyAttempted = true 
+            DebugMessage("AetherGaugeKiller")
         end
     end
   
@@ -336,6 +337,7 @@
                 AetherGaugeKiller()
             end 
         end
+        DebugMessage("VNavMoveTime")
     end
 
     function VislandMoveTime() 
@@ -344,25 +346,32 @@
             yield("/wait 0.1")
         end 
         yield("/visland stop")
+		DebugMessage("VislandMoveTime")
     end
 
-    function RanRouteTime()
-        math.randomseed( os.time() )
-        RandomTimeWait = math.random(1,2)
+    function PlayerWait()
+	    if PlayerWaitTime == true then 
+            math.randomseed( os.time() )
+            RandomTimeWait = math.random(10, 20) / 10
+            yield("/wait "..RandomTimeWait)
+        end
+		DebugMessage("PlayerWait")
     end  
 
     function StatusCheck()
         yield("/wait 0.3")
-        if GetCharacterCondition(42, true) then  
+        if GetCharacterCondition(42) then  
             repeat 
                 yield("/wait 0.1")
             until GetCharacterCondition(42, false)
         end
+		DebugMessage("StatusCheck")
     end     
 
     function DGathering()
         LoopClear() 
-        while GetCharacterCondition(6, true) do 
+        while GetCharacterCondition(6) do 
+		yield("/wait 0.2") -- added this to throtle down the while loop lua calls it too much and it ads +1 to Node_ThreshHold
             if GetNodeText("_TargetInfoMainTarget", 3) == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false then 
                 while GetNodeText("_TargetInfoMainTarget", 3) == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false do 
                     yield("/e [Node Type] This is a Max Integrity Node, time to start buffing/smacking")
@@ -409,9 +418,13 @@
                 DGatheringLoop = true
             end 
             yield("/pcall Gathering true "..NodeSelection)
-            yield("/wait 0.1")
-            while GetCharacterCondition(42, true) do  
+            while GetCharacterCondition(42) and WhileBrake <= 1000 do
                 yield("/wait 0.1")
+                WhileBrake = WhileBrake + 1
+                if WhileBrake > 1000 then
+                    yield("/e WhileBrake: "..WhileBrake.." exceeded 1000, breaking the loop")
+                    break  -- Break the loop if WhileBrake exceeds 1000
+                end
             end
             Node_ThreshHold = Node_ThreshHold + 1 
             if Node_ThreshHold >= 20 and NodeChanged == false then 
@@ -420,6 +433,7 @@
                 NodeChanged = true 
             end 
         end 
+        DebugMessage("DGathering")
     end
 
     function FoodCheck() 
@@ -433,6 +447,7 @@
                 UseFood = false 
             end
         end
+		DebugMessage("FoodCheck")
     end
 
     function TargetedInteract(target)
@@ -444,6 +459,7 @@
         repeat
             yield("/wait 0.1")
         until IsAddonReady("SelectIconString")
+        DebugMessage("TargetedInteract")
     end
 
     function LoopClear() 
@@ -451,17 +467,17 @@
         Node_ThreshHold = 0 
         NodeChanged = false
         DGatheringLoop = false
-        GetDistanceToTarget_flytarget_Loop = 0
-		GetDistanceToTarget_movetarget_Loop = 0
-		GetDistanceToTarget_AetherGaugeKiller_Loop = 0
-		GetCharacterCondition_dismount_Loop = 0
-		GetCharacterCondition_mounted_Loop = 0
-		GetCharacterCondition_jump_Loop = 0
-		GetCharacterCondition_interact_Loop = 0
         EnemyAttempted = false 
+		DebugMessage("LoopClear")
     end
 
+    function DebugMessage(func)
+	    if debug==true then
+            yield("/e Debug:" .. func .. ":Runned")
+	    end
+    end
 ::SettingNodeValue:: 
+    WhileBrake = 0 --this is experimental
     NodeSelection = GatheringSlot - 1
     FoodTimeRemaining = RemainingFoodTimer * 60
     DGatheringLoop = false 
@@ -477,7 +493,7 @@
 
     if Self_Repair == true and Npc_Repair == true then
         Npc_Repair=false
-        yield("/echo You can only select one repair setting")
+        yield("/echo You can only select one repair setting Setting Npc Repair false")
     end
 
 ::Enter::
