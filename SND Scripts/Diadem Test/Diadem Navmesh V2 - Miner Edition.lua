@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.56  *
+    *  Version -> 0.0.0.58  *
     *************************
 
     Version Notes:
@@ -209,6 +209,7 @@ end
 
     function GatheringTarget(i)
         LoopClear()
+        ToFarFromNode = 0 
         while GetCharacterCondition(45,false) and GetCharacterCondition(6, false) do
             while GetTargetName() == "" do
                 if miner_table[i][5] == 0 then 
@@ -237,6 +238,11 @@ end
             while GetCharacterCondition(6, false) do 
                 yield("/wait 0.1")
                 yield("/interact")
+                ToFarFromNode = ToFarFromNode + 1
+                if ToFarFromNode >= 20 then 
+                    yield("/vnavmesh movetarget")
+                    ToFarFromNode = 0 
+                end 
             end 
         end
         PathStop()
@@ -288,12 +294,11 @@ end
                     end
                     PathStop()
                     yield("/wait 0.1")
-                    while GetCharacterCondition(4) and iterationCount < maxIterations do 
+                    while GetCharacterCondition(4) and iterationCount < maxIterations and GetTargetName() ~= "" do 
                         yield("/ac dismount")
                         yield("/wait 0.3")
                         iterationCount = iterationCount + 1
                     end
-                    yield("/e MAYDAY MAYDAY")
                     while GetTargetHP() > 1.0 and iterationCount < maxIterations do
                         if GetCharacterCondition(27) then -- casting
                             yield("/wait 0.1")
@@ -517,7 +522,6 @@ end
         end
 		DebugMessage("FoodCheck")
     end
-
     function TargetedInteract(target)
         yield("/target "..target.."")
         repeat

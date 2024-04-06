@@ -27,6 +27,18 @@
                 -> 
         -> Adding "--" to functions and logic soo we can understand each other with the code
 
+        -> (this was what UCanPatates talked about)
+              We can actualy just use target names in a list
+              Fuction whiles if there is no target selected
+              And if there is a target it checks target name
+              İf it is not emtpy commence
+              We can just call the eneny name list for a check
+              And if its matching commence killtarget
+              This way we can add only kill this or that in script
+              As a setting
+
+        -> 
+
     ***************
     * Description *
     ***************
