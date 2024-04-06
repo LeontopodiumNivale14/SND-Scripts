@@ -5,11 +5,11 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.50  *
+    *  Version -> 0.0.0.51  *
     *************************
 
     Version Notes:
-
+    0.0.0.51 ->   New targeting logic in testing 
     0.0.0.47 ->   Tweaked some stuff added 2 new functions -byUcanPatates
     0.0.0.41 ->   "Red Route" is running!
     0.0.0.37 ->   Wrote out the baseline of adding multiple routes. Need to actually add RedRoute for miner.
@@ -243,7 +243,70 @@ end
         PlayerWait()
 		DebugMessage("GatheringTarget")
     end
+	
+	function CanadianMounty()
+    local maxIterations = 1000  -- Maximum number of iterations allowed
+    local iterationCount = 0
+    
+    while GetCharacterCondition(4, false) and IsInZone(939) and iterationCount < maxIterations do 
+        while GetCharacterCondition(27, false) and IsInZone(939) and iterationCount < maxIterations do
+            yield("/wait 0.1")
+            yield('/gaction "mount roulette"')
+            iterationCount = iterationCount + 1
+        end
+        
+        while GetCharacterCondition(27) and IsInZone(939) and iterationCount < maxIterations do 
+            yield("/wait 0.1")
+            iterationCount = iterationCount + 1
+        end 
+        
+        yield("/wait 2")
+        iterationCount = iterationCount + 1
+    end
+	DebugMessage("CanadianMounty")
+end
 
+function KillTarget()
+    local maxIterations = 1000  -- Maximum number of iterations allowed
+    local iterationCount = 0
+    
+    if IsInZone(939) then
+        while GetDistanceToTarget() == 0 and GetCharacterCondition(45, false) and iterationCount < maxIterations and GetDiademAetherGaugeBarCount() >= 1 do
+            yield("/targetenemy")
+            yield("/wait 0.1")
+            if GetTargetName() ~= "" then
+                while GetDistanceToTarget() > 7 and iterationCount < maxIterations do
+                    CanadianMounty()
+                    yield("/vnavmesh movetarget")
+                    yield("/wait 0.1")
+                    iterationCount = iterationCount + 1
+                end
+                
+                yield("/wait 0.1")
+                while GetCharacterCondition(4) and iterationCount < maxIterations do 
+                    yield("/ac dismount")
+                    yield("/wait 0.3")
+                    iterationCount = iterationCount + 1
+                end
+                
+                while GetTargetHP() > 1.0 and iterationCount < maxIterations do
+                    if GetCharacterCondition(27) then -- casting
+                        yield("/wait 0.1")
+                    else
+                        --yield("/e Using Action")
+                        yield("/gaction \"Duty Action I\"")
+                        yield("/wait 0.1")
+                    end
+                    iterationCount = iterationCount + 1
+                end
+            end
+        end
+    end
+	DebugMessage("KillTarget")
+end
+--[[
+
+changed it to my version
     function CanadianMounty()
         while GetCharacterCondition(4, false) and IsInZone(939) do 
             while GetCharacterCondition(27, false) and IsInZone(939) do
@@ -257,7 +320,7 @@ end
         end
 		DebugMessage("CanadianMounty")
     end
-
+--]]
     function MountFly()
         if GetCharacterCondition(4, false) and IsInZone(939) then 
             while GetCharacterCondition(4, false) and IsInZone(939) do 
@@ -279,6 +342,8 @@ end
         end
 		DebugMessage("WalkTo")
     end
+
+
 
     function AetherGaugeKiller()
         yield("/targetenemy")
@@ -331,9 +396,10 @@ end
                 end 
             end
             yield("/wait 0.1")
-            if GetDiademAetherGaugeBarCount() >= 1 then 
-                AetherGaugeKiller()
-            end 
+			KillTarget()
+            --if GetDiademAetherGaugeBarCount() >= 1 then 
+            --    AetherGaugeKiller()                               Changed this to use my version of killer
+            --end 
         end
         DebugMessage("VNavMoveTime")
     end
