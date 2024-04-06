@@ -5,10 +5,11 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.36  *
+    *  Version -> 0.0.0.37  *
     *************************
 
     Version Notes:
+    0.0.0.37 ->   Wrote out the baseline of adding multiple routes. Need to actually add RedRoute for miner.
     0.0.0.30 ->   "Heyoo ice UcanPatates here added" npc repair option and fixed the casting spamming
     0.0.0.21 ->   Was a dumb dumb, and might of forgotten about checking a character condition... WOOPSIE
     0.0.0.20 ->   "Diadem Gathering" Is now live. This will try and maximize the amount of GP that you use, and will also make it to where you will get the most items on the node where you get the maximum integrity you can.
@@ -24,7 +25,8 @@
     1: include visland movement, cause MAN flying through things is actually really annoying (mainly transitioning islands, gaps in the floor)
 
     THINGS TO DO. 
-    -> Create the perception route 
+    -> Create the "Red" Route properly. Points are set in there but need to actually go through and set it up to the proper format
+    -> Create the "Blue Route"
     -> Create the double route on the single island
 
     ***************
@@ -60,7 +62,7 @@
     **************
 ]]
 
-    UseFood = false 
+    UseFood = true
     FoodKind = "Sideritis Cookie <HQ>"
     RemainingFoodTimer = 5 -- This is in minutes
     -- If you would like to use food while in diadem, and what kind of food you would like to use. 
@@ -75,7 +77,15 @@
     -- How many attempts would you like it to try and food before giving up?
     -- The higher this is, the longer it's going to take. Don't set it below 5 for safety. 
 
-    GatheringSlot = 1 
+    MinerRouteType = "AllIslands"
+    -- Select which route you would like to do. 
+        -- WIP. NOT FINISHED YET --
+        -- Options are:
+            -- "AllIslands" -> Loops around the whole Diadem, not super efficient, but also least sus thing you can do 
+            -- "RedRoute" -> The perception route that only runs through 8 nodes on the red route [WIP]
+            -- "BlueRoute" -> The gathering route that only runs through 8 nodes on the blue route [WIP]
+
+    GatheringSlot = 4 
     -- This will let you tell the script WHICH item you want to gather. (So if I was gathering the 4th item from the top, I would input 4)
     -- This will NOT work with Pandora's Gathering, as a fair warning in itself. 
     -- Options : 1 | 2 | 3 | 4 | 7 | 8 (1st slot... 2nd slot... ect)
@@ -118,58 +128,72 @@
     -- for 5th var
         -- mineral target [red] = 0
         -- rocky target [blue]  = 1
-    local miner_table =
-        {
-            {-570.90197753906,45.807422637939,-242.08100891113,1,0},
-            {-512.28790283203,35.191318511963,-256.92324829102,1,0},
-            {-448.87731933594,32.542789459229,-256.16687011719,1,0},
-            {-403.11663818359,11.01815700531,-300.24542236328,1,1}, -- Fly Issue #1
-            {-363.65258789063,-1.191711306572,-353.93014526367,1,1}, -- Fly Issue #2 
-            {-337.34524536133,-0.38774585723877,-418.02651977539,1,0},
-            {-290.76715087891,0.72010374069214,-430.48468017578,1,0},
-            {-240.05308532715,-1.4179739952087,-483.7594909668,1,0},
-            {-166.13949584961,-0.084414601325989,-548.23156738281,1,0},
-            {-128.41372680664,-17.009544372559,-624.14227294922,1,0},
-            {-66.679100036621,-14.722800254822,-638.76580810547,1,1},
-            {10.221981048584,-17.858451843262,-613.05010986328,1,1},
-            {25.994691848755,-15.649460792542,-613.42456054688,1,0},
-            {68.065902709961,-30.677947998047,-582.67816162109,1,0},
-            {130.55299377441,-47.394836425781,-523.51800537109,1,0}, -- End of Island #1
-            {215.01678466797,303.25225830078,-730.10113525391,1,1}, -- Waypoint #1 on 2nd Island (Issue)
-            {279.23434448242,295.35610961914,-656.26239013672,1,0},
-            {331.00738525391,293.96697998047,-707.63677978516,1,1}, -- End of Island #2 
-            {458.50064086914,203.43072509766,-646.38671875,1,1},
-            {488.12536621094,204.48297119141,-633.06628417969,1,0},
-            {558.27984619141,198.5436706543,-562.51422119141,1,0},
-            {540.63055419922,195.18621826172,-526.46264648438,1,0}, -- End of Island #3 
-            {632.28833007813,253.5340423584,-423.4133605957,1,1}, -- Sole Node on Island #4
-            {714.05358886719,225.84088134766,-309.27236938477,1,1},
-            {678.74462890625,225.0539855957,-268.64505004883,1,1},
-            {601.80407714844,226.65921020508,-229.10397338867,1,1},
-            {651.10363769531,228.77603149414,-164.80642700195,1,0},
-            {655.21472167969,227.67156982422,-115.23098754883,1,0},
-            {648.83453369141,226.19325256348,-74.000801086426,1,0}, -- End of Island #5
-            {472.23208618164,-20.993797302246,207.56854248047,1,1},
-            {541.18731689453,-8.4121894836426,278.78372192383,1,1},
-            {616.09197998047,-31.531543731689,315.97021484375,1,0},
-            {579.87023925781,-26.105157852173,349.43453979492,1,1},
-            {563.04266357422,-25.151021957397,360.33206176758,1},
-            {560.68414306641,-18.444421768188,411.57385253906,1,0}, --
-            {508.90100097656,-29.677265167236,458.51135253906,1,0},
-            {405.96194458008,1.819545507431,454.30416870117,1,0},
-            {260.22994995117,91.100494384766,530.69183349609,1,1},
-            {192.97174072266,95.660057067871,606.13928222656,1,1},
-            {90.064682006836,94.078475952148,605.29431152344,1,0},
-            {39.545997619629,106.38475799561,627.32916259766,1,0},
-            {-46.114105224609,116.03932189941,673.04998779297,1,0},
-            {-101.43818664551,119.30235290527,631.55047607422,1,0}, -- End of Island #6?
-            {-328.2008972168,329.41275024414,562.93957519531,1,1},
-            {-446.48931884766,327.07730102539,542.64416503906,1,1},
-            {-526.76477050781,332.83963012695,506.12991333008,1,1},
-            {-577.23101806641,331.88815307617,519.38421630859,1,0},
-            {-558.0986328125,334.52883911133,448.38619995117,1,0}, -- End of Island #7 
-            {-729.13342285156,272.73489379883,-62.527366638184,1,0}, -- Final Node in the Loop
-        }
+    if MinerRouteType = "AllIslands" then 
+        local miner_table =
+            {
+                {-570.90,45.80,-242.08,1,0},
+                {-512.28,35.19,-256.92,1,0},
+                {-448.87,32.54,-256.16,1,0},
+                {-403.11,11.01,-300.24,1,1}, -- Fly Issue #1
+                {-363.65,-1.19,-353.93,1,1}, -- Fly Issue #2 
+                {-337.34,-0.38,-418.02,1,0},
+                {-290.76,0.72,-430.48,1,0},
+                {-240.05,-1.41,-483.75,1,0},
+                {-166.13,-0.08,-548.23,1,0},
+                {-128.41,-17.00,-624.14,1,0},
+                {-66.68,-14.72,-638.76,1,1},
+                {10.22,-17.85,-613.05,1,1},
+                {25.99,-15.64,-613.42,1,0},
+                {68.06,-30.67,-582.67,1,0},
+                {130.55,-47.39,-523.51,1,0}, -- End of Island #1
+                {215.01,303.25,-730.10,1,1}, -- Waypoint #1 on 2nd Island (Issue)
+                {279.23,295.35,-656.26,1,0},
+                {331.00,293.96,-707.63,1,1}, -- End of Island #2 
+                {458.50,203.43,-646.38,1,1},
+                {488.12,204.48,-633.06,1,0},
+                {558.27,198.54,-562.51,1,0},
+                {540.63,195.18,-526.46,1,0}, -- End of Island #3 
+                {632.28,253.53,-423.41,1,1}, -- Sole Node on Island #4
+                {714.05,225.84,-309.27,1,1},
+                {678.74,225.05,-268.64,1,1},
+                {601.80,226.65,-229.10,1,1},
+                {651.10,228.77,-164.80,1,0},
+                {655.21,227.67,-115.23,1,0},
+                {648.83,226.19,-74.00,1,0}, -- End of Island #5
+                {472.23,-20.99,207.56,1,1},
+                {541.18,-8.41,278.78,1,1},
+                {616.091,-31.53,315.97,1,0},
+                {579.87,-26.10,349.43,1,1},
+                {563.04,-25.15,360.33,1},
+                {560.68,-18.44,411.57,1,0}, --
+                {508.90,-29.67,458.51,1,0},
+                {405.96,1.82,454.30,1,0},
+                {260.22,91.10,530.69,1,1},
+                {192.97,95.66,606.13,1,1},
+                {90.06,94.07,605.29,1,0},
+                {39.54,106.38,627.32,1,0},
+                {-46.11,116.03,673.04,1,0},
+                {-101.43,119.30,631.55,1,0}, -- End of Island #6?
+                {-328.20,329.41,562.93,1,1},
+                {-446.48,327.07,542.64,1,1},
+                {-526.76,332.83,506.12,1,1},
+                {-577.23,331.88,519.38,1,0},
+                {-558.09,334.52,448.38,1,0}, -- End of Island #7 
+                {-729.13,272.73,-62.52,1,0}, -- Final Node in the Loop
+            }
+    elseif MinerRouteType = "RedRoute" then 
+        local miner_table = 
+            {
+                {-164.12,-3.79,-385.03},
+                {-163.70,-6.93,-520.71},
+                {-80.49,-18.88,-600.41},
+                {-46.65,-47.41,-513.17},
+                {-17.79,-27.24,-541.16},
+                {61.35,-47.38,-499.19},
+                {109.44, -48.58, -501.24},
+                {-210.26, -3.73, -358.19},
+            }
+
 
 --Functions
 
@@ -381,9 +405,9 @@
             end 
             yield("/pcall Gathering true "..NodeSelection)
             yield("/wait 0.1")
-            repeat 
+            while GetCharacterCondition(42, true) do  
                 yield("/wait 0.1")
-            until GetCharacterCondition(42, false)
+            end
             Node_ThreshHold = Node_ThreshHold + 1 
             if Node_ThreshHold >= 20 and NodeChanged == false then 
                 yield("/e WELL. Somehow you manage to select an option that wasn't an option. Defaulting to the VERY top node")
