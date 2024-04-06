@@ -5,10 +5,11 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.38  *
+    *  Version -> 0.0.0.40  *
     *************************
 
     Version Notes:
+
     0.0.0.37 ->   Wrote out the baseline of adding multiple routes. Need to actually add RedRoute for miner.
     0.0.0.30 ->   "Heyoo ice UcanPatates here added" npc repair option and fixed the casting spamming
     0.0.0.21 ->   Was a dumb dumb, and might of forgotten about checking a character condition... WOOPSIE
@@ -184,16 +185,16 @@
     elseif MinerRouteType == "RedRoute" then 
         miner_table = 
             {
-                {-164.12,-3.79,-385.03},
+                {-164.12,-3.79,-385.03,1,1}, -- blue
                 {-163.70,-6.93,-520.71},
                 {-80.49,-18.88,-600.41},
                 {-46.65,-47.41,-513.17},
                 {-17.79,-27.24,-541.16},
                 {61.35,-47.38,-499.19},
-                {109.44, -48.58, -501.24},
-                {-210.26, -3.73, -358.19},
+                {109.44,-48.58,-501.24},
+                {-210.26,-3.73, 358.19},
             }
-    end
+    end       
 
 --Functions
 
@@ -369,10 +370,24 @@
                 while GetNodeText("_TargetInfoMainTarget", 3) == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false do 
                     yield("/e [Node Type] This is a Max Integrity Node, time to start buffing/smacking")
                     yield("/wait 2")
-                    while BuffYield2 == true and GetGp() >= 500 and HasStatusId(219) == false and GetLevel() >= 40 do 
+                    while BuffYield2 == true and GetGp() >= 500 and HasStatusId(219) == false and GetLevel() >= 40 do -- 
                         yield("/e [Debug] Should be applying Kings Yield 2")
                         if GetClassJobId() == 16 then 
                             yield("/ac \"King's Yield II\"")-- King's Yield 2
+                            StatusCheck()
+                        end 
+                    end
+                    while BuffGift2 == true and GetGp() >= 100 and HasStatusId(759) == false and GetLevel() >= 50 do
+                        yield("/e [Debug] Should be applying Mountaineer's Gift 2'")
+                        if GetClassJobId() == 16 then 
+                            yield("/ac \"Mountaineer's Gift II\"") -- Mountaineer's Gift 2 (Min)
+                            StatusCheck()
+                        end 
+                    end
+                    while BuffGift1 == true and GetGp() >= 100 and HasStatusId(759) == false and GetLevel() >= 50 do
+                        yield("/e [Debug] Should be applying Mountaineer's Gift 2'")
+                        if GetClassJobId() == 16 then 
+                            yield("/ac \"Mountaineer's Gift I\"") -- Mountaineer's Gift 1 (Min)
                             StatusCheck()
                         end 
                     end
@@ -383,13 +398,6 @@
                             StatusCheck()
                         end 
                     end 
-                    while BuffGift2 == true and GetGp() >= 100 and HasStatusId(759) == false and GetLevel() >= 50 do
-                        yield("/e [Debug] Should be applying Mountaineer's Gift 2'")
-                        if GetClassJobId() == 16 then 
-                            yield("/ac \"Mountaineer's Gift II\"") -- Mountaineer's Gift 2 (Min)
-                            StatusCheck()
-                        end 
-                    end
                     while BuffBYieldHarvest2  == true and GetGp() >= 100 and HasStatusId(1286) == false and GetLevel() >= 68 do
                         yield("/e [Debug] Should be applying Bountiful Yield 2")
                         if GetClassJobId() == 16 then 
@@ -416,6 +424,8 @@
             end 
         end 
     end
+
+    
 
     function FoodCheck() 
         LoopClear()
@@ -454,8 +464,7 @@
 		GetCharacterCondition_jump_Loop = 0
 		GetCharacterCondition_interact_Loop = 0
     end
-        
-	
+
 ::SettingNodeValue:: 
     NodeSelection = GatheringSlot - 1
     FoodTimeRemaining = RemainingFoodTimer * 60
