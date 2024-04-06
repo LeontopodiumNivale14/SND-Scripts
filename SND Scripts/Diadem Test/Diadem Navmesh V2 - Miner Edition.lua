@@ -281,7 +281,6 @@ end
     end
 
     function AetherGaugeKiller()
-	    LoopClear() 
         yield("/targetenemy")
         if GetTargetName() ~= "" and GetCharacterCondition(45,false) and GetDistanceToTarget() < 40 then 
             if GetDistanceToTarget() < 0 and GetDistanceToTarget() > 10 then 
@@ -300,7 +299,7 @@ end
                 yield("/wait 0.3")			
             end 
             yield("/wait 1")
-            while GetTargetHP() > 1.0 and GetTargetName() ~= "" do
+            while GetTargetHP() > 1.0 and GetTargetName() ~= "" and GetDistanceToTarget() ~= 0.0 do
                 if GetCharacterCondition(27) then -- casting
                     yield("/wait 0.1")
                 else
@@ -310,14 +309,12 @@ end
             end
             PlayerWait()
             MountFly()
-            EnemyAttempted = true 
             DebugMessage("AetherGaugeKiller")
         end
     end
   
     function VNavMoveTime()
         -- Setting the camera setting for Navmesh (morso for the standard players that way they don't get nauseas)
-        LoopClear()
         if PathGetAlignCamera() == false then 
             PathSetAlignCamera(true) 
         end 
@@ -333,7 +330,7 @@ end
                 end 
             end
             yield("/wait 0.1")
-            if GetDiademAetherGaugeBarCount() >= 1 and EnemyAttempted == false then 
+            if GetDiademAetherGaugeBarCount() >= 1 then 
                 AetherGaugeKiller()
             end 
         end
@@ -476,6 +473,7 @@ end
             yield("/e Debug:" .. func .. ":Runned")
 	    end
     end
+
 ::SettingNodeValue:: 
     WhileBrake = 0 --this is experimental
     NodeSelection = GatheringSlot - 1
