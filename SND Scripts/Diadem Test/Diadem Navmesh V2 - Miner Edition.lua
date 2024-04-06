@@ -279,7 +279,6 @@ end
                         CanadianMounty()
                         yield("/wait 1")
                         yield("/vnavmesh movetarget")
-                        end
                     end
                     while GetDistanceToTarget() >= 5 and iterationCount < maxIterations do
                     yield("/wait 0.1")
