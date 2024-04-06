@@ -282,7 +282,7 @@ end
                             yield("/vnavmesh movetarget")
                         end
                     end
-                    while GetDistanceToTarget() >= 5 do
+                    while GetDistanceToTarget() >= 5 and iterationCount < maxIterations do
                     yield("/wait 0.1")
                     iterationCount = iterationCount + 1
                     end
