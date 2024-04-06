@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.52  *
+    *  Version -> 0.0.0.53  *
     *************************
 
     Version Notes:
@@ -277,9 +277,8 @@ end
                 if GetTargetName() ~= "" then
                     while GetDistanceToTarget() > 7 and iterationCount < maxIterations do
                         CanadianMounty()
-                        yield("/wait 0.1")
-                        if PathIsRunning() == false then 
-                            yield("/vnavmesh movetarget")
+                        yield("/wait 1")
+                        yield("/vnavmesh movetarget")
                         end
                     end
                     while GetDistanceToTarget() >= 5 and iterationCount < maxIterations do
