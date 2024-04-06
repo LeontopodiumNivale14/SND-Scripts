@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.54  *
+    *  Version -> 0.0.0.55  *
     *************************
 
     Version Notes:
@@ -278,7 +278,7 @@ end
                     while GetDistanceToTarget() > 7 and iterationCount < maxIterations do
                         CanadianMounty()
                         yield("/wait 1")
-                        yield("/vnavmesh movetarget")
+                        yield("/vnavmesh flytarget")
                     end
                     while GetDistanceToTarget() >= 5 and iterationCount < maxIterations do
                     yield("/wait 0.1")
