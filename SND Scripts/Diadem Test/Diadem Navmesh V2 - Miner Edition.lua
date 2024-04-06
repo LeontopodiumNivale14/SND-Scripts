@@ -5,11 +5,12 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.40  *
+    *  Version -> 0.0.0.41  *
     *************************
 
     Version Notes:
 
+    0.0.0.41 ->   "Red Route" is running!
     0.0.0.37 ->   Wrote out the baseline of adding multiple routes. Need to actually add RedRoute for miner.
     0.0.0.30 ->   "Heyoo ice UcanPatates here added" npc repair option and fixed the casting spamming
     0.0.0.21 ->   Was a dumb dumb, and might of forgotten about checking a character condition... WOOPSIE
@@ -78,7 +79,7 @@
     -- How many attempts would you like it to try and food before giving up?
     -- The higher this is, the longer it's going to take. Don't set it below 5 for safety. 
 
-    MinerRouteType = "AllIslands"
+    MinerRouteType = "RedRoute"
     -- Select which route you would like to do. 
         -- WIP. NOT FINISHED YET --
         -- Options are:
@@ -185,14 +186,14 @@
     elseif MinerRouteType == "RedRoute" then 
         miner_table = 
             {
-                {-164.12,-3.79,-385.03,1,1}, -- blue
-                {-163.70,-6.93,-520.71},
-                {-80.49,-18.88,-600.41},
-                {-46.65,-47.41,-513.17},
-                {-17.79,-27.24,-541.16},
-                {61.35,-47.38,-499.19},
-                {109.44,-48.58,-501.24},
-                {-210.26,-3.73, 358.19},
+                {-162.63,-1.79,-381.59,1,1},
+                {-171.29,-0.84,-506.78,1,0},
+                {-85.26,-16.37,-595.80,1,0},
+                {-52.39,-41.39,-529.72,1,0},
+                {-23.12,-27.32,-532.47,1,1},
+                {52.10,-39.32,-503.62,1,1},
+                {98.86,-43.16,-501.89,1,0},
+                {-197.88,-1.08,-364.74,1,0},
             }
     end       
 
@@ -281,10 +282,10 @@
         if GetCharacterCondition(45,false) then 
             yield("/targetenemy")
             if GetTargetName() ~= "" and GetCharacterCondition(45,false) and GetDistanceToTarget() < 40 then 
-                if GetDistanceToTarget() < 10 then 
+                if GetDistanceToTarget() < 0 and GetDistanceToTarget() > 10 then 
                     CanadianMounty()
                     yield("/vnavmesh movetarget")
-                elseif GetDistanceToTarget() < 40 then 
+                elseif GetDistanceToTarget() < 40 and GetDistanceToTarget() > 10 then 
                     MountFly()
                     yield("/vnavmesh flytarget")
                 end
