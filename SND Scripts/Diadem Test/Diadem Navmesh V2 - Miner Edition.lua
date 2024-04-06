@@ -10,7 +10,7 @@
 
     Version Notes:
 
-    0.0.0.47 ->   Twaked some stuff added 2 new functions -byUcanPatates
+    0.0.0.47 ->   Tweaked some stuff added 2 new functions -byUcanPatates
     0.0.0.41 ->   "Red Route" is running!
     0.0.0.37 ->   Wrote out the baseline of adding multiple routes. Need to actually add RedRoute for miner.
     0.0.0.30 ->   Added npc repair option and fixed the casting spamming -byUcanPatates
@@ -371,7 +371,7 @@ end
     function DGathering()
         LoopClear() 
         while GetCharacterCondition(6) do 
-		yield("/wait 0.2") -- added this to throtle down the while loop lua calls it too much and it ads +1 to Node_ThreshHold
+		yield("/wait 1") -- added this to throtle down the while loop lua calls it too much and it ads +1 to Node_ThreshHold
             if GetNodeText("_TargetInfoMainTarget", 3) == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false then 
                 while GetNodeText("_TargetInfoMainTarget", 3) == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false do 
                     yield("/e [Node Type] This is a Max Integrity Node, time to start buffing/smacking")
