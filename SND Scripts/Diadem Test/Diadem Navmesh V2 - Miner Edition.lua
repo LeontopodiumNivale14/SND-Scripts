@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.1.0  *
+    *  Version -> 0.0.1.1  *
     *************************
 
     Version Notes:
@@ -37,11 +37,6 @@
                 
     Notes to self to fix:
     1: include visland movement, cause MAN flying through things is actually really annoying (mainly transitioning islands, gaps in the floor)
-
-    THINGS TO DO. 
-    -> Create the "Red" Route properly. Points are set in there but need to actually go through and set it up to the proper format
-    -> Create the "Blue Route"
-    -> Create the double route on the single island
 
     ***************
     * Description *
@@ -209,7 +204,7 @@ end
                 {-171.29,-0.84,-506.78,1,0},
                 {-79.07,-17.95,-589.16,1,0},
                 {-52.39,-41.39,-529.72,1,0},
-                {-23.12,-27.32,-532.47,1,1},
+                {-23.12,-27.32,-532.47,0,1}, -- changed this one
                 {60.74,-45.80,-516.52,0,1},
                 {98.86,-43.16,-501.89,1,0},
                 {-192.44,-1.99,-359.21,1,0},
@@ -267,7 +262,7 @@ end
         DebugMessage("GatheringTarget")
     end
 
-function CanadianMounty()
+    function CanadianMounty()
         while GetCharacterCondition(4, false) and IsInZone(939) do 
             while GetCharacterCondition(27, false) and IsInZone(939) do
                 yield("/wait 0.1")
@@ -374,7 +369,7 @@ function CanadianMounty()
     end
 
     function PlayerWait()
-    if PlayerWaitTime == true then 
+        if PlayerWaitTime == true then 
             math.randomseed( os.time() )
             RandomTimeWait = math.random(10, 20) / 10
             yield("/wait "..RandomTimeWait)
@@ -443,8 +438,9 @@ function CanadianMounty()
                 DGatheringLoop = true
             end 
             yield("/pcall Gathering true "..NodeSelection)
+            yield("/wait 0.1")
             while GetCharacterCondition(42) do
-                yield("/wait 0.1")
+                yield("/wait 0.2")
             end
         end 
         DebugMessage("DGathering")
@@ -483,9 +479,9 @@ function CanadianMounty()
     end
 
     function DebugMessage(func)
-    if debug==true then
+        if debug==true then
             yield("/e [Debug]: " .. func .. ": Completed")
-    end
+        end
     end
 
     function UiElementSelector()
@@ -556,7 +552,7 @@ function CanadianMounty()
         yield("/wait 1")
         yield("/pcall Repair true -1")
     end
-if NeedsRepair(Repair_Amount) and Npc_Repair == true then
+    if NeedsRepair(Repair_Amount) and Npc_Repair == true then
         if IsInZone(886) then -- Check if in Firmament
             WalkTo(47, -16, 151)
             TargetedInteract("Eilonwy") -- Interact with target named "Eilonwy"
@@ -565,7 +561,7 @@ if NeedsRepair(Repair_Amount) and Npc_Repair == true then
             yield("/wait 0.1")
         end
         yield("/pcall Repair true 0") 
-yield("/wait 0.1")
+        yield("/wait 0.1")
         if IsAddonReady("SelectYesno") then
             yield("/pcall SelectYesno true 0")
             yield("/wait 0.1")
@@ -601,8 +597,8 @@ yield("/wait 0.1")
 ::DiademFarming::
 
     while IsInZone(939) and GetCharacterCondition(45, false) do
-for i=1, #miner_table do
-    if GetCharacterCondition(45, false) then 
+        for i=1, #miner_table do
+            if GetCharacterCondition(45, false) then 
                 if UseFood == true and (GetStatusTimeRemaining(48) <= FoodTimeRemaining or HasStatusId(48) == false) then 
                     yield("/e Food seems to have ran out, going to re-food")
                     FoodCheck()
@@ -618,7 +614,7 @@ for i=1, #miner_table do
                 GatheringTarget(i)
                 end 
             end 
-end
+        end
     end 
 
 goto Enter
