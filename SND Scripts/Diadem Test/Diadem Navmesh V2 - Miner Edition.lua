@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.67  *
+    *  Version -> 0.0.0.68  *
     *************************
 
     Version Notes:
@@ -454,7 +454,6 @@ end
         LoopClear() 
         UiElementSelector()
         while GetCharacterCondition(6) do 
-		yield("/wait 1") -- added this to throtle down the while loop lua calls it too much and it ads +1 to Node_ThreshHold
             if VisibleNode == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false then 
                 while VisibleNode == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false do 
                     yield("/e [Node Type] This is a Max Integrity Node, time to start buffing/smacking")
@@ -501,20 +500,10 @@ end
                 DGatheringLoop = true
             end 
             yield("/pcall Gathering true "..NodeSelection)
-            while GetCharacterCondition(42) and WhileBrake <= 1000 do
+            while GetCharacterCondition(42) do
                 yield("/wait 0.1")
-                WhileBrake = WhileBrake + 1
-                if WhileBrake >= 1000 then
-                    yield("/e WhileBrake: "..WhileBrake.." exceeded 1000, breaking the loop")
-                    break  -- Break the loop if WhileBrake exceeds 1000
-                end
             end
-            Node_ThreshHold = Node_ThreshHold + 1 
-            if Node_ThreshHold >= 20 and NodeChanged == false then 
-                yield("/e WELL. Somehow you manage to select an option that wasn't an option. Defaulting to the VERY top node")
-                NodeSelection = 0 
-                NodeChanged = true 
-            end 
+            yield("/wait 0.5")
         end 
         DebugMessage("DGathering")
     end
