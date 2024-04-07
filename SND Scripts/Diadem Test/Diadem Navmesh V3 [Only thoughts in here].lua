@@ -37,7 +37,10 @@
               This way we can add only kill this or that in script
               As a setting
 
-        -> 
+        -> "While loop" we can make 2 main loops and maybe the third one for outside of firmament or diadem
+            ->"while IsInZone(886) and GetCharacterCondition(45, false) do end" this is firmament
+            ->"while IsInZone(939) and GetCharacterCondition(45, false) do end" this is diadem
+        ->   
 
     ***************
     * Description *
