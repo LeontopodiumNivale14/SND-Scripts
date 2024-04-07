@@ -5,11 +5,11 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.1.2  *
+    *  Version -> 0.0.1.3  *
     *************************
 
     Version Notes:
-	0.0.1.2  ->   Fixed the waiting if there is no enemy in target distance now script will contuniue path till there is one and Aether use looks more human now
+    0.0.1.2  ->   Fixed the waiting if there is no enemy in target distance now script will contuniue path till there is one and Aether use looks more human now
     0.0.1.0  ->   Man... didn't tink I'd hit this with how big this was getting and the bugs I/We created in turn xD 
                   This is the complete version of this script for now. I'm afraid if i change up the codebase anymore, then it's going to break. XD So going to push this as a released version, then focus on re-factoring the code in a different script (with blackjack and hookers)
                   Main things is:
@@ -278,21 +278,20 @@ end
         end
     end
 
-    function KillTarget()
-        if IsInZone(939) then
-            if GetDistanceToTarget() == 0.0 and GetCharacterCondition(6, false) and GetCharacterCondition(45, false) and GetDiademAetherGaugeBarCount() >= 1 then
-                yield("/targetenemy")
-                PlayerWait() 
-                yield("/wait 0.1")
-                if GetTargetName() ~= "" then 
-                    if GetDistanceToTarget() > 10 then
-                        PathStop()
-                        MountFly()
-                        yield("/wait 0.1")
-                        yield("/vnavmesh flytarget")
-                        while GetDistanceToTarget() > 10 and GetTargetName() ~= "" do
-                            yield("/wait 0.1")  
-                        end
+function KillTarget()
+    if IsInZone(939) then
+        if GetDistanceToTarget() == 0.0 and GetCharacterCondition(6, false) and GetCharacterCondition(45, false) and GetDiademAetherGaugeBarCount() >= 1 then
+            yield("/targetenemy")
+            PlayerWait()  
+            yield("/wait 0.1")
+            if GetTargetName() ~= "" then 
+                if GetDistanceToTarget() > 10 then
+                    PathStop()
+                    MountFly()
+                    yield("/wait 0.1")
+                    yield("/vnavmesh flytarget")
+                    while GetDistanceToTarget() > 10 and GetTargetName() ~= "" do
+                        yield("/wait 0.1")  
                     end
                 end
                 PathStop() 
@@ -305,11 +304,10 @@ end
                         yield("/ac dismount")
                         yield("/wait 0.3")
                     end
+                    if GetDistanceToTarget() > 15 or GetNodeText("_TextError",1) == "Target not in line of sight." or GetNodeText("_TextError",1) == "Target is not in range." then
+                        ClearTarget()
+                        yield("/wait 0.1")
                     end
-	    	    if GetNodeText("_TextError",1) ~= "Target not in line of sight." and GetNodeText("_TextError",1) ~= "Target is not in range." then
-	    	    ClearTarget()
-	    	    yield("/wait 0.1")
-       	    	    end
                     if GetCharacterCondition(27) then -- casting
                         yield("/wait 0.5")
                     else
@@ -322,6 +320,8 @@ end
             end
         end
     end
+end
+
 
 
     function MountFly()
