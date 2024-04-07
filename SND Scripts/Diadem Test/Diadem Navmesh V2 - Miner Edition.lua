@@ -4,11 +4,12 @@
     * Diadem Farming - Miner Edition  *
     ***********************************
 
-    *************************
-    *  Version -> 0.0.1.5  *
-    *************************
+    **************************
+    *  Version -> 0.0.1.5.1  *
+    **************************
 
     Version Notes:
+    0.0.1.6  ->   
     0.0.1.5  ->   Fixed Job checking not working properly
     0.0.1.4  ->   Fixed Gift1 not popping up when it should 
     0.0.1.2  ->   Fixed the waiting if there is no enemy in target distance now script will contuniue path till there is one and Aether use looks more human now
@@ -21,25 +22,6 @@
                     -> Ability to ACTUALLY use the proper GP skills on the +10 integ node as well so you can maxamize on getting your items
                     -> Vnavmesh also fixed the pathing issue in v31, so that's also to a point where I feel comfortable releasing this with the "AllIslands" route. 
                   Thank you @UcanPatates with the help on this. I look foward to us making this the best diadem script we can in lua, then maybe translate that into a plugin in itself. 
-    0.0.0.62 ->   Hope this fixes the red route rock issue, as well as the aether cannon problem. . . 
-    0.0.0.56 ->   Lot of adjustments overall, new Red Route WP's'
-    0.0.0.51 ->   New targeting logic in testing 
-    0.0.0.47 ->   Tweaked some stuff added 2 new functions -byUcanPatates
-    0.0.0.41 ->   "Red Route" is running!
-    0.0.0.37 ->   Wrote out the baseline of adding multiple routes. Need to actually add RedRoute for miner.
-    0.0.0.30 ->   Added npc repair option and fixed the casting spamming -byUcanPatates
-    0.0.0.21 ->   Was a dumb dumb, and might of forgotten about checking a character condition... WOOPSIE
-    0.0.0.20 ->   "Diadem Gathering" Is now live. This will try and maximize the amount of GP that you use, and will also make it to where you will get the most items on the node where you get the maximum integrity you can.
-                  The intention of this is to use over P.Gathering (Pandora Gathering) but also, this is meant to be overall better. Please give it a shot :D 
-                  PLEASE READ THE SETTINGS 
-    0.0.0.19 ->   This is going to be the attempt of just... creating a gathering function in itself. 
-    0.0.0.18 ->   This rock will be the death of me XD fixed another node
-    0.0.0.17 ->   Fixed 1 of the miner nodes
-    0.0.0.16 ->   Had a LOS sight issue, so reduced the range to 5
-    0.0.0.15 ->   Was.... Tempted to say this is the "Release". Then I died right as I got excited xD Miner route did a full round though!
-                
-    Notes to self to fix:
-    1: include visland movement, cause MAN flying through things is actually really annoying (mainly transitioning islands, gaps in the floor)
 
     ***************
     * Description *
@@ -66,8 +48,7 @@
     * Credits *
     ***********
 
-    Author: Leontopodium Nivale 
-    Co-Laborator/Co-Author: UcanPatates
+    Author(s): Leontopodium Nivale | UcanPatates 
     Class: Miner
 
     **************
@@ -134,9 +115,10 @@
 
 ]]
 --script Started echo for debug
-if debug then
-yield("/e ------------STARTED------------")
-end
+    if debug then
+        yield("/e ------------STARTED------------")
+    end
+
 -- Waypoint (V2) Tables 
     local X = 0
     local Y = 0
@@ -212,7 +194,23 @@ end
                 {98.86,-43.16,-501.89,1,0},
                 {-192.44,-1.99,-359.21,1,0},
             }
-    end       
+    end
+ 
+-- Skill Check 
+    if GetClassJobId() == 16 then -- Miner Skills 
+        Yield2 = "\"King's Yield II\""
+        Gift2 = "\"Mountaineer's Gift II\""
+        Gift1 = "\"Mountaineer's Gift I\""
+        Tidings2 = "\"Nald'thal's Tidings\""
+        Bountiful2 = "\"Bountiful Yield II\""
+    elseif GetClassJobId() == 17 then -- Botanist Skills 
+        Yield2 = "\"Blessed Harvest II\""
+        Gift2 = "\"Pioneer's Gift II\""
+        Gift1 = "\"Pioneer's Gift I\""
+        Tidings2 = "\"Nophica's Tidings\""
+        Bountiful2 = "\"Bountiful Harvest II\""
+    end
+        
 
 --Functions
 
@@ -280,51 +278,49 @@ end
         end
     end
 
-function KillTarget()
-    if IsInZone(939) then
-        if GetDistanceToTarget() == 0.0 and GetCharacterCondition(6, false) and GetCharacterCondition(45, false) and GetDiademAetherGaugeBarCount() >= 1 then
-            yield("/targetenemy")
-            PlayerWait()  
-            yield("/wait 0.1")
-            if GetTargetName() ~= "" then 
-                if GetDistanceToTarget() > 10 then
-                    PathStop()
-                    MountFly()
-                    yield("/wait 0.1")
-                    yield("/vnavmesh flytarget")
-                    while GetDistanceToTarget() > 10 and GetTargetName() ~= "" do
-                        yield("/wait 0.1")  
-                    end
-                end
-                PathStop() 
+    function KillTarget()
+        if IsInZone(939) then
+            if GetDistanceToTarget() == 0.0 and GetCharacterCondition(6, false) and GetCharacterCondition(45, false) and GetDiademAetherGaugeBarCount() >= 1 then
+                yield("/targetenemy")
+                PlayerWait()  
                 yield("/wait 0.1")
-                while GetTargetHP() > 1.0 and GetTargetName() ~= "" do
-                    if PathIsRunning() then
+                if GetTargetName() ~= "" then 
+                    if GetDistanceToTarget() > 10 then
                         PathStop()
-                    end 
-                    if GetCharacterCondition(4) then
-                        yield("/ac dismount")
-                        yield("/wait 0.3")
-                    end
-                    if GetDistanceToTarget() > 15 or GetNodeText("_TextError",1) == "Target not in line of sight." or GetNodeText("_TextError",1) == "Target is not in range." then
-                        ClearTarget()
+                        MountFly()
                         yield("/wait 0.1")
+                        yield("/vnavmesh flytarget")
+                        while GetDistanceToTarget() > 10 and GetTargetName() ~= "" do
+                            yield("/wait 0.1")  
+                        end
                     end
-                    if GetCharacterCondition(27) then -- casting
-                        yield("/wait 0.5")
-                    else
-                        yield("/gaction \"Duty Action I\"")
-                        yield("/wait 0.5")
+                    PathStop() 
+                    yield("/wait 0.1")
+                    while GetTargetHP() > 1.0 and GetTargetName() ~= "" do
+                        if PathIsRunning() then
+                            PathStop()
+                        end 
+                        if GetCharacterCondition(4) then
+                            yield("/ac dismount")
+                            yield("/wait 0.3")
+                        end
+                        if GetDistanceToTarget() > 15 or GetNodeText("_TextError",1) == "Target not in line of sight." or GetNodeText("_TextError",1) == "Target is not in range." then
+                            ClearTarget()
+                            yield("/wait 0.1")
+                        end
+                        if GetCharacterCondition(27) then -- casting
+                            yield("/wait 0.5")
+                        else
+                            yield("/gaction \"Duty Action I\"")
+                            yield("/wait 0.5")
+                        end
                     end
+                    ClearTarget()
+                    DebugMessage("KillTarget")
                 end
-                ClearTarget()
-                DebugMessage("KillTarget")
             end
         end
     end
-end
-
-
 
     function MountFly()
         if GetCharacterCondition(4, false) and IsInZone(939) then 
@@ -409,38 +405,28 @@ end
                     yield("/wait 0.1")
                     while BuffYield2 and GetGp() >= 500 and HasStatusId(219) == false and GetLevel() >= 40 do -- 
                         if debug then yield("/e [Debug] Should be applying Kings Yield 2") end
-                        if GetClassJobId() == 16 then 
-                            yield("/ac \"King's Yield II\"")-- King's Yield 2
-                            StatusCheck()
-                        end 
+                        UseSkill(Yield2)
+                        StatusCheck()
                     end
                     while BuffGift2 and GetGp() >= 100 and HasStatusId(759) == false and GetLevel() >= 50 do
                         if debug then yield("/e [Debug] Should be applying Mountaineer's Gift 2'") end
-                        if GetClassJobId() == 16 then 
-                            yield("/ac \"Mountaineer's Gift II\"") -- Mountaineer's Gift 2 (Min)
-                            StatusCheck()
-                        end 
+                        UseSkill(Gift2) -- Mountaineer's Gift 2 (Min)
+                        StatusCheck()
                     end
                     while BuffGift1 and GetGp() >= 50 and HasStatusId(2666) == false and GetLevel() >= 15 do
                         if debug then yield("/e [Debug] Should be applying Mountaineer's Gift 1'") end
-                        if GetClassJobId() == 16 then 
-                            yield("/ac \"Mountaineer's Gift I\"") -- Mountaineer's Gift 1 (Min)
-                            StatusCheck()
-                        end 
+                        UseSkill(Gift1) -- Mountaineer's Gift 1 (Min)
+                        StatusCheck()
                     end
                     while BuffTidings2 and GetGp() >= 200 and HasStatusId(2667) == false and GetLevel() >= 81 do 
                         if debug then yield("/e [Debug] Should be applying Tidings") end
-                        if GetClassJobId() == 16 then 
-                            yield("/ac \"Nald'thal's Tidings\"") -- Nald'thal's Tidings (Min)
-                            StatusCheck()
-                        end 
+                        UseSkill(Tidings2) -- Nald'thal's Tidings (Min)
+                        StatusCheck()
                     end 
                     while BuffBYieldHarvest2 and GetGp() >= 100 and HasStatusId(1286) == false and GetLevel() >= 68 do
                         if debug then yield("/e [Debug] Should be applying Bountiful Yield 2") end
-                        if GetClassJobId() == 16 then 
-                            yield("/ac \"Bountiful Yield II\"") 
-                            StatusCheck()
-                        end 
+                        UseSkill(Bountiful2)
+                        StatusCheck()
                     end 
                     DGatheringLoop = true
                 end
@@ -511,6 +497,11 @@ end
                 StatusCheck()
             end 
         end
+    end 
+
+    function UseSkill(SkillName)
+        yield("/ac "..SkillName)
+        yield("/wait 0.1")
     end 
 
 ::SettingNodeValue:: 
