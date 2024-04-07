@@ -5,7 +5,7 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.0.65  *
+    *  Version -> 0.0.0.67  *
     *************************
 
     Version Notes:
@@ -306,6 +306,9 @@ end
                         iterationCount = iterationCount + 1
                     end
                     while GetTargetHP() > 1.0 and GetTargetName() ~= "" and iterationCount < maxIterations do
+                        if PathIsRunning() then
+                            PathStop()
+                        end 
                         if GetCharacterCondition(27) then -- casting
                             yield("/wait 0.1")
                         else
@@ -501,7 +504,7 @@ end
             while GetCharacterCondition(42) and WhileBrake <= 1000 do
                 yield("/wait 0.1")
                 WhileBrake = WhileBrake + 1
-                if WhileBrake <= 1000 then
+                if WhileBrake >= 1000 then
                     yield("/e WhileBrake: "..WhileBrake.." exceeded 1000, breaking the loop")
                     break  -- Break the loop if WhileBrake exceeds 1000
                 end
