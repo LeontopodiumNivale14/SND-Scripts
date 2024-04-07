@@ -305,8 +305,6 @@ end
                         yield("/ac dismount")
                         yield("/wait 0.3")
                     end
-		    if GetDistanceToTarget() > 11 then
-                    ClearTarget()
                     end
 	    	    if GetNodeText("_TextError",1) ~= "Target not in line of sight." and GetNodeText("_TextError",1) ~= "Target is not in range." then
 	    	    ClearTarget()
