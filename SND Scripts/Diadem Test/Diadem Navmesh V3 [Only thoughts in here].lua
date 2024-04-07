@@ -40,7 +40,15 @@
         -> "While loop" we can make 2 main loops and maybe the third one for outside of firmament or diadem
             ->"while IsInZone(886) and GetCharacterCondition(45, false) do end" this is firmament
             ->"while IsInZone(939) and GetCharacterCondition(45, false) do end" this is diadem
-        ->   
+        -> Action Usage: 
+            -> Have all the actions in a table, or if... then statement based on which class you are, and have it toggle based on which class you're on 
+                -> for instance, Kings Yield 2 for Min, Blessed Yield? For Btn... ect ect 
+            -> Also have rotation conditions for the bonus node 
+                -> If GP >= 900,           -> rotation A 
+                -> If GP >= 800 and <= 900 -> rotation B 
+                -> If GP >= 700 and <= 800 -> rotation C 
+            -> also have an option to spend gp if you're going to overcap before the +5 integ node
+                -> Use Harvest 2 for this ONCE (+x items based on yield)
 
     ***************
     * Description *
