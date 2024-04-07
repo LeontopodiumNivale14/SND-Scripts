@@ -5,10 +5,11 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.1.4  *
+    *  Version -> 0.0.1.5  *
     *************************
 
     Version Notes:
+    0.0.1.4  ->   Fixed Job checking not working properly
     0.0.1.4  ->   Fixed Gift1 not popping up when it should 
     0.0.1.2  ->   Fixed the waiting if there is no enemy in target distance now script will contuniue path till there is one and Aether use looks more human now
     0.0.1.0  ->   Man... didn't tink I'd hit this with how big this was getting and the bugs I/We created in turn xD 
@@ -521,7 +522,7 @@ end
     Current_job = GetClassJobId()
     if (Current_job == 17) or (Current_job == 16) then
         goto Enter
-    elseif (Current_job > 17) or (Current_job < 15) then
+    else
         yield("/echo Hmm... You're not on a gathering job, switch to one and start the script again.")
         yield("/snd stop")
     end   
