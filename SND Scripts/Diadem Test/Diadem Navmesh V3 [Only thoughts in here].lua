@@ -11,11 +11,11 @@
     This is currently where me and UCanPatates can type up the thought process for WHAT we wanna do for V3 of this thing. 
         -> Maybe replace the whole thing with a while statement instead of doing a goto statement (not a bad idea)
         -> Make things more modular in the functions, easier to disect
-        -> Make the random wait time a thing in it's own right (function/if statement) THAT WORKS. (never really got to implimenting this)
+        -> Make the random wait time a thing in it's own right (function/if statement) THAT WORKS. (never really got to implimenting this) (+byUcanPatates i did it already forgot we have it here)
         -> Make a Proper Debug function to use
         -> add auto go to firmament if not there when the script starts and other checks
         -> add a materia extractor just thougs maybe be in the main loop or event trigger after every dungeon exit
-        -> Fix the AetherCannon/Re-write that whole function 
+        -> Fix the AetherCannon/Re-write that whole function (+byUcanPatates i did this too accidently soo we have a working function that ass all this we can rewrtie it again tho noprobs)
             -> Make it to where if you're within 10 yalms, do a non-fly moveto (attempt to)
                 -> if this fails to path properly, then mountfly? 
             -> If you're within 25 yalms, it'll fly to it 
@@ -49,6 +49,7 @@
                 -> If GP >= 700 and <= 800 -> rotation C 
             -> also have an option to spend gp if you're going to overcap before the +5 integ node
                 -> Use Harvest 2 for this ONCE (+x items based on yield)
+        ->Only Target sprites option or spesific target tables
 
     ***************
     * Description *
