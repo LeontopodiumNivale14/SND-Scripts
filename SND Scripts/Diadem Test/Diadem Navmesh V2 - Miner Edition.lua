@@ -30,7 +30,7 @@
     ***************
 
     Current plans: 
-        -> need to add a targeting feature to NOT target sprites, or moreso ONLY target a certain mob of your choosing. 
+        -> 
   
     *********************
     *  Required Plugins *
