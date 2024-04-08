@@ -4,9 +4,9 @@
     * Diadem Farming - Miner Edition  *
     ***********************************
 
-    ************************
-    *  Version -> 0.0.1.8  *
-    ************************
+    **************************
+    *  Version -> 0.0.1.8.1  *
+    **************************
 
     Version Notes:
     0.0.1.8  ->   Tweaked the Node targeting should work better and look more human now.
@@ -214,6 +214,11 @@
                 {-215.1211,-1.3262,-494.8219,0,3,1},
             }
     end
+
+    spawnisland_table = 
+        {
+            {-605.7039,312.0701,-159.7864,0,99,0},
+        }
  
 -- Skill Check 
     if GetClassJobId() == 16 then -- Miner Skills 
@@ -230,7 +235,7 @@
         Bountiful2 = "\"Bountiful Harvest II\""
     end        
 
---Functions
+-- Functions
     function GatheringTarget(i)
         LoopClear()
         ToFarFromNode = 0 
@@ -672,6 +677,19 @@
 
 ::DiademFarming::
 
+    while IsInZone(939) == false and GetCharacterCondition(45, true) do -- this whole section is new. 
+        yield("/wait 1")
+    end 
+    if UseFood and (GetStatusTimeRemaining(48) <= FoodTimeRemaining or HasStatusId(48) == false) then 
+        yield("/e [Diadem Gathering] Food seems to have ran out, going to re-food")
+        FoodCheck()
+    end
+    MountFly()
+    X = spawnisland_table[1][1]
+    Y = spawnisland_table[1][2]
+    Z = spawnisland_table[1][3]
+    VNavMoveTime(1) -- esentially goes above the lookout box, then continues on
+
     while IsInZone(939) and GetCharacterCondition(45, false) do
         for i=1, #gather_table do
             if GetCharacterCondition(45, false) then 
@@ -686,8 +704,8 @@
                 ClearTarget()
                 KillTarget()
                 VNavMoveTime(i) 
-                if gather_table[i][5] <= 3 then 
-                GatheringTarget(i)
+                if gather_table[i][5] ~= 99 then -- 99 is the code imma use if I don't want it gathering anything, and make sure it's not the coords I want to use as a midpoint
+                    GatheringTarget(i)
                 end 
             end 
         end
