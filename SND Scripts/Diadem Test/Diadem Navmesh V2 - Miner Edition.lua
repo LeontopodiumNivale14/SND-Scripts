@@ -72,9 +72,7 @@
 
     RouteType = "RedRoute"
     -- Select which route you would like to do. 
-        -- WIP. NOT FINISHED YET --
         -- Options are:
-            -- "MinerIslands" -> Loops around the whole Diadem, not super efficient, but also least sus thing you can do 
             -- "RedRoute"     -> min perception route, 8 node loop
             -- "PinkRoute"    -> Btn perception route, 8 node loop
 
