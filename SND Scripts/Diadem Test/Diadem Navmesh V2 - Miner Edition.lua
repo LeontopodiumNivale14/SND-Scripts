@@ -5,10 +5,11 @@
     ***********************************
 
     **************************
-    *  Version -> 0.0.1.8.1  *
+    *  Version -> 0.0.1.10.0  *
     **************************
 
     Version Notes:
+    0.0.1.10 ->   New node targeting fixes spawn island aether current fix 
     0.0.1.8  ->   Tweaked the Node targeting should work better and look more human now.
     0.0.1.7  ->   Fixed the nvamesh getting stuck at ground while running path. Added target selection options Twekaed with eather use if you unselect the target or somehow it dies script will contuniue to gather.
     0.0.1.6  ->   Pink Route for btn is live! After some minor code tweaking and standardizing tables. 
@@ -30,7 +31,7 @@
     ***************
 
     Current plans: 
-        -> need to add a targeting feature to NOT target sprites, or moreso ONLY target a certain mob of your choosing. 
+        -> 
   
     *********************
     *  Required Plugins *
@@ -43,6 +44,7 @@
         -> Options → "/target" → checkmark "Use SND's targeting system"
         -> Options → "/target" → uncheckmark "stop macro if target not found"
     -> Pandora's Box -> https://love.puni.sh/ment.json
+    -> vnavmesh : https://puni.sh/api/repository/veyn
 
 
     ***********
@@ -214,12 +216,10 @@
                 {-215.1211,-1.3262,-494.8219,0,3,1},
             }
     end
-
-    spawnisland_table = 
+     spawnisland_table = 
         {
             {-605.7039,312.0701,-159.7864,0,99,0},
         }
- 
 -- Skill Check 
     if GetClassJobId() == 16 then -- Miner Skills 
         Yield2 = "\"King's Yield II\""
@@ -235,10 +235,9 @@
         Bountiful2 = "\"Bountiful Harvest II\""
     end        
 
--- Functions
+--Functions
     function GatheringTarget(i)
         LoopClear()
-        ToFarFromNode = 0 
         while GetCharacterCondition(45,false) and GetCharacterCondition(6, false) do
             while GetTargetName() == "" do
                 if gather_table[i][5] == 0 then 
@@ -258,29 +257,30 @@
                 elseif gather_table[i][6] == 1 then 
                     yield("/vnavmesh movetarget")
                 end
-                while GetDistanceToTarget() > 3.6 do 
+                while GetDistanceToTarget() > 3.5 do 
                     yield("/wait 0.1")
+                end
+                PathStop()
+                if GetDistanceToTarget() < 3.5 and GetCharacterCondition(4) then
+                    yield("/ac dismount")
+                    yield("/wait 0.3")
                 end
             end
-            PathStop()
-            if GetCharacterCondition(4) then
-                yield("/ac dismount")
-                PathStop()
-            end 
-            yield("/wait 0.1")
-            yield("/interact")
-            ToFarFromNode = ToFarFromNode + 1
-            if ToFarFromNode >= 10 then 
-                yield("/vnavmesh movetarget")
-                while GetDistanceToTarget() > 3.6 do 
-                    yield("/wait 0.1")
+            while GetCharacterCondition(6, false) do 
+                yield("/wait 0.1")
+                yield("/interact")
+                if GetNodeText("_TextError",1) == "Too far away." then 
+                    yield("/vnavmesh movetarget")
+                    while GetDistanceToTarget() > 3.5 do 
+                        yield("/wait 0.1")
+                    end
+                    PathStop()
                 end
-                ToFarFromNode = 0 
-            end 
+            end            
         end
         PathStop()
         DGathering()
-        PlayerWait()
+        yield("/wait 0.1")
         DebugMessage("GatheringTarget")
     end
 
@@ -289,6 +289,7 @@
             while GetCharacterCondition(27, false) and IsInZone(939) do
                 yield("/wait 0.1")
                 yield('/gaction "mount roulette"')
+                
             end
             while GetCharacterCondition(27) and IsInZone(939) do 
                 yield("/wait 0.1")
@@ -335,7 +336,6 @@
                         ClearTarget() 
                         yield("/wait 0.1")
                     end
-                    PlayerWait()
                     yield("/wait 0.1")
                 if  Target() then 
                     KillLoop = KillLoop + 1
