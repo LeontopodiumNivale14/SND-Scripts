@@ -5,10 +5,11 @@
     ***********************************
 
     ************************
-    *  Version -> 0.0.1.7  *
+    *  Version -> 0.0.1.8  *
     ************************
 
     Version Notes:
+    0.0.1.8  ->   Potential crash fix added for between areas
     0.0.1.7  ->   Fixed the nvamesh getting stuck at ground while running path. Added target selection options Twekaed with eather use if you unselect the target or somehow it dies script will contuniue to gather.
     0.0.1.6  ->   Pink Route for btn is live! After some minor code tweaking and standardizing tables. 
     0.0.1.5  ->   Fixed Job checking not working properly
@@ -29,7 +30,7 @@
     ***************
 
     Current plans: 
-        ->  
+        -> need to add a targeting feature to NOT target sprites, or moreso ONLY target a certain mob of your choosing. 
   
     *********************
     *  Required Plugins *
@@ -56,7 +57,7 @@
     **************
 ]]
 
-    UseFood = true
+    UseFood = false
     FoodKind = "Sideritis Cookie <HQ>"
     RemainingFoodTimer = 5 -- This is in minutes
     -- If you would like to use food while in diadem, and what kind of food you would like to use. 
@@ -77,7 +78,7 @@
             -- "RedRoute"     -> min perception route, 8 node loop
             -- "PinkRoute"    -> Btn perception route, 8 node loop
 
-    GatheringSlot = 4
+    GatheringSlot = 1
     -- This will let you tell the script WHICH item you want to gather. (So if I was gathering the 4th item from the top, I would input 4)
     -- This will NOT work with Pandora's Gathering, as a fair warning in itself. 
     -- Options : 1 | 2 | 3 | 4 | 7 | 8 (1st slot... 2nd slot... ect)
@@ -96,15 +97,15 @@
     -- They will go off in the order they are currently typed out, so keep that in mind for GP Usage if that's something you want to consider
 
     Repair_Amount = 99
-    Self_Repair = true --if its true script will try to self reapair
+    Self_Repair = false --if its true script will try to self reapair
     Npc_Repair = false --if its true script will try to go to mender npc and repair
     --When do you want to repair your own gear? From 0-100 (it's in percentage, but enter a whole value
 
-    PlayerWaitTime = true 
+    PlayerWaitTime = false 
     -- this is if you want to make it... LESS sus on you just jumping from node to node instantly/firing a cannon off at an enemy and then instantly flying off
     -- default is true, just for safety. If you want to turn this off, do so at your own risk. 
 
-    debug = false
+    debug = true
     -- This is for debugging 
 
 --[[
@@ -602,11 +603,11 @@
 
 ::Enter::
 
-    if IsInZone(939) then 
+    if IsInZone(939) and GetCharacterCondition(45, false) then 
         goto DiademFarming
     end
 
-    while not IsInZone(886) do
+    while not IsInZone(886) and GetCharacterCondition(45, false) do
         yield("/wait 0.2")
     end
     while IsPlayerAvailable() == false do
