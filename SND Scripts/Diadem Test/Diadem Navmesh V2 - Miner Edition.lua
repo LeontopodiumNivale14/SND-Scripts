@@ -235,7 +235,7 @@
         LoopClear()
         ToFarFromNode = 0 
         while GetCharacterCondition(45,false) and GetCharacterCondition(6, false) do
-            if GetTargetName() == "" then
+            while GetTargetName() == "" do
                 if gather_table[i][5] == 0 then 
                     yield("/target Mineral Deposit")
                 elseif gather_table[i][5] == 1 then 
