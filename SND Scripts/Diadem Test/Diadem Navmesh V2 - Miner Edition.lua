@@ -531,7 +531,7 @@
         while GetCharacterCondition(6) do 
             if VisibleNode == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false then 
                 while VisibleNode == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false do 
-                    yield("/e [Diadem Gathering] [Node Type] This is a Max Integrity Node, time to start buffing/smacking")
+                    LogInfo("[Diadem Gathering] [Node Type] This is a Max Integrity Node, time to start buffing/smacking")
                     PlayerWait()
                     yield("/wait 0.1")
                     while BuffYield2 and GetGp() >= 500 and HasStatusId(219) == false and GetLevel() >= 40 do -- 
@@ -562,7 +562,7 @@
                     DGatheringLoop = true
                 end
             elseif VisibleNode ~= "Max GP ≥ 858 → Gathering Attempts/Integrity +5" and DGatheringLoop == false then 
-                yield("/e [Diadem Gathering] [Node Type] Normal Node")
+                LogInfo("[Diadem Gathering] [Node Type] Normal Node")
                 DGatheringLoop = true
             end 
             yield("/pcall Gathering true "..NodeSelection)
@@ -573,6 +573,7 @@
             if PathIsRunning() == true then 
                 PathStop()
             end
+            BountifulYieldII()
         end 
         LogInfo("DGathering -> Completed")
     end
@@ -619,12 +620,11 @@
     end 
 
     function BountifulYieldII()
-        while BuffBYieldHarvest2 and GetGp() >= 100 and GetLevel() >= 68 and VisibleNode == "Max GP ≥ 858 → Gathering Attempts/Integrity +5" do
-            if debug then yield("/e [Debug] Should be applying Kings Yield 2") end
-            if GetClassJobId() == 16 then 
-                yield("/ac \"Bountiful Yield II\"")
-                StatusCheck()
-            end 
+        YieldGP = GetMaxGp() - 30
+        if BuffBYieldHarvest2 and GetGp() >= YieldGP and GetLevel() >= 68 and VisibleNode ~= "Max GP ≥ 858 → Gathering Attempts/Integrity +5" then 
+            LogInfo("Popping Yield 2 Buff")
+            yield("/ac "..Bountiful2)
+            StatusCheck()
         end
     end 
 
