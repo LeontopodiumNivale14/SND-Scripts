@@ -217,10 +217,10 @@
                 {-215.1211,-1.3262,-494.8219,0,3,1},
             }
     end
-     spawnisland_table = 
-        {
-            {-605.7039,312.0701,-159.7864,0,99,0},
-        }
+    spawnisland_table = 
+       {
+           {-605.7039,312.0701,-159.7864,0,99,0},
+       }
 -- Skill Check 
     if GetClassJobId() == 16 then -- Miner Skills 
         Yield2 = "\"King's Yield II\""
@@ -283,7 +283,7 @@
         PathStop()
         DGathering()
         yield("/wait 0.1")
-        DebugMessage("GatheringTarget")
+        Loginfo("GatheringTarget -> Completed")
     end
 
     function CanadianMounty()
@@ -298,7 +298,7 @@
             end 
             yield("/wait 1")
             PlayerWait()
-            DebugMessage("CanadianMounty")
+            Loginfo("CanadianMounty -> Completed")
         end
     end
 
@@ -370,7 +370,7 @@
                             yield("/wait 0.5")
                         end
                     end
-                    DebugMessage("KillTarget")
+                    Loginfo("KillTarget -> Completed")
                 end
             end
         end
@@ -389,7 +389,7 @@
             yield("/wait 0.1")
             yield("/gaction jump")
         end
-        DebugMessage("MountFly")
+        Loginfo("MountFly -> Completed")
     end
 
     function WalkTo(x, y, z)
@@ -397,7 +397,7 @@
         while (PathIsRunning() or PathfindInProgress()) do
             yield("/wait 0.5")
         end
-        DebugMessage("WalkTo")
+        Loginfo("WalkTo -> Completed")
     end
   
     function VNavMoveTime(i)
@@ -442,7 +442,7 @@
                 KillTarget()
             end
         end
-        DebugMessage("VNavMoveTime")
+        Loginfo("VNavMoveTime(i) -> Completed")
     end
 
     function VislandMoveTime() 
@@ -451,7 +451,7 @@
             yield("/wait 0.1")
         end 
         yield("/visland stop")
-        DebugMessage("VislandMoveTime")
+        Loginfo("VislandMoveTime -> Completed")
     end
 
     function PlayerWait()
@@ -459,7 +459,7 @@
             math.randomseed( os.time() )
             RandomTimeWait = math.random(10, 20) / 10
             yield("/wait "..RandomTimeWait)
-            DebugMessage("PlayerWait")
+            Loginfo("PlayerWait -> Completed")
         end
     end  
 
@@ -470,7 +470,7 @@
                 yield("/wait 0.1")
             until GetCharacterCondition(42, false)
         end
-        DebugMessage("StatusCheck")
+        Loginfo("StatusCheck -> Completed")
     end     
 
     function DGathering()
@@ -519,7 +519,7 @@
                 yield("/wait 0.2")
             end
         end 
-        DebugMessage("DGathering")
+        Loginfo("DGathering -> Completed")
     end
 
     function FoodCheck() 
@@ -533,7 +533,7 @@
                 UseFood = false 
             end
         end
-        DebugMessage("FoodCheck")
+        Loginfo("FoodCheck -> Completed")
     end
 
     function TargetedInteract(target)
@@ -545,20 +545,14 @@
         repeat
             yield("/wait 0.1")
         until IsAddonReady("SelectIconString")
-        DebugMessage("TargetedInteract")
+        Loginfo("TargetedInteract -> Completed")
     end
 
     function LoopClear()
         KillLoop = 0
         Food_Tick = 0 
         DGatheringLoop = false 
-        DebugMessage("LoopClear")
-    end
-
-    function DebugMessage(func)
-        if debug==true then
-            yield("/e [Diadem Debug]: " .. func .. ": Completed")
-        end
+        Loginfo("LoopClear -> Completed")
     end
 
     function UiElementSelector()
