@@ -381,7 +381,6 @@
                 for i=1, #mob_table do
                     yield("/target "..mob_table[i][1])
                     yield("/wait 0.03")
-                    Target()
                     if Target() == false then
                         yield("/wait 0.05")
                     end
