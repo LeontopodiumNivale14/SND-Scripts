@@ -1,65 +1,65 @@
 --[[
 
-    ***********************************
-    * Diadem Farming - Miner Edition  *
-    ***********************************
+   ***********************************
+   * Diadem Farming - Miner Edition  *
+   ***********************************
 
-    ***************************
-    *  Version -> 0.0.1.13  *
-    ***************************
+   ***************************
+   *  Version -> 0.0.1.13  *
+   ***************************
+   
+   Version Notes:
+   0.0.1.13 ->    Targeting system has been overhauled on the mob kill side, now it SHOULD only target the mobs you want to target. (this also means you can edit the table and remove which mobs you ONLY want to target.)
+   0.0.1.12 ->    Switched over the debug to output to XlLog under "Info" this cleans up chat a lot, but also has it in a neat place for us to track where things might of broke
+   0.0.1.11 ->    Partially fixed the getting stuck after killing mobs fixed the dismount problem that made you fall down infinitely
+   0.0.1.10 ->    New node targeting fixes spawn island aether current fix 
+   0.0.1.8  ->    Tweaked the Node targeting should work better and look more human now.
+   0.0.1.7  ->    Fixed the nvamesh getting stuck at ground while running path. Added target selection options Twekaed with eather use if you unselect the target or somehow it dies script will contuniue to gather.
+   0.0.1.6  ->    Pink Route for btn is live! After some minor code tweaking and standardizing tables. 
+   0.0.1.5  ->    Fixed Job checking not working properly
+   0.0.1.4  ->    Fixed Gift1 not popping up when it should 
+   0.0.1.2  ->    Fixed the waiting if there is no enemy in target distance now script will contuniue path till there is one and Aether use looks more human now
+   0.0.1.0  ->    Man... didn't tink I'd hit this with how big this was getting and the bugs I/We created in turn xD 
+                  This is the complete version of this script for now. I'm afraid if i change up the codebase anymore, then it's going to break. XD So going to push this as a released version, then focus on re-factoring the code in a different script (with blackjack and hookers)
+                  Main things is:
+                    -> Red Route is up and running 
+                    -> Aethercannon is online and functional (and doesn't crash)
+                    -> Ability to select which node your going to hit in the settings (don't be a dumb dumb and set it to where it'll try and gather something outside your gathering range, it won't')
+                    -> Ability to ACTUALLY use the proper GP skills on the +10 integ node as well so you can maxamize on getting your items
+                    -> Vnavmesh also fixed the pathing issue in v31, so that's also to a point where I feel comfortable releasing this with the "AllIslands" route. 
+                  Thank you @UcanPatates with the help on this. I look foward to us making this the best diadem script we can in lua, then maybe translate that into a plugin in itself. 
 
-    Version Notes:
-    0.0.1.13 ->    Targeting system has been overhauled on the mob kill side, now it SHOULD only target the mobs you want to target. (this also means you can edit the table and remove which mobs you ONLY want to target.)
-	0.0.1.12 ->    Switched over the debug to output to XlLog under "Info" this cleans up chat a lot, but also has it in a neat place for us to track where things might of broke
-    0.0.1.11 ->    Partially fixed the getting stuck after killing mobs fixed the dismount problem that made you fall down infinitely
-    0.0.1.10 ->    New node targeting fixes spawn island aether current fix 
-    0.0.1.8  ->    Tweaked the Node targeting should work better and look more human now.
-    0.0.1.7  ->    Fixed the nvamesh getting stuck at ground while running path. Added target selection options Twekaed with eather use if you unselect the target or somehow it dies script will contuniue to gather.
-    0.0.1.6  ->    Pink Route for btn is live! After some minor code tweaking and standardizing tables. 
-    0.0.1.5  ->    Fixed Job checking not working properly
-    0.0.1.4  ->    Fixed Gift1 not popping up when it should 
-    0.0.1.2  ->    Fixed the waiting if there is no enemy in target distance now script will contuniue path till there is one and Aether use looks more human now
-    0.0.1.0  ->    Man... didn't tink I'd hit this with how big this was getting and the bugs I/We created in turn xD 
-                   This is the complete version of this script for now. I'm afraid if i change up the codebase anymore, then it's going to break. XD So going to push this as a released version, then focus on re-factoring the code in a different script (with blackjack and hookers)
-                   Main things is:
-                     -> Red Route is up and running 
-                     -> Aethercannon is online and functional (and doesn't crash)
-                     -> Ability to select which node your going to hit in the settings (don't be a dumb dumb and set it to where it'll try and gather something outside your gathering range, it won't')
-                     -> Ability to ACTUALLY use the proper GP skills on the +10 integ node as well so you can maxamize on getting your items
-                     -> Vnavmesh also fixed the pathing issue in v31, so that's also to a point where I feel comfortable releasing this with the "AllIslands" route. 
-                   Thank you @UcanPatates with the help on this. I look foward to us making this the best diadem script we can in lua, then maybe translate that into a plugin in itself. 
+   ***************
+   * Description *
+   ***************
 
-    ***************
-    * Description *
-    ***************
-
-    Current plans: 
-        -> 
+   Current plans: 
+       -> 
   
-    *********************
-    *  Required Plugins *
-    *********************
+   *********************
+   *  Required Plugins *
+   *********************
 
-    -> visland -> https://puni.sh/api/repository/veyn
-    -> SomethingNeedDoing (Expanded Edition) [Make sure to press the lua button when you import this] -> https://puni.sh/api/repository/croizat
-        -> Options → "/item" → Uncheckmark "Stop macro if the item to use is not found" 
-        -> Options → "/item" → Uncheckmark "Stop macro if you cannot use an item"
-        -> Options → "/target" → checkmark "Use SND's targeting system"
-        -> Options → "/target" → uncheckmark "stop macro if target not found"
-    -> Pandora's Box -> https://love.puni.sh/ment.json
-    -> vnavmesh : https://puni.sh/api/repository/veyn
+   -> visland -> https://puni.sh/api/repository/veyn
+   -> SomethingNeedDoing (Expanded Edition) [Make sure to press the lua button when you import this] -> https://puni.sh/api/repository/croizat
+       -> Options → "/item" → Uncheckmark "Stop macro if the item to use is not found" 
+       -> Options → "/item" → Uncheckmark "Stop macro if you cannot use an item"
+       -> Options → "/target" → checkmark "Use SND's targeting system"
+       -> Options → "/target" → uncheckmark "stop macro if target not found"
+   -> Pandora's Box -> https://love.puni.sh/ment.json
+   -> vnavmesh : https://puni.sh/api/repository/veyn
 
 
-    ***********
-    * Credits *
-    ***********
+   ***********
+   * Credits *
+   ***********
 
-    Author(s): Leontopodium Nivale | UcanPatates 
-    Class: Miner
+   Author(s): Leontopodium Nivale | UcanPatates 
+   Class: Miner
 
-    **************
-    *  SETTINGS  *
-    **************
+   **************
+   *  SETTINGS  *
+   **************
 ]]
 
     UseFood = true
