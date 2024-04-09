@@ -5,27 +5,28 @@
     ***********************************
 
     *************************
-    *  Version -> 0.0.1.11  *
+    *  Version -> 0.0.1.12  *
     *************************
 
     Version Notes:
-    0.0.1.11 ->   Partially fixed the getting stuck after killing mobs fixed the dismount problem that made you fall down infinitely
-    0.0.1.10 ->   New node targeting fixes spawn island aether current fix 
-    0.0.1.8  ->   Tweaked the Node targeting should work better and look more human now.
-    0.0.1.7  ->   Fixed the nvamesh getting stuck at ground while running path. Added target selection options Twekaed with eather use if you unselect the target or somehow it dies script will contuniue to gather.
-    0.0.1.6  ->   Pink Route for btn is live! After some minor code tweaking and standardizing tables. 
-    0.0.1.5  ->   Fixed Job checking not working properly
-    0.0.1.4  ->   Fixed Gift1 not popping up when it should 
-    0.0.1.2  ->   Fixed the waiting if there is no enemy in target distance now script will contuniue path till there is one and Aether use looks more human now
-    0.0.1.0  ->   Man... didn't tink I'd hit this with how big this was getting and the bugs I/We created in turn xD 
-                  This is the complete version of this script for now. I'm afraid if i change up the codebase anymore, then it's going to break. XD So going to push this as a released version, then focus on re-factoring the code in a different script (with blackjack and hookers)
-                  Main things is:
-                    -> Red Route is up and running 
-                    -> Aethercannon is online and functional (and doesn't crash)
-                    -> Ability to select which node your going to hit in the settings (don't be a dumb dumb and set it to where it'll try and gather something outside your gathering range, it won't')
-                    -> Ability to ACTUALLY use the proper GP skills on the +10 integ node as well so you can maxamize on getting your items
-                    -> Vnavmesh also fixed the pathing issue in v31, so that's also to a point where I feel comfortable releasing this with the "AllIslands" route. 
-                  Thank you @UcanPatates with the help on this. I look foward to us making this the best diadem script we can in lua, then maybe translate that into a plugin in itself. 
+	0.0.1.12 ->    Switched over the debug to output to XlLog under "Info" this cleans up chat a lot, but also has it in a neat place for us to track where things might of broke
+    0.0.1.11 ->    Partially fixed the getting stuck after killing mobs fixed the dismount problem that made you fall down infinitely
+    0.0.1.10 ->    New node targeting fixes spawn island aether current fix 
+    0.0.1.8  ->    Tweaked the Node targeting should work better and look more human now.
+    0.0.1.7  ->    Fixed the nvamesh getting stuck at ground while running path. Added target selection options Twekaed with eather use if you unselect the target or somehow it dies script will contuniue to gather.
+    0.0.1.6  ->    Pink Route for btn is live! After some minor code tweaking and standardizing tables. 
+    0.0.1.5  ->    Fixed Job checking not working properly
+    0.0.1.4  ->    Fixed Gift1 not popping up when it should 
+    0.0.1.2  ->    Fixed the waiting if there is no enemy in target distance now script will contuniue path till there is one and Aether use looks more human now
+    0.0.1.0  ->    Man... didn't tink I'd hit this with how big this was getting and the bugs I/We created in turn xD 
+                   This is the complete version of this script for now. I'm afraid if i change up the codebase anymore, then it's going to break. XD So going to push this as a released version, then focus on re-factoring the code in a different script (with blackjack and hookers)
+                   Main things is:
+                     -> Red Route is up and running 
+                     -> Aethercannon is online and functional (and doesn't crash)
+                     -> Ability to select which node your going to hit in the settings (don't be a dumb dumb and set it to where it'll try and gather something outside your gathering range, it won't')
+                     -> Ability to ACTUALLY use the proper GP skills on the +10 integ node as well so you can maxamize on getting your items
+                     -> Vnavmesh also fixed the pathing issue in v31, so that's also to a point where I feel comfortable releasing this with the "AllIslands" route. 
+                   Thank you @UcanPatates with the help on this. I look foward to us making this the best diadem script we can in lua, then maybe translate that into a plugin in itself. 
 
     ***************
     * Description *
@@ -283,7 +284,7 @@
         PathStop()
         DGathering()
         yield("/wait 0.1")
-        Loginfo("GatheringTarget -> Completed")
+        LogInfo("GatheringTarget -> Completed")
     end
 
     function CanadianMounty()
@@ -298,7 +299,7 @@
             end 
             yield("/wait 1")
             PlayerWait()
-            Loginfo("CanadianMounty -> Completed")
+            LogInfo("CanadianMounty -> Completed")
         end
     end
 
@@ -370,7 +371,7 @@
                             yield("/wait 0.5")
                         end
                     end
-                    Loginfo("KillTarget -> Completed")
+                    LogInfo("KillTarget -> Completed")
                 end
             end
         end
@@ -389,7 +390,7 @@
             yield("/wait 0.1")
             yield("/gaction jump")
         end
-        Loginfo("MountFly -> Completed")
+        LogInfo("MountFly -> Completed")
     end
 
     function WalkTo(x, y, z)
@@ -397,7 +398,7 @@
         while (PathIsRunning() or PathfindInProgress()) do
             yield("/wait 0.5")
         end
-        Loginfo("WalkTo -> Completed")
+        LogInfo("WalkTo -> Completed")
     end
   
     function VNavMoveTime(i)
@@ -442,7 +443,7 @@
                 KillTarget()
             end
         end
-        Loginfo("VNavMoveTime(i) -> Completed")
+        LogInfo("VNavMoveTime(i) -> Completed")
     end
 
     function VislandMoveTime() 
@@ -451,7 +452,7 @@
             yield("/wait 0.1")
         end 
         yield("/visland stop")
-        Loginfo("VislandMoveTime -> Completed")
+        LogInfo("VislandMoveTime -> Completed")
     end
 
     function PlayerWait()
@@ -459,7 +460,7 @@
             math.randomseed( os.time() )
             RandomTimeWait = math.random(10, 20) / 10
             yield("/wait "..RandomTimeWait)
-            Loginfo("PlayerWait -> Completed")
+            LogInfo("PlayerWait -> Completed")
         end
     end  
 
@@ -470,7 +471,7 @@
                 yield("/wait 0.1")
             until GetCharacterCondition(42, false)
         end
-        Loginfo("StatusCheck -> Completed")
+        LogInfo("StatusCheck -> Completed")
     end     
 
     function DGathering()
@@ -519,7 +520,7 @@
                 yield("/wait 0.2")
             end
         end 
-        Loginfo("DGathering -> Completed")
+        LogInfo("DGathering -> Completed")
     end
 
     function FoodCheck() 
@@ -533,7 +534,7 @@
                 UseFood = false 
             end
         end
-        Loginfo("FoodCheck -> Completed")
+        LogInfo("FoodCheck -> Completed")
     end
 
     function TargetedInteract(target)
@@ -545,14 +546,14 @@
         repeat
             yield("/wait 0.1")
         until IsAddonReady("SelectIconString")
-        Loginfo("TargetedInteract -> Completed")
+        LogInfo("TargetedInteract -> Completed")
     end
 
     function LoopClear()
         KillLoop = 0
         Food_Tick = 0 
         DGatheringLoop = false 
-        Loginfo("LoopClear -> Completed")
+        LogInfo("LoopClear -> Completed")
     end
 
     function UiElementSelector()
