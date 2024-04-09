@@ -1,25 +1,25 @@
 --[[
 
-   ***********************************
-   * Diadem Farming - Miner Edition  *
-   ***********************************
+    ***********************************
+    * Diadem Farming - Miner Edition  *
+    ***********************************
 
-   ***************************
-   *  Version -> 0.0.1.13  *
-   ***************************
+    ***************************
+    *  Version -> 0.0.1.13  *
+    ***************************
    
-   Version Notes:
-   0.0.1.13 ->    Targeting system has been overhauled on the mob kill side, now it SHOULD only target the mobs you want to target. (this also means you can edit the table and remove which mobs you ONLY want to target.)
-   0.0.1.12 ->    Switched over the debug to output to XlLog under "Info" this cleans up chat a lot, but also has it in a neat place for us to track where things might of broke
-   0.0.1.11 ->    Partially fixed the getting stuck after killing mobs fixed the dismount problem that made you fall down infinitely
-   0.0.1.10 ->    New node targeting fixes spawn island aether current fix 
-   0.0.1.8  ->    Tweaked the Node targeting should work better and look more human now.
-   0.0.1.7  ->    Fixed the nvamesh getting stuck at ground while running path. Added target selection options Twekaed with eather use if you unselect the target or somehow it dies script will contuniue to gather.
-   0.0.1.6  ->    Pink Route for btn is live! After some minor code tweaking and standardizing tables. 
-   0.0.1.5  ->    Fixed Job checking not working properly
-   0.0.1.4  ->    Fixed Gift1 not popping up when it should 
-   0.0.1.2  ->    Fixed the waiting if there is no enemy in target distance now script will contuniue path till there is one and Aether use looks more human now
-   0.0.1.0  ->    Man... didn't tink I'd hit this with how big this was getting and the bugs I/We created in turn xD 
+    Version Notes:
+    0.0.1.13 ->    Targeting system has been overhauled on the mob kill side, now it SHOULD only target the mobs you want to target. (this also means you can edit the table and remove which mobs you ONLY want to target.)
+    0.0.1.12 ->    Switched over the debug to output to XlLog under "Info" this cleans up chat a lot, but also has it in a neat place for us to track where things might of broke
+    0.0.1.11 ->    Partially fixed the getting stuck after killing mobs fixed the dismount problem that made you fall down infinitely
+    0.0.1.10 ->    New node targeting fixes spawn island aether current fix 
+    0.0.1.8  ->    Tweaked the Node targeting should work better and look more human now.
+    0.0.1.7  ->    Fixed the nvamesh getting stuck at ground while running path. Added target selection options Twekaed with eather use if you unselect the target or somehow it dies script will contuniue to gather.
+    0.0.1.6  ->    Pink Route for btn is live! After some minor code tweaking and standardizing tables. 
+    0.0.1.5  ->    Fixed Job checking not working properly
+    0.0.1.4  ->    Fixed Gift1 not popping up when it should 
+    0.0.1.2  ->    Fixed the waiting if there is no enemy in target distance now script will contuniue path till there is one and Aether use looks more human now
+    0.0.1.0  ->    Man... didn't tink I'd hit this with how big this was getting and the bugs I/We created in turn xD 
                   This is the complete version of this script for now. I'm afraid if i change up the codebase anymore, then it's going to break. XD So going to push this as a released version, then focus on re-factoring the code in a different script (with blackjack and hookers)
                   Main things is:
                     -> Red Route is up and running 
@@ -29,37 +29,45 @@
                     -> Vnavmesh also fixed the pathing issue in v31, so that's also to a point where I feel comfortable releasing this with the "AllIslands" route. 
                   Thank you @UcanPatates with the help on this. I look foward to us making this the best diadem script we can in lua, then maybe translate that into a plugin in itself. 
 
-   ***************
-   * Description *
-   ***************
+    ***************
+    * Description *
+    ***************
 
-   Current plans: 
-       -> 
-  
-   *********************
-   *  Required Plugins *
-   *********************
+    (What was suppose to be a leveling script xD) 
+    A SND Lua script that allows you to loop through and maximize the amount of points that you can get in a timespan. 
+    This includes (but limited to)
+        -> Aethercannon Usage 
+        -> Fully Automated Gathering 
+        -> Using skills on the proper node 
+        -> More dynamic pathing (to hopefully prevent everyone looking as botty)
 
-   -> visland -> https://puni.sh/api/repository/veyn
-   -> SomethingNeedDoing (Expanded Edition) [Make sure to press the lua button when you import this] -> https://puni.sh/api/repository/croizat
-       -> Options → "/item" → Uncheckmark "Stop macro if the item to use is not found" 
-       -> Options → "/item" → Uncheckmark "Stop macro if you cannot use an item"
-       -> Options → "/target" → checkmark "Use SND's targeting system"
-       -> Options → "/target" → uncheckmark "stop macro if target not found"
-   -> Pandora's Box -> https://love.puni.sh/ment.json
-   -> vnavmesh : https://puni.sh/api/repository/veyn
+    PLEASE. CHANGE. SETTINGS. As necessary
+
+    *********************
+    *  Required Plugins *
+    *********************
+
+    -> visland -> https://puni.sh/api/repository/veyn
+    -> SomethingNeedDoing (Expanded Edition) [Make sure to press the lua button when you import this] -> https://puni.sh/api/repository/croizat
+        -> Options → "/item" → Uncheckmark "Stop macro if the item to use is not found" 
+        -> Options → "/item" → Uncheckmark "Stop macro if you cannot use an item"
+        -> Options → "/target" → checkmark "Use SND's targeting system"
+        -> Options → "/target" → uncheckmark "stop macro if target not found"
+    -> Pandora's Box -> https://love.puni.sh/ment.json
+        -> DISABLE P.GATHERING (yes i'm serious)
+    -> vnavmesh : https://puni.sh/api/repository/veyn
 
 
-   ***********
-   * Credits *
-   ***********
+    ***********
+    * Credits *
+    ***********
 
-   Author(s): Leontopodium Nivale | UcanPatates 
-   Class: Miner
+    Author(s): Leontopodium Nivale | UcanPatates 
+    Class: Miner | BTN
 
-   **************
-   *  SETTINGS  *
-   **************
+    **************
+    *  SETTINGS  *
+    **************
 ]]
 
     UseFood = true
@@ -391,7 +399,7 @@
                         while GetDistanceToTarget() > 10 and GetTargetName() ~= "" do
                             yield("/wait 0.1")
                             if GetCharacterCondition(77) == false then
-                            yield("/send SPACE")
+                            yield("/gaction jump")
                             end                            
                         end
                     end
@@ -429,7 +437,7 @@
         while GetCharacterCondition(77) == false and IsInZone(939) do 
             PathStop()
             CanadianMounty()
-            yield("/send SPACE")
+            yield("/gaction jump")
             yield("/wait 0.1")
             yield("/gaction jump")
         end
@@ -631,7 +639,7 @@
         end
             if a == 2 then
                 yield("/wait 0.1")
-                yield("/send SPACE")
+                yield("/gaction jump")
                 ClearTarget() 
                 PathStop()
             end
@@ -754,6 +762,12 @@
                 if gather_table[i][5] ~= 99 then -- 99 is the code imma use if I don't want it gathering anything, and make sure it's not the coords I want to use as a midpoint
                     GatheringTarget(i)
                 end 
+                if GetInventoryFreeSlotCount() == 0 then 
+                    LogInfo("It seems like your inventory has reached Max Capacity slot wise. For the safety of you (and to help you not just stand there for hours on end), we're going to stop the script here and leave the instance")
+                    yield("/e It seems like your inventory has reached Max Capacity slot wise. For the safety of you (and to help you not just stand there for hours on end), we're going to stop the script here and leave the instance")
+                    DutyLeave()
+                    yield("/snd stop")
+                end
             end 
         end
     end 
