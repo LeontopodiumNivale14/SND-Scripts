@@ -4,11 +4,13 @@
     * Diadem Farming - Miner Edition  *
     ***********************************
 
-    *************************
-    *  Version -> 0.0.1.12  *
-    *************************
+    ***************************
+    *  Version -> 0.0.1.13  *
+    ***************************
 
     Version Notes:
+    0.0.1.13 ->    Targeting system has been overhauled on the mob kill side, now it SHOULD only target the mobs you want to target. 
+                   (this also means you can edit the table and remove which mobs you ONLY want to target.)
 	0.0.1.12 ->    Switched over the debug to output to XlLog under "Info" this cleans up chat a lot, but also has it in a neat place for us to track where things might of broke
     0.0.1.11 ->    Partially fixed the getting stuck after killing mobs fixed the dismount problem that made you fall down infinitely
     0.0.1.10 ->    New node targeting fixes spawn island aether current fix 
@@ -218,10 +220,49 @@
                 {-215.1211,-1.3262,-494.8219,0,3,1},
             }
     end
+
+    if TargetOption == 1 then 
+        mob_table = 
+            {
+                {"Diadem Sprite"},
+                {"Proto-noctilucale"},
+                {"Diadem Bloated Bulb"},
+                {"Diadem Melia"},
+                {"Diadem Icetrap"},
+                {"Diadem Werewood"},
+                {"Diadem Biast"},
+                {"Diadem Ice Bomb"},
+                {"Diadem Zoblyn"},
+                {"Diadem Ice Golem"},
+                {"Diadem Golem"},
+                {"Diadem Sprite"},
+            }
+    elseif TargetOption == 2 then 
+        mob_table = 
+            {
+                {"Diadem Sprite"},
+            }
+    elseif TargetOption == 3 then 
+        mob_table = 
+            {
+                {"Proto-noctilucale"},
+                {"Diadem Bloated Bulb"},
+                {"Diadem Melia"},
+                {"Diadem Icetrap"},
+                {"Diadem Werewood"},
+                {"Diadem Biast"},
+                {"Diadem Ice Bomb"},
+                {"Diadem Zoblyn"},
+                {"Diadem Ice Golem"},
+                {"Diadem Golem"}
+            }
+    end 
+
     spawnisland_table = 
        {
            {-605.7039,312.0701,-159.7864,0,99,0},
        }
+
 -- Skill Check 
     if GetClassJobId() == 16 then -- Miner Skills 
         Yield2 = "\"King's Yield II\""
@@ -272,6 +313,17 @@
             while GetCharacterCondition(6, false) do 
                 yield("/wait 0.1")
                 yield("/interact")
+                while GetTargetName() == "" do
+                    if gather_table[i][5] == 0 then 
+                        yield("/target Mineral Deposit")
+                    elseif gather_table[i][5] == 1 then 
+                        yield("/target Rocky Outcrop")
+                    elseif gather_table[i][5] == 2 then 
+                        yield("/target Mature Tree")
+                    elseif gather_table[i][5] == 3 then 
+                        yield("/target Lush Vegetation Patch")
+                    end
+                end
                 if GetNodeText("_TextError",1) == "Too far away." then 
                     yield("/vnavmesh movetarget")
                     while GetDistanceToTarget() > 3.5 do 
@@ -304,24 +356,10 @@
     end
 
     function Target()
-        if TargetOption == 1 then
-            if GetTargetName() ~= "" then
-                return true 
-            else
-                return false
-            end
-        elseif TargetOption == 2 then
-            if GetTargetName() == "Corrupted Sprite" then
-                return true 
-            else
-                return false
-            end
-        elseif TargetOption == 3 then
-            if GetTargetName() ~= "Corrupted Sprite" then
-                return true
-            else
-                return false
-            end
+        if GetTargetName() ~= "" then
+            return true 
+        else
+            return false
         end
     end
 
@@ -332,13 +370,19 @@
                     yield("/wait 5")
                     LoopClear()
                 end
-                    yield("/targetenemy")
+                for i=1, #mob_table do
+                    yield("/target "..mob_table[i][1])
+                    yield("/wait 0.03")
+                    Target()
                     if Target() == false then
-                        ClearTarget() 
-                        yield("/wait 0.1")
+                        yield("/wait 0.05")
                     end
-                    yield("/wait 0.1")
-                if  Target() then 
+                    if Target() == true then 
+                        break 
+                    end
+                end                    
+                yield("/wait 0.1")
+                if Target() then 
                     KillLoop = KillLoop + 1
                     if GetDistanceToTarget() > 10 then
                         PathStop()
@@ -519,6 +563,9 @@
             while GetCharacterCondition(42) do
                 yield("/wait 0.2")
             end
+            if PathIsRunning() == true then 
+                PathStop()
+            end
         end 
         LogInfo("DGathering -> Completed")
     end
@@ -573,6 +620,7 @@
             end 
         end
     end 
+
     function Dismount()
         a=0
         if GetCharacterCondition(4) or GetCharacterCondition(77) then
@@ -590,6 +638,7 @@
             end
         end
     end
+
     function UseSkill(SkillName)
         yield("/ac "..SkillName)
         yield("/wait 0.1")
@@ -689,19 +738,6 @@
     end
 
 ::DiademFarming::
-
-    while IsInZone(939) == false and GetCharacterCondition(45, true) do -- this whole section is new. 
-        yield("/wait 1")
-    end 
-    if UseFood and (GetStatusTimeRemaining(48) <= FoodTimeRemaining or HasStatusId(48) == false) then 
-        yield("/e [Diadem Gathering] Food seems to have ran out, going to re-food")
-        FoodCheck()
-    end
-    MountFly()
-    X = spawnisland_table[1][1]
-    Y = spawnisland_table[1][2]
-    Z = spawnisland_table[1][3]
-    VNavMoveTime(1) -- esentially goes above the lookout box, then continues on
 
     while IsInZone(939) and GetCharacterCondition(45, false) do
         for i=1, #gather_table do
