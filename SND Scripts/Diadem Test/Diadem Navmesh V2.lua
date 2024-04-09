@@ -233,7 +233,6 @@
     if TargetOption == 1 then 
         mob_table = 
             {
-                {"Diadem Sprite"},
                 {"Proto-noctilucale"},
                 {"Diadem Bloated Bulb"},
                 {"Diadem Melia"},
@@ -244,12 +243,12 @@
                 {"Diadem Zoblyn"},
                 {"Diadem Ice Golem"},
                 {"Diadem Golem"},
-                {"Diadem Sprite"},
+                {"Corrupted Sprite"},
             }
     elseif TargetOption == 2 then 
         mob_table = 
             {
-                {"Diadem Sprite"},
+                {"Corrupted Sprite"},
             }
     elseif TargetOption == 3 then 
         mob_table = 
@@ -374,7 +373,7 @@
 
     function KillTarget()
         if IsInZone(939) then
-            if GetDistanceToTarget() == 0.0 and GetCharacterCondition(6, false) and GetCharacterCondition(45, false) and GetDiademAetherGaugeBarCount() >= 1 then 
+            if GetDistanceToTarget() == 0.0 and GetCharacterCondition(6, false) and GetCharacterCondition(45, false) and GetDiademAetherGaugeBarCount() >= 1 and GetDistanceToPoint(X, Y, Z) > 1 then 
                 if KillLoop >= 1 then
                     yield("/wait 5")
                     LoopClear()
@@ -389,7 +388,8 @@
                     if Target() == true then 
                         break 
                     end
-                end                    
+                end   
+                
                 yield("/wait 0.1")
                 if Target() then 
                     KillLoop = KillLoop + 1
