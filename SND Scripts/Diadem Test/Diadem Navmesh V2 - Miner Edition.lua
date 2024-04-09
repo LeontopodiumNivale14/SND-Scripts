@@ -9,8 +9,7 @@
     ***************************
 
     Version Notes:
-    0.0.1.13 ->    Targeting system has been overhauled on the mob kill side, now it SHOULD only target the mobs you want to target. 
-                   (this also means you can edit the table and remove which mobs you ONLY want to target.)
+    0.0.1.13 ->    Targeting system has been overhauled on the mob kill side, now it SHOULD only target the mobs you want to target. (this also means you can edit the table and remove which mobs you ONLY want to target.)
 	0.0.1.12 ->    Switched over the debug to output to XlLog under "Info" this cleans up chat a lot, but also has it in a neat place for us to track where things might of broke
     0.0.1.11 ->    Partially fixed the getting stuck after killing mobs fixed the dismount problem that made you fall down infinitely
     0.0.1.10 ->    New node targeting fixes spawn island aether current fix 
