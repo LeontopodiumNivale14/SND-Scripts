@@ -4,9 +4,9 @@
     * Diadem Farming  *
     *******************
 
-    *************************
-    *  Version -> 0.0.1.17  *
-    *************************
+    ***************************
+    *  Version -> 0.0.1.17.1  *
+    ***************************
    
     Version Notes:
     0.0.1.17 ->    Now it will go to other nodes and continue if the target you were trying to kill got stolen(yea i know we already fixed it once)
@@ -388,6 +388,9 @@
             if GetDistanceToTarget() == 0.0 and GetCharacterCondition(6, false) and GetCharacterCondition(45, false) and GetDiademAetherGaugeBarCount() >= 1 and GetDistanceToPoint(X, Y, Z) > 10 then 
                 if KillLoop >= 1 then
                     if (PathIsRunning() or PathfindInProgress()) then
+                        if GetCharacterCondition(4) == false or GetCharacterCondition(77) == false then 
+                            MountFly()
+                        end
                         yield("/wait 2")
                     end
                     LoopClear()
