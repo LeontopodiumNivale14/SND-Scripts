@@ -51,6 +51,7 @@
 
     -> visland -> https://puni.sh/api/repository/veyn
     -> SomethingNeedDoing (Expanded Edition) [Make sure to press the lua button when you import this] -> https://puni.sh/api/repository/croizat
+        -> New to SND Options? It's the " ? " RIGHT below "Macro Queue" from here you can go to the "Options" tab to find where you need to change these
         -> Options → "/item" → Uncheckmark "Stop macro if the item to use is not found" 
         -> Options → "/item" → Uncheckmark "Stop macro if you cannot use an item"
         -> Options → "/target" → checkmark "Use SND's targeting system"
