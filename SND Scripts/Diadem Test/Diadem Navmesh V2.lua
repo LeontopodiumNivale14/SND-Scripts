@@ -5,10 +5,11 @@
     *******************
 
     *************************
-    *  Version -> 0.0.1.15  *
+    *  Version -> 0.0.1.16  *
     *************************
    
     Version Notes:
+    0.0.1.16 ->    Fixed the rare getting stuck after killing mobs issue. (this time it is a real fix)
     0.0.1.15 ->    . . . This hasn't been miner edition for awhile. NAME CHANGED
     0.0.1.14 ->    (Man I thought I would of been done with this) Made a "CapGP" setting. If you want it to spend GP before you get to cap, change this to false. (this will use YieldII)
     0.0.1.13 ->    Targeting system has been overhauled on the mob kill side, now it SHOULD only target the mobs you want to target. (this also means you can edit the table and remove which mobs you ONLY want to target.)
@@ -99,7 +100,7 @@
     -- This will NOT work with Pandora's Gathering, as a fair warning in itself. 
     -- Options : 1 | 2 | 3 | 4 | 7 | 8 (1st slot... 2nd slot... ect)
     
-    TargetOption = 1 
+    TargetOption = 1
     -- This will let you tell the script which target to use Aethercannon.
     -- Options : 1 | 2 | 3 (Option: 1 is any target, Option: 2 only sprites Options: 3 is don't include sprites enemys)
     
@@ -209,7 +210,7 @@
         gather_table = 
             {
                 {-161.2715,-3.5233,-378.8041,0,1,1}, -- Start of the route
-                {-168.4631,-4.9886,-514.8903,0,0,0}, -- Around the tree 
+                {-169.3415,-7.1092,-518.7053,0,0,1}, -- Around the tree (Rock + Bones?)
                 {-78.5548,-18.1347,-594.6666,1,0,1}, -- Log + Rock (Problematic)
                 {-54.6772,-45.7177,-521.7173,0,0,1}, -- Down the hill 
                 {-22.5868,-26.5050,-534.9953,0,1,1}, -- up the hill (rock + tree)
@@ -290,7 +291,6 @@
 --Functions
     function GatheringTarget(i)
         LoopClear()
-        a = 0
         while GetCharacterCondition(45,false) and GetCharacterCondition(6, false) do
             while GetTargetName() == "" do
                 if gather_table[i][5] == 0 then 
@@ -310,9 +310,15 @@
                 elseif gather_table[i][6] == 1 then 
                     yield("/vnavmesh movetarget")
                 end
-                while GetDistanceToTarget() > 3.5 and a < 10 do  --sometimes its getting stuck here as a fix i did this works but not perfect
+                while GetDistanceToTarget() > 3.5 do 
+                    if gather_table[i][6] == 0 and GetCharacterCondition(4) == false or GetCharacterCondition(77) == false then 
+                        MountFly()
+                        yield("/wait 0.1")
+                        if GetCharacterCondition(4) and GetCharacterCondition(77) then
+                            yield("/vnavmesh flytarget")
+                        end
+                    end  
                     yield("/wait 0.1")
-                    a = a + 1
                 end
                 PathStop()
                 if GetDistanceToTarget() < 3.5 and GetCharacterCondition(4) then
@@ -400,8 +406,8 @@
                         yield("/vnavmesh flytarget")
                         while GetDistanceToTarget() > 10 and GetTargetName() ~= "" do
                             yield("/wait 0.1")
-                            if GetCharacterCondition(77) == false then
-                            yield("/gaction jump")
+                            if GetCharacterCondition(4) == false or GetCharacterCondition(77) == false then 
+                                MountFly()
                             end                            
                         end
                     end
