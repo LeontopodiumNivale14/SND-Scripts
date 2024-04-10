@@ -103,12 +103,16 @@
     TargetOption = 1
     -- This will let you tell the script which target to use Aethercannon.
     -- Options : 1 | 2 | 3 (Option: 1 is any target, Option: 2 only sprites Options: 3 is don't include sprites enemys)
+
+    CapGP = true 
+    -- Bountiful Yield 2 (Min) | Bountiful Harvest 2 (Btn) [+x (based on gathering) to that hit on the node (only once)]
+    -- If you want this to let your gp cap between rounds, then true 
+    -- If you would like it to use a skill on a node before getting to the final one, so you don't waste GP, set to false
     
     BuffYield2 = true -- Kings Yield 2 (Min) | Bountiful Yield 2 (Btn) [+2 to all hits]
     BuffGift2 = true -- Mountaineer's Gift 2 (Min) | Pioneer's Gift 2 (Btn) [+30% to perception hit]
     BuffGift1 = true -- Mountaineer's Gift 1 (Min) | Pioneer's Gift 1 (Btn) [+10% to perception hit]
     BuffTidings2 = true -- Nald'thal's Tidings (Min) | Nophica's Tidings (Btn) [+1 extra if perception bonus is hit]
-    BuffBYieldHarvest2  = true -- Bountiful Yield 2 (Min) | Bountiful Harvest 2 (Btn) [+x (based on gathering) to that hit on the node (only once)]
     -- Here you can select which buffs get activated whenever you get to the mega node (aka the node w/ +5 Integrity) 
     -- These are all togglable with true | false 
     -- They will go off in the order they are currently typed out, so keep that in mind for GP Usage if that's something you want to consider
@@ -629,7 +633,7 @@
 
     function BountifulYieldII()
         YieldGP = GetMaxGp() - 30
-        if BuffBYieldHarvest2 and GetGp() >= YieldGP and GetLevel() >= 68 and VisibleNode ~= "Max GP ≥ 858 → Gathering Attempts/Integrity +5" then 
+        if GetGp() >= YieldGP and GetLevel() >= 68 and VisibleNode ~= "Max GP ≥ 858 → Gathering Attempts/Integrity +5" then 
             LogInfo("Popping Yield 2 Buff")
             yield("/ac "..Bountiful2)
             StatusCheck()
