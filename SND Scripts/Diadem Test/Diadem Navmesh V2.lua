@@ -4,9 +4,9 @@
     * Diadem Farming  *
     *******************
 
-    ***************************
-    *  Version -> 0.0.1.17.1  *
-    ***************************
+    *************************
+    *  Version -> 0.0.1.17.2  *
+    *************************
    
     Version Notes:
     0.0.1.17 ->    Now it will go to other nodes and continue if the target you were trying to kill got stolen(yea i know we already fixed it once)
@@ -219,7 +219,7 @@
                 {-78.5548,-18.1347,-594.6666,1,0,1}, -- Log + Rock (Problematic)
                 {-54.6772,-45.7177,-521.7173,0,0,1}, -- Down the hill 
                 {-22.5868,-26.5050,-534.9953,0,1,1}, -- up the hill (rock + tree)
-                {59.6760,-43.8968,-514.0534,0,1,1}, -- Spaces out nodes on rock (hate this one)
+                {59.4516,-41.6749,-520.2413,0,1,1}, -- Spaces out nodes on rock (hate this one)
                 {103.5788,-43.3652,-501.3805,0,0,0}, -- Over the gap
                 {-209.1468,-3.9325,-357.9749,1,0,1}, -- Bonus node
             }
@@ -388,10 +388,10 @@
             if GetDistanceToTarget() == 0.0 and GetCharacterCondition(6, false) and GetCharacterCondition(45, false) and GetDiademAetherGaugeBarCount() >= 1 and GetDistanceToPoint(X, Y, Z) > 10 then 
                 if KillLoop >= 1 then
                     if (PathIsRunning() or PathfindInProgress()) then
+                        yield("/wait 2")
                         if GetCharacterCondition(4) == false or GetCharacterCondition(77) == false then 
                             MountFly()
                         end
-                        yield("/wait 2")
                     end
                     LoopClear()
                 end
@@ -658,6 +658,7 @@
             if a == 2 then
                 yield("/wait 0.1")
                 yield("/gaction jump")
+                yield("/send SPACE")
                 ClearTarget() 
                 PathStop()
             end
