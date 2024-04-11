@@ -11,7 +11,7 @@
   **************
 
   Update notes:
-    3.3.1.12 
+    3.3.1.12 -> Testing rn.
     3.3.1.11 -> Removed Old GC Ticket teleport system, since that's just baked into the GCTeleport itself. Took that time to also re-write that whole section and clean it up a bit.
     3.3.1.10 -> Made some tiny optimizations that's been bugging me, nothing to major. mounting in Idyllshire for instance...
     3.3.1.0 -> Small fix to if you're buying in gridania, added a waypoint so you wouldn't get stuck on the step trying to turn it in
@@ -402,19 +402,8 @@ MaxSingleItem = false
 
 ::GrandCompanyTurnin::
 
-    if (LimsaGCTicket >= 1) then 
-        yield("/item Maelstrom aetheryte ticket")
-        yield("/wait 1.0")
-    elseif (GridaniaGCTicket >= 1) then
-        yield("/item Twin Adder aetheryte ticket")
-        yield("/wait 1.0")
-    elseif (UldahGCTicket >= 1) then
-        yield("/item Immortal Flames aetheryte ticket")
-        yield("/wait 1.0")
-    elseif (LimsaGCTicket == 0) or (GridaniaGCTicket == 0) or (UldahGCTicket == 0) then
-        TeleportToGCTown()
-        yield("/wait 1.0")
-    end
+    TeleportToGCTown()
+    yield("/wait 5.0")
 
     TeleportTest()
 
