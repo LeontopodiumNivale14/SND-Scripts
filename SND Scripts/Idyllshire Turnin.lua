@@ -187,7 +187,7 @@ MaxSingleItem = false
     yield("/wait 1")
     yield("/target Sabina")
     yield("/wait 0.5")
-    yield("/interact Sabina")
+    yield("/interact")
     yield("/wait 1.0")
     yield("/pcall SelectIconString True 0")
     yield("/wait 1.0")
