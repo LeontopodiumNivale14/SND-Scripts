@@ -457,6 +457,10 @@ MaxSingleItem = false
                     PathfindAndMoveTo(-67.757,-0.501,-8.393, false)
                 end 
             end 
+            while DeliverooIsTurnInRunning() == false do 
+                yield("/wait 1")
+                yield("/deliveroo enable")
+            end
         end
     end
 
