@@ -7,7 +7,7 @@
 
     **************
     *   VERSION  *
-    *   3.3.2.X  *
+    *   3.3.2.A  *
     **************
 
     Update notes:
@@ -106,6 +106,13 @@ MaxSingleItem = false
     function DistanceToVendor()
         if IsInZone(478) then -- Idyllshire
             Distance_Test = GetDistanceToPoint(-19.277, 211, -36.076)
+        end
+    end
+
+    function PathFinding()
+        yield("/wait 0.2")
+        while PathfindInProgress() do
+            yield("/wait 0.5")
         end
     end
 
@@ -256,7 +263,7 @@ MaxSingleItem = false
             --yield("/echo Shop Menu: "..Alex_Shop)
             yield("/wait "..Alex_Shop_Timer)
             i_count = GetInventoryFreeSlotCount()
-            if (MaxSingleItem == true and Alex_Shop == ShopArray[4] and (BoltCount == 0)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[4]) then
+            if (MaxSingleItem == true and Alex_Shop == ShopArray[4]) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[4]) then
                 PedalCount = GetItemCount(PedalID)
 	            if i_count > (PedalCount//2) then
                     i_count = (PedalCount//2)
@@ -279,7 +286,7 @@ MaxSingleItem = false
             --yield("/echo Shop Menu: "..Alex_Shop)
             yield("/wait "..Alex_Shop_Timer)
             i_count = GetInventoryFreeSlotCount()
-            if (MaxSingleItem == true and Alex_Shop == ShopArray[6] and (BoltCount == 0 and PedalCount <= 1)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[6]) then
+            if (MaxSingleItem == true and Alex_Shop == ShopArray[6]) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[6]) then
                 SpringCount = GetItemCount(SpringID)
                 if i_count > (SpringCount//4) then
                     i_count = (SpringCount//4)
@@ -302,7 +309,7 @@ MaxSingleItem = false
             --yield("/echo Shop Menu: "..Alex_Shop)
             yield("/wait "..Alex_Shop_Timer)
             i_count = GetInventoryFreeSlotCount()
-            if (MaxSingleItem == true and Alex_Shop == ShopArray[8] and (BoltCount == 0 and PedalCount <= 1 and SpringCount <= 3)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[8]) then
+            if (MaxSingleItem == true and Alex_Shop == ShopArray[8]) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[8]) then
                 CrankCount = GetItemCount(CrankID)
 		        if i_count > (CrankCount//2) then
                   i_count = (CrankCount//2)
@@ -326,7 +333,7 @@ MaxSingleItem = false
             --yield("/echo Shop Menu: "..Alex_Shop) -- Just Debugging Stuff
             yield("/wait "..Alex_Shop_Timer)
             i_count = GetInventoryFreeSlotCount()
-            if (MaxSingleItem == true and Alex_Shop == ShopArray[10] and (BoltCount == 0 and PedalCount <= 1 and SpringCount <= 3 and CrankCount <= 1)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[10]) then
+            if (MaxSingleItem == true and Alex_Shop == ShopArray[10]) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[10]) then
                 ShaftCount = GetItemCount(ShaftID)
 		        if i_count > (ShaftCount//4) then
                     i_count = (ShaftCount//4)
@@ -413,6 +420,7 @@ MaxSingleItem = false
             AetheryteY = GetTargetRawYPos()
             AetheryteZ = GetTargetRawZPos()
             PathfindAndMoveTo(AetheryteX, AetheryteY, AetheryteZ, false)
+            PathFinding()
             while GetDistanceToPoint(AetheryteX, AetheryteY, AetheryteZ) > 7 do 
                 yield("/wait 0.1")
             end 
@@ -427,6 +435,7 @@ MaxSingleItem = false
         elseif IsInZone(128) then -- Limsa Upper
             yield("/wait 3")
             PathfindAndMoveTo(93.9,40.175,75.409, false)
+            PathFinding()
             yield("/wait 0.5")
             while GetDistanceToPoint(93.9,40.175,75.409) > 1 do 
                 yield("/wait 0.1")
@@ -436,6 +445,7 @@ MaxSingleItem = false
         elseif IsInZone(130) then -- Ul'dah's GC
             yield("/wait 3")
             PathfindAndMoveTo(-142.361,4.1,-106.919, false)
+            PathFinding()
             while GetDistanceToPoint(93.9,40.175,75.409) > 1 do 
                 yield("/wait 0.1")
             end 
@@ -443,6 +453,7 @@ MaxSingleItem = false
             yield("/wait 0.5")
         elseif IsInZone(132) then -- Grdiania's GC
             yield("/wait 3")
+            PathFinding()
             PathfindAndMoveTo(-59.564868927002, -1.7171915769577, 11.678337097168, false)
             while GetDistanceToPoint(-59.564868927002, -1.7171915769577, 11.678337097168) > 4 do 
                 if PathIsRunning() == false then 
@@ -451,6 +462,7 @@ MaxSingleItem = false
                 yield("/wait 0.1")
             end 
             PathfindAndMoveTo(-67.757,-0.501,-8.393, false)
+            PathFinding()
             while GetDistanceToPoint(-67.757,-0.501,-8.393) > 1 do 
                 yield("/wait 0.1")
                 if PathIsRunning() == false then 
