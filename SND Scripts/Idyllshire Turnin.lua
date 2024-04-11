@@ -181,7 +181,7 @@ MaxSingleItem = false
     if GetCharacterCondition(4, true) then 
         yield("/ac dismount")
         repeat
-            yield("/wait 0.1")
+            yield("/wait 0.5")
         until GetCharacterCondition(4, false)
     end 
     yield("/wait 1")
