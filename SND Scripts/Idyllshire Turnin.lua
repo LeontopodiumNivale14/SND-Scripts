@@ -7,7 +7,7 @@
 
     **************
     *   VERSION  *
-    *   3.3.2.D  *
+    *   3.3.2.E  *
     **************
 
     Update notes:
@@ -449,24 +449,14 @@ MaxSingleItem = false
             PathfindAndMoveTo(-142.361,4.1,-106.919, false)
             LogInfo("[IdyllshireTurnin] Heading to Ul'Dah's GC")
             PathFinding()
-            while GetDistanceToPoint(93.9,40.175,75.409) > 1 do 
+            while GetDistanceToPoint(-142.361,4.1,-106.919) > 1 do 
                 yield("/wait 0.1")
             end 
             LogInfo("[IdyllshireTurnin] Ul'Dah's GC has been reached!")
         elseif IsInZone(132) then -- Grdiania's GC
             yield("/wait 3")
-            PathFinding()
-            PathfindAndMoveTo(-59.564868927002, -1.7171915769577, 11.678337097168, false)
-            LogInfo("[IdyllshireTurnin] Heading to Gridania's GC")
-            while GetDistanceToPoint(-59.564868927002, -1.7171915769577, 11.678337097168) > 4 do 
-                if PathIsRunning() == false then 
-                    PathfindAndMoveTo(-59.564868927002, -1.7171915769577, 11.678337097168, false)
-                end
-                yield("/wait 0.1")
-            end 
             PathfindAndMoveTo(-67.757,-0.501,-8.393, false)
             PathFinding()
-
             while GetDistanceToPoint(-67.757,-0.501,-8.393) > 1 do 
                 yield("/wait 0.1")
                 if PathIsRunning() == false then 
@@ -475,10 +465,11 @@ MaxSingleItem = false
             end 
             LogInfo("[IdyllshireTurnin] Gridania's GC has been reached!")
         end
-        if DeliverooIsTurnInRunning() == false then
-            yield("/wait 1")
-            yield("/deliveroo enable")
-        end
+    end
+
+    while DeliverooIsTurnInRunning() == false then
+        yield("/wait 1")
+        yield("/deliveroo enable")
     end
 
     while DeliverooIsTurnInRunning() do
