@@ -7,7 +7,7 @@
 
     **************
     *   VERSION  *
-    *   3.3.2.G  *
+    *   3.3.2.I  *
     **************
 
     Update notes:
@@ -113,6 +113,13 @@ MaxSingleItem = false
         yield("/wait 0.2")
         while PathfindInProgress() do
             yield("/wait 0.5")
+        end
+    end
+
+    function DeliverooEnable()
+        if DeliverooIsTurnInRunning() == false do
+            yield("/wait 1")
+            yield("/deliveroo enable")
         end
     end
 
@@ -431,8 +438,8 @@ MaxSingleItem = false
             while GetCharacterCondition(32) do
                 yield("/wait 1")
             end
-            while GetCharacterCondition(45) or GetCharacterCondition(51) do
-                yield("/wait 1") 
+            while IsInZone(128) == false do 
+                yield("/wait 2")
             end
         elseif IsInZone(128) then -- Limsa Upper
             yield("/wait 3")
@@ -444,6 +451,7 @@ MaxSingleItem = false
                 yield("/wait 0.1")
             end 
             LogInfo("[IdyllshireTurnin] Limsa Upper GC has been reached!")
+            DeliverooEnable()
         elseif IsInZone(130) then -- Ul'dah's GC
             yield("/wait 3")
             PathfindAndMoveTo(-142.361,4.1,-106.919, false)
@@ -453,6 +461,7 @@ MaxSingleItem = false
                 yield("/wait 0.1")
             end 
             LogInfo("[IdyllshireTurnin] Ul'Dah's GC has been reached!")
+            DeliverooEnable()
         elseif IsInZone(132) then -- Grdiania's GC
             yield("/wait 3")
             PathfindAndMoveTo(-67.757,-0.501,-8.393, false)
@@ -464,16 +473,8 @@ MaxSingleItem = false
                 end 
             end 
             LogInfo("[IdyllshireTurnin] Gridania's GC has been reached!")
+            DeliverooEnable()
         end
-        while DeliverooIsTurnInRunning() == false do
-            yield("/wait 1")
-            yield("/deliveroo enable")
-        end
-    end
-
-    while DeliverooIsTurnInRunning() == false do
-        yield("/wait 1")
-        yield("/deliveroo enable")
     end
 
     while DeliverooIsTurnInRunning() do
