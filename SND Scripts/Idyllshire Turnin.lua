@@ -142,7 +142,7 @@ MaxSingleItem = false
 
     while IsInZone(478) == false and GetCharacterCondition(27) == false do
         yield("/tp Idyllshire")
-        yield("/wait 0.1")
+        yield("/wait 1")
     end
 
     TeleportTest()
@@ -162,7 +162,7 @@ MaxSingleItem = false
                 while IsPlayerCasting() do  
                     yield("/wait 0.1")
                 end
-                yield("/wait 0.2")
+                yield("/wait 1")
             end
             yield("/wait 0.5")
             yield("/vnavmesh moveto -19.277 211 -36.076")
