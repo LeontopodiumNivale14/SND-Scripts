@@ -1,58 +1,51 @@
 --[[
 
-  ***********************
-  *  Idyllshire Turnin  *
-  *   Alex 1-4 Edition  *
-  ***********************
+    ***********************
+    *  Idyllshire Turnin  *
+    *   Alex 1-4 Edition  *
+    ***********************
 
-  **************
-  *   VERSION  *
-  *  3.3.1.12  *
-  **************
+    **************
+    *   VERSION  *
+    *   3.3.2.T  *
+    **************
 
-  Update notes:
-    3.3.1.12. -> THIS IS ME TESTING. I WILL THROW YOU IF YOU TELL ME THAT IT'S BROKE ATM LOL
-    3.3.1.11 -> Removed Old GC Ticket teleport system, since that's just baked into the GCTeleport itself. Took that time to also re-write that whole section and clean it up a bit.
-    3.3.1.10 -> Made some tiny optimizations that's been bugging me, nothing to major. mounting in Idyllshire for instance...
-    3.3.1.0 -> Small fix to if you're buying in gridania, added a waypoint so you wouldn't get stuck on the step trying to turn it in
-    3.3.0.0 -> Rewrote the buying process to go from bolts -> pedal -> spring -> crank -> shaft
-               This functionally does nothing for normal buyer peeps 
-               Also made it to where you could max buy on the first page, so it'll get in/out of Idyllshire quicker
-                 -> This setting is "MaxSingleItem", you'll find the toglle under Settings, off by default as always
-    3.2.0.0 -> Inventory Buying Fix
+    Update notes:
+        3.3.2.T -> THIS IS ME TESTING. I WILL THROW YOU IF YOU TELL ME THAT IT'S BROKE ATM LOL
+        3.3.1.11  -> Removed Old GC Ticket teleport system, since that's just baked into the GCTeleport itself. Took that time to also re-write that whole section and clean it up a bit.
+        3.3.1.10  -> Made some tiny optimizations that's been bugging me, nothing to major. mounting in Idyllshire for instance...
+        3.3.1.0   -> Small fix to if you're buying in gridania, added a waypoint so you wouldn't get stuck on the step trying to turn it in
+        3.3.0.0   -> Rewrote the buying process to go from bolts -> pedal -> spring -> crank -> shaft
+                     This functionally does nothing for normal buyer peeps 
+                     Also made it to where you could max buy on the first page, so it'll get in/out of Idyllshire quicker
+                  -> This setting is "MaxSingleItem", you'll find the toglle under Settings, off by default as always
+        3.2.0.0   -> Inventory Buying Fix
 
-  Author: Leontopodium Nivale
+    Author: Leontopodium Nivale
 
-  ***************
-  * Description *
-  ***************
+    ***************
+    * Description *
+    ***************
 
-  Teleports you to Idyllshire (or if you're standing in front of an aetheryte) and takes you to the Alex Vendor to trade your raid pieces -> gear,
-  which then takes you to your personal Grand Company and turns them into what you have selected from Deliveroo.
+    Teleports you to Idyllshire (or if you're standing in front of an aetheryte) and takes you to the Alex Vendor to trade your raid pieces -> gear,
+    which then takes you to your personal Grand Company and turns them into what you have selected from Deliveroo.
 
-  If you have OTP on, and you have your company aetheryte tickets, you can do this loop for free wihtout costing you any gil.
+    If you have OTP on, and you have your company aetheryte tickets, you can do this loop for free wihtout costing you any gil.
 
-  *********************
-  *  Required Plugins *
-  *********************
+    *********************
+    *  Required Plugins *
+    *********************
 
-  -> Teleporter | 1st Party Plugin
-  -> Pandora (Enable "Auto-select Turn-ins & Automatically Confirm") | 
-  -> Lifestream 
-  -> Deliveroo [If you need the link, here --> https://plugins.carvel.li/]
-  -> vnavmesh (replaced visland)
+    -> Teleporter | 1st Party Plugin
+    -> Pandora (Enable "Auto-select Turn-ins & Automatically Confirm") | 
+    -> Lifestream 
+    -> Deliveroo [If you need the link, here --> https://plugins.carvel.li/]
+    -> vnavmesh (replaced visland)
+    -> YesAlready
+        -> YesAlready -> Yes/No -> Add this:  You cannot currently equip this item. Proceed with the transaction?
+           Yes, you can zone lock this to strictly Idyllshire if you would like (I did)
+        -> YesAlready -> Bothers -> Scroll near the VERY bottom and make sure "ShopExchangeItemDialog" is checkmarked
 
-  -> YesAlready
-
-  **************
-  *  IMPORTANT *
-  *   SETTING  *
-  **************
-
-  -> YesAlready -> Yes/No -> Add this:  You cannot currently equip this item. Proceed with the transaction?
-  Yes, you can zone lock this to strictly Idyllshire if you would like (I did)
-
-  -> YesAlready -> Bothers -> Scroll near the VERY bottom and make sure "ShopExchangeItemDialog" is checkmarked
 ]]
 
 --[[
@@ -263,7 +256,7 @@ MaxSingleItem = false
             --yield("/echo Shop Menu: "..Alex_Shop)
             yield("/wait "..Alex_Shop_Timer)
             i_count = GetInventoryFreeSlotCount()
-            if (MaxSingleItem == true and Alex_Shop == ShopArray[4] and (BoltCount == 0)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[4] and (BoltCount == 0)) then
+            if (MaxSingleItem == true and Alex_Shop == ShopArray[4] and (BoltCount == 0)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[4]) then
                 PedalCount = GetItemCount(PedalID)
 	            if i_count > (PedalCount//2) then
                     i_count = (PedalCount//2)
@@ -286,7 +279,7 @@ MaxSingleItem = false
             --yield("/echo Shop Menu: "..Alex_Shop)
             yield("/wait "..Alex_Shop_Timer)
             i_count = GetInventoryFreeSlotCount()
-            if (MaxSingleItem == true and Alex_Shop == ShopArray[6] and (BoltCount == 0 and PedalCount <= 1)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[6] and (BoltCount == 0 and PedalCount <= 1)) then
+            if (MaxSingleItem == true and Alex_Shop == ShopArray[6] and (BoltCount == 0 and PedalCount <= 1)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[6]) then
                 SpringCount = GetItemCount(SpringID)
                 if i_count > (SpringCount//4) then
                     i_count = (SpringCount//4)
@@ -309,7 +302,7 @@ MaxSingleItem = false
             --yield("/echo Shop Menu: "..Alex_Shop)
             yield("/wait "..Alex_Shop_Timer)
             i_count = GetInventoryFreeSlotCount()
-            if (MaxSingleItem == true and Alex_Shop == ShopArray[8] and (BoltCount == 0 and PedalCount <= 1 and SpringCount <= 3)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[8] and (BoltCount == 0 and PedalCount <= 1 and SpringCount <= 3)) then
+            if (MaxSingleItem == true and Alex_Shop == ShopArray[8] and (BoltCount == 0 and PedalCount <= 1 and SpringCount <= 3)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[8]) then
                 CrankCount = GetItemCount(CrankID)
 		        if i_count > (CrankCount//2) then
                   i_count = (CrankCount//2)
@@ -333,7 +326,7 @@ MaxSingleItem = false
             --yield("/echo Shop Menu: "..Alex_Shop) -- Just Debugging Stuff
             yield("/wait "..Alex_Shop_Timer)
             i_count = GetInventoryFreeSlotCount()
-            if (MaxSingleItem == true and Alex_Shop == ShopArray[10] and (BoltCount == 0 and PedalCount <= 1 and SpringCount <= 3 and CrankCount <= 1)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[10] and (BoltCount == 0 and PedalCount <= 1 and SpringCount <= 3 and CrankCount <= 1)) then
+            if (MaxSingleItem == true and Alex_Shop == ShopArray[10] and (BoltCount == 0 and PedalCount <= 1 and SpringCount <= 3 and CrankCount <= 1)) or (Shop_Menu == 3 and MaxInventory == true and Alex_Shop == ShopArray[10]) then
                 ShaftCount = GetItemCount(ShaftID)
 		        if i_count > (ShaftCount//4) then
                     i_count = (ShaftCount//4)
@@ -464,10 +457,13 @@ MaxSingleItem = false
                     PathfindAndMoveTo(-67.757,-0.501,-8.393, false)
                 end 
             end 
-            yield("/deliveroo enable")
-            yield("/wait 0.5")
         end
     end
+
+    while DeliverooIsTurnInRunning() == false do 
+        yield("/wait 1")
+        yield("/deliveroo enable")
+    emd
 
     while DeliverooIsTurnInRunning() do
         yield("/wait 1")
