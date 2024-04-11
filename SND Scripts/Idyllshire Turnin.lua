@@ -464,11 +464,6 @@ MaxSingleItem = false
         end
     end
 
-    while DeliverooIsTurnInRunning() == false do 
-        yield("/wait 1")
-        yield("/deliveroo enable")
-    end
-
     while DeliverooIsTurnInRunning() do
         yield("/wait 1")
     end
