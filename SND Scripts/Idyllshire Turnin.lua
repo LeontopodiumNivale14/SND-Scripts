@@ -7,11 +7,11 @@
 
     **************
     *   VERSION  *
-    *   3.3.2.E  *
+    *   3.3.2.F  *
     **************
 
     Update notes:
-        3.3.2.T -> THIS IS ME TESTING. I WILL THROW YOU IF YOU TELL ME THAT IT'S BROKE ATM LOL
+        3.3.2.F -> THIS IS ME TESTING. I WILL THROW YOU IF YOU TELL ME THAT IT'S BROKE ATM LOL
         3.3.1.11  -> Removed Old GC Ticket teleport system, since that's just baked into the GCTeleport itself. Took that time to also re-write that whole section and clean it up a bit.
         3.3.1.10  -> Made some tiny optimizations that's been bugging me, nothing to major. mounting in Idyllshire for instance...
         3.3.1.0   -> Small fix to if you're buying in gridania, added a waypoint so you wouldn't get stuck on the step trying to turn it in
