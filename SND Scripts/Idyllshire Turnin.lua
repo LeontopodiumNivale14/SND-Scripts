@@ -185,10 +185,8 @@ MaxSingleItem = false
         until GetCharacterCondition(4, false)
     end 
     yield("/wait 1")
-    while GetTargetName() == "" do 
-        yield("/target Sabina")
-    end 
-    yield("/wait 0.35")
+    yield("/target Sabina")
+    yield("/wait 0.5")
     yield("/interact Sabina")
     yield("/wait 1.0")
     yield("/pcall SelectIconString True 0")
