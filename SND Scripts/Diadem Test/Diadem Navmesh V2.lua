@@ -5,10 +5,11 @@
     *******************
 
     ***************************
-    *  Version -> 0.0.1.18.1  *
+    *  Version -> 0.0.1.18.2  *
     ***************************
    
     Version Notes:
+    0.0.1.18.2 ->  Litle fix for jumping before nodes and fixed the automation
     0.0.1.18 ->    Some automation Bug fixes, safeties added in places (missing a node in a loop will reset the instance)
     0.0.1.17 ->    Now it will go to other nodes and continue if the target you were trying to kill got stolen(yea i know we already fixed it once)
     0.0.1.16 ->    Fixed the rare getting stuck after killing mobs issue. (this time it is a real fix)
@@ -143,7 +144,7 @@
     if debug then
         yield("/e ------------STARTED------------")
     end
-
+:: Waypoints ::
 -- Waypoint (V2) Tables 
     local X = 0
     local Y = 0
@@ -703,11 +704,13 @@
             if RouteType == "RedRoute" then
                 yield("/echo Hmm... You're in Botanis, yet you chose Red Route. Going to assume you meant to choose the route for the class. If not, then stop the script now to change it")
                 RouteType = "PinkRoute"
+                goto Waypoints
             end 
         elseif GetClassJobId() == 16 then
             if RouteType == "PinkRoute" then
                 yield("/echo Hmm... You're in Miner, yet you chose Pink Route. Going to assume you meant to choose the route for the class. If not, then stop the script now to change it")
                 RouteType = "RedRoute"
+                goto Waypoints
             end 
         end
         goto Enter
