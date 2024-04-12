@@ -120,7 +120,7 @@ MaxSingleItem = false
     end
 
     function DeliverooEnable()
-        if DeliverooIsTurnInRunning() == false do
+        if DeliverooIsTurnInRunning() == false then
             yield("/wait 1")
             yield("/deliveroo enable")
         end
