@@ -10,11 +10,12 @@
 
     **************
     *   VERSION  *
-    *   3.3.2.K  *
+    *   3.3.2.L  *
     **************
 
     Update notes:
-        3.3.2.K -> THIS IS ME TESTING. I WILL THROW YOU IF YOU TELL ME THAT IT'S BROKE ATM LOL
+        3.3.2.L -> THIS IS ME TESTING. I WILL THROW YOU IF YOU TELL ME THAT IT'S BROKE ATM LOL
+				  -> ACTUALLY made it turn on the pandora settings that you need.
         3.3.1.11  -> Removed Old GC Ticket teleport system, since that's just baked into the GCTeleport itself. Took that time to also re-write that whole section and clean it up a bit.
         3.3.1.10  -> Made some tiny optimizations that's been bugging me, nothing to major. mounting in Idyllshire for instance...
         3.3.1.0   -> Small fix to if you're buying in gridania, added a waypoint so you wouldn't get stuck on the step trying to turn it in
@@ -40,7 +41,7 @@
     *********************
 
     -> Teleporter | 1st Party Plugin
-    -> Pandora (Enable "Auto-select Turn-ins & Automatically Confirm") | 
+    -> Pandora (Enable "Auto-select Turn-ins & Automatically Confirm") | NOTE. THESE WILL ACTIVATE NOW IN THE SCRIPT.
     -> Lifestream 
     -> Deliveroo [If you need the link, here --> https://plugins.carvel.li/]
     -> vnavmesh (replaced visland)
@@ -147,6 +148,11 @@ MaxSingleItem = false
   LimsaGCTicket = GetItemCount(LimsaTicketID)
   GridaniaGCTicket = GetItemCount(GridaniaTicketID)
   UldahGCTicket = GetItemCount(UldahTicketID)
+  
+	-- FUCKING TURNING THESE ON. Because I don't trust people
+	PandoraSetFeatureState("Auto-select Turn-ins", true) 
+	PandoraSetFeatureConfigState("Auto-select Turn-ins", "AutoConfirm", true)
+	yield("/e HEY. LISTEN. I just turned on those 2 VERY important things that I said that was necessary. (Unless your running textadvanced, that's fine as well)")
 
 ::IdyllshireTurnin::
 
