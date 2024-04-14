@@ -10,11 +10,11 @@
 
     **************
     *   VERSION  *
-    *   3.3.2.L  *
+    *   3.3.2.0  *
     **************
 
     Update notes:
-        3.3.2.L -> THIS IS ME TESTING. I WILL THROW YOU IF YOU TELL ME THAT IT'S BROKE ATM LOL
+        3.3.2.0   -> ALRIGHT. Fixed the Teleporting to the GC (Like... 99% on this) also, fixed it interacting w/ Sabina. There's probably something else for me to tweak but... :/
 				  -> ACTUALLY made it turn on the pandora settings that you need.
         3.3.1.11  -> Removed Old GC Ticket teleport system, since that's just baked into the GCTeleport itself. Took that time to also re-write that whole section and clean it up a bit.
         3.3.1.10  -> Made some tiny optimizations that's been bugging me, nothing to major. mounting in Idyllshire for instance...
@@ -395,7 +395,7 @@ MaxSingleItem = false
 
       goto ShopInitialize
 
-    elseif (Alex_Shop == ShopArray[11]) and (Shop_Menu == 3) then
+    elseif (Alex_Shop == ShopArray[11]) and (Shop_Menu >= 3) then
       --yield("/echo DOM Menu is completed")
 
       Gordian_Part = Gordian_Part + 1

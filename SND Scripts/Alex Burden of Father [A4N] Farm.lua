@@ -7,9 +7,11 @@
 
   ***********
   * Version *
-  *  3.3.5  *
+  *  3.3.6  *
   ***********
 
+  -> 3.3.6: Went through and tweaks some of the base settings. Made it kick in on finding the right duty A LOT quicker. (Like. We fast af boyz)
+            As well as, generally tweaked some under the hood things.
   -> 3.3.5: Visland is fixed! (Hopefully) and also have support for Navmesh as well, just select which one you would like in the settings. (Default is Visland)
             Will say (Hopefully) becuase ran it for ~7 hours last night while I was asleep and SEEMS like it's not crashing the FPS. SO. *-claps-* 
   -> 3.3.4: Switched over to PURELY Navmesh on this, visland is causing some memory leak or SOMETHING atm. So... to avoid further issues/make it to where it works properly, implimenting it (pretty much as seemless, I get peeps don't like change but)
@@ -62,13 +64,13 @@
   -- Select which one you would like, Visland is the one that we've used in this script for a LONG time
   -- VNavmesh however works just as well. You can have both plugins installed, just select which one you want to use for movement 
 
-  NumberofLoops = 5 -- number of loops you would like to do 
+  NumberofLoops = 1 -- number of loops you would like to do 
   InfiniteLoops = false -- options: true | false 
   -- If you want it to continually loop w/o a cap, change InfiniteLoops to true 
   -- this will ignore the number of loops and continually go w/o stopping
 
   rate = 0.3 -- Increase this at lower fps [0.3 works on 15fps+]
-  timeoutThreshold = 15 -- Number of seconds to wait before timeout
+  timeoutThreshold = 3 -- Number of seconds to wait before timeout
 
   ManualSetDuty = false -- true | false option
   -- if you don't want to deal with the duty selection process, and select the duty yourself/turned on Unsync set this to true. If you want to just automate to the duty, set this to false.
@@ -77,12 +79,6 @@
   DutyFinderOrder = true -- true | false option
   -- If you have your duty from 50 at top, and 90 toward the bottom, leave this as true
   -- If you have your duty from 90 at top, and 50 toward the bottom, change this to false
-
-  YesAlreadyContentCheckBox = false -- true | false option 
-  -- If you have it to where you have the setting to automatically confirm in "YesAlready" set this to true. 
-  -- This will make it to where it won't hang on trying to get the duty confirm window to load, and press the duty commence button
-  -- I could pause yes already, but that's a headache I don't wanna think about at this second lol. 
-  -- default is false
 
   ManualRepair = false -- if you want to repair between the loops that you do. [defaults is false | on is true]
   RepairAmount = 99 -- lowest point your gear will 
@@ -103,35 +99,34 @@
 ]]
 
 -- functions
-  function TargetNearestObjectKind(objectKind, radius, subKind)
-    local smallest_distance = 10000000000000.0
-    local closest_target
-    local radius = radius or 0
-    local subKind = subKind or 5
-    local nearby_objects = GetNearbyObjectNames(radius^2,objectKind)
+	function TargetNearestObjectKind(objectKind, radius, subKind)
+		local smallest_distance = 10000000000000.0
+		local closest_target
+		local radius = radius or 0
+		local subKind = subKind or 5
+		local nearby_objects = GetNearbyObjectNames(radius^2,objectKind)
     
-    if nearby_objects.Count > 0 then
-        for i = 0, nearby_objects.Count - 1 do
-            yield("/target "..nearby_objects[i])
-            if not GetTargetName() or nearby_objects[i] ~= GetTargetName()
-                or (objectKind == 2 and subKind ~= GetTargetSubKind()) then
-            elseif GetDistanceToTarget() < smallest_distance then
-                smallest_distance = GetDistanceToTarget()
-                closest_target = GetTargetName()
-            end
-        end
-        ClearTarget()
-        if closest_target then yield("/target "..closest_target) end
-    end
-    return closest_target
-  end
+		if nearby_objects.Count > 0 then
+			for i = 0, nearby_objects.Count - 1 do
+				yield("/target "..nearby_objects[i])
+				if not GetTargetName() or nearby_objects[i] ~= GetTargetName()
+					or (objectKind == 2 and subKind ~= GetTargetSubKind()) then
+				elseif GetDistanceToTarget() < smallest_distance then
+					smallest_distance = GetDistanceToTarget()
+					closest_target = GetTargetName()
+				end
+			end
+			ClearTarget()
+			if closest_target then yield("/target "..closest_target) end
+		end
+		return closest_target
+	end
 
-  function PlayerTest()
-    repeat
-      yield("/wait "..rate)
-    until IsPlayerAvailable()
-  end
-
+	function PlayerTest()
+		repeat
+			yield("/wait "..rate)
+		until IsPlayerAvailable()
+	end
 
 -- Custom values being setup at the beginning before running the script
 
@@ -161,7 +156,7 @@
     PedalCount = GetItemCount(PedalID)
     BoltCount = GetItemCount(BoltID)
 
-    ActualLoopCount = math.min(BoltCount//2,ShaftCount//2,SpringCount//2,PedalCount//1,CrankCount//1)
+    ActualLoopCount = math.min(BoltCount//2,ShaftCount//2,SpringCount//2,PedalCount,CrankCount)
 
 --Visland Loops
     Alex_Chest = "H4sIAAAAAAAACuWQSWvDMBCF/0qZsyMkR7It3UIX8CHdCLgLJYhkTASxVWy5C8b/vYpj40ALvRZ605t5enr6WrjWBYKCxR4/1ny9ggAy/flqTelqUM8t3NraOGNLUC08gAqJFDGXEQ/gERSjJKJcijCAJ1AzQZKEJiHrvLQlphegaAD3emsaH8aIF0v7hgWWrt+kpcNKb1xm3O5mcJ/Ohm6+U72z7+PGl/Fpud7XONn7hiyAy8K68eHUYTEcF71jEHcN1m44H4IzbdyUeFBXtjq35Xb4OD0OV6bApffRLviGZUYJo5IyGU9kBOeRkEcykgjJEhH/QzIhoaHkyURlLrk4UonIPJpTmZxQ4YfdyMVf/Y0Ljz3hH8i4CnXdVHi2sXmO1Z8D9dJ9Ad/rgrl7AwAA"
@@ -174,15 +169,16 @@
     DutyCounter = 0
     DutyFail = 0
 
+    if ManualSetDuty == true then
+        DutyCounter = 1
+    end
 
-if ManualSetDuty == true then
-    DutyCounter = 1
-end
-
-if NumberofLoops == 0 then 
-    InfiniteLoops = true 
-    yield("/e Hmm... you didn't set it to infinite, but you also set it as 0, so I'm going to safely assume you meant to put it as infinite. Fixed that for you")
-end
+    if NumberofLoops == 0 then 
+        InfiniteLoops = true 
+        yield("/e Hmm... you didn't set it to infinite, but you also set it as 0, so I'm going to safely assume you meant to put it as infinite. Fixed that for you")
+    end
+	
+	StartingZone = GetZoneID()
 
 ::LoopTest::
 
@@ -195,7 +191,7 @@ end
         if EchoHowMany == true then
             yield("/echo Loop: "..CurrentLoop.." out of ".. NumberofLoops)
         end
-            PlayerTest()
+        PlayerTest()
     elseif NumberofLoops < CurrentLoop and InfiniteLoops == false then
         goto StopLoop
     elseif InfiniteLoops == true then 
@@ -241,29 +237,33 @@ end
     if DutyFail == 4 then
         goto StopLoop
     elseif DutyCounter == 0 then -- Initially setting up duty to loop Alexander - Burden of the Father (A4N)
+		LogInfo("[A4N] Duty Counter = 0")
         PathStop()
-        --Open duty finder until it's visible
-        while not IsAddonVisible("ContentsFinder") do
+        while not IsAddonVisible("ContentsFinder") do --Open duty finder until it's visible
             yield("/dutyfinder")
             yield("/wait "..rate)
         end
-        --wait till duty finder has finished loading
-        while not IsAddonReady("ContentsFinder") do
+		LogInfo("[A4N] Content Finder Addon is Visible")
+        while not IsAddonReady("ContentsFinder") do --wait till duty finder has finished loading
             yield("/wait "..rate)
         end
-        -- Setting up Unsync if it wasn't already
-        SetDFUnrestricted(true)
-        --wait until duty finder settings has closed
+		LogInfo("[A4N] Content Finder Addon is ready")
+        SetDFUnrestricted(true) -- Setting up Unsync if it wasn't already
+		LogInfo("[A4N] Set the duty to Unrestricted")
+        yield("/wait "..rate)
         yield("/pcall ContentsFinder True 12 1") -- Clearing out any old duties
-        --wait till old selections are cleared out
-        repeat
+		LogInfo("[A4N] Clearing any old duties that might of shown up")
+        yield("/wait "..rate)
+        while GetNodeText("ContentsFinder", 15) ~= "0/5 Selected" do
             yield("/wait "..rate)
-        until GetNodeText("ContentsFinder", 15) == "0/5 Selected"
+        end
         OpenRegularDuty(115)
+        yield("/wait "..rate)
+		LogInfo("[A4N] Directly going to the tab that should have A4N as it's option")
         local timeout = 0
         repeat
             yield("/wait "..rate)
-            timeout = timeout + 1
+            timeout = timeout
             if timeout > timeoutThreshold / rate then 
                 goto NOTALLUNLOCK 
             end
@@ -283,10 +283,11 @@ end
         until GetNodeText("ContentsFinder", 14) == "Alexander - The Burden of the Father"
     
     ::NOTALLUNLOCK::
+		LogInfo("Not everything is unlocked, or your script is in the wrong order")
         if GetNodeText("ContentsFinder", 14) ~= "Alexander - The Burden of the Father" then
             for i = 1, 501 do
                 yield("/pcall ContentsFinder True 3 "..i)
-                yield("/wait "..rate)
+                yield("/wait 0.1")
                 if GetNodeText("ContentsFinder", 14) == "Alexander - The Burden of the Father" then break end
             end
             yield("/wait "..rate)
@@ -294,34 +295,34 @@ end
 
         yield("/pcall ContentsFinder True 12 0")
         DutyCounter = DutyCounter + 1
-        while IsAddonVisible("ContentsFinderConfirm") == false and YesAlreadyContentCheckBox == false do 
+    elseif DutyCounter == 1 then -- Quicker menu'ing here to load in
+        PathStop()
+        --Open duty finder until it's visible
+        while not IsAddonVisible("ContentsFinder") do
+            yield("/dutyfinder")
             yield("/wait "..rate)
-        end 
-        elseif DutyCounter == 1 then -- Quicker menu'ing here to load in
-            PathStop()
-            --Open duty finder until it's visible
-            while not IsAddonVisible("ContentsFinder") do
-                yield("/dutyfinder")
-                yield("/wait "..rate)
-            end
-            --wait till duty finder has finished loading
-            while not IsAddonReady("ContentsFinder") do
-                yield("/wait "..rate)
-            end
-            yield("/pcall ContentsFinder True 12 0") --Duty Load
-            while IsAddonVisible("ContentsFinderConfirm") == false and YesAlreadyContentCheckBox == false do 
-                yield("/wait "..rate)
-            end 
+        end
+        --wait till duty finder has finished loading
+        while not IsAddonReady("ContentsFinder") do
+            yield("/wait "..rate)
+        end
+        yield("/pcall ContentsFinder True 12 0") --Duty Load
     elseif DutyCounter == 2 then
-    yield("/echo Hmm... it seems like this has failed, so going to reset it")
-    DutyCounter = 0
-    DutyFail = DutyFail + 1
-    goto DutyFinder
-end
+		yield("/echo Hmm... it seems like this has failed, so going to reset it")
+		DutyCounter = 0
+		DutyFail = DutyFail + 1
+		goto DutyFinder
+	end
 
 
 ::DutyCommence::
-    yield("/pcall ContentsFinderConfirm True 8")
+	while GetZoneID() == StartingZone and GetCharacterCondition(45, false) do 
+		yield("/wait "..rate)
+		if IsAddonVisible("ContentsFinderConfirm") == true then 
+			yield("/wait "..rate)
+			yield("/pcall ContentsFinderConfirm True 8")
+		end
+	end
     repeat
         yield("/wait "..rate)
     until IsInZone(445) and IsAddonVisible("_Image")
@@ -348,12 +349,12 @@ end
                 if MovementType == VNavmesh then 
                     PathfindAndMoveTo(enemy_x, enemy_y, enemy_z)
                     while PathfindInProgress() do 
-                        yield("/wait 0.05")
+                        yield("/wait 0.1")
                     end
                     yield("/wait "..rate)
                     yield("/rotation manual")
                     while GetDistanceToTarget() > 3 do 
-                        yield("/wait 0.05")
+                        yield("/wait 0.1")
                     end
                     PathStop()  -- Stop movement after reaching near the target
                 elseif MovementType == Visland then 
@@ -361,7 +362,7 @@ end
                     yield("/wait "..rate)
                     yield("/rotation manual")
                     while GetDistanceToTarget() > 3 do 
-                        yield("/wait 0.05")
+                        yield("/wait 0.1")
                     end 
                     yield("/visland stop")
                 end 
