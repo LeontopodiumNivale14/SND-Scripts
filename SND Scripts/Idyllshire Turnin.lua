@@ -59,6 +59,9 @@
   **************
 
 ]]
+
+
+-- !!HEADS UP!! If you're running at lower than 60 FPS. INCREASE THIS VALUE. 
 -- If you're shop is skipping buying items, increase this value. 
 -- Default is 1 cause that's worked for me, but 5 has helped others as well
 Alex_Shop_Timer = 1
