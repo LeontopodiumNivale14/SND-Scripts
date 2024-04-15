@@ -7,9 +7,10 @@
 
   *************
   *  Version  *
-  *  3.3.6.1  *
+  *   3.3.7   *
   *************
 
+  -> 3.3.7: Testing it rn, but refactored A LOT of code. Made it shorter/simplier to handle and read. Brought tables over (fucking bless these things).
   -> 3.3.6: Went through and tweaks some of the base settings. Made it kick in on finding the right duty A LOT quicker. (Like. We fast af boyz)
             As well as, generally tweaked some under the hood things.
   -> 3.3.5: Visland is fixed! (Hopefully) and also have support for Navmesh as well, just select which one you would like in the settings. (Default is Visland)
@@ -41,7 +42,7 @@
   Plugins that are used are:
   -> VNavmesh (for pathing) AND/OR Visland: https://puni.sh/api/repository/veyn
   -> Pandora (Setting "Open Chest") : https://love.puni.sh/ment.json
-  -> RotationSolver : https://puni.sh/api/repository/croizat
+  -> RotationSolver : https://puni.sh/api/repository/croizat !!This no longer is an repository that exist, Use... Reborn. (i'll get the link later, it's 4am here lol)
    -> Something Need Doing [Expanded Edition] : https://puni.sh/api/repository/croizat
     -> In the SND window, press the question mark to make the help setting's menu open 
     -> Go to options tab -> /target -> DISABLE THIS!! " Stop macro if target not found (only applies to SND's targeting system') "
@@ -73,6 +74,8 @@
   timeoutThreshold = 3 -- Number of seconds to wait before timeout
   
   targetrate = 1.0 -- In seconds, will be the amount of time it waits between making sure 
+  target_get = 0.5 -- In seconds, how much time will be between getting a new target to move to
+  chest_wait = 0.5 -- In seconds, how much time do you want to wait between moving chest
 
   ManualSetDuty = false -- true | false option
   -- if you don't want to deal with the duty selection process, and select the duty yourself/turned on Unsync set this to true. If you want to just automate to the duty, set this to false.
@@ -82,7 +85,7 @@
   -- If you have your duty from 50 at top, and 90 toward the bottom, leave this as true
   -- If you have your duty from 90 at top, and 50 toward the bottom, change this to false
 
-  ManualRepair = false -- if you want to repair between the loops that you do. [defaults is false | on is true]
+  ManualRepair = true -- if you want to repair between the loops that you do. [defaults is false | on is true]
   RepairAmount = 99 -- lowest point your gear will 
 
   EchoHowMany = true -- Would you like to know where in the script the loop is at? [default is true | off is false]
@@ -130,6 +133,32 @@
 		until IsPlayerAvailable()
 	end
 
+    function MoveTarget()
+        local enemy_x = GetTargetRawXPos()
+        local enemy_y = GetTargetRawYPos()
+        local enemy_z = GetTargetRawZPos()
+        if MovementType == VNavmesh then 
+            while PathfindInProgress() == false do 
+                PathfindAndMoveTo(enemy_x, enemy_y, enemy_z, false)
+                yield("/wait 0.5")
+            end
+            yield("/wait "..rate)
+            yield("/rotation auto")
+            while GetDistanceToTarget() > 2 do 
+                yield("/wait "..targetrate)
+            end
+            PathStop()  -- Stop movement after reaching near the target
+        elseif MovementType == Visland then 
+            yield("/visland moveto " .. enemy_x .. " " .. enemy_y .. " " .. enemy_z)
+            yield("/wait "..rate)
+            yield("/rotation auto")
+            while GetDistanceToTarget() > 3 do 
+                yield("/wait "..targetrate)
+            end 
+            yield("/visland stop")
+        end 
+    end
+
 -- Custom values being setup at the beginning before running the script
 
     if UserName == "Ice" then 
@@ -162,13 +191,26 @@
 
 --Visland Loops
     Alex_Chest = "H4sIAAAAAAAACuWQSWvDMBCF/0qZsyMkR7It3UIX8CHdCLgLJYhkTASxVWy5C8b/vYpj40ALvRZ605t5enr6WrjWBYKCxR4/1ny9ggAy/flqTelqUM8t3NraOGNLUC08gAqJFDGXEQ/gERSjJKJcijCAJ1AzQZKEJiHrvLQlphegaAD3emsaH8aIF0v7hgWWrt+kpcNKb1xm3O5mcJ/Ohm6+U72z7+PGl/Fpud7XONn7hiyAy8K68eHUYTEcF71jEHcN1m44H4IzbdyUeFBXtjq35Xb4OD0OV6bApffRLviGZUYJo5IyGU9kBOeRkEcykgjJEhH/QzIhoaHkyURlLrk4UonIPJpTmZxQ4YfdyMVf/Y0Ljz3hH8i4CnXdVHi2sXmO1Z8D9dJ9Ad/rgrl7AwAA"
+    vchestX = 0 
+    vchesty = 0 
+    vchestZ = 0 
+    ChestX = 0 
+    ChestY = 0 
+    ChestZ = 0
 
-    mob_table = 
+
+    alex_table = 
         {
             {"Right Foreleg"},
             {"Left Foreleg"},
             {"The Manipulator"},
             {"Panzer Doll"},
+        }
+    navchest_table = 
+        {
+            {1.93,10.60,-6.31},
+            {-0.15,10.54,-8.23},
+            {-2.18,10.57,-6.41},
         }
 
 -- Values that are needed for the whole script
@@ -324,7 +366,6 @@
 		goto DutyFinder
 	end
 
-
 ::DutyCommence::
 	while GetZoneID() == StartingZone and GetCharacterCondition(45, false) do 
 		yield("/wait "..rate)
@@ -338,137 +379,47 @@
     until IsInZone(445) and IsAddonVisible("_Image")
 
 ::BattleInitialize::
-    manip_phase = 0
-    while not GetCharacterCondition(26) do
-        -- Target selection and movement logic
-        local current_target = GetTargetName()
-        if not current_target or current_target == "" then
-            yield("/targetenemy")  -- Attempt to auto-target the next enemy
-            current_target = GetTargetName()
-            if current_target == "" then
-                yield("/wait "..rate)
-            end
-        end
-
-        local enemy_max_dist = 40
-        if GetDistanceToTarget() > 3 then
-            if GetDistanceToTarget() <= enemy_max_dist then
-                local enemy_x = GetTargetRawXPos()
-                local enemy_y = GetTargetRawYPos()
-                local enemy_z = GetTargetRawZPos()
-                if MovementType == VNavmesh then 
-                    PathfindAndMoveTo(enemy_x, enemy_y, enemy_z)
-                    while PathfindInProgress() do 
-                        yield("/wait 0.5")
-                    end
-                    yield("/wait "..rate)
-                    yield("/rotation manual")
-                    while GetDistanceToTarget() > 3 do 
-                        yield("/wait "..targetrate)
-                    end
-                    PathStop()  -- Stop movement after reaching near the target
-                elseif MovementType == Visland then 
-                    yield("/visland moveto " .. enemy_x .. " " .. enemy_y .. " " .. enemy_z)
-                    yield("/wait "..rate)
-                    yield("/rotation manual")
-                    while GetDistanceToTarget() > 3 do 
-                        yield("/wait 0.5")
-                    end 
-                    yield("/visland stop")
-                end 
-            end
-        end
+    if GetTargetName() == "" then 
+        yield("/target "..alex_table[1][1])
+        MoveTarget()
     end
 
 ::StartofBattle::
     --rotation
     while GetCharacterCondition(26) do
-        yield("/wait "..rate)
-        -- Target selection and movement logic
-        local current_target = GetTargetName() --Leaf: need find the setting to always zoom out or something
-        if not current_target or current_target == "" then
-            yield("/targetenemy")  -- Attempt to auto-target the next enemy
-            current_target = GetTargetName()
-            if current_target == "" then
-                yield("/wait "..targetrate)
+        if GetTargetName() ~= "" then 
+            yield("/wait "..targetrate)
+        else
+            for i=1, #alex_table do
+                yield("/target "..alex_table[i][1])
+                yield("/wait "..target_get)
+                if GetTargetName() ~= "" then 
+                    break 
+                end
             end
-        end
-
-        while IsPlayerCasting() do
-            if CastingDebug == true then
-                yield("/e EY WATCH IT. I'M CASTING")
-            end
-            yield("/wait "..rate/3)
-        end
-
-        local enemy_max_dist = 75
-        if GetDistanceToTarget() > 3 then
-            if GetDistanceToTarget() <= enemy_max_dist then
-                local enemy_x = GetTargetRawXPos()
-                local enemy_y = GetTargetRawYPos()
-                local enemy_z = GetTargetRawZPos()
-                PathfindAndMoveTo(enemy_x, enemy_y, enemy_z)
-                if MovementType == VNavmesh then 
-                    while PathfindInProgress() do 
-                        yield("/wait 0.05")
-                    end
-                    yield("/wait "..rate)
-                    yield("/rotation manual")
-                    while GetDistanceToTarget() > 3 do 
-                        yield("/wait 0.5")
-                    end
-                    PathStop()  -- Stop movement after reaching near the target
-                elseif MovementType == Visland then 
-                    yield("/visland moveto " .. enemy_x .. " " .. enemy_y .. " " .. enemy_z)
-                    yield("/wait "..rate)
-                    yield("/rotation manual")
-                    while GetDistanceToTarget() > 3 do 
-                        yield("/wait 0.05")
-                    end 
-                    yield("/visland stop")
-                end 
-            end
-        end
+            yield("/wait 0.1")
+            MoveTarget()
+        end 
     end
-    -- This section might need an additional command to re-target or adjust positioning
-    -- if the enemy is beyond the max distance, depending on your needs.
 
     yield("/rotation cancel")
 
 ::LootCollection:: 
     if MovementType == VNavmesh then 
-        -- Chest #1
-        PathfindAndMoveTo(1.93,10.60,-6.31)
-        while PathfindInProgress() do
-            yield("/wait 0.05")
+        for i=1, #navchest_table do
+            vchestX = navchest_table[i][1]
+            vchestY = navchest_table[i][2]
+            vchestZ = navchest_table[i][3]
+            PathfindAndMoveTo(vchestX, vchestY ,vchestZ , false)
+            while PathfindInProgress() do
+                yield("/wait 0.1")
+            end
+            while PathIsRunning() do 
+                yield("/wait "..chest_wait)
+            end 
+            yield('/target "Treasure Coffer"')
+            yield("/interact")
         end
-        while PathIsRunning() do 
-            yield("/wait 0.05")
-        end 
-        yield('/target "Treasure Coffer"')
-        yield("/pint")
-
-        -- Chest #2
-        PathfindAndMoveTo(-0.15,10.54,-8.23)
-        while PathfindInProgress() do
-            yield("/wait 0.05")
-        end
-        while PathIsRunning() do 
-            yield("/wait 0.05")
-        end 
-        yield('/target "Treasure Coffer"')
-        yield("/pint")
-
-        -- Chest #3
-        PathfindAndMoveTo(-2.18,10.57,-6.41)
-        while PathfindInProgress() do
-            yield("/wait 0.05")
-        end
-        while PathIsRunning() do 
-            yield("/wait 0.05")
-        end 
-        yield('/target "Treasure Coffer"')
-        yield("/pint")
     elseif MovementType == Visland then 
         repeat
             yield("/wait "..rate)
@@ -477,7 +428,6 @@
             yield("/wait "..rate)
         until not IsVislandRouteRunning()
     end
-        
 
     while TargetNearestObjectKind(4) do
         if PathIsRunning() == false then
