@@ -5,10 +5,10 @@
   *            Normal Farm               *
   ****************************************
 
-  ***********
-  * Version *
-  *  3.3.6  *
-  ***********
+  *************
+  *  Version  *
+  *  3.3.6.1  *
+  *************
 
   -> 3.3.6: Went through and tweaks some of the base settings. Made it kick in on finding the right duty A LOT quicker. (Like. We fast af boyz)
             As well as, generally tweaked some under the hood things.
