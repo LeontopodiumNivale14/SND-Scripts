@@ -64,13 +64,15 @@
   -- Select which one you would like, Visland is the one that we've used in this script for a LONG time
   -- VNavmesh however works just as well. You can have both plugins installed, just select which one you want to use for movement 
 
-  NumberofLoops = 1 -- number of loops you would like to do 
+  NumberofLoops = 5 -- number of loops you would like to do 
   InfiniteLoops = false -- options: true | false 
   -- If you want it to continually loop w/o a cap, change InfiniteLoops to true 
   -- this will ignore the number of loops and continually go w/o stopping
 
   rate = 0.3 -- Increase this at lower fps [0.3 works on 15fps+]
   timeoutThreshold = 3 -- Number of seconds to wait before timeout
+  
+  targetrate = 1.0 -- In seconds, will be the amount of time it waits between making sure 
 
   ManualSetDuty = false -- true | false option
   -- if you don't want to deal with the duty selection process, and select the duty yourself/turned on Unsync set this to true. If you want to just automate to the duty, set this to false.
@@ -349,12 +351,12 @@
                 if MovementType == VNavmesh then 
                     PathfindAndMoveTo(enemy_x, enemy_y, enemy_z)
                     while PathfindInProgress() do 
-                        yield("/wait 0.1")
+                        yield("/wait 0.5")
                     end
                     yield("/wait "..rate)
                     yield("/rotation manual")
                     while GetDistanceToTarget() > 3 do 
-                        yield("/wait 0.1")
+                        yield("/wait "..targetrate)
                     end
                     PathStop()  -- Stop movement after reaching near the target
                 elseif MovementType == Visland then 
@@ -362,7 +364,7 @@
                     yield("/wait "..rate)
                     yield("/rotation manual")
                     while GetDistanceToTarget() > 3 do 
-                        yield("/wait 0.1")
+                        yield("/wait 0.5")
                     end 
                     yield("/visland stop")
                 end 
@@ -380,7 +382,7 @@
             yield("/targetenemy")  -- Attempt to auto-target the next enemy
             current_target = GetTargetName()
             if current_target == "" then
-                yield("/wait "..rate)
+                yield("/wait "..targetrate)
             end
         end
 
@@ -405,7 +407,7 @@
                     yield("/wait "..rate)
                     yield("/rotation manual")
                     while GetDistanceToTarget() > 3 do 
-                        yield("/wait 0.05")
+                        yield("/wait 0.5")
                     end
                     PathStop()  -- Stop movement after reaching near the target
                 elseif MovementType == Visland then 
