@@ -140,19 +140,17 @@
         if MovementType == VNavmesh then 
             while PathfindInProgress() == false do 
                 PathfindAndMoveTo(enemy_x, enemy_y, enemy_z, false)
-                yield("/wait 0.5")
+                yield("/wait 0.1")
             end
             yield("/wait "..rate)
-            yield("/rotation auto")
-            while GetDistanceToTarget() > 2 do 
+            while GetDistanceToTarget() > GetTargetHitboxRadius() + 1 do 
                 yield("/wait "..targetrate)
             end
             PathStop()  -- Stop movement after reaching near the target
         elseif MovementType == Visland then 
             yield("/visland moveto " .. enemy_x .. " " .. enemy_y .. " " .. enemy_z)
             yield("/wait "..rate)
-            yield("/rotation auto")
-            while GetDistanceToTarget() > 3 do 
+            while GetDistanceToTarget() > GetTargetHitboxRadius() + 1 do 
                 yield("/wait "..targetrate)
             end 
             yield("/visland stop")
@@ -381,6 +379,7 @@
 ::BattleInitialize::
     if GetTargetName() == "" then 
         yield("/target "..alex_table[1][1])
+        yield("/rotation auto")
         MoveTarget()
     end
 
