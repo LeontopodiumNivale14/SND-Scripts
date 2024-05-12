@@ -8,9 +8,9 @@
     *  Author: Leontopodium Nivale  *
     *********************************
 
-    ******************
-    * Version  |  6  *
-    ******************
+    ********************
+    * Version  |  6.1  *
+    ********************
 	
 	6     -> Should be my final fiddle with this. If you run out of leves, it SHOULD stop trying to pick it up.
 	5.2   -> If you're not on CUL, this won't run now. (Just... to save some headache on a pcall causing a crash)
@@ -45,17 +45,14 @@
     **************
     ]]
 
-
-    VariableNameHere = true 
-        -- This is where I type the description of it all 
-        -- Sometimes do multiline to keep formatting clean 
-        -- Options: True | False 
-
     LoopAmount = 20
 	
 	LeveQuestNumber = 1647
 		-- 1647 = Tsai tou Vounou : The Mountain Steeped
 		-- 1643 = Carrot Nibbles : A Stickler for Carrots
+		
+	WaitTimer = 0.5 
+		-- time you want to wait between interactions
 
 --[[
 
@@ -73,10 +70,10 @@
 
     CurrentLoop = 1
     PandoraSetFeatureState("Auto-select Turn-ins", true)
-    yield("/wait 0.1")
+    yield("/wait "..WaitTimer)
     PandoraSetFeatureConfigState("Auto-select Turn-ins", "AutoConfirm", true)
     yield("/at y")
-    yield("/wait 0.1")
+    yield("/wait "..WaitTimer)
 	
 	if LeveQuestNumber == 1647 then 
 		itemID = 36060 
@@ -97,22 +94,22 @@
     end
 
     yield("/target Grigge")
-    yield("/wait 0.1")
+    yield("/wait "..WaitTimer)
     yield("/interact")
-    yield("/wait 0.1")
+    yield("/wait "..WaitTimer)
 
     while IsAddonVisible("SelectString") == false do 
-      yield("/wait 0.1")
+      yield("/wait "..WaitTimer)
     end 
 
     while IsAddonReady("SelectString") == false do 
-      yield("/wait 0.1")
+      yield("/wait "..WaitTimer)
     end 
 
     yield("/pcall SelectString true 1")
 
     while IsAddonReady("JournalDetail") == false do 
-      yield("/wait 0.1")
+      yield("/wait "..WaitTimer)
     end
 	
 	if GetNodeText("GuildLeve",5, 2) == "0" then 
@@ -120,11 +117,11 @@
 		yield("/pcall GuildLeve true -2")
 
 		while IsAddonVisible("SelectString") == false do 
-		  yield("/wait 0.1")
+		  yield("/wait "..WaitTimer)
 		end 
 
 		while IsAddonReady("SelectString") == false do 
-		  yield("/wait 0.1")
+		  yield("/wait "..WaitTimer)
 		end 
 
 		yield("/pcall SelectString true 3")
@@ -134,32 +131,32 @@
 		
 
     yield("/pcall GuildLeve true 13 1 "..LeveDetail)
-    yield("/wait 0.3")
+    yield("/wait "..WaitTimer)
     yield("/pcall JournalDetail true 3 "..LeveDetail)
-    yield("/wait 0.3")
+    yield("/wait "..WaitTimer)
 
     yield("/pcall GuildLeve true -2")
 
     while IsAddonVisible("SelectString") == false do 
-      yield("/wait 0.1")
+      yield("/wait "..WaitTimer)
     end 
 
     while IsAddonReady("SelectString") == false do 
-      yield("/wait 0.1")
+      yield("/wait "..WaitTimer)
     end 
 
     yield("/pcall SelectString true 3")
 
     while GetTargetName() ~= "" do 
-      yield("/wait 0.1")
+      yield("/wait "..WaitTimer)
     end 
 
     yield("/target Ahldiyrn")
-    yield("/wait 0.1")
+    yield("/wait "..WaitTimer)
     yield("/interact")
 
     while GetTargetName() ~= "" do 
-      yield("/wait 0.1")
+      yield("/wait "..WaitTimer)
     end 
 
     CurrentLoop = CurrentLoop + 1
