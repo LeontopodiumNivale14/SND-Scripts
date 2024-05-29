@@ -158,6 +158,12 @@
     yield("/wait 0.1")
     yield("/interact")
 
+    while IsAddonReady("SelectYesno") == false do
+      yield("/wait 0.1")
+    end
+
+    yield("/click select_yes")
+
     while GetTargetName() ~= "" do 
       yield("/wait 0.1")
     end 
@@ -168,4 +174,4 @@
         goto LUATEATURNIN
     else
         yield("/e Thank you for using the automated Leve Turnin")
-    end 
+    end
