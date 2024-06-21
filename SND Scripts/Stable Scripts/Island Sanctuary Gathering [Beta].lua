@@ -61,8 +61,8 @@
     LoopEcho = true
     -- If you want feedback on how what loop your currently on, or how many items are being sent to the shop, enable them as "true" below
 
-    SkipRoute1 = false
-    SkipRoute2 = false
+    SkipRoute1 = true
+    SkipRoute2 = true
     SkipRoute3 = false
     SkipRoute4 = false
     SkipRoute5 = false
@@ -236,33 +236,30 @@
     end
     Route9Loop = Route1Base - LoopTestA
 
---Visland Routes
-  B2Islefish = "H4sIAAAAAAAACuWVTWvcMBCG/0rQ2TvVjL5GvrVpC3tI24TAtg05mEZhDWurxEpCWPa/Z9Z2CCGXXotvmg+/jB40r/fqW9MlVatPzZBOSj5ZD7t02w7bD6e7plOV2jRPf3Pbl0HVV3v1Iw9taXOv6r36qeoVaQfBB2sq9UvVAYGtI+sq9VvVyFFqms1Bwtyn9WfJaSfFi+amvRdBBF2ps/yQutQXCSu17ku6a/6UTVu2348f6Le5eViZa9jmx5eKDCRqt81uSK/t45Qi+aXLJb1IldTNx49jxxyc36ehzOej8KZpy6viMfqa705zfzNfXk/Jy7ZLZ9KnD9V7NKgJAtsjDEGDGsFQYJrQUACKwbllorERUAf0MxkNZEwwIxnvIVoJFgoGXESiOIKR9WHywY9cVug1yG7hUsGgMQ7DZDMEkdngBMZYD95YXiQYBI9O2zivEoFj8Rg7kXHsQFNc5i55IA4UabJfA85Gp+NkMisfGJiZFkkGjdzdc5hcZmXEjIOOOD8aHxms9v+8TvJD+1/RXB+eAbz3pC7+CAAA"
-  Vislefish = "H4sIAAAAAAAACu2YTW/bMAyG/0qhc8KJor7o29BtQA7dFwZ0H9jBWNXGgGMPtbtiKPrfR6dSskOH5dJD0vhgWLagSA/4ki9zp97Wq6QqhXBy2tarF4uhTZfNsFQzdV7//tk33Tio6tudet8Pzdj0naru1GdVOQIvl6OZ+qKquXWAwQc7U19lFHQEz9bey7Dv0uKVqvRMfawvmhtZjEAGZ/2vtErduP6y6MZ0Xf8Yz5tx+S7P/vtd3qPsaVj2t+WLbEZWu6zbIW2nr3eIM/V61Y/lhxdjWuXHl+sZefDhJg1jfp4WPq+bcbviNHrTX5/23UU+uH54+alZpTOZp+9nj2HRkdBlKhZ8NFigMESh8jgU838oRqPh6B5FM6T6NqWLk7Hurtq0B6CsBiTEuAkfYwl9IeXAaTJPQqqtr6/SybBMbbsPmDwER+wzJjm7RRsfMPnogFn7nTCZQ8dEVjNnTAhBW2MyphCBBeJRdxMpZODIvpCiSWieMilvwbLFY0BVxoCngJlSAIsuhpydMAB53C07Hbbs5gZMwMh2U+4wsHUlPSFoxt3q3YFzQgMRAxazZEGOpksaZxlGCsdqJ/FkgchzsU8SJEFMZuHEEAI/TXbaO/80dxqc9VS0N5EzhmIOKql/wES0kwM3h+TA5yhHdxR1zKbJTGYyEpX0rQNICvfPrzeRLBSA5ZbV5YWLm5zAGosEkDf/atmeleeeS2MCzk2uKFd/Yrfp4owGKw3K0U3mkNISUtFMnX82lFHU5bYtL8YQnmMWIpGXtB0brTE5v/knIEIQR3nUmrAIgM4Fty1jyDb6TRkjUZvfrYzhYQWQ5KDomEoISRlDa7zOMeSZpODvpqw9BvP9/g8MSzViohQAAA=="
+-- Visland Routes
+    Vislefish = "H4sIAAAAAAAACu2Y30/bMBDH/xXk5/Zm+/zr+jaxTaomNsYmsR/aQ7YaGilNGHGHJsT/vkvnlCFAQhHlhbxUOce1Lp+7fP2NL8W7YhXFTOxXxerFvK3iSdkuxUQcF3/OmrJOrZh9uxSHTVumsqnF7FJ8FjOLIAMqOxFfxGxqDLig1UR85cBLguDIXHHY1HH+SszkRBwVi3LNS2ng4KD5HVexTps7h0VanpT1QsxOiqqNEzGvUzwvfqbjMi3fd3/XUmkK9uadnHUbi4sYF3upqE+ryGm3y+ain8f5treW3TwE5/p61aQ+u3mKq3z5cjMjBx/WsU3/X3+MvzbBQfMjD39Mzdl+Uy8yHR55W1bVfrPOj3fUrFPMyeb0josyXefVRW+a85trdIOfylU84HnyanKLv5GgUKmQ+VvQBpXrC2DBStRPU4CqOD+Ne+0yVtXzoe/AWySX6TNSo0z4R98FC0TSPYi+HukPoo9GEmX6Crw0Wmf6PgBxbe6mr0bxeYz2VwQUyPUFwE5tHOYCOAOGjBrbf1fiozU49CrD92CUDT4rv/KATj1M+UftGQB/qkF7FchsjY/yZGwv/SwwpB7mfEb8Q/ArDUF5hVv87Exkv/MShwH96Ht2JT1TbQDRUW/7uaW9c9l2OiLwnp5I+Z+p759aCdY47AWoK4jWGPIrwE4ICPEe+4MDaiDvpP98eCsmajHIkM2+7r6tAmK/40oPvOve4/ZH4EMU3gPxT5YYx7htZzU3tLndnTbjBrvDfkcF1nZuPttLJLs92dESDJ8ujCc7O1UcpkwqaN97TITAEmOvT9dU8PeYnFFwhnQ8awyfGWwFh9C67VlmAM8fWKOj31m7ew/KWm+vDY0iE9zW0CBLjhsNzePJC+t7sIR9w7OhUUY7mTveEbKjHOVlGO/vV38BkInwdk8ZAAA="
 
-  B2Islewort = "H4sIAAAAAAAACuWTyWrDMBRFfyW8tSyeRg+LQkfIIp0ouANdiEYlgtgqkdJQTP69iu0QSj/Bu3efri5XB9TBrWksVHBhgp1lZ7N5WNud30QgUJufL+/aGKB66+DeBxedb6Hq4BmqjGlGZV6UmsALVCWnJeZYEniFiilJcynYPinf2vlVWqFSBB7N0m1THKNIYOG/bWPbmCSBeRvtxnzE2sXV3eEC/t2NLVOrsPK740mqk9I+zTrYk73vmCKvGx/tMSraZhzPe8coHrY2xHE+BNfGxVPiQd34zaVvl+PTcVg+ucYukg/35D8YhVSrgg1cGC+o4jznPRiJVCjUSk2TjBBUci5LMaBBQREF5qpnkyVKlKGUE4XDtKAFCjbA0ekH5YqPaCQqKhjXEyDzvv8Fz5TxE5MEAAA="
-  Vislewort = "H4sIAAAAAAAACu2YSW/bMBCF/4rBszvlDNfxregC+JA2XYB0QQ9CrTYCbMmwlARFkP/ekUglDeAAvuTgBb6IFkUQH948vuGtel+sSjVTBJN5uyxvmk338rxZN13z8rzYtHW1nnwuy0Wrpuqi+Ltuqrpr1ezHrTpv2qqrmlrNbtVXNXuBgcFFzVP1Tc1cAHLEOFXf5ZVFBx7Z3Mmwqcv5GzXTU/WpWFRXshaBDM6a63JV1t3wZl535ab41V1U3eWHfjZpJI7u8Zu88eJPcV1O1stCPp6q9rK5GSfJ5mT538WyLR++HHYs+3q7arpxJ/OuXOXHV8OMPPh4VbZdfu4Xviiq7mHFfvSu2bxu6kUGodOfX6pVeSbz9N10C6ZI4AwamzhZCIF1DBmUQfDauridlHlMiraQ0lsZ7QUYNhCNyfoxYIl5xGIJrGd8Fv3cVMvFZJ2kvg+ciCLYyCZx0qA1BTfKxwIz7YSJDh2TSCgMhSWYrEjLE8aMiTyg3U1Nh4/Jgw6YKAVRj9MjJcfgowknTD0m68FpjokTA1n04+EWtJx7/uRNPSYTwFCkAdPw7Ch7k0MpuuhPckpVJzaDmDKAmLaLrH3mJNHJB/+M5jSEu73wJm/BYEgnnSQjq52jTIn7REB8wpS8iXVgHtVkNXsaQQUEDk9lgoMOlGQ1RPHphEXSQMTewAcqEWVonzNQ7k+VGTnaGJ2958SWe2tKoAxI0QVzlPpJTezIRQsMM9qP9Cfod2toD92l+6DNOWgbDYZtpuQxALqnmtkjoyRpyPtcZNLBhf8wSQHqYN0JU8JEvi+zXkwEjGJGGZO20uuGk5p6TBiBxLhd4iRysiaMCdKyxCYrZ90Rerb4BXC0ge87EJZfzkISGMFzPMYshIhy5WGTSTsU8QRP4+2a2FHk4NxOXPRhcZHrDxOxbyt6MF582dtRLnJ8OafdEy3r4XD5efcP3/cIkwYYAAA="
+    Vislewort = "H4sIAAAAAAAACu2ZXWvbMBSG/0rRtafqWzq5G90GYXTL1kL3wS68RV0NiZXFSsso/e87tuWuZQ2DUOcmIjeW7Qjp8etXr45vybty6cmETJuFvwnreDwLqxDD8axcN3W1Ojrzft6QglyUv1ehqmNDJl9vySw0VaxCTSa35BOZvOAWqHYMCvKZTLSlQgvgBfmClxTX1HCQd9gMtZ++IhNWkI/lvNpgX4Ji4zRc+6WvIzYLMivj1WVVz8nkslw0viDTOvp1+SNeVPHqfft3wbgApx9fSdMof5bX/mi1KLG3gjRX4Wa4CUfb/NNnNwUc6OtliMPQptEv0+HL7o7U+LDxTXx4fOZ/dY3T8D2dPothdRLqeWKDZ95Wi8VJ2LRza2cdNtGnkabhXZRV/DuutvUmrB/30Z48r5b+FO9jd8UT9J2gWnKpevyKWgvM2cRfcmqY0u7pByB3eADsSfQHxBskdVImtUuqBMBAWwmqDPD9qP2mWsyPVv2bejj4hXBUOZA9fkYZE1YPYlcUQGT6I9JHwdvOXZC+whfBCO4SfWEoV1n7o9I3lFnew7eodc0G+BqocdJm7Y9IXxmqGbgeP1ChuBlijmWYgEymPyJ9aakUTnT0u2Mtku9rjs7jTBb/qNaD8YXzPmTiOqsdMJPwY+Q3dq/i73YpB5R5jKKS2z7zYKJXTGuR4EMbOQVk+qP6PjALMGhfMTBi4G85BbstdOb91S64GXW4tPa0MW463q65HWzHsbnfjHloViMx5ADX6h4/KGhtv+cvKTqP3VLOyWrfRe19vWzAzZCxHKwdiwvc7Kl2dphqb7ezkLazklEJKsE33FKut9XNMvxnSvTGJKfBqo59QB9diFmlM/1R91PCtF7TSl9Q4Gj0iT5TWFazWfsj0ueOClxrdY8fxa+kHTZUCjDuK0w9eZl9tqK9AApOWbgvHwD+UobH/RM14HKGfz7cnGMtWPXrquYodWvE8JEErd6B1VvMPYfIHXBjXVg63tYEWt4Gl1KjBnFjkNGa6S3VsYz7P7i/3f0BTpNvGSYfAAA="
 
-  B2Sugarcane = "H4sIAAAAAAAACuWTyWrDMBCGXyXMWREaLZalQ6Er5JCugXShB5GojaC2Sqy0lJB3r+w4hNJH8G02/fzzMdrCtas8WDhzjR+NT0YPm3e3XrjaA4G5+/mMoU4N2Jct3MYmpBBrsFt4BDvmsqCGKVUSeAKrkEpUSmsCz2A5asoU7nISaz+5AIt5ksC9W4ZNlkPKCEzjl698nXJKYFInv3aLNA9pddM+YH9rvc3sqlnF70Mn28lqb+6j8cfxzmOWvKxi8gep5Ks+PO0m+uRu45vUx63w3IV0VGyzq7g+j/WyX53ti7NQ+WmeYzvyH4yWVBWqEB0XREG5LAV2XEqTW4KXxTDJCEOZbk+kBcNKqkWJ/cEoWggphskFGVVGa7O/GJO/DkduOi5jLBWVRnM+TDI0c9E8b5vBaE5RGOR7MEJoWkgt5ADAvO5+ARK0E/moBQAA"
-  VSugarcane = "H4sIAAAAAAAACu2YSW/bMBCF/0rBsz2d4XC46FZ0AXJIdyRd0IOQqI2AWipsuUVh5L93ZJFOgaaor7V900gETX1+nPeojXleLxpTGYYHb9Zf6uVV3TUPL9quMTNzWf/81rfdsDLVx4152a/aoe07U23MO1NZBovRY5qZ96aSBJ6sc3ZmPphqzt5B5Gj5Vuu+a86emApn5nV93a51NgYtzvvvzaLphu2Ts25olvXVcNkONy/y6N/v5VXqolY3/Y/yRFejs32uv66au+HbJdLMPF30Q/nhs6FZ5MtH2xG5eLVuVkO+Hie+rNvhbsaxetYvH/fddX5znG6+bRfNuY7D29mfXBxw9FKoRPLIBYoAofP3M7H/ZmKRbIpyL5lV+fP+B0QC0aKnLSNPML5UyIwUWXLpxCgACYVgJ0YIFNhJZuQE0CHvpSN7wDqicasVEUUSjBkQJ2CO7rTRQFKyIkVEKVD0hZGWQvboGYXRqEK2Ma+m5tIoqi0jiiDOpaNnJBAs+WCzkBi0TUcuLZsYKEray+rtIVm9ZhwfkbhQIeG4k472JpZw9NKZo4rFheCtnzBZ8DFKyYkYQTcY+eMTz3xMQV6CnRxMAiT2FF0B40D4b1nxkPOzxhvwMpKZ9OLAMpXkQxqLQjrCU4UGY3A+pJwHVRwu4I6KVyW5k5XPrZ5CcyBUMeAOkCVgxFMeHFUk6EbnnhiJ+lRpxUyaD/1+p4pDPp1q7wXdUpyPpxqTmXeMkn70wNNOmzsgTpZxUpJoQEwBbTEvlRKSdqhDd/VPt78AvjLBEUATAAA="
+    VSugarcane = "H4sIAAAAAAAACu2Yy07dMBCG38Xr4Noejy/ZVbSVUEVLSwW9qIsUTInEiSnxaVUh3r2Tc2wuAqQDUlb1zuM41uTLn5k/vmTvukVgLdtf/uwujrohvDjoh8Aadtj9PY/9kEbWfrtke3HsUx8H1l6yz6xVwJVwRviGfWEtem6k0lo17Ctrt8Bo7sApuKI4DmHnFWtFwz52x/2SdgNOwW78HRZhSLRVw/a6dHrSD8esPenOxtCwnSGFi+4oHfbp9H2+/fZczpmyHE/jn3KF0hvvbbHKWTbs9SKmkslOCos8fLlakYMPyzCm2+P98GsV7MYfeXo/xfPtOBxnGDTztj87247L6VGmh4zLFO6md9j16SavKXoTL+7uMU1+6hdhl9aJq+Y+bs3BGSywnTQCCmvkUmjzMGp1F7XYBLUSUnmHDwIfi0j+H/LInRJGrtAbySc0NqOnN+G1r+hnQm+5RGmtWqMXXFrQmNFr5EIL2Ej1GxWYqvrb6OVUb4rknUThMnfwHMDpWm1mqjYcvVeIRfLeSmcKegpRqop+rmpDlsVmQ2PI3mg/fQIr9NJx1NpX9POgJ7donJBQ0EsEd42eKhGgrejnQb8lOKC21iizpq+4cQ6LkReOk+7lIxanGvmn8578pEGr1t0VLfdgpNOFt+YIj5n5ivvpuAG5NtZnD0l0tRXFQ0pDr0Jv1lCrh3yG1OlUIJtIkq645q4kByGqh5xR8yg02IIeqYmWgg6SPKXZ7L+pnhY8gz31U2kgHxeQYwe4Ru/pyExU/z6X7DWX4BWIte4RufVWKH0jfCGp+tfW+ize36/+AawqhecpFgAA"
 
-  B2Tinsand = "H4sIAAAAAAAACuWTy2oDMQxFfyVoPTHyjF/xotAnZJG+CKQPujCNSwwdu8ROSwn592qmE0LpJ2SnK8mXqwPewrVrPVg4c9mPxiejeYjZxSVUsHDfHynEksE+b+E25VBCimC38AB2XEvOjFJNBY9ghWJiIit4AlvXDWsmiHJHMkU/vQDLUdLw3i3Dhsw4wwpm6dO3PhaSFUxj8Wv3WhahrG66B/i3N0SkTHmVvvYTCkNub+49+8N6n5AsL9tU/N6q+HYoT/uNQdxtfC5D3RkvXCgHx05dpfV5isvhcPxtzkPrZ7SHu+o/Fo6c6Vpo3XPh3DAhNArRs+HYMOKm6+NkIwSbGK2kGthIhlI0qHo2jWGSaqWOkg0ybVBr3t1LbJRipr+dwIy5IW6i1sfwo152P0BAnB6RBAAA"
-  VTinsand = "H4sIAAAAAAAACu2XTYvbMBCG/0rQOTtoJI0+fFv6ATlsv1hIt6UHd6M2prVVYqVLCfnvlR1pU2hg97LQFPtkyWI8fvzqndGOvapbzypGMLtuur7uVmzOlvWvH6HpYs+qjzv2JvRNbELHqh17zyoEZ1AJg3N2wypy4IZLz9kHVl2gc6AEuX0ahs4vnrOKz9m7etVsUzAJaXAVfvrWd3F8suii39S3cdnE9eu8+s+5nF3KqV+Hu/IkJZOifam/9/64fMwwJfWiDbG8eBF9m28vxxV58Hbr+5jvh8DLuonHiMPoZdg8C90qfzg/TF43rb9K6/h+/hcWCZJQCBqpaA5cC0tHKNYZexqKeBiK4CjcEO0Emn77ufWbr341yz/vXwelQaEip+7lQ0qZAoqDlBOnkdMFgnRSkbhXFFlTFKU1kEQ1KWogZQENV+LoR0hFUCTAcSEmTgMnAmGVlLIISjpni28LAo4GHwVK/O8WZVOJ06moHUClfSi5sBkUKrDIJ0UdegEOaI3OFpXKOzeugOIKCJV8mq3XhhDXs7t1E/1sE26/nYGo0IHWkuyBlYJkUi7b1Fj2hNITq9JMIRhrSjMlk8g0uswKAaWmqfSNoAQHSn1BtvS046Sy6gDKJke3pCdRFVGlEqdEElIRlSWRURkDXKF7Ik2doVel3lMRcUGpPThxyDMK0vnPmked8k51C2dyyvu0/w0UDxibIA8AAA=="
+    B2Tinsand = "H4sIAAAAAAAACuWTy2oDMQxFfyVoPTHyjF/xotAnZJG+CKQPujCNSwwdu8ROSwn592qmE0LpJ2SnK8mXqwPewrVrPVg4c9mPxiejeYjZxSVUsHDfHynEksE+b+E25VBCimC38AB2XEvOjFJNBY9ghWJiIit4AlvXDWsmiHJHMkU/vQDLUdLw3i3Dhsw4wwpm6dO3PhaSFUxj8Wv3WhahrG66B/i3N0SkTHmVvvYTCkNub+49+8N6n5AsL9tU/N6q+HYoT/uNQdxtfC5D3RkvXCgHx05dpfV5isvhcPxtzkPrZ7SHu+o/Fo6c6Vpo3XPh3DAhNArRs+HYMOKm6+NkIwSbGK2kGthIhlI0qHo2jWGSaqWOkg0ybVBr3t1LbJRipr+dwIy5IW6i1sfwo152P0BAnB6RBAAA"
+    VTinsand = "H4sIAAAAAAAACu2XTYvbMBCG/0rQOTtoJI0+fFv6ATlsv1hIt6UHd6M2prVVYqVLCfnvlR1pU2hg97LQFPtkyWI8fvzqndGOvapbzypGMLtuur7uVmzOlvWvH6HpYs+qjzv2JvRNbELHqh17zyoEZ1AJg3N2wypy4IZLz9kHVl2gc6AEuX0ahs4vnrOKz9m7etVsUzAJaXAVfvrWd3F8suii39S3cdnE9eu8+s+5nF3KqV+Hu/IkJZOifam/9/64fMwwJfWiDbG8eBF9m28vxxV58Hbr+5jvh8DLuonHiMPoZdg8C90qfzg/TF43rb9K6/h+/hcWCZJQCBqpaA5cC0tHKNYZexqKeBiK4CjcEO0Emn77ufWbr341yz/vXwelQaEip+7lQ0qZAoqDlBOnkdMFgnRSkbhXFFlTFKU1kEQ1KWogZQENV+LoR0hFUCTAcSEmTgMnAmGVlLIISjpni28LAo4GHwVK/O8WZVOJ06moHUClfSi5sBkUKrDIJ0UdegEOaI3OFpXKOzeugOIKCJV8mq3XhhDXs7t1E/1sE26/nYGo0IHWkuyBlYJkUi7b1Fj2hNITq9JMIRhrSjMlk8g0uswKAaWmqfSNoAQHSn1BtvS046Sy6gDKJke3pCdRFVGlEqdEElIRlSWRURkDXKF7Ik2doVel3lMRcUGpPThxyDMK0vnPmked8k51C2dyyvu0/w0UDxibIA8AAA=="
 
-  B2Coconut = "H4sIAAAAAAAACuWT20oDMRCGX6XMdRpyTpoLQatCL+oJYT3gRWgjDbiJdLOKlH13s9stRXyE3s0/mfz885Hs4MbVHixcuMZPpmeTeVql2GZAULmfzxRibsC+7uAuNSGHFMHu4AnslDGJDZ1xg+AZrCZYKKmJQvAClhGDmVaCdkWm6BeXYCmREsGDW4e2GFJMECzTl699zEUiWMTst26Vq5A3t/0F8rc3xiy5mk36PpyUQMXt3X00/jg+pCyWV3XK/mCVfT2W58PEKO5b3+Sx7o0rF/LRsVfXaTtPcT0uT/bNx1D7ZZkjHfqPxkjMDNVqIEOpwlRyuidDCcWMc32iZMqbIUoQwUc0BDPK9UBG4RnlSsmTBMPL9lybft3+MymsDBFs4DLVBmvBhTkBMG/dLz3YS42PBAAA"
-  VCoconut = "H4sIAAAAAAAACu2XTW/UMBCG/8rK593BM/b4IzdUQKpEoSCkFhCHqE3ZiCaudr1UqOp/Z7JxVCGK6KWH7fZmJ441eTTzzjs36l3dNapSDmYH6Sz1m/ziuL7sZm/T97Jo6gs1Vyf1r6vU9nmtqq836jit29ymXlU36lRVNoDjGP1cfVaVRzDsPc/VF1UtPIEjq8OtbFPfHL5SlZ6rj/V5u5GrCGRzlH42XdPn7ZvDPjer+iyftHn5fjhNGikG/vNNCfpqCDCvmkYCXC/T9XREIpPLL+rLdXP33TZcnKvXXcpTHIe56cry5fZE2XzYNOtc1sPFJ3Wb724cdm/S6iD154WCHh9+arvmSM7p2/lfjJgBOVjcMnIRdLAcR0bGg40u0IMY0RNmtCALMcYQ3JhJFpxhMoWSA4xI6O7HZP6PSd8LaCe4eNDae5qwGGfcSIUCeGaOe19fC9IQoos8MmIwxKFAchaIffB7X2AGbPBOlGdSIUuMEyXJK88U9rC+WH5ciwRPVFgzlsyJYJAJn8sLSdq6xjj1eOel2kZIMUJgtM/9a4FDI0cTxkRywMaGkkmopcsT2b3XINSAIkJjL3MiK9rHMDGyIIlkHoXRukspL2fXyzY3s1U6+7EDwoQRnFigkk9WHKQfXPa26DQYQ/Yfar2HrIilvoIrBtuIJJEtjU3ck8VoH2UG2UlUYhpRxNxOrIzU4OCctrQYHLoQH2QD9FOyAeIgHYZoRiqSThrd5I0MyOzxnEDTwE+A4q+1nxodoZ/cgJXxhNjFPbSRFoK2pkwgGkisY1FrFj1ylomfelV9u/0Njz5u/VMSAAA="
+    B2Coconut = "H4sIAAAAAAAACuWT20oDMRCGX6XMdRpyTpoLQatCL+oJYT3gRWgjDbiJdLOKlH13s9stRXyE3s0/mfz885Hs4MbVHixcuMZPpmeTeVql2GZAULmfzxRibsC+7uAuNSGHFMHu4AnslDGJDZ1xg+AZrCZYKKmJQvAClhGDmVaCdkWm6BeXYCmREsGDW4e2GFJMECzTl699zEUiWMTst26Vq5A3t/0F8rc3xiy5mk36PpyUQMXt3X00/jg+pCyWV3XK/mCVfT2W58PEKO5b3+Sx7o0rF/LRsVfXaTtPcT0uT/bNx1D7ZZkjHfqPxkjMDNVqIEOpwlRyuidDCcWMc32iZMqbIUoQwUc0BDPK9UBG4RnlSsmTBMPL9lybft3+MymsDBFs4DLVBmvBhTkBMG/dLz3YS42PBAAA"
+    VCoconut = "H4sIAAAAAAAACu2XTW/UMBCG/8rK593BM/b4IzdUQKpEoSCkFhCHqE3ZiCaudr1UqOp/Z7JxVCGK6KWH7fZmJ441eTTzzjs36l3dNapSDmYH6Sz1m/ziuL7sZm/T97Jo6gs1Vyf1r6vU9nmtqq836jit29ymXlU36lRVNoDjGP1cfVaVRzDsPc/VF1UtPIEjq8OtbFPfHL5SlZ6rj/V5u5GrCGRzlH42XdPn7ZvDPjer+iyftHn5fjhNGikG/vNNCfpqCDCvmkYCXC/T9XREIpPLL+rLdXP33TZcnKvXXcpTHIe56cry5fZE2XzYNOtc1sPFJ3Wb724cdm/S6iD154WCHh9+arvmSM7p2/lfjJgBOVjcMnIRdLAcR0bGg40u0IMY0RNmtCALMcYQ3JhJFpxhMoWSA4xI6O7HZP6PSd8LaCe4eNDae5qwGGfcSIUCeGaOe19fC9IQoos8MmIwxKFAchaIffB7X2AGbPBOlGdSIUuMEyXJK88U9rC+WH5ciwRPVFgzlsyJYJAJn8sLSdq6xjj1eOel2kZIMUJgtM/9a4FDI0cTxkRywMaGkkmopcsT2b3XINSAIkJjL3MiK9rHMDGyIIlkHoXRukspL2fXyzY3s1U6+7EDwoQRnFigkk9WHKQfXPa26DQYQ/Yfar2HrIilvoIrBtuIJJEtjU3ck8VoH2UG2UlUYhpRxNxOrIzU4OCctrQYHLoQH2QD9FOyAeIgHYZoRiqSThrd5I0MyOzxnEDTwE+A4q+1nxodoZ/cgJXxhNjFPbSRFoK2pkwgGkisY1FrFj1ylomfelV9u/0Njz5u/VMSAAA="
 
-  B2Apple = "H4sIAAAAAAAACuWSy2rDMBBFfyXMWhGSJduyFoX0BVmkLwrugy5EoxJBLJlIaSnG/96x6xBKPyG7uaOry9VBHdyYxoKGcxPtbH42W7Tt1gKB2ny3wfkUQb92cBeiSy540B08gZ5njFEheEHgGXQpaMVkXhF4Ac0Vp0pKVvUog7fLS9yxPCfwYNZuj3GcMgKr8Gkb6xNKAkuf7M68p9qlze1wgf3dTRWxVdyEr8MJ1sG0D7ON9mgfO2LkVROSPUQl20zjYnRM4n5vY5rmIbg2Lh0TB3UddhfBr6ens9/lo2vsCn2sJ//BSEELmQk1guGc0yJXhRrJKEVLWVZZfpJkspJRWfJSjmQKZIGcGH4gJCMVzSrBT4DLW/8DcT3W/3EDAAA="
-  VApple = "H4sIAAAAAAAACu2XW28aMRCF/wryM5p4xnfe0rSV8pDeVJVe1IdVccJKsEZgUkWI/97ZXZOkEkipqjyQ5M2zWIP345zxYSPeVfMoRiIADr7UTTx5FeO0vo6Ds2m9ODldLGZRDMW4ulmkuskrMfqxER/Sqs51asRoI76KEfkAymocim9iZA1oozXqofjOFYJSIaDdcpmaeP5ajORQfKom9Zp7KeDiIl3HeWwyNxqK8ybHZfUrj+s8fV92339WTstHWk3T790nfBbudlnNVvFue3dAPtSbecq7Lz7PcV6Wp92OUnxcx1Uu67bxuKrzXce2epuWZ6mZlPeW/cPP9Txe8D65He6h4kFacjsq5LT3HRQTwCkT1H4m9DcTuYcJSaTgzV4y9WpWNZNB1f5wg7yM8RhQqQBEvX6MA6mddR0pb8GjN/oeKZTGHIRF/whrntbMKl0OJvUyHwEodA68tkH3qDxYNEi90zx4T44OonrKXkOnQWkdeq8pYMm046j1mgODlu4r6Hl7DdlrwRdSBEE72QvIaCDU1jyIFD0HUmhBSltQ8dpKMh0qxXectwFfUBVUHiGQsiUBeHCssF5V6AFZFi+qulUVRyJPaDpUTvJlF8h2qIjHudPyQFT635uumqarqrk5GvNxYgqqZALLmaDoSXOo4iD1ONbL62qWmqtjYcSvAo50kZKF4GSrqzYMcJzSHDgfLTcdmZqICHQXv1tSxHRM//+EL0OrJD4sij95SlrzOGrvuNZzPKaMxJKiDBhj6HGm+LG5zhN4awslC6h4HvWzyQAao9xB1+GTieA/t38AleOmDDkQAAA="
+    B2Apple = "H4sIAAAAAAAACuWSy2rDMBBFfyXMWhGSJduyFoX0BVmkLwrugy5EoxJBLJlIaSnG/96x6xBKPyG7uaOry9VBHdyYxoKGcxPtbH42W7Tt1gKB2ny3wfkUQb92cBeiSy540B08gZ5njFEheEHgGXQpaMVkXhF4Ac0Vp0pKVvUog7fLS9yxPCfwYNZuj3GcMgKr8Gkb6xNKAkuf7M68p9qlze1wgf3dTRWxVdyEr8MJ1sG0D7ON9mgfO2LkVROSPUQl20zjYnRM4n5vY5rmIbg2Lh0TB3UddhfBr6ens9/lo2vsCn2sJ//BSEELmQk1guGc0yJXhRrJKEVLWVZZfpJkspJRWfJSjmQKZIGcGH4gJCMVzSrBT4DLW/8DcT3W/3EDAAA="
+    VApple = "H4sIAAAAAAAACu2XW28aMRCF/wryM5p4xnfe0rSV8pDeVJVe1IdVccJKsEZgUkWI/97ZXZOkEkipqjyQ5M2zWIP345zxYSPeVfMoRiIADr7UTTx5FeO0vo6Ds2m9ODldLGZRDMW4ulmkuskrMfqxER/Sqs51asRoI76KEfkAymocim9iZA1oozXqofjOFYJSIaDdcpmaeP5ajORQfKom9Zp7KeDiIl3HeWwyNxqK8ybHZfUrj+s8fV92339WTstHWk3T790nfBbudlnNVvFue3dAPtSbecq7Lz7PcV6Wp92OUnxcx1Uu67bxuKrzXce2epuWZ6mZlPeW/cPP9Txe8D65He6h4kFacjsq5LT3HRQTwCkT1H4m9DcTuYcJSaTgzV4y9WpWNZNB1f5wg7yM8RhQqQBEvX6MA6mddR0pb8GjN/oeKZTGHIRF/whrntbMKl0OJvUyHwEodA68tkH3qDxYNEi90zx4T44OonrKXkOnQWkdeq8pYMm046j1mgODlu4r6Hl7DdlrwRdSBEE72QvIaCDU1jyIFD0HUmhBSltQ8dpKMh0qxXectwFfUBVUHiGQsiUBeHCssF5V6AFZFi+qulUVRyJPaDpUTvJlF8h2qIjHudPyQFT635uumqarqrk5GvNxYgqqZALLmaDoSXOo4iD1ONbL62qWmqtjYcSvAo50kZKF4GSrqzYMcJzSHDgfLTcdmZqICHQXv1tSxHRM//+EL0OrJD4sij95SlrzOGrvuNZzPKaMxJKiDBhj6HGm+LG5zhN4awslC6h4HvWzyQAao9xB1+GTieA/t38AleOmDDkQAAA="
 
-  B2Marble = "H4sIAAAAAAAACuWSy0vEMBDG/5VlzmlI0mb6OAg+YQ/1hVAfeIhuZAPbRtqsIqX/u9PaZREvXkVymW8y+fjmR3o4N7WFAo5MZxfRwaI07dPGAoPKfLx614QOioceLn3ngvMNFD3cQhEpiTxGFMjgDoos5TrDOGNwD4XMkYsk0TiQ9I1dnlBPaM3g2qzclvwkFwxK/2Zr2wSSDJZNsK15DpUL64vxgfjem0NSrG7t33c3lIfcXsyms/vxKSRZntY+2J1VsPVcHk4Ts7ja2i7M9WhcGRf2jqM68+2xb1bz7uKreeNqW9KcGNhPMknOtY7pTGSkzLhSaaonNBo56jyX6l+iUTFXqFDQNyEyGI+rEpSIfg/KVMvfQlF/F8rj8AkFGcXCcQMAAA=="
-  VMarble = "H4sIAAAAAAAACu2W24rbMBCGXyXo2qvV6CzflR4g0PQM6YFeaBM1MY3tYCu7lLDv3nEs7xa60OQikNDcGI0sj6WPf0b/lrzxZSA5MXQ08c3NKly/LsrQxroK1x+7J8nI1P9a10UVW5J/25J3dVvEoq5IviWfSc6BghEgM/KF5FpQJQzwjHwl+ZUDysFydY8hZhq/IDnLyAc/LzaYSlAMJvVtKEMVd2/GVQyNn8VpEZdv0+o/59JWcUftsr4b3uBWMNsPv2rD4/Ld/iAjL8s6Dj8ex1Cm4bPdihS83+B507hLPPVFfMzYRa/q5nldzdOxWT/5CTlNcB27z/6CAo5qLZTtoUgKyjiToDAqBJf6aSj831A4A+6sehJNW9Z1XI7ulkUMo6ae/TwDVgKosYarQUBgNbgHAYHQSh6H1eamDM0izEetr+ZnAIozqpiyYhCVEtLKHpRVlFmlL6J6YKWo5CikQVRW8YTKGMokuCNp6gzrj1ukAyDMwEpw57poRwuFpbT5H3s4lpsG61K5oZ4YaJ2oCOqAXxQ03HaaMrAiWQBNNceunUhpapRw7sJqUBVecM52QupVJZjjomfVlZ5j4oJqkJWhaCxFMgaWMid1auLSUYdG80isNgvfzPzO+p56k1JYXky6JCfXGQRIanJUgOKwFyJ+IKK1X5Wj2IRzQHQlqGZKud6MG0YNWJu6E9p0qY3ZixEcyMgv/G0YrVcePz59SsDQeBvNBxPAmOmIdZSAodcEuV+xHaqk03dM3+9/A2xWg98lDwAA"
+    B2Marble = "H4sIAAAAAAAACuWSy0vEMBDG/5VlzmlI0mb6OAg+YQ/1hVAfeIhuZAPbRtqsIqX/u9PaZREvXkVymW8y+fjmR3o4N7WFAo5MZxfRwaI07dPGAoPKfLx614QOioceLn3ngvMNFD3cQhEpiTxGFMjgDoos5TrDOGNwD4XMkYsk0TiQ9I1dnlBPaM3g2qzclvwkFwxK/2Zr2wSSDJZNsK15DpUL64vxgfjem0NSrG7t33c3lIfcXsyms/vxKSRZntY+2J1VsPVcHk4Ts7ja2i7M9WhcGRf2jqM68+2xb1bz7uKreeNqW9KcGNhPMknOtY7pTGSkzLhSaaonNBo56jyX6l+iUTFXqFDQNyEyGI+rEpSIfg/KVMvfQlF/F8rj8AkFGcXCcQMAAA=="
+    VMarble = "H4sIAAAAAAAACu2W24rbMBCGXyXo2qvV6CzflR4g0PQM6YFeaBM1MY3tYCu7lLDv3nEs7xa60OQikNDcGI0sj6WPf0b/lrzxZSA5MXQ08c3NKly/LsrQxroK1x+7J8nI1P9a10UVW5J/25J3dVvEoq5IviWfSc6BghEgM/KF5FpQJQzwjHwl+ZUDysFydY8hZhq/IDnLyAc/LzaYSlAMJvVtKEMVd2/GVQyNn8VpEZdv0+o/59JWcUftsr4b3uBWMNsPv2rD4/Ld/iAjL8s6Dj8ex1Cm4bPdihS83+B507hLPPVFfMzYRa/q5nldzdOxWT/5CTlNcB27z/6CAo5qLZTtoUgKyjiToDAqBJf6aSj831A4A+6sehJNW9Z1XI7ulkUMo6ae/TwDVgKosYarQUBgNbgHAYHQSh6H1eamDM0izEetr+ZnAIozqpiyYhCVEtLKHpRVlFmlL6J6YKWo5CikQVRW8YTKGMokuCNp6gzrj1ukAyDMwEpw57poRwuFpbT5H3s4lpsG61K5oZ4YaJ2oCOqAXxQ03HaaMrAiWQBNNceunUhpapRw7sJqUBVecM52QupVJZjjomfVlZ5j4oJqkJWhaCxFMgaWMid1auLSUYdG80isNgvfzPzO+p56k1JYXky6JCfXGQRIanJUgOKwFyJ+IKK1X5Wj2IRzQHQlqGZKud6MG0YNWJu6E9p0qY3ZixEcyMgv/G0YrVcePz59SsDQeBvNBxPAmOmIdZSAodcEuV+xHaqk03dM3+9/A2xWg98lDwAA"
 
-  B2Clay = "H4sIAAAAAAAACuWTS0sDMRSF/0q56zTkOZNkIWhV6KK+EMYHLoKNNNCZSCdVSul/93Y6pRQ3bqW7e25uDud+JGu48XUABxe+DYPh2WA09ysgUPnVZ4pNbsG9ruEutTHH1IBbwxO4odCKCmGlIPAMThlaGmsVgRdwghvKtbV2gzI1YXwJjjOtCTz4aVyiH6eMwCR9hTo0GSWBcZPDwr/nKubZ7fYCO+71ETFWO0vf+xPMg24fft6Gw3gXEi2v6pTD3iqHui/Pu4le3C9Dm/t6a1z5mA+OW3WdFqPUTPvd2a75GOswwTm2Ib/JWE25kGXHhXOkJIXtuHCmqNZGniYXa6g2lu+42BLfS8GKjospqOSGm5PEwo2kWlm246ILWupCKVQIptRUSsHEX8HgX/yvYN42P2li6bGHBAAA"
-  VClay = "H4sIAAAAAAAACu2Xy27bMBBFf0XgWphyhq+hdkXaAlmkbyBpiy7UmImFRmJh0Q2CIP9e2pKSFnAAd5GFHe9IiqCoo3svh7fibd0GUQmUUHyqu9mLo6v6RpTitL75FZsu9aL6divex75JTexEdSvORIVswTtmV4ovojIWrGb0qhRfReUYpETNd7kXu3D8SlSyFB/rWbPMaynInZP4O7ShS6KiUhx3KSzq83TapPm7cfbfY+P+8pb6ebyenuS95NUu6qs+PExfbxBL8bqNaXrxcQrt2Hy5njF2PixDn8b2auHTukkPK656b+LiKHaz8bvlMPi5acNJnifvyg1UHGgt1QTFeDQ0MPFgnfWPMKF/mcgNTEgieTYbyfTLH21YXIZZ0ef/twOciCSoNZoVJwdKrZhlTKzBaCdxK0z0v5jaGNO8uJ43KRSLeP5zJ0gROM9+IMWAzmk9oHIgrZT6SRTVxmU3K+JFMWsWaScweWCyeB9HiqWSg/WYwBhFaqs4kvsUR6QQmCVPNnNyTGhm0Kzddjbbe+0oA57kKB0HXis3UPKgiO3BYQMlD0Q4QZLa2ZGSBUY2B0prSlrmsLFTWkvnHK8peQSLJB8JoefmOK0BPar7XCIzWi5j8sp5OmBaY8pltSc9nWkOJY5qkkDoD5gGNVmVTzkznnIaLOF08ptcWeKWAU57X3RrzglOK6cN6UQGtRn0lK8qzF6a53dlo6wYVnaIbEvA2rqhSEJUkJPqaSI7Leur2F0WaRHCDlBCn301OsxnrXhSA6ScRMo5dI94bH+U8/3uD/rmybgpEQAA"
+    B2Clay = "H4sIAAAAAAAACuWTS0sDMRSF/0q56zTkOZNkIWhV6KK+EMYHLoKNNNCZSCdVSul/93Y6pRQ3bqW7e25uDud+JGu48XUABxe+DYPh2WA09ysgUPnVZ4pNbsG9ruEutTHH1IBbwxO4odCKCmGlIPAMThlaGmsVgRdwghvKtbV2gzI1YXwJjjOtCTz4aVyiH6eMwCR9hTo0GSWBcZPDwr/nKubZ7fYCO+71ETFWO0vf+xPMg24fft6Gw3gXEi2v6pTD3iqHui/Pu4le3C9Dm/t6a1z5mA+OW3WdFqPUTPvd2a75GOswwTm2Ib/JWE25kGXHhXOkJIXtuHCmqNZGniYXa6g2lu+42BLfS8GKjospqOSGm5PEwo2kWlm246ILWupCKVQIptRUSsHEX8HgX/yvYN42P2li6bGHBAAA"
+    VClay = "H4sIAAAAAAAACu2Xy27bMBBFf0XgWphyhq+hdkXaAlmkbyBpiy7UmImFRmJh0Q2CIP9e2pKSFnAAd5GFHe9IiqCoo3svh7fibd0GUQmUUHyqu9mLo6v6RpTitL75FZsu9aL6divex75JTexEdSvORIVswTtmV4ovojIWrGb0qhRfReUYpETNd7kXu3D8SlSyFB/rWbPMaynInZP4O7ShS6KiUhx3KSzq83TapPm7cfbfY+P+8pb6ebyenuS95NUu6qs+PExfbxBL8bqNaXrxcQrt2Hy5njF2PixDn8b2auHTukkPK656b+LiKHaz8bvlMPi5acNJnifvyg1UHGgt1QTFeDQ0MPFgnfWPMKF/mcgNTEgieTYbyfTLH21YXIZZ0ef/twOciCSoNZoVJwdKrZhlTKzBaCdxK0z0v5jaGNO8uJ43KRSLeP5zJ0gROM9+IMWAzmk9oHIgrZT6SRTVxmU3K+JFMWsWaScweWCyeB9HiqWSg/WYwBhFaqs4kvsUR6QQmCVPNnNyTGhm0Kzddjbbe+0oA57kKB0HXis3UPKgiO3BYQMlD0Q4QZLa2ZGSBUY2B0prSlrmsLFTWkvnHK8peQSLJB8JoefmOK0BPar7XCIzWi5j8sp5OmBaY8pltSc9nWkOJY5qkkDoD5gGNVmVTzkznnIaLOF08ptcWeKWAU57X3RrzglOK6cN6UQGtRn0lK8qzF6a53dlo6wYVnaIbEvA2rqhSEJUkJPqaSI7Leur2F0WaRHCDlBCn301OsxnrXhSA6ScRMo5dI94bH+U8/3uD/rmybgpEQAA"
 
-  B2Cotton = ""
-  VCotton = "H4sIAAAAAAAACu2XTW/bMAyG/0qgs0GIkqgP34ZuA3roPophXTfsYLTaaiC2g0TpMAT576MtO8Wwdeulh3zcTFsilCcv+VIb8aZqoijFWZdS184uu3WKs49KFOKq+rno6jatRPllI951qzrVXSvKjfgkSkMWHBL6QlyLkgIQSWkL8VmUSgcIwWjccti18fylKFESFeKyuq3XnA5BFuKiu49NbBNvKMR5m+KyuklXdbp722+Qv78bD8mnWt11P6YvfBzO9q2ar+LD8uGMWIhXTZfilCrFZnx8MawYg/fruErjc5/4qqrTQ8Y+et0tz7r2dvzpMr/8UDfxgtfJbfEnGKvBSml2XIzOVIwC/uYehaL+D0VJVMHTX9Hc5P9vMa949x5gcgpYKJgxeRaMJ7MDFYwJTwUlDx2UBDmwyXpy2uxAObAOHy+zYwNFEJwPEyiJVu04cac6CWri1LdnZafK88r0XbwHRRKUdCdBjaC8AefQZVAOSAUzOpxh8zOoT5U3gnLghs6TQUkKOLYoQrDenjgNnEgpQInZ87gpeaf0BMoSoPdGHeXMRBZ5flTZ4xTBWGWWa+5fg8BhI2GtuAmJBWnd1HycAauceq5Bsvpe3ce9cX3SHlS+emTtSDSKRuPvnU6TtMepINn7vNYDGORSst5j5hI0R+HJA9FhK8h4VoG12b24Q/OFTWb9aCQwWj8XpkU1b2ZpGeMeQNLWg+SxJ1u8Bc/ApqGRI3auk5gGMaFmTrvZ2iDRdFvTCForfwS96Ov2FwmvOWdWEgAA"
+    B2Cotton = ""
+    VCotton = "H4sIAAAAAAAACu2XTW/bMAyG/0qgs0GIkqgP34ZuA3roPophXTfsYLTaaiC2g0TpMAT576MtO8Wwdeulh3zcTFsilCcv+VIb8aZqoijFWZdS184uu3WKs49KFOKq+rno6jatRPllI951qzrVXSvKjfgkSkMWHBL6QlyLkgIQSWkL8VmUSgcIwWjccti18fylKFESFeKyuq3XnA5BFuKiu49NbBNvKMR5m+KyuklXdbp722+Qv78bD8mnWt11P6YvfBzO9q2ar+LD8uGMWIhXTZfilCrFZnx8MawYg/fruErjc5/4qqrTQ8Y+et0tz7r2dvzpMr/8UDfxgtfJbfEnGKvBSml2XIzOVIwC/uYehaL+D0VJVMHTX9Hc5P9vMa949x5gcgpYKJgxeRaMJ7MDFYwJTwUlDx2UBDmwyXpy2uxAObAOHy+zYwNFEJwPEyiJVu04cac6CWri1LdnZafK88r0XbwHRRKUdCdBjaC8AefQZVAOSAUzOpxh8zOoT5U3gnLghs6TQUkKOLYoQrDenjgNnEgpQInZ87gpeaf0BMoSoPdGHeXMRBZ5flTZ4xTBWGWWa+5fg8BhI2GtuAmJBWnd1HycAauceq5Bsvpe3ce9cX3SHlS+emTtSDSKRuPvnU6TtMepINn7vNYDGORSst5j5hI0R+HJA9FhK8h4VoG12b24Q/OFTWb9aCQwWj8XpkU1b2ZpGeMeQNLWg+SxJ1u8Bc/ApqGRI3auk5gGMaFmTrvZ2iDRdFvTCForfwS96Ov2FwmvOWdWEgAA"
 
 -- Array's that are for each route
 
@@ -303,124 +300,68 @@
 
   -- Cotton | Hemp | Palm Leaf/
   CottonArray = {7, 3, 1, 11}
+  
+-- Island Sancutary Items 
+    IslefishID = 37575
+	ClamID = 37555
+    LaverID = 37556
+    SquidID = 37576
+	SugarcaneID = 37567
+	TinsandID = 37571
+    MarbleID = 39890
+    LimestoneID = 37565
+    CoconutID = 39225
+    PalmLeafID = 37551
+    PalmLogID = 37561
+    AppleID = 37552
+    BeehiveID = 39226
+    SapID = 37563
+    WoodOpalID = 39227
+    BranchID = 37553
+    ResinID = 39224
+	ClayID = 37570
+	QuartzID = 37573
+    IronID = 37572
+    DuriumID = 41630
+	LeucograniteID = 37574
+    CottonID = 37568
+    StoneID = 37554
+	IslewortID = 37558
+	HempID = 37569
+	VineID = 37562
+	LogID = 37560
+	SandID = 37559
 
 -- Node Functions (checks to see how many items that you currently have)
-    function Islefish_ClamNode()
-        IslefishID = 37575
-        ClamID = 37555
+    function IslandGatherItems()
         IslefishCount = GetItemCount(IslefishID)
         ClamCount = GetItemCount(ClamID)
-    end
-
-    function Laver_SquidNode()
-        LaverID = 37556
-        SquidID = 37576
         LaverCount = GetItemCount(LaverID)
         SquidCount = GetItemCount(SquidID)
-    end
-
-    function SugarcaneNode()
-        SugarcaneID = 37567
-        SugarcaneCount = GetItemCount(SugarcaneID)
-    end
-
-    function TinsandNode()
-        TinsandID = 37571
-        TinsandCount = GetItemCount(TinsandID)
-    end
-
-    function Marble_LimestoneNode()
-        MarbleID = 39890
-        LimestoneID = 37565
-        MarbleCount = GetItemCount(MarbleID)
+		SugarcaneCount = GetItemCount(SugarcaneID)
+		TinsandCount = GetItemCount(TinsandID)
+		MarbleCount = GetItemCount(MarbleID)
         LimestoneCount = GetItemCount(LimestoneID)
-    end
-
-    function Coconut_PalmLeaf_PalmLogNode()
-        CoconutID = 39225
-        PalmLeafID = 37551
-        PalmLogID = 37561
         CoconutCount = GetItemCount(CoconutID)
         PalmLeafCount = GetItemCount(PalmLeafID)
         PalmLogCount = GetItemCount(PalmLogID)
-    end
-
-    function Apple_BeehiveNode()
-        AppleID = 37552
-        BeehiveID = 39226
         AppleCount = GetItemCount(AppleID)
         BeehiveCount = GetItemCount(BeehiveID)
-    end
-
-    function Sap_WoodOpalNode()
-        SapID = 37563
-        WoodOpalID = 39227
         SapCount = GetItemCount(SapID)
         WoodOpalCount = GetItemCount(WoodOpalID)
-    end
-
-    function Branch_ResinNode()
-        BranchID = 37553
-        ResinID = 39224
         BranchCount = GetItemCount(BranchID)
         ResinCount = GetItemCount(ResinID)
-    end
-
-    function ClayNode()
-        ClayID = 37570
         ClayCount = GetItemCount(ClayID)
-    end
-
-    function QuartzNode()
-        QuartzID = 37573
         QuartzCount = GetItemCount(QuartzID)
-    end
-
-    function Iron_DuriumNode()
-        IronID = 37572
-        DuriumID = 41630
         IronCount = GetItemCount(IronID)
         DuriumCount = GetItemCount(DuriumID)
-    end
-
-    function LeucograniteNode()
-        LeucograniteID = 37574
         LeucograniteCount = GetItemCount(LeucograniteID)
-    end
-
-    function CottonNode()
-        CottonID = 37568
         CottonCount = GetItemCount(CottonID)
-    end
-
-    -- Beginning of sharing between nodes here
-    function StoneNode() 
-        StoneID = 37554
         StoneCount = GetItemCount(StoneID)
-    end
-
-    function IslewortNode()
-        IslewortID = 37558
         IslewortCount = GetItemCount(IslewortID)
-    end
-
-    function HempNode()
-        HempID = 37569
         HempCount = GetItemCount(HempID)
-    end
-
-    function VineNode()
-        VineID = 37562
         VineCount = GetItemCount(VineID)
-    end
-
-    function LogNode()
-        LogID = 37560
         LogCount = GetItemCount(LogID)
-    end
-
-    function SandNode()
-        SandID = 37559
         SandCount = GetItemCount(SandID)
     end
 
@@ -676,6 +617,7 @@
         yield("/visland moveto -268 40 226")
         yield("/wait 1")
         MovingTest()
+        MountUp()
     end
 
 -- Shop Selling, tells the shop which one to interact w/  
@@ -993,14 +935,42 @@
         while GetCharacterCondition(27) do
             yield("/wait 1")
         end
-        yield("/wait 1")
+            yield("/wait 1")
         while GetCharacterCondition(45) do
-        yield("/wait 1")
+            yield("/wait 1")
         end
+        while IsPlayerAvailable() == false do 
+            yield("/wait 1")
+        end
+        yield("/wait 2")
     end
+	
+	function Truncate1Dp(num)
+		return truncate and ("%.1f"):format(num) or num
+	end	
+
+	function MeshCheck()
+		local was_ready = NavIsReady()
+		if not NavIsReady() then
+			while not NavIsReady() do
+				LogInfo("[Debug]Building navmesh, currently at " .. Truncate1Dp(NavBuildProgress() * 100) .. "%")
+				yield("/wait 1")
+				local was_ready = NavIsReady()
+				if was_ready then
+					LogInfo("[Debug]Navmesh ready!")
+				end
+			end
+		else
+			LogInfo("[Debug]Navmesh ready!")
+		end
+	end
 
     function MovingTest() -- Moving Test
-        while IsMoving() do 
+        MeshCheck()
+        while PathfindInProgress() do 
+            yield("/wait 0.11")
+        end
+        while IsMoving() or PathIsRunning() do 
             yield("/wait 1")
         end
     end
@@ -1009,6 +979,26 @@
         while IsVislandRouteRunning() do
             yield("/wait 3")
         end
+    end
+
+    function MountUp()
+        while GetCharacterCondition(4, false) do
+            yield("/wait 0.1")
+            if GetCharacterCondition(27) then
+                yield("/wait 2")
+            else
+                yield('/gaction "mount roulette"')
+            end
+        end
+    end
+
+    function FlyPathing(x, y, z)
+        MountUp()
+        PathfindAndMoveTo(-219.95 , 79.69 , 193.44, true) -- better positioning away from the house
+        MovingTest()
+
+        PathfindAndMoveTo(x , y , z, true) -- Heading to Islefish spot
+        MovingTest()
     end
 
 ::Route1:: --Islefish/Clam | Laver/Squid
@@ -1022,12 +1012,12 @@
     CurrentLoop = 1
     LoopAmount = Route1Loop
     ItemAmount = ClamArray[1]
-    Islefish_ClamNode()
+    IslandGatherItems()
+	
     IslefishShop()
     ClamShop()
   
     ItemAmount = ClamArray[2]
-    Laver_SquidNode()
     LaverShop()
     SquidShop()
 
@@ -1041,7 +1031,7 @@
 
     IslandReturn()
   
-    if (IslefishSend > 0) or (ClamSend > 0) or (LaverSend > 0) or (SquidSend > 0) then
+    if (IslefishSend + ClamSend + LaverSend + SquidSend > 0) then
         Sellingitemsto()
         if (IslefishSend > 0) then
             IslefishSell()
@@ -1057,8 +1047,8 @@
         end
         LeavingShop()
     end
-    yield("/visland exectemponce "..B2Islefish.." <wait.1.0>")
-    VislandCheck()
+    MountUp()
+    FlyPathing(33.99 , -36.49 , -695.93)
 
     while (CurrentLoop <= LoopAmount) do
         yield("/visland exectemponce "..Vislefish.." <wait.1.0>")
@@ -1079,11 +1069,10 @@
     CurrentLoop = 1
     LoopAmount = Route2Loop
     ItemAmount = IslewortArray[1]
-    IslewortNode()
+    IslandGatherItems()
     IslewortShop()
     
     ItemAmount = IslewortArray[2]
-    HempNode()
     HempShop()
 
     if ItemCountEcho == true then
@@ -1093,9 +1082,8 @@
     end
 
     IslandReturn()
-  
 
-    if (IslewortCount > 0) or (HempCount > 0) then
+    if (IslewortCount + HempCount > 0) then
         Sellingitemsto()
         if (IslewortSend > 0) then
             --yield("/echo Islewort")
@@ -1108,8 +1096,7 @@
         LeavingShop()
     end
 
-    yield("/visland exectemponce "..B2Islewort.." <wait.1.0>")
-    VislandCheck()
+    FlyPathing(-177.37 , 59.10 , -403.71)
 
     while (CurrentLoop <= LoopAmount) do
         yield("/visland exectemponce "..Vislewort.." <wait.1.0>")
@@ -1130,8 +1117,8 @@
     CurrentLoop = 1
     LoopAmount = Route3Loop
     ItemAmount = SugarcaneArray[1]
-    SugarcaneNode()
-    VineNode()
+    IslandGatherItems()
+	
     SugarcaneShop()
     VineShop()
 
@@ -1143,7 +1130,7 @@
 
     IslandReturn()
 
-    if (SugarcaneCount > 0) or (VineCount > 0) then
+    if (SugarcaneCount + VineCount > 0) then
         Sellingitemsto()
         if (SugarcaneSend > 0) then
             SugarcaneSell()
@@ -1154,8 +1141,7 @@
         LeavingShop()
     end
 
-    yield("/visland exectemponce "..B2Sugarcane.." <wait.1.0>")
-    VislandCheck()
+    FlyPathing(17.22 , 60.10 , -357.24)
   
     while (CurrentLoop <= LoopAmount) do
         yield("/visland exectemponce "..VSugarcane.." <wait.1.0>")
@@ -1176,13 +1162,11 @@
     CurrentLoop = 1
     LoopAmount = Route4Loop
     ItemAmount = TinsandArray[1]
-    TinsandNode()
-    SandNode()
+	IslandGatherItems()
     TinsandShop()
     SandShop()
 
     ItemAmount = TinsandArray[2]
-    Marble_LimestoneNode()
     MarbleShop()
     LimestoneShop()
 
@@ -1197,7 +1181,7 @@
 
     IslandReturn()
 
-    if (TinsandCount > 0) or (SandCount > 0) or (MarbleCount > 0) or (LimestoneCount > 0) then
+    if (TinsandCount + SandCount + MarbleCount + LimestoneCount > 0) then
         Sellingitemsto()
         if TinsandSend > 0 then
             TinsandSell()
@@ -1235,13 +1219,12 @@
     CurrentLoop = 1
     LoopAmount = Route5Loop
     ItemAmount = CoconutArray[1]
-    Coconut_PalmLeaf_PalmLogNode()
+    IslandGatherItems()
     CoconutShop()
     PalmLeafShop()
     PalmLogShop()
 
     ItemAmount = CoconutArray[2]
-    Marble_LimestoneNode()
     MarbleShop()
     LimestoneShop()
 
@@ -1256,7 +1239,7 @@
 
     IslandReturn()
 
-    if (CoconutCount > 0) or (PalmLeafCount > 0) or (PalmLogCount > 0) or (MarbleCount > 0) or (LimestoneCount > 0) then
+    if (CoconutCount + PalmLeafCount + PalmLogCount + MarbleCount + LimestoneCount > 0) then
         Sellingitemsto()
         if CoconutSend > 0 then
             CoconutSell()
@@ -1296,9 +1279,7 @@
     CurrentLoop = 1
     LoopAmount = Route6Loop
     ItemAmount = AppleArray[1]
-    Apple_BeehiveNode()
-    VineNode()
-    LogNode()
+    IslandGatherItems()
   
     AppleShop()
     BeehiveShop()
@@ -1306,12 +1287,10 @@
     VineShop()
 
     ItemAmount = AppleArray[2]
-    Sap_WoodOpalNode()
     SapShop()
     WoodOpalShop()
 
     ItemAmount = AppleArray[3]
-    Branch_ResinNode()
     BranchShop()
     ResinShop()
 
@@ -1329,7 +1308,7 @@
 
     IslandReturn()
 
-    if (AppleCount > 0) or (BeehiveCount > 0) or (LogCount > 0) or (VineCount > 0) or (SapCount > 0) or (WoodOpalCount > 0) or (BranchCount > 0) or (ResinCount > 0) then 
+    if (AppleCount + BeehiveCount + LogCount + VineCount + SapCount + WoodOpalCount + BranchCount + ResinCount > 0) then 
         Sellingitemsto()
         if AppleSend > 0 then
             AppleSell()
@@ -1371,106 +1350,105 @@
     end
 
 ::Route7:: -- Marble/Limestone | Surecane/Vine | Coconut | Tinsand | Hemp
-  if SkipRoute7 == true then
-    goto Route8
-  end
+	if SkipRoute7 == true then
+		goto Route8
+    end
 
-  CurrentLoop = 1
-  LoopAmount = Route7Loop
-  ItemAmount = MarbleArray[1]
-  Marble_LimestoneNode()
-  StoneNode()
+	CurrentLoop = 1
+	LoopAmount = Route7Loop
+	ItemAmount = MarbleArray[1]
+	IslandGatherItems()
   
-  MarbleShop()
-  LimestoneShop()
-  StoneShop()
+	MarbleShop()
+	LimestoneShop()
+	StoneShop()
 
-  ItemAmount = MarbleArray[2]
-  SugarcaneNode()
-  VineNode()
-  Coconut_PalmLeaf_PalmLogNode()
-  TinsandNode()
-  SandNode()
-  HempNode()
-  IslewortNode()
+	ItemAmount = MarbleArray[2]
+	SugarcaneNode()
+	VineNode()
+	Coconut_PalmLeaf_PalmLogNode()
+	TinsandNode()
+	SandNode()
+	HempNode()
+	IslewortNode()
 
-  SugarcaneShop()
-  VineShop()
-  CoconutShop()
-  PalmLeafShop()
-  PalmLogShop()
-  TinsandShop()
-  SandShop()
-  HempShop()
-  IslewortShop()
+	SugarcaneShop()
+	VineShop()
+	CoconutShop()
+	PalmLeafShop()
+	PalmLogShop()
+	TinsandShop()
+	SandShop()
+	HempShop()
+	IslewortShop()
 
-  if ItemCountEcho == true then
-    yield("/echo --- Spacer --- ")
-    yield("/echo Marble = "..MarbleSend)
-    yield("/echo Limestone = "..LimestoneSend)
-    yield("/echo Sugarcane send = "..SugarcaneSend)
-    yield("/echo Vine send = "..VineSend)
-    yield("/echo Coconut = "..CoconutSend)
-    yield("/echo Palm Leaf = "..PalmLeafSend)
-    yield("/echo Palm Log = "..PalmLogSend)
-    yield("/echo Tinsand = "..TinsandSend)
-    yield("/echo Sand = "..SandSend)
-    yield("/echo Hemp Send "..HempSend)
-    yield("/echo Islewort Send "..IslewortSend)
-  end
+	if ItemCountEcho == true then
+		yield("/echo --- Spacer --- ")
+		yield("/echo Marble = "..MarbleSend)
+		yield("/echo Limestone = "..LimestoneSend)
+		yield("/echo Sugarcane send = "..SugarcaneSend)
+		yield("/echo Vine send = "..VineSend)
+		yield("/echo Coconut = "..CoconutSend)
+		yield("/echo Palm Leaf = "..PalmLeafSend)
+		yield("/echo Palm Log = "..PalmLogSend)
+		yield("/echo Tinsand = "..TinsandSend)
+		yield("/echo Sand = "..SandSend)
+		yield("/echo Hemp Send "..HempSend)
+		yield("/echo Islewort Send "..IslewortSend)
+	end
 
-  IslandReturn()
+	IslandReturn()
 
-  if (MarbleSend > 0) or (LimestoneSend > 0) or (SugarcaneSend > 0) or (VineSend > 0) or (CoconutSend > 0) or (PalmLeafSend > 0) or (PalmLogSend > 0) or (TinsandSend > 0) or (SandSend > 0) or (HempSend > 0) or (IslewortSend > 0) then
-    Sellingitemsto()
-    if MarbleSend > 0 then
-      MarbleSell()
-    end
-    if LimestoneSend > 0 then
-      LimestoneSell()
-    end
-    if SugarcaneSend > 0 then
-      SugarcaneSell()
-    end
-    if VineSend > 0 then
-      VineSell()
-    end
-    if CoconutSend > 0 then 
-      CoconutSend()
-    end
-    if PalmLeafSend > 0 then
-      PalmLeafSell()
-    end
-    if PalmLogSend > 0 then
-      PalmLogSell()
-    end
-    if TinsandSend > 0 then
-      TinsandSell()
-    end
-    if SandSend > 0 then
-      SandSell()
-    end
-    if HempSend > 0 then
-      HempSell()
-    end
-    if IslewortSend > 0 then
-      IslewortSell()
-    end
+	if (MarbleSend + LimestoneSend + SugarcaneSend + VineSend + CoconutSend + PalmLeafSend + PalmLogSend + TinsandSend + SandSend + HempSend + IslewortSend > 0) then
+		Sellingitemsto()
+		if MarbleSend > 0 then
+			MarbleSell()
+		end
+		if LimestoneSend > 0 then
+			LimestoneSell()
+		end
+		if SugarcaneSend > 0 then
+			SugarcaneSell()
+		end
+		if VineSend > 0 then
+			VineSell()
+		end
+		if CoconutSend > 0 then 
+			CoconutSend()
+		end
+		if PalmLeafSend > 0 then
+			PalmLeafSell()
+		end
+		if PalmLogSend > 0 then
+			PalmLogSell()
+		end
+		if TinsandSend > 0 then
+			TinsandSell()
+		end
+		if SandSend > 0 then
+			SandSell()
+		end
+		if HempSend > 0 then
+			HempSell()
+		end
+		if IslewortSend > 0 then
+			IslewortSell()
+		end
 
-    LeavingShop()
-  end
+		LeavingShop()
+	end
 
-  yield("/visland exectemponce "..B2Marble.." <wait.1.0>")
-  VislandCheck()
+	PathfindAndMoveTo(50.29 , -38.47 , -703.64, true)
+	VislandCheck()
   
-  while (CurrentLoop <= LoopAmount) do
-    yield("/visland exectemponce "..VMarble.." <wait.1.0>")
-      VislandCheck()
-    CurrentLoop = CurrentLoop + 1
-    if LoopEcho == true then
-      yield("/echo Current Loop: "..CurrentLoop)
-    end
-  end
+	while (CurrentLoop <= LoopAmount) do
+		yield("/visland exectemponce "..VMarble.." <wait.1.0>")
+		VislandCheck()
+		CurrentLoop = CurrentLoop + 1
+		if LoopEcho == true then
+			yield("/echo Current Loop: "..CurrentLoop)
+		end
+	end
 
 ::Route8:: -- Clay | Tinsand | Marble/Limestone | Branch/Log/Resin | Sand | Stone
     if SkipRoute8 == true then
@@ -1480,16 +1458,13 @@
     CurrentLoop = 1
     LoopAmount = Route8Loop
     ItemAmount = ClayArray[1]
-    ClayNode()
+    IslandGatherItems()
     ClayShop()
 
     ItemAmount = ClayArray[2]
-    TinsandNode()
     TinsandShop()
 
     ItemAmount = ClayArray[3]
-    Marble_LimestoneNode()
-    Branch_ResinNode()
     LogNode()
 
     MarbleShop()
@@ -1499,7 +1474,6 @@
     LogShop()
   
     ItemAmount = ClayArray[4]
-    StoneNode()
     StoneShop()
 
     if ItemCountEcho == true then
