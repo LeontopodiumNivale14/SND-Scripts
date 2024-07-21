@@ -49,7 +49,7 @@
     VariableNameHere = true 
         -- This is where I type the description of it all 
         -- Sometimes do multiline to keep formatting clean 
-        -- Options: True | False 
+        -- Options: true | false 
 
     LoopAmount = 20
 	
@@ -109,7 +109,7 @@
       yield("/wait 0.1")
     end 
 
-    yield("/pcall SelectString true 1")
+    yield("/callback SelectString true 1")
 
     while IsAddonReady("JournalDetail") == false do 
       yield("/wait 0.1")
@@ -117,7 +117,7 @@
 	
 	if GetNodeText("GuildLeve",5, 2) == "0" then 
 		yield("/e HMM.... you have no more leves left at all. Thanks for using the script <3")
-		yield("/pcall GuildLeve true -2")
+		yield("/callback GuildLeve true -2")
 
 		while IsAddonVisible("SelectString") == false do 
 		  yield("/wait 0.1")
@@ -127,18 +127,18 @@
 		  yield("/wait 0.1")
 		end 
 
-		yield("/pcall SelectString true 3")
+		yield("/callback SelectString true 3")
 		yield("/snd stop")
 	end
 
 		
 
-    yield("/pcall GuildLeve true 13 1 "..LeveDetail)
+    yield("/callback GuildLeve true 13 1 "..LeveDetail)
     yield("/wait 0.3")
-    yield("/pcall JournalDetail true 3 "..LeveDetail)
+    yield("/callback JournalDetail true 3 "..LeveDetail)
     yield("/wait 0.3")
 
-    yield("/pcall GuildLeve true -2")
+    yield("/callback GuildLeve true -2")
 
     while IsAddonVisible("SelectString") == false do 
       yield("/wait 0.1")
@@ -148,7 +148,7 @@
       yield("/wait 0.1")
     end 
 
-    yield("/pcall SelectString true 3")
+    yield("/callback SelectString true 3")
 
     while GetTargetName() ~= "" do 
       yield("/wait 0.1")

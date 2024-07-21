@@ -9,9 +9,11 @@
     *********************************
 
     **********************
-    * Version  |  2.1.1  *
+    * Version  |  2.1.2  *
     **********************
 
+	-> 2.1.2  : DT update, had to update some of the code (properly go back and fix "True/False" to "true/false" and change the "/pcall" to "/callback"
+			    Also made it to where it list all the items you need to be able to use atleast the ground version of the leveling loop
     -> 2.1.1  : Updated script information, made sure to actually say the pandora plugin was necessary (curse you past me for not remembering)
     -> 2.1.0  : Ground & Flying Leveling is completed! Select which one you would like to do in the settings 
 
@@ -19,6 +21,29 @@
     * Description *
     ***************
     This is a small version of the "Gathering Everything" script I'm working on, just meant to be a quick way of leveling up
+	
+	DO NOTE: You need to atleast done the following:
+	-> Gotten to lv. 5 in Island Sanctuary 
+	-> Have gotten all the items that you can possibly gather up to this point gathered. Which includes up to Sugarcane, if you need a full list of all the items they are:
+		-> Palm Leaf
+		-> Isle Branch 
+		-> Stone 
+		-> Clam 
+		-> Laver 
+		-> Coral 
+		-> Islewort 
+		-> Sand 
+		-> Vine 
+		-> Sap
+		-> Apple 
+		-> Log 
+		-> Palm Log 
+		-> Copper 
+		-> Limestone 
+		-> Rocksalt 
+		-> Clay 
+		-> Tinsand 
+		-> Sugarcane
 
     *********************
     *  Required Plugins *
@@ -38,7 +63,7 @@
     *  Settings  *
     **************
     ]]
-    FlyingEnabled = true
+    FlyingEnabled = false
     -- If flying is disabled, it will do the ground version of the route for xp
     -- if flying is enabled, it will do the faster/xp route on top of the mountain
 
@@ -46,7 +71,7 @@
     -- Is this something you want to continually do? Or is it a one time level loop? 
     -- Options: true | false [true by default]
 
-    IslandLevel = 17
+    IslandLevel = 1
     -- What your current level is. Used to know WHAT exactly you're selling 
     -- The MINIMUM. Level this script is configured to run at is Lv. 5.
     -- If you're below Lv. 17 and have flying, this will just skip a sell check for one of the higher gathering items if you don't have the tool
@@ -98,6 +123,12 @@
 ]]
 
 -- Starting values of the script 
+
+	if IslandLevel < 5 then 
+		yield("/e Hey! I need you to be ATLEAST Lv. 5 to run this on your island, or else things break REALLY bad (as in can't accomodate for every single possible permutation rn). While you're at it, hit every node once to make sure you have it logged in your Isleventory please and ty <3 <se.1> ")
+		yield("/snd stop")
+		yield("/wait 1")
+	end
 
 -- Array for the Route
     QuartzArray = {6, 3, 2, 11} -- XP Route || Quarts | Iron | Durium Sand | Leucogranite
@@ -350,107 +381,107 @@
 -- Shop Selling Functions
 
     function StoneSell()
-        yield("/pcall MJIDisposeShop True 12 2 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..StoneSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 2 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..StoneSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function IronSell()
-        yield("/pcall MJIDisposeShop True 12 24 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..IronSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 24 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..IronSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function QuartzSell()
-        yield("/pcall MJIDisposeShop True 12 25 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..QuartzSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 25 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..QuartzSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function LeucograniteSell()
-        yield("/pcall MJIDisposeShop True 12 26 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..LeucograniteSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 26 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..LeucograniteSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function DuriumSell()
-        yield("/pcall MJIDisposeShop True 12 39 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..DuriumSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 39 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..DuriumSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function ClaySell()
-        yield("/pcall MJIDisposeShop True 12 16 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..ClaySend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 16 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..ClaySend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function LimestoneSell()
-        yield("/pcall MJIDisposeShop True 12 14 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..LimestoneSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 14 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..LimestoneSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function MarbleSell()
-        yield("/pcall MJIDisposeShop True 12 36 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..MarbleSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 36 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..MarbleSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function TinsandSell()
-        yield("/pcall MJIDisposeShop True 12 17 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..TinsandSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 17 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..TinsandSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function SugarcaneSell()
-        yield("/pcall MJIDisposeShop True 12 18 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..SugarcaneSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 18 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..SugarcaneSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function VineSell()
-        yield("/pcall MJIDisposeShop True 12 8 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..VineSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 8 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..VineSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function ResinSell()
-        yield("/pcall MJIDisposeShop True 12 28 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..ResinSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 28 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..ResinSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function LogSell()
-        yield("/pcall MJIDisposeShop True 12 11 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..LogSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 11 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..LogSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
      function BranchSell()
-        yield("/pcall MJIDisposeShop True 12 1 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..BranchSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 1 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..BranchSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
     function SandSell()
-        yield("/pcall MJIDisposeShop True 12 7 <wait.0.5>")
-        yield("/pcall MJIDisposeShopShipping True 11 "..SandSend)
-        yield("/pcall SelectYesno True 0")
+        yield("/callback MJIDisposeShop true 12 7 <wait.0.5>")
+        yield("/callback MJIDisposeShopShipping true 11 "..SandSend)
+        yield("/callback SelectYesno true 0")
         yield("/wait 1.5")
     end
 
@@ -470,11 +501,11 @@
 
         yield("/target Enterprising Exporter <wait.0.5>")
         yield("/pint <wait.0.5>")
-        yield("/pcall SelectString True 0 <wait.1.0>")
+        yield("/callback SelectString true 0 <wait.1.0>")
     end
 
     function LeavingShop()
-        yield("/pcall MJIDisposeShop False -2")
+        yield("/callback MJIDisposeShop false -2")
 
         yield("/visland moveto -267.841 40 230.751")
         yield("/wait 1")
@@ -485,7 +516,7 @@
     end
 
     function IslandReturn() -- Checks to see how far you are from in front of the main workshop, if a certain distance, will teleport you in front of It
-        yield("/pcall _ActionContents True 9 1 <wait.0.5>")
+        yield("/callback _ActionContents true 10 1 <wait.0.5>")
         while GetCharacterCondition(27) do
             yield("/wait 1")
         end
