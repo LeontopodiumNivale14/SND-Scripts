@@ -67,7 +67,7 @@ Updated by: Minnu, Ice, Allison
 Crafts orange scrip item matching whatever class you're on, turns it in, buys
 stuff, repeat.
 
-    -> 2.0.4    Add config for home, add config for Skystell Tools Unlock, made config 
+    -> 2.0.4    Add config for home, add config for Skystell Tools Unlock, Made `Home Command` a dropdown selectable
     -> 2.0.3    Updated to SND 13.41 (fixed the config settings)
     -> 2.0.2    Updated for Patch 7.3
     -> 2.0.1    Fixed Potions
