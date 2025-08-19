@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
-author:  'pot0to (https://ko-fi.com/pot0to) || Updated by: Minnu, Ice'
-version: 2.0.3
+author:  'pot0to (https://ko-fi.com/pot0to) || Updated by: Minnu, Ice, Allison'
+version: 2.0.4
 description: Crafter Scrips - Script for Crafting & Turning In
 plugin_dependencies:
 - Artisan
@@ -14,6 +14,7 @@ configs:
     is_choice: true
     choices: ["Carpenter", "Blacksmith", "Armorer", "Goldsmith", "Leatherworker", "Weaver", "Alchemist", "Culinarian"]
   ScripColor:
+    default: "Orange"
     description: Type of scrip to use for crafting / purchases (Orange, Purple).
     is_choice: true
     choices: ["Orange", "Purple"]
@@ -26,7 +27,9 @@ configs:
     type: string
   HomeCommand:
     default: Inn
-    description: Inn - if you want to hide in an Inn. Leave blank to move to Solution Nine.
+    description: Inn - if you want to hide in an Inn. Home - if you want to use Lifestream Home. None to move to Solution Nine.
+    is_choice: true
+    choices: ["Inn", "Home", "None"]
   HubCity:
     default: Solution Nine
     description: Main city to use as a hub for turn-ins and purchases (Ul'dah, Limsa, Gridania, or Solution Nine).
@@ -44,6 +47,9 @@ configs:
     default: 5
     description: Minimum free inventory slots required to start crafting or turn-ins.
     type: integer
+  SkystellToolsUnlocked:
+    default: true
+    description: Have you unlocked skystell tools?
 
 [[End Metadata]]
 --]=====]
@@ -52,15 +58,16 @@ configs:
 
 ********************************************************************************
 *                    Crafter Scrips (Solution Nine Patch 7.3)                  *
-*                                Version 2.0.3                                 *
+*                                Version 2.0.4                                 *
 ********************************************************************************
 
 Created by: pot0to (https://ko-fi.com/pot0to)
-Updated by: Minnu, Ice
+Updated by: Minnu, Ice, Allison
 
 Crafts orange scrip item matching whatever class you're on, turns it in, buys
 stuff, repeat.
 
+    -> 2.0.4    Add config for home, add config for Skystell Tools Unlock, made config 
     -> 2.0.3    Updated to SND 13.41 (fixed the config settings)
     -> 2.0.2    Updated for Patch 7.3
     -> 2.0.1    Fixed Potions
@@ -117,12 +124,17 @@ ArtisanListId               = Config.Get("ArtisanListId")
 ItemToBuy                   = Config.Get("ItemToBuy")
 HomeCommand                 = Config.Get("HomeCommand")
 HubCity                     = Config.Get("HubCity")
+if (HubCity == "None") then
+    HubCity = ""
+end 
 
 Potion                      = Config.Get("Potion")
 
 Retainers                   = Config.Get("Retainers")
 GrandCompanyTurnIn          = Config.Get("GrandCompanyTurnIn")
 MinInventoryFreeSlots       = Config.Get("MinInventoryFreeSlots")
+
+SkystellToolsUnlocked       = Config.Get("SkystellToolsUnlocked")
 
 -- IMPORTANT: Your scrip exchange list may be different depending on whether
 -- you've unlocked Skystell tools. Please make sure the menu item #s match what
@@ -131,14 +143,14 @@ ScripExchangeItems = {
     {
         itemName        = "Mason's Abrasive",
         categoryMenu    = 1,
-        subcategoryMenu = 10,
+        subcategoryMenu = 9 + (SkystellToolsUnlocked and 1 or 0),
         listIndex       = 0,
         price           = 500
     },
     {
         itemName        = "Condensed Solution",
         categoryMenu    = 1,
-        subcategoryMenu = 11,
+        subcategoryMenu = 10 + (SkystellToolsUnlocked and 1 or 0),
         listIndex       = 5,
         price           = 125
     },
@@ -191,14 +203,6 @@ ScripExchangeItems = {
         listIndex       = 24,
         price           = 75,
         oneAtATime      = true
-    },
-    {
-        itemName        = "Mason's Abrasive",
-        categoryMenu    = 1,
-        subcategoryMenu = 10,
-        listIndex       = 0,
-        price           = 500,
-        oneAtATime      = false
     }
 }
 
@@ -553,6 +557,13 @@ function Crafting()
         end
         AtInn = true
         return
+    elseif not AtHome and HomeCommand == "Home" then
+        IPC.Lifestream.ExecuteCommand(HomeCommand)
+        while IPC.Lifestream.IsBusy() do
+            yield("/wait 1")
+        end
+        AtHome = true
+        return
     end
 
     local slots = Inventory.GetFreeInventorySlots()
@@ -613,6 +624,7 @@ end
 
 function TurnIn()
     AtInn = false
+    AtHome = false
 
     if Inventory.GetCollectableItemCount(ItemId, 1) == 0 or Inventory.GetItemCount(CrafterScripId) >= 3800 then
         if Addons.GetAddon("CollectablesShop").Ready then
@@ -885,7 +897,7 @@ RequiredPlugins = {
     "vnavmesh"
 }
 -- add optional plugins
-if HomeCommand == "Inn" then
+if HomeCommand == "Inn" or HomeCommand == "Home" then
     table.insert(RequiredPlugins, "Lifestream")
 end
 if Retainers then
@@ -968,6 +980,10 @@ if not AtInn and HomeCommand == "Inn" then
     IPC.Lifestream.ExecuteCommand(HomeCommand)
     Dalamud.Log("[CraftersScrips] Moving to Inn")
     AtInn = true
+elseif not AtHome and HomeCommand == "Home" then
+    IPC.Lifestream.ExecuteCommand(HomeCommand)
+    Dalamud.Log("[CraftersScrips] Moving Home")
+    AtHome = true
 elseif not AtInn and Svc.ClientState.TerritoryType ~= 1186 then
     IPC.Lifestream.ExecuteCommand("Nexus Arcade")
     Dalamud.Log("[CraftersScrips] Moving to Solution Nine")
