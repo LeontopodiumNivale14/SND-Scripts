@@ -80,6 +80,7 @@ stuff, repeat.
     -> 2.0.0    Updated to SND v2
     -> 0.5.7    Add nil checks and logging to mats and crystals check
                 Added max purchase quantity check
+                Fixed purple scrip selector for turn in
                 Wait while Artisan Endurance is active, click menus once for
                     scrip exchange
                 Fixes for some stuff
