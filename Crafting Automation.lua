@@ -74,12 +74,12 @@ stuff, repeat.
     -> 2.0.5.   Made ItemToBuy dropdown list
     -> 2.0.4    Add config for home, add config for Skystell Tools Unlock, Made `Home Command` a dropdown selectable
     -> 2.0.3    Updated to SND 13.41 (fixed the config settings)
-    -> 2.0.2    Updated for Patch 7.3gging to mats and crystals check
-                Added max purchase qu
+    -> 2.0.2    Updated for Patch 7.3
+        
     -> 2.0.1    Fixed Potions
     -> 2.0.0    Updated to SND v2
-    -> 0.5.7    Add nil checks and loantity check
-                Fixed purple scrip selector for turn in
+    -> 0.5.7    Add nil checks and logging to mats and crystals check
+                Added max purchase quantity check
                 Wait while Artisan Endurance is active, click menus once for
                     scrip exchange
                 Fixes for some stuff
