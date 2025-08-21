@@ -1,7 +1,7 @@
 --[=====[
 [[SND Metadata]]
-author:  'pot0to (https://ko-fi.com/pot0to) || Updated by: Minnu, Ice, Allison'
-version: 2.0.4
+author:  'pot0to (https://ko-fi.com/pot0to) || Updated by: Minnu, Ice, Allison, Baanderson40'
+version: 2.0.5
 description: Crafter Scrips - Script for Crafting & Turning In
 plugin_dependencies:
 - Artisan
@@ -22,9 +22,13 @@ configs:
     default: 1
     description: Id of Artisan list for crafting all the intermediate materials (eg black star, claro walnut lumber, etc.).
   ItemToBuy:
-    default: Crafter's Command Materia XII
+    default: "Mason's Abrasive"
     description: Name of the item to purchase using scrips.
-    type: string
+    type: list
+    is_choice: true
+    choices: ["Mason's Abrasive", 
+    "Condensed Solution", "Crafter's Competence Materia XII", "Crafter's Cunning Materia XII", "Crafter's Command Materia XII", 
+    "Crafter's Competence Materia XI", "Crafter's Cunning Materia XI", "Crafter's Command Materia XI",  "Artful Afflatus Ring",]
   HomeCommand:
     default: Inn
     description: Inn - if you want to hide in an Inn. Home - if you want to use Lifestream Home. None to move to Solution Nine.
@@ -58,18 +62,20 @@ configs:
 
 ********************************************************************************
 *                    Crafter Scrips (Solution Nine Patch 7.3)                  *
-*                                Version 2.0.4                                 *
+*                                Version 2.0.5                                 *
 ********************************************************************************
 
 Created by: pot0to (https://ko-fi.com/pot0to)
-Updated by: Minnu, Ice, Allison
+Updated by: Minnu, Ice, Allison, Baanderson
 
 Crafts orange scrip item matching whatever class you're on, turns it in, buys
 stuff, repeat.
 
+    -> 2.0.5.   Made ItemToBuy dropdown list
     -> 2.0.4    Add config for home, add config for Skystell Tools Unlock, Made `Home Command` a dropdown selectable
     -> 2.0.3    Updated to SND 13.41 (fixed the config settings)
     -> 2.0.2    Updated for Patch 7.3
+        
     -> 2.0.1    Fixed Potions
     -> 2.0.0    Updated to SND v2
     -> 0.5.7    Add nil checks and logging to mats and crystals check
